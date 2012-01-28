@@ -1,4 +1,3 @@
-
 $LOADED_FEATURES.push File.expand_path(__FILE__)
 def require(path)
   path = File.expand_path(path) if path =~ %r{^[./]}

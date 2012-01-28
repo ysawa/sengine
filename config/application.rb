@@ -65,7 +65,8 @@ module Shogiengine
     config.assets.version = '1.0'
 
     config.generators do |g|
-      g.test_framework      :rspec, :fixture => true
+      g.test_framework :rspec, fixture: false, views: true, requests: true, routing: true, helpers: true
+      g.fixture_replacement :fabrication, dir: 'spec/fabricators'
       g.helper false
       g.stylesheets false
       g.javascripts false
