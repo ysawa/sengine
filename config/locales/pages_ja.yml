@@ -1,0 +1,6 @@
+ja:
+  pages:
+    controllers:
+      home:
+        mypage: 'マイページ'
+        top: 'トップ'

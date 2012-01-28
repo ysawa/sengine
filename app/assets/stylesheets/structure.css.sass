@@ -1,0 +1,23 @@
+@charset "utf-8"
+
+/* Initializers of the Sass */
+@import 'common/helpers'
+
+@mixin common_inner
+  & > .inner
+    margin: 0 auto
+    width: $common_width
+#global_head
+  @include common_inner
+  & > .inner
+    background-color: #eee
+    h1
+      padding: 10px
+      font-size: 24px
+      color: #000
+      a
+        color: #000
+#global_body
+  @include common_inner
+#global_foot
+  @include common_inner

@@ -1,0 +1,46 @@
+ja:
+  devise:
+    failure:
+      already_authenticated: 'You are already signed in.'
+      unauthenticated: 'ログインしてください。'
+      unconfirmed: 'You have to confirm your account before continuing.'
+      locked: 'Your account is locked.'
+      invalid: 'メールアドレスまたはパスワードが違います。'
+      invalid_token: 'Invalid authentication token.'
+      timeout: 'Your session expired, please sign in again to continue.'
+      inactive: 'Your account was not activated yet.'
+    sessions:
+      signed_in: 'ログインしました。'
+      signed_out: 'ログアウトしました。'
+    passwords:
+      send_instructions: 'パスワードの変更手順をメールアドレスに送信しました。'
+      updated: 'パスワードを変更しました。'
+      updated_not_active: 'パスワードを更新しました。'
+      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+    confirmations:
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+    registrations:
+      signed_up: 'ようこそ! ユーザー登録完了しました。'
+      inactive_signed_up: 'ご登録いただきありがとうございます。まだアカウントが%{reason}のため、メールより認証を行ってください。'
+      updated: 'アカウントを更新しました。'
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      reasons:
+        inactive: '非アクティブ'
+        unconfirmed: '未認証'
+        locked: 'ロック中'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: '【Leaping】Leapingへようこそ。認証してください'
+      reset_password_instructions:
+        subject: '【Leaping】パスワード再発行'
+      unlock_instructions:
+        subject: '【Leaping】ロックを解除します'

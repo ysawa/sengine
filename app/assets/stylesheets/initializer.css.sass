@@ -1,0 +1,111 @@
+@charset "utf-8"
+
+// initializer css: all styles are initialized here
+// this file should be loaded first
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, p, blockquote, table, th, td
+  margin: 0
+  padding: 0
+
+html
+  background: #fff
+  color: #000
+
+body
+  background: #fff
+  color: #000
+  font-size: 13px
+  font-family: serif
+*
+  html body, &:first-child+html body
+    font-size: small
+
+img
+  border: 0
+  vertical-align: bottom
+
+h1, h2, h3, h4, h5, h6
+  clear: both
+  font-size: 100%
+  font-weight: normal
+
+ul, ol, dl
+  text-indent: 0
+
+li
+  list-style: none
+
+address, caption, cite, code, dfn, em, strong, th, var
+  font-style: normal
+  font-weight: normal
+
+sup
+  vertical-align: text-top
+
+sub
+  vertical-align: text-bottom
+
+input, textarea, select
+  font-family: inherit
+  font-size: inherit
+  font-weight: inherit
+
+*
+  html
+    input, textarea, select
+      font-size: 100%
+  &:first-child + html
+    input, textarea, select
+      font-size: 100%
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+  font-size: inherit
+
+th, td
+  text-align: left
+  vertical-align: top
+
+caption
+  text-align: left
+
+pre, code, kdb, samp, tt
+  font-family: monospace
+
+*
+  html
+    pre, code, kdb, samp, tt
+      font-size: 100%
+      line-height: 100%
+  &:first-child + html
+    pre, code, kdb
+      font-size: 100%
+      line-height: 100%
+  html samp, &:first-child + html tt
+    font-size: 100%
+    line-height: 100%
+
+input, select, textarea
+  font-size: 100%
+
+.clearfix
+  &:after
+    content: "."
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+
+/* for IE 7
+.clearfix
+  display: inline-block
+  min-height: 1%
+
+
+/* Hides from IE-mac
+* html .clearfix
+  height: 1%
+
+.clearfix
+  display: block

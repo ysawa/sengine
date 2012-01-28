@@ -1,0 +1,57 @@
+$color: #333
+$link_color: #05a
+$border_color: #999
+$common_width: 760px
+
+@mixin clearfix
+  &:after
+    content: "."
+    display: block
+    clear: both
+    height: 0
+    visibility: hidden
+  &
+    min-height: 1px
+  * html &
+    height: 1px
+    /*¥*//*/
+    height: auto
+    overflow: hidden
+    /**/
+@mixin opacity($rate: 0.25)
+  filter: alpha(opacity=#{$rate * 100})
+  -moz-opacity: $rate
+  opacity: $rate
+
+@mixin no_text
+  text-indent: -9999px
+
+@mixin rounded($radius: 5px)
+  border-radius: $radius /* CSS3 */
+  -webkit-border-radius: $radius /* Safari, Google Chrome */
+  -moz-border-radius: $radius /* Firefox */
+@mixin rounded_side($row_side, $column_side, $radius: 5px)
+  border-#{$row_side}-#{$column_side}-radius: $radius /* CSS3 */
+  -webkit-border-#{$row_side}-#{$column_side}-radius: $radius /* Safari, Google Chrome */
+  -moz-border-radius-#{$row_side}#{$column_side}: $radius /* Firefox */
+
+@mixin rounded_top_left($radius: 5px)
+  @include rounded_side('top', 'left', $radius)
+@mixin rounded_top_right($radius: 5px)
+  @include rounded_side('top', 'right', $radius)
+@mixin rounded_bottom_right($radius: 5px)
+  @include rounded_side('bottom', 'right', $radius)
+@mixin rounded_bottom_left($radius: 5px)
+  @include rounded_side('bottom', 'left', $radius)
+
+@mixin centerize
+  width: $common_width
+  margin-left: auto
+  margin-right: auto
+
+@mixin shadow($color: #777)
+  -moz-box-shadow: 2px 2px 3px $color
+  -webkit-box-shadow: 2px 2px 3px $color
+  box-shadow: 2px 2px 3px $color
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='$color')"
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='$color')

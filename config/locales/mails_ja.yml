@@ -1,0 +1,13 @@
+ja:
+  contact_mailer:
+    headhunter:
+      subject: '【Leaping】お問い合わせ完了'
+    individual:
+      subject: '【Leaping】お問い合わせ完了'
+    recruiter:
+      subject: '【Leaping】お問い合わせ完了'
+  member_mailer:
+    created:
+      subject: '【Leaping】会員登録が完了しました'
+    greeting:
+      subject: '【Leaping】登録の御礼と代表からのご挨拶'
