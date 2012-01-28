@@ -8,10 +8,10 @@
   %body
     #global_head
       .inner
-        %h1
-          Shogi Engine
+        = render 'common/global_head'
     #global_body
       .inner
         = yield
     #global_foot
       .inner
+        = render 'common/global_foot'

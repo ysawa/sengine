@@ -8,7 +8,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_table_name %> = <%= orm_class.build(class_name, "params[:#{singular_table_name}]") %>
     if @<%= singular_table_name %>.save
       flash[:notice] = "<%= class_name %> successfully created"
-      respond_with(@<%= singular_table_name %>, :location => <%= plural_table_name %>_url)
+      respond_with(@<%= singular_table_name %>)
     else
       render :new
     end
@@ -18,13 +18,13 @@ class <%= controller_class_name %>Controller < ApplicationController
   def destroy
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
     flash[:notice] = "<%= class_name %> successfully destroyed." if @<%= orm_instance.destroy %>
-    respond_with(@<%= singular_table_name %>, :location => <%= plural_table_name %>_url)
+    respond_with(@<%= singular_table_name %>, location: <%= plural_table_name %>_url)
   end
 
   # GET <%= route_url %>/1/edit
   def edit
     respond_with(@<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>) do |format|
-      format.html { render :action => :edit }
+      format.html { render action: :edit }
     end
   end
 

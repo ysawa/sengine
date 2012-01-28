@@ -1,2 +1,3 @@
 .common_container#home_container
-  %p Find me in app/views/home/top.html.haml
+  %p
+    = link_to Game.model_name.human, games_path
