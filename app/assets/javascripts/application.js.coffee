@@ -12,4 +12,16 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require_self
 #= require_directory .
+
+$ ->
+  scheme = null
+  $.get(
+    '/audio/encode/put.mp3',
+    (data) ->
+      scheme = data
+  )
+  $('button#put').click ->
+    audio = new Audio(scheme)
+    audio.play()
