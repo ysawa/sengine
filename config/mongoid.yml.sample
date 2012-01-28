@@ -1,0 +1,11 @@
+development:
+  host: localhost
+  database: shogiengine_production
+
+test:
+  host: localhost
+  database: shogiengine_test
+
+production:
+  host: localhost
+  database: shogiengine_production
