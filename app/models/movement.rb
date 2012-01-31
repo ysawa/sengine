@@ -1,5 +1,6 @@
 class Movement
   include Mongoid::Document
+  include Mongoid::Timestamps
   field :black, type: Boolean
   field :from_point, type: Point
   field :move, type: Boolean
@@ -8,4 +9,6 @@ class Movement
   field :reverse, type: Boolean
   field :role, type: String
   field :to_point, type: Point
+  belongs_to :board
+  belongs_to :game
 end

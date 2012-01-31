@@ -1,5 +1,6 @@
 class Game
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Paranoia
+  has_many :movements
+  has_many :boards
 end

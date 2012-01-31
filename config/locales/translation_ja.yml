@@ -1,9 +1,6 @@
 ja:
   actions:
-    contact_about_our_offer: '問い合わせ・応募先はこちら'
-    move_page_top: '▴ Page Top'
   headers:
-    input: '内容入力'
   helpers:
     submit:
       next: '次へ'
@@ -32,19 +29,3 @@ ja:
       last_name_kana: '苗字(カナ)'
       first_name: '名前'
       first_name_kana: '名前(カナ)'
-    ways_to_know:
-      word_of_mouth: "口コミ"
-      email: "ご案内メール"
-      phone: "電話によるご案内"
-      search: "検索エンジン"
-      journal: "雑誌"
-      banner: "バナー広告"
-      paid_listing: "リスティング広告"
-      press_release: "プレスリリース"
-      introduction: "知人の紹介"
-      etc: "その他"
-
-  leaping:
-    title:
-      long: 'スカウト型転職サイトLeaping(リーピング) | 年収30％以上UPのプレミアム求人情報'
-      short: 'スカウト型転職のLeaping(リーピング) 年収30％以上UPのプレミアム求人情報'
