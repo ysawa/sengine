@@ -1,17 +1,21 @@
-%h1 Listing games
+.common_container
+  %h2= Game.model_name.human
 
-%table
-  %tr
-    %th
-    %th
-    %th
+  %table.resources
+    %thead
+      %tr
+        %th= Game.model_name.human
+        %th
+        %th
 
-  - @games.each do |game|
-    %tr
-      %td= link_to 'Show', game
-      %td= link_to 'Edit', edit_game_path(game)
-      %td= link_to 'Destroy', game, :confirm => 'Are you sure?', :method => :delete
+    %tbody
+      - @games.each do |game|
+        %tr
+          %td
+            = link_to l(game.created_at), game
+          %td= link_to 'Edit', edit_game_path(game)
+          %td= link_to 'Destroy', game, :confirm => 'Are you sure?', :method => :delete
 
-%br
+    %br
 
-= link_to 'New Game', new_game_path
+  = link_to 'New Game', new_game_path

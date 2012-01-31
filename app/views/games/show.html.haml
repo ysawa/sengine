@@ -1,6 +1,7 @@
-%p#notice= notice
+.common_container
+  %h2= Game.model_name.human
+  %p#notice= notice
 
-
-= link_to 'Edit', edit_game_path(@game)
-\|
-= link_to 'Back', games_path
+  = link_to 'Edit', edit_game_path(@game)
+  \|
+  = link_to 'Back', games_path
