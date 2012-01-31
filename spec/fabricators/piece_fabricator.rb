@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 Fabricator(:piece) do
   black false
   in_hand false
