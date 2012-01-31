@@ -5,5 +5,41 @@ class Board
   field :number, type: Integer
   belongs_to :game
   has_one :movement
-  has_many :pieces
+  embeds_many :pieces
+
+  def piece_where(point)
+    self.pieces.each do |piece|
+      if point == piece.point
+        return piece
+      end
+    end
+    nil
+  end
+
+  def standardize
+    write_attributes({ black: false, number: 0 })
+    piece_mirror('gyoku', [5, 9])
+    piece_mirror('kin', [4, 9], true)
+    piece_mirror('gin', [3, 9], true)
+    piece_mirror('kei', [2, 9], true)
+    piece_mirror('kyosha', [1, 9], true)
+    piece_mirror('kaku', [8, 8])
+    piece_mirror('hisha', [8, 2])
+    1.upto(9).each do |x|
+      piece_mirror('fu', [x, 7])
+    end
+    true
+  end
+
+private
+  def piece_mirror(role, point, double = false)
+    x = point[0]
+    y = point[1]
+    self.pieces << Piece.place(role, [x, y], true)
+    self.pieces << Piece.place(role, [(10 - x).abs, (10 - y).abs], false)
+    if double
+      self.pieces << Piece.place(role, [(10 - x).abs, y], true)
+      self.pieces << Piece.place(role, [x, (10 - y).abs], false)
+    end
+  end
 end

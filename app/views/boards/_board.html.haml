@@ -1,0 +1,8 @@
+.board{ id: board.id }
+  .pieces
+    - 1.upto(9).each do |y|
+      .row
+        - 9.downto(1).each do |x|
+          .cell
+            - piece = board.piece_where([x, y])
+            = render 'pieces/piece', piece: piece if piece

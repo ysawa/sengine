@@ -1,8 +1,12 @@
 require 'spec_helper'
 
 describe Piece do
+  let :board do
+    Fabricate(:board)
+  end
+
   let :piece do
-    Fabricate.build(:piece)
+    Fabricate.build(:piece, board: board)
   end
 
   describe '.save' do

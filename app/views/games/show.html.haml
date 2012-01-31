@@ -1,7 +1,6 @@
 .common_container
-  %h2= Game.model_name.human
-  %p#notice= notice
+  - if @game.boards.present?
+    .board_container
+      = render 'boards/board', board: @game.boards.last
 
-  = link_to 'Edit', edit_game_path(@game)
-  \|
   = link_to 'Back', games_path

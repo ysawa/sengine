@@ -1,0 +1,26 @@
+@charset "utf-8"
+
+/* Initializers of the Sass */
+@import 'common/helpers'
+
+$cell_size: 60px
+$piece_size: $cell_size - 2px
+.board
+  border: 1px solid $border_color
+  width: $cell_size * 9
+  height: $cell_size * 9
+  .row
+    @include clearfix
+    .cell
+      float: left
+      border: 1px solid $border_color
+      width: $piece_size
+      height: $piece_size
+      .piece
+        width: $piece_size
+        height: $piece_size
+        line-height: $piece_size
+        text-align: center
+.board_container
+  .board
+    margin: 60px auto
