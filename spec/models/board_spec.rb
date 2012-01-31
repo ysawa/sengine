@@ -1,5 +1,12 @@
 require 'spec_helper'
 
 describe Board do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '.save' do
+    let :board do
+      Fabricate.build(:board)
+    end
+    it 'works!' do
+      board.save.should be_true
+    end
+  end
 end
