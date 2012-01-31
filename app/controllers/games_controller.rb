@@ -7,6 +7,10 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(params[:game])
     if @game.save
+      board = Board.new
+      board.standardize
+      @game.boards << board
+      @game.save
       flash[:notice] = "Game successfully created"
       respond_with(@game)
     else
