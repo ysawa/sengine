@@ -1,23 +1,22 @@
 class Board
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :black, type: Boolean
+  field :sente, type: Boolean
   field :number, type: Integer
   belongs_to :game
   has_one :movement
-  embeds_many :pieces
-
-  def piece_where(point)
-    self.pieces.each do |piece|
-      if point == piece.point
-        return piece
+  embeds_many :pieces do
+    def on_point(point)
+      @target.select do |piece|
+        if point == piece.point
+          return piece
+        end
       end
     end
-    nil
   end
 
-  def standardize
-    write_attributes({ black: false, number: 0 })
+  def hirate
+    write_attributes({ sente: false, number: 0 })
     piece_mirror('gyoku', [5, 9])
     piece_mirror('kin', [4, 9], true)
     piece_mirror('gin', [3, 9], true)
@@ -29,6 +28,15 @@ class Board
       piece_mirror('fu', [x, 7])
     end
     true
+  end
+
+  def piece_on_point(point)
+    self.pieces.each do |piece|
+      if point == piece.point
+        return piece
+      end
+    end
+    nil
   end
 
 private

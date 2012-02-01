@@ -8,7 +8,7 @@ class GamesController < ApplicationController
     @game = Game.new(params[:game])
     if @game.save
       board = Board.new
-      board.standardize
+      board.hirate
       @game.boards << board
       @game.save
       flash[:notice] = "Game successfully created"

@@ -1,7 +1,7 @@
 class Movement
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :black, type: Boolean
+  field :sente, type: Boolean
   field :from_point, type: Point
   field :move, type: Boolean
   field :number, type: Integer
