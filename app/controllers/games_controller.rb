@@ -7,9 +7,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(params[:game])
     if @game.save
-      board = Board.new
-      board.hirate
-      @game.boards << board
+      @game.boards << Board.hirate
       @game.save
       flash[:notice] = "Game successfully created"
       respond_with(@game)

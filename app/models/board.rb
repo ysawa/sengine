@@ -39,6 +39,14 @@ class Board
     nil
   end
 
+  class << self
+    def hirate
+      board = new
+      board.hirate
+      board
+    end
+  end
+
 private
   def piece_mirror(role, point, double = false)
     x = point[0]

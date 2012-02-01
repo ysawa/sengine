@@ -26,4 +26,23 @@ describe Board do
       kaku.sente.should be_true
     end
   end
+
+  describe 'Board.hirate' do
+    let :board do
+      Board.hirate
+    end
+
+    it 'works!' do
+      board.sente.should be_false
+      board.number.should == 0
+      fu = board.piece_on_point([1, 3])
+      fu.should be_present
+      fu.role.should == 'fu'
+      fu.sente.should be_false
+      kaku = board.piece_on_point([8, 8])
+      kaku.should be_present
+      kaku.role.should == 'kaku'
+      kaku.sente.should be_true
+    end
+  end
 end
