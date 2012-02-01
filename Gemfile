@@ -35,10 +35,6 @@ gem 'sass'
 gem 'haml'
 gem 'haml-rails'
 
-# Use JQuery to improve JavaScript development
-gem 'jquery-rails'
-
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -67,7 +63,7 @@ end
 group :development, :test do
   gem 'fakeweb', '1.3.0'
   gem 'rspec-rails', '2.8.1'
-  gem 'spork', '0.9.0.rc9'
+  gem 'spork', '1.0.0rc1'
   gem 'capybara', '1.1.2'
   gem 'fabrication', '1.2.0'
   gem 'rb-fsevent', '0.4.0'
