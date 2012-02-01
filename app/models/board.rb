@@ -8,9 +8,7 @@ class Board
   embeds_many :pieces do
     def on_point(point)
       @target.select do |piece|
-        if point == piece.point
-          return piece
-        end
+        point == piece.point
       end
     end
   end
@@ -31,12 +29,7 @@ class Board
   end
 
   def piece_on_point(point)
-    self.pieces.each do |piece|
-      if point == piece.point
-        return piece
-      end
-    end
-    nil
+    self.pieces.on_point(point).first
   end
 
   class << self

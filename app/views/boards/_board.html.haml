@@ -4,5 +4,5 @@
       .row
         - 9.downto(1).each do |x|
           .cell{ x: x, y: y }
-            - piece = board.piece_where([x, y])
+            - piece = board.piece_on_point([x, y])
             = render 'pieces/piece', piece: piece if piece
