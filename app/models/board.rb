@@ -13,6 +13,8 @@ class Board
     end
   end
 
+  before_destroy :destroy_movement
+
   def hirate
     write_attributes({ sente: false, number: 0 })
     piece_mirror('gyoku', [5, 9])
@@ -41,6 +43,10 @@ class Board
   end
 
 private
+  def destroy_movement
+    self.movement.destroy
+  end
+
   def piece_mirror(role, point, double = false)
     x = point[0]
     y = point[1]
