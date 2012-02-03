@@ -20,10 +20,10 @@ class Board
     piece_mirror('gyoku', [5, 9])
     piece_mirror('kin', [4, 9], true)
     piece_mirror('gin', [3, 9], true)
-    piece_mirror('kei', [2, 9], true)
+    piece_mirror('keima', [2, 9], true)
     piece_mirror('kyosha', [1, 9], true)
     piece_mirror('kaku', [8, 8])
-    piece_mirror('hisha', [8, 2])
+    piece_mirror('hisha', [2, 8])
     1.upto(9).each do |x|
       piece_mirror('fu', [x, 7])
     end
@@ -44,7 +44,7 @@ class Board
 
 private
   def destroy_movement
-    self.movement.destroy
+    self.movement.destroy if self.movement
   end
 
   def piece_mirror(role, point, double = false)

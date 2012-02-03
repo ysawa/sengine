@@ -1,2 +1,2 @@
-.piece{ role: piece.role }
-  = piece.role
+.piece{ id: piece.id, role: piece.role, direction: (piece.sente? ? 'sente' : 'gote'), class: (piece.sente? ? 'upward' : 'downward') }
+  = t("piece.roles.#{piece.role}")

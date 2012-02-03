@@ -5,22 +5,37 @@
 
 $cell_size: 60px
 $piece_size: $cell_size - 2px
+$line_color: #b37100
 .board
-  border: 1px solid $border_color
+  border: 1px solid $line_color
   width: $cell_size * 9
   height: $cell_size * 9
   .row
     @include clearfix
     .cell
+      @include no_select
       float: left
-      border: 1px solid $border_color
+      border: 1px solid $line_color
       width: $piece_size
       height: $piece_size
+      background-color: #ffab00
+      &.highlight
+        cursor: pointer
+        background-color: #ffc077
       .piece
+        @include no_select
         width: $piece_size
         height: $piece_size
+        font-size: 15px
+        font-weight: bold
         line-height: $piece_size
         text-align: center
+        &.selected
+          background-color: #ffc077
+        &.upward
+          cursor: pointer
+        &.downward
+          @include rotate180
 .board_container
   .board
     margin: 60px auto

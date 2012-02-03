@@ -55,3 +55,17 @@ $common_width: 760px
   box-shadow: 2px 2px 3px $color
   -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='$color')"
   filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='$color')
+
+@mixin no_select
+  -moz-user-select: none
+  -khtml-user-select: none
+  user-select: none
+  -webkit-user-select: none
+
+
+@mixin rotate180
+  -moz-transform: matrix(-1, 0, 0, -1, 0, 0)
+  -webkit-transform: matrix(-1, 0, 0, -1, 0, 0)
+  -o-transform: matrix(-1, 0, 0, -1, 0, 0)
+  transform: matrix(-1, 0, 0, -1, 0, 0)
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2)

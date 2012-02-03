@@ -16,12 +16,15 @@
 #= require_directory .
 
 $ ->
-  scheme = null
+  $.put_audio_scheme = null
   $.get(
     '/audio/encode/put.mp3',
     (data) ->
-      scheme = data
+      $.put_audio_scheme = data
   )
-  $('button#put').click ->
-    audio = new Audio(scheme)
-    audio.play()
+$.extend
+  put_audio: ->
+    if $.put_audio_scheme
+      audio = new Audio($.put_audio_scheme)
+      audio.play()
+
