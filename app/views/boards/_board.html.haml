@@ -1,8 +1,10 @@
+- y_range = (1..9).to_a
+- x_range = y_range.reverse
 .board{ id: board.id }
   .pieces
-    - 1.upto(9).each do |y|
+    - y_range.each do |y|
       .row
-        - 9.downto(1).each do |x|
+        - x_range.each do |x|
           .cell{ x: x, y: y }
             - piece = board.piece_on_point([x, y])
             = render 'pieces/piece', piece: piece if piece
