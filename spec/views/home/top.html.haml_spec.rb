@@ -4,6 +4,6 @@ require 'spec_helper'
 
 describe "home/top" do
   it 'rendering works' do
-    render
+    render template: 'home/top', layout: 'layouts/application'
   end
 end
