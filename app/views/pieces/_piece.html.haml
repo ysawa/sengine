@@ -1,2 +1,4 @@
-.piece{ id: piece.id, role: piece.role, direction: (piece.sente? ? 'sente' : 'gote'), class: (piece.sente? ? 'upward' : 'downward') }
+- unless defined?(decorator)
+  - decorator = PieceDecorator.new(piece)
+.piece{ id: decorator.id, role: decorator.role, direction: decorator.direction, class: decorator.html_classes }
   = t("piece.roles.#{piece.role}")
