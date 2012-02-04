@@ -1,2 +1,5 @@
 .common_container#home_container
-  %p Find me in app/views/home/mypage.html.haml
+  %p
+    = link_to Game.model_name.human, games_path
+  %p
+    = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete

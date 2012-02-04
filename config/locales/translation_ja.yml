@@ -1,5 +1,10 @@
 ja:
   actions:
+    back: '戻る'
+    destroy: '削除'
+    edit: '編集'
+    new: '新規作成'
+    show: '詳細'
   headers:
   helpers:
     submit:
@@ -7,6 +12,7 @@ ja:
       save: '保存する'
       send: '送信する'
       sign_in: 'ログイン'
+      sign_out: 'ログアウト'
       new_member: '新規会員登録'
       new_password: 'パスワード再発行'
   honorific:

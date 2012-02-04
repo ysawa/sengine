@@ -3,6 +3,7 @@
 
   = render 'form'
 
-  = link_to 'Show', @game
-  \|
-  = link_to 'Back', games_path
+  %p
+    = link_to t('actions.show'), @game
+    \|
+    = link_to t('actions.back'), games_path

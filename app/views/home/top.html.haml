@@ -1,5 +1,3 @@
 .common_container#home_container
-  %h2
-    Top
   %p
-    = link_to Game.model_name.human, games_path
+    = link_to t('helpers.submit.sign_in'), new_user_session_path

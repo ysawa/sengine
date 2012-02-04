@@ -1,21 +1,28 @@
 .common_container
-  %h2= Game.model_name.human
-
   %table.resources
     %thead
       %tr
         %th= Game.model_name.human
+        %th= Game.human_attribute_name('sente_user')
+        %th= Game.human_attribute_name('gote_user')
         %th
         %th
 
     %tbody
       - @games.each do |game|
+        - sente_decorator = game.sente_user ? UserDecorator.new(game.sente_user) : nil
+        - gote_decorator = game.gote_user ? UserDecorator.new(game.gote_user) : nil
         %tr
           %td
             = link_to l(game.created_at), game
-          %td= link_to 'Edit', edit_game_path(game)
-          %td= link_to 'Destroy', game, :confirm => 'Are you sure?', :method => :delete
+          %td
+            - if sente_decorator
+              = sente_decorator.name
+          %td
+            - if gote_decorator
+              = gote_decorator.name
+          %td= link_to t('actions.edit'), edit_game_path(game)
+          %td= link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete
 
-    %br
-
-  = link_to 'New Game', new_game_path
+  %p
+    = link_to t('actions.new'), new_game_path

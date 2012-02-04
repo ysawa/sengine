@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
 
   def index
-    render action: :top
+    if user_signed_in?
+      render action: :mypage
+    else
+      render action: :top
+    end
   end
 end

@@ -2,5 +2,5 @@
   - if @game.boards.present?
     .board_container
       = render 'boards/board', board: @game.boards.last
-
-  = link_to 'Back', games_path
+  %p
+    = link_to t('actions.back'), games_path

@@ -4,3 +4,6 @@ ja:
       game: '対局'
     attributes:
       game:
+        board: 'ボード'
+        sente_user: '先手'
+        gote_user: '後手'
