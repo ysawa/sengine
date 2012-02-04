@@ -14,6 +14,7 @@ describe AudioController do
 
       it "render text of encoded Data URI Scheme" do
         response.body.should match /^data:audio\/mp3/
+        response.header['Content-Type'].should match(/text\/plain;/)
       end
     end
 
@@ -28,6 +29,7 @@ describe AudioController do
 
       it "render text of encoded Data URI Scheme" do
         response.body.should match /^data:audio\/wav/
+        response.header['Content-Type'].should match(/text\/plain;/)
       end
     end
   end

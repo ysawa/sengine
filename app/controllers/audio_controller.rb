@@ -5,6 +5,6 @@ class AudioController < ApplicationController
     format = params[:format]
     path = File.join(Rails.root, "app/assets/images/#{filename}.#{format}")
     scheme = "data:audio/#{format};base64,#{Base64.encode64(File.open(path).read)}"
-    render text: scheme
+    render text: scheme, content_type: Mime::TEXT
   end
 end
