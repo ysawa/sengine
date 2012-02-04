@@ -20,13 +20,13 @@ class GamesController < ApplicationController
   def destroy
     @game = Game.find(params[:id])
     flash[:notice] = "Game successfully destroyed." if @game.destroy
-    respond_with(@game, :location => games_url)
+    respond_with(@game, location: games_url)
   end
 
   # GET /games/1/edit
   def edit
     respond_with(@game = Game.find(params[:id])) do |format|
-      format.html { render :action => :edit }
+      format.html { render action: :edit }
     end
   end
 
