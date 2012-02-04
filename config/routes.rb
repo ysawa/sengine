@@ -1,5 +1,7 @@
 Shogiengine::Application.routes.draw do
 
+  devise_for :users
+
   get "audio/encode/*filename", to: 'audio#encode'
 
   resources :games
