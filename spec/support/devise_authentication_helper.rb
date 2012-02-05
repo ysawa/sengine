@@ -1,5 +1,5 @@
 module DeviseAuthenticationHelper
-  def sign_in_user(user = nil)
+  def user_sign_in(user = nil)
     @request.env["devise.mapping"] = Devise.mappings[:user]
     if user
       @user = user
