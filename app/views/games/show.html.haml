@@ -1,6 +1,6 @@
 .common_container
   - if @game.boards.present?
     .board_container
-      = render 'boards/board', board: @game.boards.last
+      = render 'boards/board', board: @game.boards.last, game: @game
   %p
     = link_to t('actions.back'), games_path

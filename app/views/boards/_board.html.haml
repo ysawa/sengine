@@ -1,10 +1,44 @@
-- y_range = (1..9).to_a
-- x_range = y_range.reverse
+- if user_signed_in? and game.gote_user == current_user
+  - reverse = true
+  - x_range = (1..9).to_a
+  - y_range = x_range.reverse
+- else
+  - reverse = false
+  - y_range = (1..9).to_a
+  - x_range = y_range.reverse
 .board{ id: board.id }
   .pieces
+    .row
+      .corner_cell.left.top
+      - x_range.each do |x|
+        - if reverse
+          .edge_cell
+        - else
+          .edge_cell
+            = x
+      .corner_cell.right.top
     - y_range.each do |y|
       .row
+        - if reverse
+          .side_cell.reverse
+            = convert_number_to_kanji(y)
+        - else
+          .side_cell
         - x_range.each do |x|
           .cell{ x: x, y: y }
             - piece = board.piece_on_point([x, y])
-            = render 'pieces/piece', piece: piece if piece
+            = render 'pieces/piece', piece: piece, reverse: reverse if piece
+        - if reverse
+          .side_cell
+        - else
+          .side_cell
+            = convert_number_to_kanji(y)
+    .row
+      .corner_cell.left.bottom
+      - x_range.each do |x|
+        - if reverse
+          .edge_cell.reverse
+            = x
+        - else
+          .edge_cell
+      .corner_cell.right.bottom

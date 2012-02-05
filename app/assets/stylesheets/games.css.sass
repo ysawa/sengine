@@ -8,8 +8,8 @@ $piece_size: $cell_size - 2px
 $line_color: #b37100
 .board
   border: 1px solid $line_color
-  width: $cell_size * 9
-  height: $cell_size * 9
+  width: $cell_size * 10 + 4px
+  height: $cell_size * 10 + 4px
   .row
     @include clearfix
     .cell
@@ -36,6 +36,49 @@ $line_color: #b37100
           cursor: pointer
         &.downward
           @include rotate180
+    .corner_cell
+      @include no_select
+      float: left
+      width: $piece_size / 2 + 2px
+      height: $piece_size / 2 + 2px
+      font-size: 15px
+      text-align: center
+      font-weight: bold
+      background-color: #ffab00
+      @each $place in top, right, bottom, left
+        &.#{$place}
+          border-#{$place}: 1px solid $line_color
+    .edge_cell
+      @include no_select
+      float: left
+      border:
+        top: 1px solid $line_color
+        bottom: 1px solid $line_color
+      width: $piece_size + 2px
+      height: $piece_size / 2 + 1px
+      line-height: $piece_size / 2 + 1px
+      font-size: 15px
+      text-align: center
+      font-weight: bold
+      background-color: #ffab00
+      &.reverse
+        @include rotate180
+    .side_cell
+      @include no_select
+      float: left
+      border:
+        left: 1px solid $line_color
+        right: 1px solid $line_color
+      width: $piece_size / 2 + 1px
+      height: $piece_size + 2px
+      line-height: $piece_size + 2px
+      font-size: 15px
+      text-align: center
+      font-weight: bold
+      background-color: #ffab00
+      &.reverse
+        @include rotate180
+
 .board_container
   .board
     margin: 60px auto

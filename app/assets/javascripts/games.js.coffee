@@ -22,11 +22,15 @@ $.fn.extend
     x = $(this).point_x()
     y = $(this).point_y()
     role = $(this).attr('role')
+    sente = $(this).attr('direction') == 'sente'
+    direction = +1
+    unless sente
+      direction = -1
     if role == 'fu'
-      $.highlight_on_point_if_possible([x, y - 1])
+      $.highlight_on_point_if_possible([x, y - 1 * direction])
     else if role == 'keima'
       for i in [-1, 1]
-        $.highlight_on_point_if_possible([x + i, y - 2])
+        $.highlight_on_point_if_possible([x + i, y - 2 * direction])
     else if role == 'gyoku'
       for i in [-1, 0, 1]
         this_x = x + i
@@ -39,21 +43,21 @@ $.fn.extend
       for i in [-1, 0, 1]
         this_x = x + i
         for j in [-1, 1]
-          this_y = y + j
+          this_y = y + j * direction
           $.highlight_on_point_if_possible([this_x, this_y])
-      $.cell_on_point([x, y + 1]).removeClass('highlight')
+      $.cell_on_point([x, y + 1 * direction]).removeClass('highlight')
     else if $.inArray(role, ['kin', 'tokin', 'narikyo', 'narikei', 'narigin']) != -1
       for i in [-1, 0, 1]
-        $.highlight_on_point_if_possible([x + i, y - 1])
+        $.highlight_on_point_if_possible([x + i, y - 1 * direction])
       for i in [-1, 1]
         $.highlight_on_point_if_possible([x + i, y])
-      $.highlight_on_point_if_possible([x, y + 1])
+      $.highlight_on_point_if_possible([x, y + 1 * direction])
     else if role == 'kyosha'
       for i in [1..8]
-        if $.cell_on_point_have_piece([x, y - i])
+        if $.cell_on_point_have_piece([x, y - i * direction])
           break
         else
-          $.highlight_on_point([x, y - i])
+          $.highlight_on_point([x, y - i * direction])
     else if role == 'hisha'
       for i in [-1..-8]
         if $.cell_on_point_have_piece([x, y + i])
