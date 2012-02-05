@@ -4,7 +4,9 @@ Shogiengine::Application.routes.draw do
 
   get "audio/encode/*filename", to: 'audio#encode'
 
-  resources :games
+  resources :games do
+    resources :movements
+  end
 
   root to: "home#index"
 
