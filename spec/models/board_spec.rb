@@ -47,6 +47,35 @@ describe Board do
     end
   end
 
+  describe '.apply_movement' do
+    let :board do
+      Board.hirate
+    end
+
+    let :movement do
+      attributes = {
+        from_point: [7, 3],
+        to_point: [7, 4],
+        role: 'fu'
+      }
+      Fabricate(:movement, attributes)
+    end
+
+    it 'works!' do
+      piece_from_point = board.piece_on_point(movement.from_point)
+      piece_to_point = board.piece_on_point(movement.to_point)
+      piece_from_point.role.should == 'fu'
+      piece_to_point.should be_blank
+      board.apply_movement(movement)
+
+      board.movement.should == movement
+      piece_from_point = board.piece_on_point(movement.from_point)
+      piece_to_point = board.piece_on_point(movement.to_point)
+      piece_from_point.should be_nil
+      piece_to_point.role.should == 'fu'
+    end
+  end
+
   describe 'Board.hirate' do
     let :board do
       Board.hirate

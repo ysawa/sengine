@@ -50,4 +50,18 @@ describe Game do
       @game.users.should == [@sente_user, @gote_user]
     end
   end
+
+  describe '.make_board_from_movement' do
+    before :each do
+      @game = Fabricate(:game)
+      @game.boards << Board.hirate
+      @movement = Fabricate.build(:movement)
+    end
+
+    it 'works!' do
+      @game.boards.count.should == 1
+      @game.make_board_from_movement(@movement)
+      @game.boards.count.should == 2
+    end
+  end
 end
