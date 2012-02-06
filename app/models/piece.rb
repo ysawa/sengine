@@ -13,6 +13,10 @@ class Piece
     !sente?
   end
 
+  def on_board?
+    !in_hand?
+  end
+
   class << self
     def place(role, point, sente)
       new(role: role, point: point, sente: sente, in_hand: false)

@@ -24,4 +24,26 @@ describe Piece do
       piece.read_attribute(:point).should == {'x' => 1, 'y' => 2}
     end
   end
+
+  describe '.sente? and .gote?' do
+    it 'both work!' do
+      piece.sente = true
+      piece.sente?.should be_true
+      piece.gote?.should be_false
+      piece.sente = false
+      piece.sente?.should be_false
+      piece.gote?.should be_true
+    end
+  end
+
+  describe '.in_hand? and .on_board?' do
+    it 'both work!' do
+      piece.in_hand = true
+      piece.in_hand?.should be_true
+      piece.on_board?.should be_false
+      piece.in_hand = false
+      piece.in_hand?.should be_false
+      piece.on_board?.should be_true
+    end
+  end
 end
