@@ -9,4 +9,10 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
+  has_many :gote_games, class_name: 'Game', inverse_of: :gote_user
+
+  def games
+    Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
+  end
 end
