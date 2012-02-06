@@ -87,10 +87,8 @@ $line_color: #b37100
       .cell
         @include no_select
         float: left
-        border: 1px solid $line_color
-        width: $piece_size
-        height: $piece_size
-        background-color: #ffab00
+        width: $piece_size + 2px
+        height: $piece_size + 2px
         &.highlight
           cursor: pointer
           background-color: #ffc077

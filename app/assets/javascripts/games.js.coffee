@@ -1,4 +1,5 @@
 $ ->
+  $('.board, .in_hand').disableSelection()
   $('.board .piece.upward').live 'click', ->
     unless $(this).attr('direction') == $.board_turn()
       return
@@ -19,8 +20,20 @@ $ ->
     else
       $('.piece').removeClass('selected')
       $(this).addClass('selected')
+      first_line = 1
+      last_line = 9
+      if $.inArray($(this).attr('role'), ['fu', 'kyosha']) >= 0
+        if $(this).attr('direction') == 'gote'
+          last_line = 8
+        else
+          first_line = 2
+      else if $(this).attr('role') == 'keima'
+        if $(this).attr('direction') == 'gote'
+          last_line = 7
+        else
+          first_line = 3
       for x in [1..9]
-        for y in [1..9]
+        for y in [first_line..last_line]
           point = [x, y]
           unless $.cell_on_point_have_piece(point)
             $.highlight_on_point(point)
@@ -54,7 +67,17 @@ $ ->
       url: "/games/#{game_id}/movements"
       data:
         movement: movement
+    if $.cell_on_point_have_opponent_piece(to_point)
+      piece = $.cell_on_point(to_point).find('.piece')
+      piece.attr('direction', piece_selected.attr('direction'))
+      piece.removeClass('downward')
+      piece.addClass('upward')
+      $('.in_hand.upward .pieces .row').append('<div class="cell"></div>')
+      $('.in_hand.upward .pieces .row .cell:last').append(piece)
     $(this).append(piece_selected)
+    $('.in_hand .cell').each ->
+      if $(this).find('.piece').size() == 0
+        $(this).remove()
     turn = $('.board').attr('turn')
     if turn == 'sente'
       $('.board').attr('turn', 'gote')

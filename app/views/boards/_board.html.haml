@@ -6,7 +6,7 @@
   - reverse = false
   - y_range = (1..9).to_a
   - x_range = y_range.reverse
-.in_hand
+.in_hand.downward
   .pieces
     .row
       - if reverse
@@ -52,7 +52,7 @@
         - else
           .edge_cell
       .corner_cell.right.bottom
-.in_hand
+.in_hand.upward
   .pieces
     .row
       - if reverse
