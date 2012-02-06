@@ -1,5 +1,5 @@
 $ ->
-  $('.piece.upward').live 'click', ->
+  $('.board .piece.upward').live 'click', ->
     unless $(this).attr('direction') == $.board_turn()
       return
     $('.cell').removeClass('highlight')
@@ -10,26 +10,50 @@ $ ->
       $(this).highlight_orbit()
       $(this).addClass('selected')
 
+  $('.in_hand .piece.upward').live 'click', ->
+    unless $(this).attr('direction') == $.board_turn()
+      return
+    $('.cell').removeClass('highlight')
+    if $(this).hasClass('selected')
+      $('.piece').removeClass('selected')
+    else
+      $('.piece').removeClass('selected')
+      $(this).addClass('selected')
+      for x in [1..9]
+        for y in [1..9]
+          point = [x, y]
+          unless $.cell_on_point_have_piece(point)
+            $.highlight_on_point(point)
+
   $('.cell.highlight').live 'click', ->
     $.put_audio()
+    move = true
     piece_selected = $('.piece.selected')
+    role = piece_selected.attr('role')
+    if piece_selected.parents('.in_hand').size() >= 1
+      move = false
     piece_cell = piece_selected.parents('.cell')
+    from_point = null
+    if move
+      from_point = [piece_cell.point_x(), piece_cell.point_y()]
+    to_point = [$(this).point_x(), $(this).point_y()]
     $('.cell').removeClass('highlight')
     piece_selected.removeClass('selected')
     game_id = $('.board').attr('game_id')
+    movement =
+      role: role
+      move: move
+      put: !move
+      to_point: to_point
+      reverse: false
+      sente: piece_selected.attr('direction') == 'sente'
+    movement.from_point = from_point if from_point
     $.ajax
       asyn: false
       type: "POST"
       url: "/games/#{game_id}/movements"
       data:
-        movement:
-          role: piece_selected.attr('role')
-          from_point: [piece_cell.attr('x'), piece_cell.attr('y')]
-          to_point: [$(this).attr('x'), $(this).attr('y')]
-          move: true
-          put: false
-          reverse: false
-          sente: piece_selected.attr('direction') == 'sente'
+        movement: movement
     $(this).append(piece_selected)
     turn = $('.board').attr('turn')
     if turn == 'sente'
@@ -100,18 +124,13 @@ $.fn.extend
         else
           $.highlight_on_point(point)
           true
-      for i in [-1..-8]
-        point = [x, y + i]
-        break unless highlight_cells(point)
-      for i in [1..8]
-        point = [x, y + i]
-        break unless highlight_cells(point)
-      for i in [-1..-8]
-        point = [x + i, y]
-        break unless highlight_cells(point)
-      for i in [1..8]
-        point = [x + i, y]
-        break unless highlight_cells(point)
+      for number_loop in [[-1..-8], [1..8]]
+        for i in number_loop
+          point = [x, y + i]
+          break unless highlight_cells(point)
+        for i in number_loop
+          point = [x + i, y]
+          break unless highlight_cells(point)
     else if role == 'kaku'
       highlight_cells = (point) ->
         if $.cell_on_point_have_proponent_piece(point)
@@ -122,18 +141,13 @@ $.fn.extend
         else
           $.highlight_on_point(point)
           true
-      for i in [-1..-8]
-        point = [x + i, y + i]
-        break unless highlight_cells(point)
-      for i in [1..8]
-        point = [x + i, y + i]
-        break unless highlight_cells(point)
-      for i in [-1..-8]
-        point = [x - i, y + i]
-        break unless highlight_cells(point)
-      for i in [1..8]
-        point = [x - i, y + i]
-        break unless highlight_cells(point)
+      for number_loop in [[-1..-8], [1..8]]
+        for i in number_loop
+          point = [x + i, y + i]
+          break unless highlight_cells(point)
+        for i in number_loop
+          point = [x - i, y + i]
+          break unless highlight_cells(point)
   point_x: ->
     if $(this).hasClass('piece')
       parseInt $(this).parents('.cell').attr('x')
@@ -149,6 +163,12 @@ $.extend
     x = point[0]
     y = point[1]
     $(".cell[x=\"#{x}\"][y=\"#{y}\"]")
+  cell_on_point_have_piece: (point) ->
+    cell = $.cell_on_point(point)
+    if cell.find('.piece').size() >= 1
+      true
+    else
+      false
   cell_on_point_have_opponent_piece: (point) ->
     cell = $.cell_on_point(point)
     if cell.find('.piece').size() >= 1

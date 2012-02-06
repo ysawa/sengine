@@ -8,21 +8,27 @@ class Board
   belongs_to :game
   has_one :movement
   embeds_many :pieces do
-    def in_hand
+    def in_hand(role = nil)
       @target.select do |piece|
-        piece.in_hand?
+        result = piece.in_hand?
+        result &&= role == piece.role if role
+        result
       end
     end
 
-    def in_gote_hand
+    def in_gote_hand(role = nil)
       @target.select do |piece|
-        piece.in_hand? and piece.gote?
+        result = piece.in_hand? && piece.gote?
+        result &&= role == piece.role if role
+        result
       end
     end
 
-    def in_sente_hand
+    def in_sente_hand(role = nil)
       @target.select do |piece|
-        piece.in_hand? and piece.sente?
+        result = piece.in_hand? && piece.sente?
+        result &&= role == piece.role if role
+        result
       end
     end
 
@@ -41,6 +47,12 @@ class Board
     self.sente = movement.sente
     if movement.from_point
       proponent_piece = piece_on_point(movement.from_point)
+    else
+      if self.sente
+        proponent_piece = piece_in_sente_hand(movement.role)
+      else
+        proponent_piece = piece_in_gote_hand(movement.role)
+      end
     end
     opponent_piece = piece_on_point(movement.to_point)
     if opponent_piece
@@ -48,6 +60,7 @@ class Board
       opponent_piece.sente = movement.sente
       opponent_piece.point = nil
     end
+    proponent_piece.in_hand = false
     proponent_piece.point = movement.to_point
   end
 
@@ -64,6 +77,14 @@ class Board
       piece_mirror('fu', [x, 7])
     end
     true
+  end
+
+  def piece_in_gote_hand(role = nil)
+    self.pieces.in_gote_hand(role).first
+  end
+
+  def piece_in_sente_hand(role = nil)
+    self.pieces.in_sente_hand(role).first
   end
 
   def piece_on_point(point)
