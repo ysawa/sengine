@@ -15,6 +15,13 @@ class Board
 
   before_destroy :destroy_movement
 
+  def apply_movement(movement)
+    self.movement = movement
+    self.sente = movement.sente
+    piece = piece_on_point(movement.from_point)
+    piece.point = movement.to_point
+  end
+
   def hirate
     write_attributes({ sente: false, number: 0 })
     piece_mirror('gyoku', [5, 9])

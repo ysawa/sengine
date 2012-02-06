@@ -13,7 +13,7 @@ class Point
 
   def serialize(object)
     if object.present?
-      { "x" => object[0], "y" => object[1] }
+      { "x" => object[0].to_i, "y" => object[1].to_i }
     else
       nil
     end
