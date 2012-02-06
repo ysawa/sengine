@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Game
   include Mongoid::Document
   include Mongoid::Timestamps

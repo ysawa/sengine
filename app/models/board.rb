@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Board
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -6,6 +8,12 @@ class Board
   belongs_to :game
   has_one :movement
   embeds_many :pieces do
+    def in_hand
+      @target.select do |piece|
+        piece.in_hand?
+      end
+    end
+
     def on_point(point)
       @target.select do |piece|
         point == piece.point
@@ -18,8 +26,16 @@ class Board
   def apply_movement(movement)
     self.movement = movement
     self.sente = movement.sente
-    piece = piece_on_point(movement.from_point)
-    piece.point = movement.to_point
+    if movement.from_point
+      proponent_piece = piece_on_point(movement.from_point)
+    end
+    opponent_piece = piece_on_point(movement.to_point)
+    if opponent_piece
+      opponent_piece.in_hand = true
+      opponent_piece.sente = movement.sente
+      opponent_piece.point = nil
+    end
+    proponent_piece.point = movement.to_point
   end
 
   def hirate

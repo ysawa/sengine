@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Piece
   include Mongoid::Document
   ROLES = %w(fu gyoku kin gin keima kyosha kaku hisha)

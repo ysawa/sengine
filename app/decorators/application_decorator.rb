@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class ApplicationDecorator < Draper::Base
   # Shared Decorations
   #   Consider defining shared methods common to all your models.
