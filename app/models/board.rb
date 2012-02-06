@@ -14,6 +14,18 @@ class Board
       end
     end
 
+    def in_gote_hand
+      @target.select do |piece|
+        piece.in_hand? and piece.gote?
+      end
+    end
+
+    def in_sente_hand
+      @target.select do |piece|
+        piece.in_hand? and piece.sente?
+      end
+    end
+
     def on_point(point)
       @target.select do |piece|
         point == piece.point
@@ -41,10 +53,10 @@ class Board
   def hirate
     write_attributes({ sente: false, number: 0 })
     piece_mirror('gyoku', [5, 9])
-    piece_mirror('kin', [4, 9], true)
-    piece_mirror('gin', [3, 9], true)
-    piece_mirror('keima', [2, 9], true)
-    piece_mirror('kyosha', [1, 9], true)
+    piece_opposite_mirror('kin', [4, 9])
+    piece_opposite_mirror('gin', [3, 9])
+    piece_opposite_mirror('keima', [2, 9])
+    piece_opposite_mirror('kyosha', [1, 9])
     piece_mirror('kaku', [8, 8])
     piece_mirror('hisha', [2, 8])
     1.upto(9).each do |x|
@@ -79,5 +91,9 @@ private
       self.pieces << Piece.place(role, [(10 - x).abs, y], true)
       self.pieces << Piece.place(role, [x, (10 - y).abs], false)
     end
+  end
+
+  def piece_opposite_mirror(role, point)
+    piece_mirror(role, point, true)
   end
 end
