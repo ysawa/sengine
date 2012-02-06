@@ -35,6 +35,7 @@ class Board
 
   before_destroy :destroy_movement
 
+  # TODO this method must have some exceptions
   def apply_movement(movement)
     self.movement = movement
     self.sente = movement.sente
