@@ -34,6 +34,7 @@ $line_color: #b37100
     @include rotate180
 
 .board
+  @include no_select
   border: 1px solid $line_color
   width: $cell_size * 10 + 4px
   height: $cell_size * 10 + 4px
@@ -75,6 +76,7 @@ $line_color: #b37100
       height: $piece_size + 2px
       line-height: $piece_size + 2px
 .in_hand
+  @include no_select
   width: $cell_size * 9 + 2px
   height: $cell_size
   .pieces
