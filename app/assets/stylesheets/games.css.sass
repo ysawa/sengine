@@ -33,7 +33,8 @@ $line_color: #b37100
         &.selected
           background-color: #ffc077
         &.upward
-          cursor: pointer
+          &.playable
+            cursor: pointer
         &.downward
           @include rotate180
     .corner_cell
@@ -103,7 +104,8 @@ $line_color: #b37100
           &.selected
             background-color: #ffc077
           &.upward
-            cursor: pointer
+            &.playable
+              cursor: pointer
           &.downward
             @include rotate180
 

@@ -2,10 +2,17 @@
   - reverse = true
   - x_range = (1..9).to_a
   - y_range = x_range.reverse
+  - play = true
+- elsif user_signed_in? and game.sente_user == current_user
+  - reverse = false
+  - y_range = (1..9).to_a
+  - x_range = y_range.reverse
+  - play = true
 - else
   - reverse = false
   - y_range = (1..9).to_a
   - x_range = y_range.reverse
+  - play = false
 .in_hand.downward
   .pieces
     .row
@@ -15,8 +22,8 @@
         - pieces = board.pieces.in_gote_hand
       - pieces.each do |piece|
         .cell
-          = render 'pieces/piece', piece: piece, reverse: reverse
-.board{ id: board.id, game_id: game.id, turn: (board.sente? ? 'gote' : 'sente'), number: game.boards.count }
+          = render 'pieces/piece', piece: piece, reverse: reverse, play: play
+.board{ id: board.id, game_id: game.id, turn: (board.sente? ? 'gote' : 'sente'), number: game.boards.count, play: play }
   .pieces
     .row
       .corner_cell.left.top
@@ -37,7 +44,7 @@
         - x_range.each do |x|
           .cell{ x: x, y: y }
             - piece = board.piece_on_point([x, y])
-            = render 'pieces/piece', piece: piece, reverse: reverse if piece
+            = render 'pieces/piece', piece: piece, reverse: reverse, play: play if piece
         - if reverse
           .side_cell
         - else
@@ -61,4 +68,4 @@
         - pieces = board.pieces.in_sente_hand
       - pieces.each do |piece|
         .cell
-          = render 'pieces/piece', piece: piece, reverse: reverse
+          = render 'pieces/piece', piece: piece, reverse: reverse, play: play

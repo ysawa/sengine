@@ -1,5 +1,5 @@
 - unless defined?(decorator)
   - decorator = PieceDecorator.new(piece)
 - decorator.reverse = reverse
-.piece{ id: decorator.id, role: decorator.role, direction: decorator.direction, class: decorator.html_classes }
+.piece{ id: decorator.id, role: decorator.role, direction: decorator.direction, class: decorator.html_classes(play: play) }
   = convert_piece_role_to_kanji piece.role

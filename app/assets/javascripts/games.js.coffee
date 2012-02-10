@@ -13,7 +13,7 @@ $ ->
 
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()
-    $('.board .piece.upward').live 'click', ->
+    $('.board[play] .piece.upward').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
       $('.cell').removeClass('highlight')
