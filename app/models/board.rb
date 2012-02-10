@@ -54,13 +54,18 @@ class Board
         proponent_piece = piece_in_gote_hand(movement.role)
       end
     end
+    # if an opponent piece is on the point where the proponent piece moves
     opponent_piece = piece_on_point(movement.to_point)
     if opponent_piece
       opponent_piece.in_hand = true
       opponent_piece.sente = movement.sente
       opponent_piece.point = nil
+      opponent_piece.normalize if opponent_piece.reversed?
     end
     proponent_piece.in_hand = false
+    if movement.reverse?
+      proponent_piece.reverse
+    end
     proponent_piece.point = movement.to_point
   end
 

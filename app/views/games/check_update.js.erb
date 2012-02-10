@@ -1,0 +1,6 @@
+$('.board_container').html('<%= escape_javascript(render 'boards/board', game: @game, board: @game.boards.last) %>')
+<%- if current_user == @game.sente_user and @game.movements.last.gote? %>
+  $.put_audio()
+<%- elsif current_user == @game.gote_user and @game.movements.last.sente? %>
+  $.put_audio()
+<%- end %>

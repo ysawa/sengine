@@ -38,7 +38,7 @@ module IntegrationTestHelper
           fill_in '#{resource_name}[email]', with: #{resource_name}.email
           fill_in '#{resource_name}[password]', with: password
           check '#{resource_name}[remember_me]' if remember_me
-          click_button 'ログイン'
+          click_button 'Sign in'
         end
       end
     EOS

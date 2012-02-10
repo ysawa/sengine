@@ -46,4 +46,14 @@ describe Piece do
       piece.on_board?.should be_true
     end
   end
+
+  describe '.reverse and .normalize' do
+    it 'both work!' do
+      piece.role = 'hisha'
+      piece.reverse
+      piece.role.should == 'ryu'
+      piece.normalize
+      piece.role.should == 'hisha'
+    end
+  end
 end

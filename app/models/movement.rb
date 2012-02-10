@@ -13,4 +13,8 @@ class Movement
   field :to_point, type: Point
   belongs_to :board
   belongs_to :game
+
+  def gote?
+    !sente?
+  end
 end

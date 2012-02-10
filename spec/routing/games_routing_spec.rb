@@ -31,5 +31,8 @@ describe GamesController do
       delete("/games/1").should route_to("games#destroy", :id => "1")
     end
 
+    it "routes to #check_update" do
+      get("/games/1/check_update").should route_to("games#check_update", :id => "1")
+    end
   end
 end

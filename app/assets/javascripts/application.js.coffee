@@ -13,18 +13,11 @@
 #= require jquery
 #= require jquery_ujs
 #= require_self
+#= require jquery.i18n
+#= require locales/ja
+#= require audio
+#= require logic
 #= require_directory .
 
 $ ->
-  $.put_audio_scheme = null
-  $.get(
-    '/audio/encode/put.mp3',
-    (data) ->
-      $.put_audio_scheme = data
-  )
-$.extend
-  put_audio: ->
-    if $.put_audio_scheme
-      audio = new Audio($.put_audio_scheme)
-      audio.play()
 

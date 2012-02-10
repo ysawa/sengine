@@ -1,13 +1,28 @@
 # -*- coding: utf-8 -*-
 
 class Piece
+  class UnexpectedNormalize < StandardError; end
+  class UnexpectedReverse < StandardError; end
   include Mongoid::Document
-  ROLES = %w(fu gyoku kin gin keima kyosha kaku hisha)
+  ROLES = %w(fu gin keima kyosha kaku hisha gyoku kin)
+  REVERSED_ROLES = %w(tokin narigin narikei narikyo uma ryu gyoku kin)
   field :sente, type: Boolean
   field :in_hand, type: Boolean
   field :role, type: String
   field :point, type: Point
   embedded_in :board
+
+  def normalize
+    if reversed?
+      self.role = ROLES[REVERSED_ROLES.index(self.role)]
+    else
+      raise UnexpectedNormalize
+    end
+  end
+
+  def normalized?
+    ROLES.include?(self.role)
+  end
 
   def gote?
     !sente?
@@ -15,6 +30,18 @@ class Piece
 
   def on_board?
     !in_hand?
+  end
+
+  def reverse
+    if normalized?
+      self.role = REVERSED_ROLES[ROLES.index(self.role)]
+    else
+      raise UnexpectedReverse
+    end
+  end
+
+  def reversed?
+    REVERSED_ROLES.include?(self.role)
   end
 
   class << self

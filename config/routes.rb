@@ -6,6 +6,9 @@ Shogiengine::Application.routes.draw do
 
   resources :games do
     resources :movements
+    member do
+      get :check_update
+    end
   end
 
   root to: "home#index"

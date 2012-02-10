@@ -17,16 +17,6 @@ ja:
       new_password: 'パスワード再発行'
   honorific:
     human: '%{model}様'
-  piece:
-    roles:
-      fu: '歩'
-      keima: '桂'
-      hisha: '飛'
-      kyosha: '香'
-      kin: '金'
-      gin: '銀'
-      gyoku: '玉'
-      kaku: '角'
   please:
     check: 'チェックしてください'
     check_: 'チェックしてください。'

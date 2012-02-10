@@ -74,6 +74,9 @@ describe Board do
       piece_from_point.should be_nil
       piece_to_point.role.should == 'fu'
     end
+
+    it 'can take opponent piece' do
+    end
   end
 
   describe 'Board.hirate' do
