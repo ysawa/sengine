@@ -11,6 +11,7 @@ class User
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
   has_many :gote_games, class_name: 'Game', inverse_of: :gote_user
+  has_many :created_games, class_name: 'Game', inverse_of: :author
 
   def games
     Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })

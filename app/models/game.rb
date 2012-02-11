@@ -7,6 +7,7 @@ class Game
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games
   belongs_to :gote_user, class_name: 'User', inverse_of: :gote_games
+  belongs_to :author, class_name: 'User', inverse_of: :created_games
   before_destroy :destroy_boards
 
   def make_board_from_movement(movement)

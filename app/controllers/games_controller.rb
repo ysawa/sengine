@@ -19,6 +19,7 @@ class GamesController < ApplicationController
   # POST /games
   def create
     @game = Game.new(params[:game])
+    @game.author = current_user
     if @game.save
       @game.boards << Board.hirate
       @game.save
