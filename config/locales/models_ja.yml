@@ -1,10 +1,45 @@
 ja:
   mongoid:
     models:
+      board: '戦局'
       game: '対局'
+      movement: '指し手'
+      piece: '駒'
     attributes:
+      board:
+        game: '対局'
+        movement: '指し手'
+        number: '手数'
+        pieces: '駒'
+        sente: '先手'
       game:
         author: '作成者'
-        board: 'ボード'
+        boards: '戦局'
+        movements: '棋譜'
         sente_user: '先手'
         gote_user: '後手'
+      movement:
+        board: '戦局'
+        from_point: 'から'
+        game: '対局'
+        move: '動く'
+        number: '手数'
+        put: '打つ'
+        reverse: '反転'
+        role: '駒'
+        sente: '先手'
+        to_point: 'へ'
+      piece:
+        board: '盤'
+        in_hand: '手駒'
+        point: '位置'
+        role: '駒の種類'
+        sente: '先手'
+      user:
+        created_games: '作成した対局'
+        email: 'E-mail'
+        games: '対局'
+        gote_games: '後手の対局'
+        sente_games: '先手の対局'
+        password: 'パスワード'
+        password_confirmation: 'パスワード(確認)'
