@@ -1,7 +1,7 @@
 ja:
   mongoid:
     models:
-      board: '戦局'
+      board: '局面'
       game: '対局'
       movement: '指し手'
       piece: '駒'
@@ -15,12 +15,12 @@ ja:
         sente: '先手'
       game:
         author: '作成者'
-        boards: '戦局'
+        boards: '局面'
         movements: '棋譜'
         sente_user: '先手'
         gote_user: '後手'
       movement:
-        board: '戦局'
+        board: '局面'
         from_point: 'から'
         game: '対局'
         move: '動く'
