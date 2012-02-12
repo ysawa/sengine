@@ -5,6 +5,7 @@ ja:
       game: '対局'
       movement: '指し手'
       piece: '駒'
+      user: 'ユーザー'
     attributes:
       board:
         game: '対局'
@@ -43,3 +44,4 @@ ja:
         sente_games: '先手の対局'
         password: 'パスワード'
         password_confirmation: 'パスワード(確認)'
+        remember_me: 'ログイン状態を保持'

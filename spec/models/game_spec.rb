@@ -10,6 +10,19 @@ describe Game do
     end
   end
 
+  describe '.author' do
+    before :each do
+      @user = Fabricate(:user)
+      @game = Fabricate(:game)
+    end
+    it 'works!' do
+      @game.author = @user
+      @game.save
+      @game = Game.find(@game.id)
+      @game.author.should == @user
+    end
+  end
+
   describe '.sente_user' do
     before :each do
       @user = Fabricate(:user)
