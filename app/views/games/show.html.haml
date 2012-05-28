@@ -3,4 +3,4 @@
     .board_container
       = render 'boards/board', board: @game.boards.last, game: @game
   %p
-    = link_to t('actions.back'), games_path
+    = link_to t('actions.back'), :back
