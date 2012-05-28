@@ -24,3 +24,5 @@ tmp/
 pkg
 .rvmrc
 /vendor/cache
+
+/public/assets

@@ -1,3 +1,7 @@
 .common_container#home_container
   %p
-    = link_to t('helpers.submit.sign_in'), new_user_session_path
+    - name = t('helpers.submit.sign_in')
+    - if Rails.env.production?
+      = link_to name, user_omniauth_authorize_path(:facebook)
+    - else
+      = link_to name, new_user_session_path

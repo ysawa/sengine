@@ -62,7 +62,12 @@ module Shogiengine
     # Enable the asset pipeline
     config.assets.enabled = true
     config.generators.stylesheet_engine = :sass
-    config.sass.preferred_syntax = :sass
+
+    if Rails.configuration.respond_to?(:sass)
+      Rails.configuration.sass.tap do |config|
+        config.preferred_syntax = :sass
+      end
+    end
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

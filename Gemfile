@@ -30,8 +30,7 @@ end
 # Use JQuery to improve JavaScript development
 gem 'jquery-rails'
 
-# Sass and Haml
-gem 'sass'
+# Haml
 gem 'haml'
 gem 'haml-rails'
 
@@ -57,7 +56,7 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.3', require: false
-  gem 'capybara-webkit', '0.8.0'
+  # gem 'capybara-webkit', '0.8.0'
 end
 
 group :development, :test do
