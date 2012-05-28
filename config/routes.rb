@@ -1,5 +1,8 @@
 Shogiengine::Application.routes.draw do
 
+  get "help/about", as: :about_help
+  get "help/usage", as: :usage_help
+
   devise_for :users, controllers: { omniauth_callbacks: "devise_omniauth_callbacks" }
 
   get "audio/encode/*filename", to: 'audio#encode'

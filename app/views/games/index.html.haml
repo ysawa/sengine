@@ -6,7 +6,6 @@
         %th= Game.human_attribute_name('sente_user')
         %th= Game.human_attribute_name('gote_user')
         %th
-        %th
 
     %tbody
       - @games.each do |game|
@@ -21,7 +20,6 @@
           %td
             - if gote_decorator
               = gote_decorator.name
-          %td= link_to t('actions.edit'), edit_game_path(game)
           %td= link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete
 
   %p

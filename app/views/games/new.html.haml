@@ -1,6 +1,7 @@
 .common_container
-  %h2 New game
+  %h2
+    新規対局
 
   = render 'form'
 
-  = link_to t('actions.back'), games_path
+  = link_to t('actions.back'), :back

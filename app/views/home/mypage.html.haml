@@ -1,5 +1,10 @@
 .common_container#home_container
-  %p
-    = link_to Game.model_name.human, games_path
-  %p
-    = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete
+  %ul.menu
+    %li
+      = link_to page_name('games', 'new'), new_game_path
+    %li
+      = link_to page_name('games', 'index'), games_path
+    %li
+      = link_to page_name('help', 'usage'), usage_help_path
+    %li
+      = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete

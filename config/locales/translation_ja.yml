@@ -1,10 +1,12 @@
 ja:
   actions:
+    about_app: 'このアプリについて'
     back: '戻る'
     destroy: '削除'
     edit: '編集'
     new: '新規作成'
     show: '詳細'
+    sign_in_and_start: 'ログインして始める'
   headers:
   helpers:
     submit:
