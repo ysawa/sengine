@@ -1,7 +1,11 @@
 !!!
 %html
   %head
-    %title Shogi Engine
+    %title
+      - if @subtitle
+        = @subtitle
+        \|
+      Shogi Engine
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags

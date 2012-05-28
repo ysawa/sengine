@@ -4,8 +4,10 @@ class HomeController < ApplicationController
 
   def index
     if user_signed_in?
+      make_subtitle(:mypage)
       render action: :mypage
     else
+      @subtitle = nil
       render action: :top
     end
   end

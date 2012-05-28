@@ -1,6 +1,9 @@
 ja:
   pages:
     controllers:
+      devise:
+        sessions:
+          new: 'ログイン'
       games:
         index: '過去の対局'
         new: '新規対局'
