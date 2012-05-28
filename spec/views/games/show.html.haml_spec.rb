@@ -6,7 +6,11 @@ describe "games/show" do
     @game.boards << Board.hirate
   end
 
-  it "renders attributes in <p>" do
+  it "renders a board with 81 cells" do
     render
+    # board should have 81 cells
+    assert_select '.board' do
+      assert_select '.cell', 81
+    end
   end
 end

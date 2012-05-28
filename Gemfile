@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,14 +10,14 @@ gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
 
 # Use Devise to authenticate users
-gem 'devise', '1.5.3'
+gem 'devise'
+gem 'omniauth-facebook'
 
 # Use The Decorator Pattern
-gem 'draper', '0.9.5'
+gem 'draper', '0.11.1'
 
 # Pagination
-gem 'kaminari', '0.12.4'
-
+gem 'kaminari', '0.13.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -24,15 +24,17 @@ describe "Games" do
   end
 
   describe "GET /games/1" do
+    before :each do
+      @sente_user = Fabricate(:user)
+      @gote_user = Fabricate(:user)
+      @game = Game.new
+      @game.boards << Board.hirate
+      @game.sente_user = @sente_user
+      @game.gote_user = @gote_user
+      @game.save
+    end
+
     context 'if user signed in' do
-      before :each do
-        @sente_user = Fabricate(:user)
-        @gote_user = Fabricate(:user)
-        @game = Game.new
-        @game.boards << Board.hirate
-        @game.sente_user = @sente_user
-        @game.gote_user = @gote_user
-      end
 
       it "works!" do
         user_sign_in_with_post(@sente_user, 'testtest')

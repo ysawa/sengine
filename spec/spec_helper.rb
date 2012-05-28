@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require 'spork'
 
 Spork.prefork do
@@ -11,6 +13,8 @@ Spork.prefork do
   require 'rspec/rails'
   require 'capybara/rspec'
   Capybara.javascript_driver = :webkit
+
+  require 'draper/rspec_integration'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -40,7 +44,7 @@ Spork.prefork do
     end
 
     # To test features using authentication
-    %w(controller view).each do |type|
+    %w(controller decorator view).each do |type|
       config.include Devise::TestHelpers, type: type.to_sym
       config.include DeviseAuthenticationHelper, type: type.to_sym
     end
