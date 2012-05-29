@@ -17,7 +17,7 @@ gem 'omniauth-facebook'
 gem 'draper', '0.11.1'
 
 # Pagination
-gem 'kaminari', '0.13.0'
+gem 'kaminari'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,6 +33,9 @@ gem 'jquery-rails'
 # Haml
 gem 'haml'
 gem 'haml-rails'
+
+# Borbon Sass Plugin
+gem 'bourbon'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

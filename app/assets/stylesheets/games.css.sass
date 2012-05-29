@@ -1,6 +1,7 @@
 @charset "utf-8"
 
 /* Initializers of the Sass */
+@import 'bourbon'
 @import 'common/helpers'
 
 $cell_size: 46px
@@ -8,7 +9,7 @@ $piece_size: $cell_size - 2px
 $line_color: #b37100
 
 @mixin piece
-  @include no_select
+  @include user-select(none)
   width: $piece_size
   height: $piece_size
   font-size: 15px
@@ -24,7 +25,7 @@ $line_color: #b37100
     @include rotate180
 
 @mixin corner_cell
-  @include no_select
+  @include user-select(none)
   font-size: 11px
   text-align: center
   font-weight: bold
@@ -34,14 +35,14 @@ $line_color: #b37100
     @include rotate180
 
 .board
-  @include no_select
+  @include user-select(none)
   border: 1px solid $line_color
   width: $cell_size * 10 + 4px
   height: $cell_size * 10 + 4px
   .row
     @include clearfix
     .cell
-      @include no_select
+      @include user-select(none)
       float: left
       border: 1px solid $line_color
       width: $piece_size
@@ -76,14 +77,14 @@ $line_color: #b37100
       height: $piece_size + 2px
       line-height: $piece_size + 2px
 .in_hand
-  @include no_select
+  @include user-select(none)
   width: $cell_size * 9 + 2px
   height: $cell_size
   .pieces
     .row
       @include clearfix
       .cell
-        @include no_select
+        @include user-select(none)
         float: left
         width: $piece_size + 2px
         height: $piece_size + 2px

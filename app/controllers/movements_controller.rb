@@ -12,7 +12,7 @@ class MovementsController < ApplicationController
     @game.make_board_from_movement(@movement)
     respond_to do |format|
       format.js { render text: 'OK', content_type: Mime::TEXT }
-      format.html { redirect_to game_url(@game) }
+      format.html { redirect_to game_path(@game) }
     end
   end
 

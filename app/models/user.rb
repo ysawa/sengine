@@ -15,7 +15,7 @@ class User
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
   def games
-    Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
+    @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
   end
 
   class << self

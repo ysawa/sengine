@@ -41,13 +41,6 @@ describe "Games" do
         get game_path(@game)
         response.status.should be(200)
       end
-
-      describe 'tests with js', js: true do
-        it 'page successfully' do
-          user_sign_in_with_visit(@sente_user, 'testtest')
-          visit game_path(@game)
-        end
-      end
     end
 
     context 'if user NOT signed in' do

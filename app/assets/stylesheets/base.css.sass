@@ -1,6 +1,7 @@
 @charset "utf-8"
 
 /* Initializers of the Sass */
+@import 'bourbon'
 @import 'common/helpers'
 
 html
@@ -45,7 +46,7 @@ em
     background-color: #ffe5e5
     border: 1px solid #ffb8b8
 
-input[type="text"], input[type="password"], input[type="search"], input[type="email"]
+#{$all-text-inputs}
   line-height: 16px
   font-size: 12px
   height: 18px
@@ -85,7 +86,7 @@ select
   font-size: 12px
 input[type="submit"]
   &.send
-    @include rounded(3px)
+    @include border-radius(3px)
     cursor: pointer
     background: #17375e
     color: #fff

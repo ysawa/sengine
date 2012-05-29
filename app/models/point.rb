@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+# point in a board
+# x: 1 to 9
+# y: 1 to 9
 class Point
   include Mongoid::Fields::Serializable
 

@@ -23,7 +23,7 @@ class GamesController < ApplicationController
     if @game.save
       @game.boards << Board.hirate
       @game.save
-      flash[:notice] = "Game successfully created"
+      make_game_notice
       respond_with(@game)
     else
       render :new
@@ -32,8 +32,10 @@ class GamesController < ApplicationController
 
   # DELETE /games/1
   def destroy
-    flash[:notice] = "Game successfully destroyed." if @game.destroy
-    respond_with(@game, location: games_url)
+    if @game.destroy
+      make_game_notice
+    end
+    respond_with(@game, location: games_path)
   end
 
   # GET /games/1/edit
@@ -45,12 +47,14 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    respond_with(@games = Game.all)
+    @games = Game.all
+    respond_with(@games)
   end
 
   # GET /games/new
   def new
-    respond_with(@game = Game.new)
+    @game = Game.new
+    respond_with(@game)
   end
 
   # GET /games/1
@@ -61,7 +65,7 @@ class GamesController < ApplicationController
   # PUT /games/1
   def update
     if @game.update_attributes(params[:game])
-      flash[:notice] = "Game successfully updated."
+      make_game_notice
       respond_with(@game)
     else
       render :edit
@@ -71,5 +75,9 @@ class GamesController < ApplicationController
 private
   def find_game
     @game = Game.find(params[:id])
+  end
+
+  def make_game_notice
+    make_notice(Game.model_name.human)
   end
 end

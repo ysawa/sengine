@@ -19,6 +19,11 @@ ja:
       new_password: 'パスワード再発行'
   honorific:
     human: '%{model}様'
+  notices:
+    create: '%{model}は作成されました。'
+    destroy: '%{model}は削除されました。'
+    save: '%{model}は保存されました。'
+    update: '%{model}は更新されました。'
   please:
     check: 'チェックしてください'
     check_: 'チェックしてください。'
