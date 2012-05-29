@@ -32,5 +32,21 @@ describe AudioController do
         response.header['Content-Type'].should match(/text\/plain;/)
       end
     end
+
+    context 'with ogg format' do
+      before :each do
+        get 'encode', filename: 'put', format: 'ogg'
+      end
+
+      it "returns http success" do
+        response.should be_success
+      end
+
+      it "render text of encoded Data URI Scheme" do
+        response.body.should match /^data:audio\/ogg/
+        response.header['Content-Type'].should match(/text\/plain;/)
+      end
+    end
+
   end
 end

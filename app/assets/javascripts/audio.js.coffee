@@ -6,6 +6,8 @@ $.extend
     if @audio_tag_support
       if ("" != audio.canPlayType("audio/mpeg"))
         '.mp3'
+      else if ("" != audio.canPlayType("audio/ogg"))
+        '.ogg'
       else
         '.wav'
     else
