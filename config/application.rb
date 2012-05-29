@@ -59,6 +59,8 @@ module Shogiengine
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
 
+    config.middleware.use Rack::Pjax
+
     # Enable the asset pipeline
     config.assets.enabled = true
     config.generators.stylesheet_engine = :sass

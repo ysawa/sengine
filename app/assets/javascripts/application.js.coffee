@@ -12,7 +12,7 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require pjax
+#= require jquery.pjax
 #= require_self
 #= require jquery.i18n
 #= require locales/ja
@@ -21,4 +21,4 @@
 #= require_directory .
 
 $ ->
-
+  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')

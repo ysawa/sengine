@@ -20,7 +20,8 @@ gem 'draper', '0.11.1'
 gem 'kaminari'
 
 # Pjax
-gem 'pjax_rails'
+# gem 'pjax_rails'
+gem 'rack-pjax'
 
 # Gems used only for assets and not required
 # in production environments by default.
