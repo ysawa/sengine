@@ -10,13 +10,13 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    #global_head
+    %header#global_head
       .inner
         = render 'common/global_head'
-    #global_body
-      .inner
+    %section#global_body
+      .inner{ 'data-pjax-container' => true }
         = yield
-    #global_foot
+    %footer#global_foot
       .inner
         = render 'common/global_foot'
     = render 'common/notice'

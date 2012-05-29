@@ -12,6 +12,7 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require pjax
 #= require_self
 #= require jquery.i18n
 #= require locales/ja

@@ -19,6 +19,9 @@ gem 'draper', '0.11.1'
 # Pagination
 gem 'kaminari'
 
+# Pjax
+gem 'pjax_rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
