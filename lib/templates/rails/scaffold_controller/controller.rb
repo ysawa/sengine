@@ -18,7 +18,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def destroy
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
     flash[:notice] = "<%= class_name %> successfully destroyed." if @<%= orm_instance.destroy %>
-    respond_with(@<%= singular_table_name %>, location: <%= plural_table_name %>_url)
+    respond_with(@<%= singular_table_name %>, location: <%= plural_table_name %>_path)
   end
 
   # GET <%= route_url %>/1/edit
