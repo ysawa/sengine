@@ -1,5 +1,7 @@
 require 'spec_helper'
 
-describe "help/usage.html.haml" do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe "help/usage" do
+  it "renders help/usage" do
+    render
+  end
 end

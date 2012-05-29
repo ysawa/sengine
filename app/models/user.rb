@@ -12,10 +12,10 @@ class User
 
   field :facebook_id, type: Integer
   field :facebook_username, type: String
-  field :gender, type: String
-  field :locale, type: String
-  field :name, type: String
-  field :timezone, type: Integer
+  field :gender, type: String, default: 'male'
+  field :locale, type: String, default: 'ja_JP'
+  field :name, type: String, default: 'Unknown'
+  field :timezone, type: Integer, default: 0
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
   has_many :gote_games, class_name: 'Game', inverse_of: :gote_user

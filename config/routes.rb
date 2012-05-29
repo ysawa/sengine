@@ -1,5 +1,7 @@
 Shogiengine::Application.routes.draw do
 
+  get "setting", to: "setting#index", as: :setting
+
   get "help/about", as: :about_help
   get "help/usage", as: :usage_help
 

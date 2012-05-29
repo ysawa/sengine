@@ -13,3 +13,5 @@ ja:
       home:
         mypage: 'マイページ'
         top: 'トップ'
+      setting:
+        index: '設定'
