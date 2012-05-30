@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
 
 class ApplicationDecorator < Draper::Base
-  # Shared Decorations
-  #   Consider defining shared methods common to all your models.
-  #
-  #   Example: standardize the formatting of timestamps
-  #
-  #   def formatted_timestamp(time)
-  #     h.content_tag :span, time.strftime("%a %m/%d/%y"),
-  #                   :class => 'timestamp'
-  #   end
-  #
-  #   def created_at
-  #     formatted_timestamp(model.created_at)
-  #   end
-  #
-  #   def updated_at
-  #     formatted_timestamp(model.updated_at)
-  #   end
+
+  %w(created_at updated_at).each do |attr_name|
+    class_eval <<-EOS
+      def #{attr_name}(options = {})
+        time = model.read_attribute(:#{attr_name})
+        localize_time(time, options)
+      end
+    EOS
+  end
+
+  def localize_date(date, options = {})
+    if date
+      target = date.to_date
+      I18n.l(target, options)
+    end
+  end
+
+  def localize_time(time, options = {})
+    if time
+      target = time.to_time
+      I18n.l(target, options)
+    end
+  end
 end

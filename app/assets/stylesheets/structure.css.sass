@@ -11,14 +11,24 @@
 header#global_head
   @include common_inner
   & > .inner
+    @include clearfix
     background-color: #eee
+    $logo_width: 400px
     h1
       padding: 10px
       font-size: 24px
+      line-height: 1
       color: #000
+      width: $logo_width - 20px
+      float: left
       a
         color: #000
         text-decoration: none
+    aside
+      width: $max_width - $logo_width - 20px
+      padding: 10px
+      line-height: 1
+      float: left
 section#global_body
   @include common_inner
 footer#global_foot

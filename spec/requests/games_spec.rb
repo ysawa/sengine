@@ -6,12 +6,19 @@ describe "Games" do
     context 'if user signed in' do
       before :each do
         @current_user = Fabricate(:user)
-        user_sign_in_with_post(@current_user, 'testtest')
       end
 
       it "works!" do
+        user_sign_in_with_post(@current_user, 'testtest')
         get games_path
         response.status.should be(200)
+      end
+
+      it 'the page can be accessed from mypage' do
+        user_sign_in_with_visit(@current_user, 'testtest')
+        visit root_path
+        click_link I18n.t('pages.controllers.games.index')
+        page.should have_selector 'table.resources'
       end
     end
 

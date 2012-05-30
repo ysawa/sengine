@@ -22,3 +22,9 @@
 
 $ ->
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
+
+$.fn.extend
+  blank: ->
+    this.size() == 0
+  present: ->
+    this.size() > 0

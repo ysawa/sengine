@@ -16,6 +16,12 @@ module IntegrationTestHelper
     end
   end
 
+  def setup_controller_request
+    c = ApplicationController.new
+    c.request = ActionDispatch::TestRequest.new
+    c.set_current_view_context
+  end
+
   %w(user).each do |resource_name|
     resource_table_name = resource_name.tableize
     class_eval <<-EOS

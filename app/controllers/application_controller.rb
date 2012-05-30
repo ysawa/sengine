@@ -25,4 +25,21 @@ protected
       @subtitle = nil
     end
   end
+
+  def set_locale
+    locale = nil
+    if user_signed_in?
+      locale = current_user.locale.sub(/_.*$/, '')
+    end
+    locale ||= I18n.default_locale
+    I18n.locale = locale
+  end
+
+  def set_timezone
+    timezone = nil
+    if user_signed_in?
+      timezone = current_user.timezone
+    end
+    timezone ||= Time.zone_default
+  end
 end

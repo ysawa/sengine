@@ -14,15 +14,24 @@ class User
   field :facebook_username, type: String
   field :gender, type: String, default: 'male'
   field :locale, type: String, default: 'ja_JP'
-  field :name, type: String, default: 'Unknown'
+  field :name, type: String
   field :timezone, type: Integer, default: 0
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
   has_many :gote_games, class_name: 'Game', inverse_of: :gote_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
+  after_validation :setup_name
+
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
+  end
+
+  def setup_name
+    if self.name.blank? && self.email
+      self.name = self.email.sub(/@.*$/, '')
+    end
+    true
   end
 
   class << self
@@ -31,7 +40,7 @@ class User
       user = where(email: data.email).first
       unless user
         # Create a user with a stub password.
-        user = create(:email => data.email, :password => Devise.friendly_token[0,20])
+        user = new(:email => data.email, :password => Devise.friendly_token[0,20])
       end
       user.facebook_id = data.id
       user.name = data.name

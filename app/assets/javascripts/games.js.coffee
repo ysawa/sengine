@@ -2,11 +2,13 @@ $ ->
   initialize_game = ->
     setInterval(
       ->
-        game_number = $('.board').attr('number')
-        $.get(
-          "/games/#{game_id}/check_update",
-          number: game_number
-        )
+        if $('.board').present()
+          game_number = $('.board').attr('number')
+          game_id = $('.board').attr('game_id')
+          $.get(
+            "/games/#{game_id}/check_update",
+            number: game_number
+          )
       , 1000
     )
     $.initialize_audio('put')
@@ -115,6 +117,5 @@ $ ->
         $('.board').attr('turn', 'gote')
       else
         $('.board').attr('turn', 'sente')
-  if $('.board').size() == 1
-    initialize_game()
+  initialize_game()
 

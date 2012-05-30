@@ -4,10 +4,11 @@ $.extend
   find_enabled_audio_format: ->
     audio = new Audio("")
     if @audio_tag_support
-      if ("" != audio.canPlayType("audio/mpeg"))
-        '.mp3'
-      else if ("" != audio.canPlayType("audio/ogg"))
+      # select the supported and shortest audio format
+      if ("" != audio.canPlayType("audio/ogg"))
         '.ogg'
+      else if ("" != audio.canPlayType("audio/mpeg"))
+        '.mp3'
       else
         '.wav'
     else

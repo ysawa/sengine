@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe PieceDecorator do
-  before { ApplicationController.new.set_current_view_context }
+  before :each do
+    setup_controller_request
+  end
 end

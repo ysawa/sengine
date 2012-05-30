@@ -1,3 +1,5 @@
 %h1
   = link_to 'Shogi Engine', root_path
+%aside
+  = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete
 

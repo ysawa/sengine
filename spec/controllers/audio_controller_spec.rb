@@ -47,6 +47,5 @@ describe AudioController do
         response.header['Content-Type'].should match(/text\/plain;/)
       end
     end
-
   end
 end

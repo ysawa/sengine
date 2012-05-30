@@ -1,4 +1,5 @@
 .common_container
+  %h2= @subtitle
   - if @game.boards.present?
     .board_container
       = render 'boards/board', board: @game.boards.last, game: @game
