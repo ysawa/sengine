@@ -1,5 +1,7 @@
 %h1
-  = link_to 'Shogi Engine', root_path
+  = link_to site_title, root_path
 %aside
-  = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete
-
+  - if flash[:notice].present?
+    = flash[:notice]
+  - if user_signed_in?
+    = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete

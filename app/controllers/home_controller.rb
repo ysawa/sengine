@@ -9,6 +9,7 @@ class HomeController < ApplicationController
       render action: :mypage
     else
       @subtitle = nil
+      @top_page = true
       render action: :top
     end
   end

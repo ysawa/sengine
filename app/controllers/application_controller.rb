@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :make_subtitle
+  before_filter :set_top_page_as_false
 protected
   def make_notice(model_name, ref_name = nil, notice_now = false)
     ref_name ||= action_name
@@ -41,5 +42,9 @@ protected
       timezone = current_user.timezone
     end
     timezone ||= Time.zone_default
+  end
+
+  def set_top_page_as_false
+    @top_page = false
   end
 end

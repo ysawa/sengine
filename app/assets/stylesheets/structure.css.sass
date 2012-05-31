@@ -14,10 +14,13 @@ header#global_head
     @include clearfix
     background-color: #eee
     $logo_width: 400px
+    $height: 44px
+    $inner_height: 24px
     h1
       padding: 10px
       font-size: 24px
-      line-height: 1
+      height: $inner_height
+      line-height: $inner_height
       color: #000
       width: $logo_width - 20px
       float: left
@@ -25,9 +28,11 @@ header#global_head
         color: #000
         text-decoration: none
     aside
+      text-align: right
       width: $max_width - $logo_width - 20px
       padding: 10px
-      line-height: 1
+      line-height: $inner_height
+      height: $inner_height
       float: left
 section#global_body
   @include common_inner

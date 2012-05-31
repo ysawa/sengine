@@ -2,10 +2,10 @@
 %html
   %head
     %title
-      - if @subtitle
-        = @subtitle
-        \|
-      Shogi Engine
+      - if @top_page
+        = site_title
+      - else
+        = site_title @subtitle
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags

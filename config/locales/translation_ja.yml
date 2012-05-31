@@ -42,3 +42,6 @@ ja:
       last_name_kana: '苗字(カナ)'
       first_name: '名前'
       first_name_kana: '名前(カナ)'
+  site:
+    copyright: '(c) 2012 将棋友の会.'
+    title: 'ShogiMatch'

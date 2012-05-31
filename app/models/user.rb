@@ -12,7 +12,7 @@ class User
 
   field :facebook_id, type: Integer
   field :facebook_username, type: String
-  field :gender, type: String, default: 'male'
+  field :gender, type: String
   field :locale, type: String, default: 'ja_JP'
   field :name, type: String
   field :timezone, type: Integer, default: 0

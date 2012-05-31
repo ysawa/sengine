@@ -49,7 +49,7 @@ Spork.prefork do
       config.include DeviseAuthenticationHelper, type: type.to_sym
     end
 
-    %w(request).each do |type|
+    %w(decorator request view).each do |type|
       config.include IntegrationTestHelper, type: type.to_sym
     end
 
