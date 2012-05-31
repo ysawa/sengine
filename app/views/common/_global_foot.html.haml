@@ -1,2 +1,5 @@
 %p
+  - if user_signed_in?
+    = link_to page_name('home', 'mypage'), root_path
+    = link_to page_name('help', 'usage'), usage_help_path
   = t('site.copyright')

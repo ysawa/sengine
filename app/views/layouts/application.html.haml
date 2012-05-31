@@ -16,7 +16,7 @@
     %section#global_body
       .inner{ 'data-pjax-container' => true }
         = yield
+        = render 'common/notice'
     %footer#global_foot
       .inner
         = render 'common/global_foot'
-    = render 'common/notice'
