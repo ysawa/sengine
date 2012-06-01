@@ -1,0 +1,5 @@
+.common_container#setting_container
+  %h2= @subtitle
+  = render 'users/profile', user: current_user
+  %p
+    = link_to t('actions.edit'), edit_setting_path

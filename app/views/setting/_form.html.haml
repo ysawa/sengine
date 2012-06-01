@@ -1,0 +1,7 @@
+= form_for(current_user, url: setting_path) do |f|
+  .field
+    = f.label :name
+    %br
+    = f.text_field :name
+  .actions
+    = f.submit t('helpers.submit.save')

@@ -20,10 +20,10 @@ ja:
   honorific:
     human: '%{model}様'
   notices:
-    create: '%{model}は作成されました。'
-    destroy: '%{model}は削除されました。'
-    save: '%{model}は保存されました。'
-    update: '%{model}は更新されました。'
+    create: '%{model}を作成しました。'
+    destroy: '%{model}を削除しました。'
+    save: '%{model}を保存しました。'
+    update: '%{model}を更新しました。'
   please:
     check: 'チェックしてください'
     check_: 'チェックしてください。'
@@ -42,6 +42,8 @@ ja:
       last_name_kana: '苗字(カナ)'
       first_name: '名前'
       first_name_kana: '名前(カナ)'
+    setting:
+      human: '設定'
   site:
     copyright: '(c) 2012 将棋友の会.'
     title: 'ShogiMatch'

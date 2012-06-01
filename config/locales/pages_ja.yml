@@ -14,4 +14,5 @@ ja:
         mypage: 'マイページ'
         top: 'トップ'
       setting:
-        index: '設定'
+        edit: '設定'
+        show: '設定'
