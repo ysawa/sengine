@@ -4,7 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :make_subtitle
   before_filter :set_top_page_as_false
+  before_filter
 protected
+
+  def load_facebook_token
+    if session[:facebook_token].present?
+      @facebook_token = session[:facebook_token]
+    else
+      @facebook_token = nil
+    end
+  end
+
   def make_notice(model_name, ref_name = nil, notice_now = false)
     ref_name ||= action_name
     notice_message = I18n.t("notices.#{ref_name}", model: model_name)
@@ -25,6 +35,10 @@ protected
     else
       @subtitle = nil
     end
+  end
+
+  def save_facebook_token(token)
+    session[:facebook_token] = token.to_s
   end
 
   def set_locale
