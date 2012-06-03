@@ -1,5 +1,4 @@
 Shogiengine::Application.routes.draw do
-
   get "about/game", as: :about_game
   get "about/us", as: :about_us
 
@@ -15,6 +14,8 @@ Shogiengine::Application.routes.draw do
       get :check_update
     end
   end
+
+  get "profile/:id", to: "profile#show", as: :profile
 
   get "setting", to: "setting#show", as: :setting
   get "setting/edit", to: "setting#edit", as: :edit_setting

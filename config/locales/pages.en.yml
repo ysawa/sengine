@@ -17,6 +17,8 @@ en:
       home:
         mypage: 'MyPage'
         top: 'Top'
+      profile:
+        show: 'Profile'
       setting:
         edit: 'Setting'
         show: 'Setting'

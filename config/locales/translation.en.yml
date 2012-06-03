@@ -38,6 +38,7 @@ en:
       sente: 'Black'
       gote: 'White'
   user:
+    comment: 'Comment'
     date:
       western: ''
       year: ''
@@ -50,8 +51,6 @@ en:
       en: 'English'
       ja: 'Japanese'
     opponent: 'Opponent'
-    setting:
-      human: 'Setting'
   site:
     copyright: '(c) 2012 将棋友の会.'
     title: 'ShogiMatch'

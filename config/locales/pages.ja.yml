@@ -17,6 +17,8 @@ ja:
       home:
         mypage: 'マイページ'
         top: 'トップ'
+      profile:
+        show: 'プロフィール'
       setting:
         edit: '設定'
         show: '設定'

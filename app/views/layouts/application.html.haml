@@ -23,7 +23,9 @@
         = render 'common/notice'
         - if Rails.env.production?
           :javascript
-            FB.XFBML.parse();
+            if (typeof FB !== "undefined") {
+              FB.XFBML.parse();
+            }
     %footer#global_foot
       .inner
         = render 'common/global_foot'

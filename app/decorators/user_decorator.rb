@@ -28,9 +28,17 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
-  def name
-    if model.email
-      model.email.sub(/@.*$/, '')
+  def name(link = true)
+    human_name = nil
+    if model.name?
+      human_name = model.name
+    elsif model.email?
+      human_name = model.email.sub(/@.*$/, '')
+    end
+    if link
+      h.link_to human_name, h.profile_path(model.id)
+    else
+      human_name
     end
   end
 
