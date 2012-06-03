@@ -11,7 +11,7 @@
     - User.where(:_id.ne => current_user.id).limit(10).each do |user|
       - user_decorator = UserDecorator.new(user)
       = user_decorator.image
-      = user_decorator.name
+      = user_decorator.name(false)
       = radio_button_tag 'game_opponent_id', user.id.to_s, false, class: :required
   .actions
     = f.submit t('helpers.submit.play_game'), class: :send
