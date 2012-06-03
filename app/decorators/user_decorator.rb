@@ -6,7 +6,7 @@ class UserDecorator < ApplicationDecorator
   def gender
     case model.gender
     when 'male'
-      I18n.t("user.genders.male")
+      I18n.t("user.gender.male")
     when 'female'
       I18n.t("user.genders.female")
     else

@@ -15,23 +15,31 @@ class User
   field :gender, type: String
   field :locale, type: String, default: 'ja_JP'
   field :name, type: String
-  field :timezone, type: Integer, default: 0
+  field :timezone, type: Integer, default: 9
+  field :timezone_string, type: Integer
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
   has_many :gote_games, class_name: 'Game', inverse_of: :gote_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
   after_validation :setup_name
+  after_validation :setup_timezone
 
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
   end
 
   def setup_name
-    if self.name.blank? && self.email
+    if self.name.blank? && self.email? && self.email_changed?
       self.name = self.email.sub(/@.*$/, '')
     end
     true
+  end
+
+  def setup_timezone
+    if self.timezone_string? && self.timezone_string_changed?
+      self.timezone = ActiveSupport::TimeZone[self.timezone_string].utc_offset / 3600
+    end
   end
 
   class << self

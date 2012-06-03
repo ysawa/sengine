@@ -14,7 +14,7 @@
       - gote_decorator = game.gote_user ? UserDecorator.new(game.gote_user) : nil
       %tr
         %td
-          = link_to l(game.created_at), game
+          = link_to decorator.created_at, game
         %td
           - if sente_decorator
             = sente_decorator.name

@@ -3,5 +3,9 @@
     = f.label :name
     %br
     = f.text_field :name
+  .field
+    = f.label :timezone_string
+    %br
+    = f.time_zone_select :timezone_string, nil, :include_blank => true
   .actions
     = f.submit t('helpers.submit.save'), class: :send

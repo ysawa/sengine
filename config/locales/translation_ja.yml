@@ -33,7 +33,7 @@ ja:
     check_: 'チェックしてください。'
     select: '選択してください'
   game:
-    order:
+    orders:
       random: 'おまかせ'
       sente: '先手'
       gote: '後手'

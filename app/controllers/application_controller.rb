@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :make_subtitle
   before_filter :set_top_page_as_false
-  before_filter
+  before_filter :set_locale
+  before_filter :set_timezone
 protected
 
   def load_facebook_token
@@ -53,9 +54,14 @@ protected
   def set_timezone
     timezone = nil
     if user_signed_in?
-      timezone = current_user.timezone
+      if current_user.timezone_string?
+        timezone = current_user.timezone_string
+      else
+        timezone = ActiveSupport::TimeZone[current_user.timezone]
+      end
     end
     timezone ||= Time.zone_default
+    Time.zone = timezone
   end
 
   def set_top_page_as_false

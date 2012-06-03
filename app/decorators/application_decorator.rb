@@ -20,7 +20,7 @@ class ApplicationDecorator < Draper::Base
 
   def localize_time(time, options = {})
     if time
-      target = time.to_time
+      target = time.to_time.in_time_zone
       I18n.l(target, options)
     end
   end
