@@ -14,3 +14,12 @@
 %h3= User.human_attribute_name('timezone')
 %p
   = decorator.timezone
+%h3= User.human_attribute_name('games')
+%p
+  = user.sente_games.count + user.gote_games.count
+%h3= User.human_attribute_name('won_games')
+%p
+  = user.won_games.count
+%h3= User.human_attribute_name('lost_games')
+%p
+  = user.lost_games.count

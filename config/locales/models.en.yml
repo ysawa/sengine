@@ -47,6 +47,7 @@ en:
         gote_games: 'White Games'
         image: 'Image'
         locale: 'Locale'
+        lost_games: 'Lost Games'
         name: 'Name'
         password: 'Password'
         password_confirmation: 'Password Confirmation'
@@ -54,3 +55,4 @@ en:
         sente_games: 'Black Games'
         timezone: 'Time Zone'
         timezone_string: 'Time Zone'
+        won_games: 'Won Games'

@@ -47,6 +47,7 @@ ja:
         gote_games: '後手の対局'
         image: '画像'
         locale: '言語'
+        lost_games: '負けた対局'
         name: '名前'
         password: 'パスワード'
         password_confirmation: 'パスワード(確認)'
@@ -54,3 +55,4 @@ ja:
         sente_games: '先手の対局'
         timezone: 'タイムゾーン'
         timezone_string: 'タイムゾーン'
+        won_games: '勝った対局'
