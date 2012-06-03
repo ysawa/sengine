@@ -8,6 +8,8 @@ ja:
         game: 'このゲームについて'
         us: '運営者情報'
       games:
+        created_at: '開始時刻'
+        finished_at: '終了時刻'
         index: '過去の対局'
         new: '新規対局'
       help:

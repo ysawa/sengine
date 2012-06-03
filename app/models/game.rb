@@ -27,6 +27,12 @@ class Game
     result
   end
 
+  class << self
+    def of_user(user)
+      criteria.any_of({ sente_user_id: user.id }, { gote_user_id: user.id })
+    end
+  end
+
 private
   def destroy_boards
     self.boards.destroy_all
