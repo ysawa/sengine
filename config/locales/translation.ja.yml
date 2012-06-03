@@ -38,6 +38,8 @@ ja:
       sente: '先手'
       gote: '後手'
   user:
+    comment:
+      human: 'コメント'
     date:
       western: '西暦'
       year: '年'

@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ 'xmlns:fb' => "http://ogp.me/ns/fb#" }
   %head
     %title
       - if @top_page
@@ -12,6 +12,8 @@
     - if Rails.env.production?
       = render 'common/google_analytics'
   %body
+    - if Rails.env.production?
+      = render 'common/facebook_javascript_sdk'
     %header#global_head
       .inner
         = render 'common/global_head'
@@ -19,6 +21,9 @@
       .inner{ 'data-pjax-container' => true }
         = yield
         = render 'common/notice'
+        - if Rails.env.production?
+          :javascript
+            FB.XFBML.parse();
     %footer#global_foot
       .inner
         = render 'common/global_foot'

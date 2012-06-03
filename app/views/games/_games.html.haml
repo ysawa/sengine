@@ -5,6 +5,8 @@
       - %w(sente_user gote_user number).each do |attr_name|
         %th= Game.human_attribute_name(attr_name)
       %th
+        = t('user.comment.human')
+      %th
         &nbsp;
 
   %tbody
@@ -23,6 +25,8 @@
             = gote_decorator.name
         %td
           = decorator.number
+        %td
+          = decorator.facebook_comments_count
         %td
           - if game.of_user? current_user
             = link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete

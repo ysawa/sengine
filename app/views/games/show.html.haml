@@ -3,3 +3,5 @@
   - if @game.boards.present?
     #game.board_container
       = render 'boards/board', board: @game.boards.last, game: @game
+  - if Rails.env.production?
+    = render 'games/facebook_comments', game: @game
