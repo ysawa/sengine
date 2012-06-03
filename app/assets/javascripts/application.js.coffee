@@ -25,6 +25,8 @@
 $ ->
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
   $('form.validated').validate()
+  $('a.see_more').live 'click', ->
+    $(this).hide()
 
 $.extend
   notice: (message) ->
