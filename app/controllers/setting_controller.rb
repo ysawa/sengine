@@ -22,6 +22,6 @@ class SettingController < ApplicationController
   end
 private
   def make_setting_notice
-    make_notice(t('user.setting.human'))
+    make_notice(t('user.setting'))
   end
 end

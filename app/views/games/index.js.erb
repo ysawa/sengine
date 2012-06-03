@@ -1,2 +1,5 @@
 $('nav.next_game').before('<%= escape_javascript(render 'games/games', games: @games) %>');
 $('nav.next_game:last').remove();
+if (typeof FB !== "undefined") {
+  FB.XFBML.parse();
+}
