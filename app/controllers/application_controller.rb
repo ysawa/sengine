@@ -2,10 +2,10 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :make_subtitle
   before_filter :set_top_page_as_false
   before_filter :set_locale
   before_filter :set_timezone
+  before_filter :make_subtitle
 protected
 
   def load_facebook_token
