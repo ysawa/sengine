@@ -3,6 +3,7 @@
 class ProfileController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
+  before_filter :find_user
 
   def show
     respond_with(@user)
