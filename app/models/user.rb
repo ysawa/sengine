@@ -12,9 +12,12 @@ class User
 
   field :facebook_id, type: Integer
   field :facebook_username, type: String
+  field :email, type: String
+  field :encrypted_password, type: String
   field :gender, type: String
   field :locale, type: String, default: 'ja_JP'
   field :name, type: String
+  field :remember_created_at, type: Time
   field :timezone, type: Integer, default: 9
   field :timezone_string, type: Integer
 

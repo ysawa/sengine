@@ -4,7 +4,8 @@ Shogiengine::Application.routes.draw do
 
   get "help", to: 'help#index', as: :help
 
-  devise_for :users, controllers: { omniauth_callbacks: "devise_omniauth_callbacks" }
+  devise_for :users,
+    controllers: { omniauth_callbacks: "devise_omniauth_callbacks", sessions: "devise_sessions" }
 
   get "audio/encode/*filename", to: 'audio#encode'
 

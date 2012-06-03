@@ -9,7 +9,7 @@ ja:
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
-    sessions:
+    devise_sessions:
       signed_in: 'ログインしました。'
       signed_out: 'ログアウトしました。'
     passwords:

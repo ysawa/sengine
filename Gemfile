@@ -10,7 +10,7 @@ gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
 
 # Use Devise to authenticate users
-gem 'devise'
+gem 'devise', '2.1.0'
 gem 'omniauth-facebook'
 
 # Use The Decorator Pattern
