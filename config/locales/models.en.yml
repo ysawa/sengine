@@ -5,7 +5,7 @@ en:
       game: 'Game'
       movement: 'Movement'
       piece: 'Piece'
-      user: 'User'
+      user: 'Player'
     attributes:
       board:
         game: 'Game'
@@ -16,10 +16,12 @@ en:
       game:
         author: 'Author'
         boards: 'Boards'
+        gote_user: 'White Player'
+        lost_user: 'Lost Player'
         movements: 'Movements'
         number: 'Number'
-        sente_user: 'Black User'
-        gote_user: 'White User'
+        sente_user: 'Black Player'
+        won_user: 'Won Player'
       movement:
         board: 'Board'
         from_point: 'From Point'

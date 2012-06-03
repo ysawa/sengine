@@ -5,10 +5,13 @@ class Game
   include Mongoid::Timestamps
   field :finished_at, type: Time
   field :number, type: Integer, default: 0
+  field :playing, type: Boolean, default: true
   has_many :boards
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games
   belongs_to :gote_user, class_name: 'User', inverse_of: :gote_games
+  belongs_to :won_user, class_name: 'User', inverse_of: :won_games
+  belongs_to :lost_user, class_name: 'User', inverse_of: :lost_games
   belongs_to :author, class_name: 'User', inverse_of: :created_games
   before_destroy :destroy_boards
 

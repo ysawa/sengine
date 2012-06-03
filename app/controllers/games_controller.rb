@@ -3,13 +3,15 @@
 class GamesController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user!
-  before_filter :find_game, only: [:check_update, :destroy, :edit, :show, :update]
+  before_filter :find_game, only: [:check_update, :destroy, :edit, :give_up, :show, :update]
 
   # GET /games/1/check_update
   def check_update
     number = @game.boards.count
     if params[:number].to_i < number
       render
+    elsif @game.won_user == current_user
+      render action: :won
     else
       result = 'NO UPDATE'
       render text: result, content_type: Mime::TEXT
@@ -42,6 +44,23 @@ class GamesController < ApplicationController
   def edit
     respond_with(@game) do |format|
       format.html { render action: :edit }
+    end
+  end
+
+  # PUT /games/1/give_up
+  def give_up
+    if current_user == @game.sente_user
+      @game.won_user = @game.gote_user
+      @game.lost_user = @game.sente_user
+    else
+      @game.lost_user = @game.gote_user
+      @game.won_user = @game.sente_user
+    end
+    @game.playing = false
+    if @game.save
+      redirect_to game_path(@game)
+    else
+      render :show
     end
   end
 

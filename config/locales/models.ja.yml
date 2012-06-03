@@ -16,10 +16,12 @@ ja:
       game:
         author: '作成者'
         boards: '局面'
+        gote_user: '後手'
+        lost_user: '敗者'
         movements: '棋譜'
         number: '手数'
         sente_user: '先手'
-        gote_user: '後手'
+        won_user: '勝者'
       movement:
         board: '局面'
         from_point: 'から'

@@ -13,6 +13,7 @@ Shogiengine::Application.routes.draw do
     resources :movements
     member do
       get :check_update
+      put :give_up
     end
   end
 

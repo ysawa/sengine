@@ -28,6 +28,8 @@ class User
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
   has_many :gote_games, class_name: 'Game', inverse_of: :gote_user
+  has_many :won_games, class_name: 'Game', inverse_of: :won_user
+  has_many :lost_games, class_name: 'Game', inverse_of: :lost_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
   after_validation :setup_name

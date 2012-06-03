@@ -19,6 +19,10 @@ describe GamesController do
       get("/games/1/edit").should route_to("games#edit", :id => "1")
     end
 
+    it "routes to #give_up" do
+      put("/games/1/give_up").should route_to("games#give_up", :id => "1")
+    end
+
     it "routes to #create" do
       post("/games").should route_to("games#create")
     end

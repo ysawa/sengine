@@ -1,0 +1,4 @@
+<%- if current_user == @game.won_user %>
+  alert('You won!');
+  window.location.href = "<%= game_url(@game) %>";
+<%- end %>

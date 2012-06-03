@@ -2,7 +2,7 @@ $ ->
   initialize_game = ->
     setInterval(
       ->
-        if $('.board').present()
+        if $('.board[reload]').present()
           game_number = $('.board').attr('number')
           game_id = $('.board').attr('game_id')
           $.get(
