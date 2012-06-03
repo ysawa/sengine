@@ -69,6 +69,7 @@ class User
           user.email = data["email"]
           user.locale = data["locale"]
           user.timezone = data["timezone"]
+          user.timezone_string = ActiveSupport::TimeZone[user.timezone].to_s.sub(/^.* /, '')
           user.gender = data["gender"]
         end
       end

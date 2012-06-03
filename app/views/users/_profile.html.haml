@@ -1,11 +1,16 @@
 - decorator = UserDecorator.new(user)
+%h3= User.human_attribute_name('image')
 %p
   = decorator.image
+%h3= User.human_attribute_name('name')
 %p
   = decorator.name
+%h3= User.human_attribute_name('gender')
 %p
   = decorator.gender
+%h3= User.human_attribute_name('locale')
 %p
   = decorator.locale
+%h3= User.human_attribute_name('timezone')
 %p
   = decorator.timezone

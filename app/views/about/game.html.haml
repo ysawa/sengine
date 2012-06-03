@@ -2,8 +2,7 @@
   %h2= @subtitle
   %p
     ログイン前のユーザーに対して説明するページ
-  %ul.menu
-    %li
-      = link_to t('actions.back_to_top'), root_path
-    %li
-      = link_to_sign_in
+  %p
+    = link_to t('actions.back_to_top'), root_path
+    %br
+    = link_to_sign_in

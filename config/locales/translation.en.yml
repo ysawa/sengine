@@ -1,0 +1,57 @@
+en:
+  actions:
+    about_app: 'About App'
+    back: 'Back'
+    back_to_mypage: 'Back to My Page'
+    back_to_top: 'Back to Top'
+    destroy: 'Destroy'
+    edit: 'Edit'
+    new: 'New'
+    see_more: 'See More'
+    select_sente_or_gote: 'Black/White'
+    select_opponent: 'Select Opponent'
+    show: 'Show'
+    sign_in_and_start: 'Sign In and Start'
+  headers:
+  helpers:
+    submit:
+      next: 'Next'
+      play_game: 'Play Game'
+      save: 'Save'
+      send: 'Send'
+      sign_in: 'Sign In'
+      sign_out: 'Sign Out'
+      new_member: 'New Member'
+      new_password: 'New Password'
+  notices:
+    create: '%{model} was successfully created.'
+    destroy: '%{model} was successfully destoyed.'
+    save: '%{model} was successfully saved.'
+    update: '%{model} was successfully created.'
+  please:
+    check: 'Please Check'
+    check_: 'Please Check.'
+    select: 'Please Select'
+  game:
+    orders:
+      random: 'Random'
+      sente: 'Black'
+      gote: 'White'
+  user:
+    date:
+      western: ''
+      year: ''
+      month: ''
+      day: ''
+    genders:
+      male: 'Male'
+      female: 'Female'
+    locales:
+      en: 'English'
+      ja: 'Japanese'
+    opponent: 'Opponent'
+    setting:
+      human: 'Setting'
+  site:
+    copyright: '(c) 2012 将棋友の会.'
+    title: 'ShogiMatch'

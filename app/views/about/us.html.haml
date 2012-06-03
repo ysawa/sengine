@@ -2,13 +2,12 @@
   %h2= @subtitle
   %p
     運営者情報
-  %ul.menu
-    %li
-      - if user_signed_in?
-        - name = t('actions.back_to_mypage')
-      - else
-        - name = t('actions.back_to_top')
-      = link_to name, root_path
+  %p
+    - if user_signed_in?
+      - name = t('actions.back_to_mypage')
+    - else
+      - name = t('actions.back_to_top')
+    = link_to name, root_path
     - unless user_signed_in?
-      %li
-        = link_to_sign_in
+      %br
+      = link_to_sign_in

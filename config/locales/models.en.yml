@@ -1,0 +1,9 @@
+en:
+  mongoid:
+    models:
+      board: 'Board'
+      game: 'Game'
+      movement: 'Movement'
+      piece: 'Piece'
+      user: 'User'
+    attributes:

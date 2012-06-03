@@ -2,4 +2,4 @@
   %h2= @subtitle
   = render 'games/games', games: @games
   %p
-    = link_to t('actions.new'), new_game_path
+    = link_to page_name('games', 'new'), new_game_path

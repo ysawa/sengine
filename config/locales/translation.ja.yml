@@ -46,6 +46,9 @@ ja:
     genders:
       male: '男性'
       female: '女性'
+    locales:
+      en: '英語'
+      ja: '日本語'
     opponent: '対局相手'
     setting:
       human: '設定'

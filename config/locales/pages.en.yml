@@ -1,0 +1,22 @@
+en:
+  pages:
+    controllers:
+      devise:
+        sessions:
+          new: 'Sign In'
+      about:
+        game: 'About This Game'
+        us: 'About Us'
+      games:
+        created_at: 'Start'
+        finished_at: 'Finish'
+        index: 'Past Games'
+        new: 'New Game'
+      help:
+        index: 'Help'
+      home:
+        mypage: 'MyPage'
+        top: 'Top'
+      setting:
+        edit: 'Setting'
+        show: 'Setting'

@@ -6,7 +6,7 @@ class UserDecorator < ApplicationDecorator
   def gender
     case model.gender
     when 'male'
-      I18n.t("user.gender.male")
+      I18n.t("user.genders.male")
     when 'female'
       I18n.t("user.genders.female")
     else
@@ -18,6 +18,13 @@ class UserDecorator < ApplicationDecorator
       h.image_tag "http://graph.facebook.com/#{model.facebook_id}/picture?type=square", alt: model.name
     else
       h.image_tag "noimage.gif", alt: model.name
+    end
+  end
+
+  def locale
+    if model.locale
+      result = model.locale.sub(/_.*$/, '')
+      I18n.t('user.locales')[result.to_sym]
     end
   end
 
