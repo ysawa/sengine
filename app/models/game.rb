@@ -4,6 +4,7 @@ class Game
   include Mongoid::Document
   include Mongoid::Timestamps
   field :finished_at, type: Time
+  field :number, type: Integer, default: 0
   has_many :boards
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games
@@ -18,6 +19,8 @@ class Game
     board.number = number + 1
     self.boards << board
     self.movements << movement
+    self.number = number
+    self.save
   end
 
   def users
@@ -25,6 +28,14 @@ class Game
     result << self.sente_user if self.sente_user
     result << self.gote_user if self.gote_user
     result
+  end
+
+  def of_user?(user)
+    if user
+      self.sente_user_id == user.id || self.gote_user_id == user.id
+    else
+      false
+    end
   end
 
   class << self

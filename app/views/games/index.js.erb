@@ -1,0 +1,2 @@
+$('nav.next_game').before('<%= escape_javascript(render 'games/games', games: @games) %>');
+$('nav.next_game:last').remove();

@@ -1,0 +1,32 @@
+%table.resources
+  %thead
+    %tr
+      %th= Game.model_name.human
+      - %w(sente_user gote_user number).each do |attr_name|
+        %th= Game.human_attribute_name(attr_name)
+      %th
+        &nbsp;
+
+  %tbody
+    - games.each do |game|
+      - decorator = GameDecorator.new game
+      - sente_decorator = game.sente_user ? UserDecorator.new(game.sente_user) : nil
+      - gote_decorator = game.gote_user ? UserDecorator.new(game.gote_user) : nil
+      %tr
+        %td
+          = link_to l(game.created_at), game
+        %td
+          - if sente_decorator
+            = sente_decorator.name
+        %td
+          - if gote_decorator
+            = gote_decorator.name
+        %td
+          = decorator.number
+        %td
+          - if game.of_user? current_user
+            = link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete
+%nav.pagination.next_game
+  - name = t('actions.see_more')
+  = link_to_next_page games, name, remote: true, class: :see_more do
+    %span.see_more= name

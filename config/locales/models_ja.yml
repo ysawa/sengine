@@ -17,6 +17,7 @@ ja:
         author: '作成者'
         boards: '局面'
         movements: '棋譜'
+        number: '手数'
         sente_user: '先手'
         gote_user: '後手'
       movement:

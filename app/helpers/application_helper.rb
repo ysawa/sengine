@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module ApplicationHelper
+
   def link_to_sign_in(name = nil, options = {})
     name ||= t('actions.sign_in_and_start')
     if Rails.env.production?

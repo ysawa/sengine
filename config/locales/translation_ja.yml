@@ -7,6 +7,7 @@ ja:
     destroy: '削除'
     edit: '編集'
     new: '新規作成'
+    see_more: 'もっと見る'
     select_sente_or_gote: '先手・後手'
     select_opponent: '相手を選ぶ'
     show: '詳細'
