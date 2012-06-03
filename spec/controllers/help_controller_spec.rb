@@ -2,16 +2,9 @@ require 'spec_helper'
 
 describe HelpController do
 
-  describe "GET 'about'" do
+  describe "GET 'index'" do
     it "returns http success" do
-      get 'about'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'usage'" do
-    it "returns http success" do
-      get 'usage'
+      get 'index'
       response.should be_success
     end
   end

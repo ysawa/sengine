@@ -4,12 +4,14 @@ ja:
       devise:
         sessions:
           new: 'ログイン'
+      about:
+        game: 'このゲームについて'
+        us: '運営者情報'
       games:
         index: '過去の対局'
         new: '新規対局'
       help:
-        about: 'このアプリについて'
-        usage: 'ヘルプ'
+        index: 'ヘルプ'
       home:
         mypage: 'マイページ'
         top: 'トップ'

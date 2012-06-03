@@ -41,6 +41,7 @@ ja:
         email: 'E-mail'
         games: '対局'
         gote_games: '後手の対局'
+        name: '名前'
         sente_games: '先手の対局'
         password: 'パスワード'
         password_confirmation: 'パスワード(確認)'

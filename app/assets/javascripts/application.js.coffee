@@ -14,6 +14,7 @@
 #= require jquery_ujs
 #= require jquery.pjax
 #= require jquery.pnotify
+#= require jquery-validation/jquery.validate
 #= require_self
 #= require jquery.i18n
 #= require locales/ja
@@ -23,6 +24,7 @@
 
 $ ->
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
+  $('form.validated').validate()
 
 $.extend
   notice: (message) ->

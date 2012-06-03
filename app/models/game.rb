@@ -3,6 +3,7 @@
 class Game
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :finished_at, type: Time
   has_many :boards
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games

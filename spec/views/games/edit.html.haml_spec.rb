@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "games/edit" do
   before(:each) do
+    user_sign_in
     @game = assign(:game, stub_model(Game))
   end
 

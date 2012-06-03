@@ -3,9 +3,6 @@
 class HelpController < ApplicationController
   respond_to :html
 
-  def about
-  end
-
-  def usage
+  def index
   end
 end

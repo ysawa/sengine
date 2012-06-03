@@ -5,12 +5,8 @@ require "spec_helper"
 describe HelpController do
   describe "routing" do
 
-    it "routes to #about" do
-      get("/help/about").should route_to("help#about")
-    end
-
-    it "routes to #usage" do
-      get("/help/usage").should route_to("help#usage")
+    it "routes to #index" do
+      get("/help").should route_to("help#index")
     end
   end
 end

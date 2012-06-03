@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-describe "help/usage" do
+describe "help/index" do
   before :each do
     user_sign_in
   end
 
-  it "renders help/usage" do
+  it "renders help/index" do
     render
   end
 end

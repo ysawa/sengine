@@ -9,6 +9,8 @@
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
+    - if Rails.env.production?
+      = render 'common/google_analytics'
   %body
     %header#global_head
       .inner

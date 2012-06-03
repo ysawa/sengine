@@ -2,23 +2,26 @@ ja:
   actions:
     about_app: 'このアプリについて'
     back: '戻る'
+    back_to_mypage: 'マイページに戻る'
+    back_to_top: 'TOPに戻る'
     destroy: '削除'
     edit: '編集'
     new: '新規作成'
+    select_sente_or_gote: '先手・後手'
+    select_opponent: '相手を選ぶ'
     show: '詳細'
     sign_in_and_start: 'ログインして始める'
   headers:
   helpers:
     submit:
       next: '次へ'
+      play_game: '対局する'
       save: '保存する'
       send: '送信する'
       sign_in: 'ログイン'
       sign_out: 'ログアウト'
       new_member: '新規会員登録'
       new_password: 'パスワード再発行'
-  honorific:
-    human: '%{model}様'
   notices:
     create: '%{model}を作成しました。'
     destroy: '%{model}を削除しました。'
@@ -28,6 +31,11 @@ ja:
     check: 'チェックしてください'
     check_: 'チェックしてください。'
     select: '選択してください'
+  game:
+    order:
+      random: 'おまかせ'
+      sente: '先手'
+      gote: '後手'
   user:
     date:
       western: '西暦'
@@ -37,11 +45,7 @@ ja:
     genders:
       male: '男性'
       female: '女性'
-    names:
-      last_name: '苗字'
-      last_name_kana: '苗字(カナ)'
-      first_name: '名前'
-      first_name_kana: '名前(カナ)'
+    opponent: '対局相手'
     setting:
       human: '設定'
   site:

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "games/new" do
   before(:each) do
+    user_sign_in
     assign(:game, stub_model(Game).as_new_record)
   end
 

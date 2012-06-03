@@ -24,6 +24,7 @@ describe GamesController do
 
     before :each do
       user_sign_in
+      @opponent = Fabricate(:user, name: 'opponent')
     end
 
     describe "GET index" do
@@ -61,18 +62,18 @@ describe GamesController do
       describe "with valid params" do
         it "creates a new Game" do
           expect {
-            post :create, { game: valid_attributes }
+            post :create, { game: valid_attributes, game_opponent_id: @opponent.id.to_s }
           }.to change(Game, :count).by(1)
         end
 
         it "assigns a newly created game as @game" do
-          post :create, { game: valid_attributes }
+          post :create, { game: valid_attributes, game_opponent_id: @opponent.id.to_s }
           assigns(:game).should be_a(Game)
           assigns(:game).should be_persisted
         end
 
         it "redirects to the created game" do
-          post :create, { game: valid_attributes }
+          post :create, { game: valid_attributes, game_opponent_id: @opponent.id.to_s }
           response.should redirect_to(Game.last)
         end
       end

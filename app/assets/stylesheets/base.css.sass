@@ -8,18 +8,18 @@ html
   overflow-y: scroll
 
 html, body
+  font-family: $helvetica
   background-color: #fff
 
-body, p, pre, ol, ul, li, table, th, td, div, h1, h2, h3, h4, h5
+body, p, pre, ol, ul, li, table, th, td, div, h1, h2, h3, h4, h5, h6, dd, dt, dl, article, header, footer, section
   margin: 0
   padding: 0
-  font-size:   12px
+  font-size: 12px
   line-height: 1.6
   color: $color
 pre
   background-color: #eee
   padding: 10px
-  font-size: 11px
 h1
   a
     text-decoration: none
@@ -54,12 +54,6 @@ em
   vertical-align: middle
   color: #000
   @include field_error
-input[type="search"]
-  line-height: 18px
-  font-size: 14px
-  height: 22px
-  border: 1px solid $border_color
-  vertical-align: middle
 input[type="radio"]
   position: relative
   top: -1px
@@ -86,29 +80,11 @@ select
   font-size: 12px
 input[type="submit"]
   &.send
-    @include border-radius(3px)
-    cursor: pointer
-    background: #17375e
-    color: #fff
-    font-size: 14px
-    padding: 5px 40px
-    border: 0
+    @include button
 
 label
   color: #000
   font-weight: bold
-  &.must:after
-    content: '*'
-    color: #f00
-  &.error
-    color: #f00
-    display: none
-    white-space: none
-    font-weight: normal
-    img
-      vertical-align: middle
 
 .hide
   display: none
-.normal
-  color: #333

@@ -33,6 +33,19 @@ h3
   font-weight: bold
 p
   margin: 10px 0
+label
+  &.must:after
+    content: '*'
+    color: #f00
+  &.error
+    color: #f00
+    display: none
+    white-space: none
+    font-weight: normal
+    img
+      vertical-align: middle
+  &.inline
+    font-weight: normal
 
 .common_container
   padding: 10px
@@ -58,7 +71,7 @@ table.resources
 
 /* pnotify */
 .ui-pnotify-history-container
-  font-family: $lucida-grande
+  display: none
 .ui-pnotify-history-container .ui-pnotify-history-header
   text-align: center
   font-weight: bold

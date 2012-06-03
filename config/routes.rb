@@ -1,7 +1,9 @@
 Shogiengine::Application.routes.draw do
 
-  get "help/about", as: :about_help
-  get "help/usage", as: :usage_help
+  get "about/game", as: :about_game
+  get "about/us", as: :about_us
+
+  get "help", to: 'help#index', as: :help
 
   devise_for :users, controllers: { omniauth_callbacks: "devise_omniauth_callbacks" }
 

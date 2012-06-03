@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class GamesController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
   before_filter :authenticate_user!
   before_filter :find_game, only: [:check_update, :destroy, :edit, :show, :update]
 
@@ -20,7 +20,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(params[:game])
     @game.author = current_user
-    if @game.save
+    if set_game_players && @game.save
       @game.boards << Board.hirate
       @game.save
       make_game_notice
@@ -47,7 +47,7 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = Game.all
+    @games = Game.all.desc(:created_at)
     respond_with(@games)
   end
 
@@ -79,5 +79,29 @@ private
 
   def make_game_notice
     make_notice(Game.model_name.human)
+  end
+
+  def set_game_players
+    begin
+      opponent = User.find(params[:game_opponent_id])
+      case params[:game_order]
+      when 'sente'
+        sente = true
+      when 'gote'
+        sente = false
+      else
+        sente = [true, false].sample
+      end
+      if sente
+        @game.sente_user = current_user
+        @game.gote_user = opponent
+      else
+        @game.sente_user = opponent
+        @game.gote_user = current_user
+      end
+    rescue
+      return false
+    end
+    true
   end
 end

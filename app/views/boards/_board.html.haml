@@ -44,7 +44,8 @@
         - x_range.each do |x|
           .cell{ x: x, y: y }
             - piece = board.piece_on_point([x, y])
-            = render 'pieces/piece', piece: piece, reverse: reverse, play: play if piece
+            - if piece
+              = render 'pieces/piece', piece: piece, reverse: reverse, play: play, movement: board.movement
         - if reverse
           .side_cell
         - else
