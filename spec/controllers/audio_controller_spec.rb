@@ -13,7 +13,7 @@ describe AudioController do
       end
 
       it "render text of encoded Data URI Scheme" do
-        response.body.should match /^data:audio\/mp3/
+        response.body.should match %r(^data:audio/mp3)
         response.header['Content-Type'].should match(/text\/plain;/)
       end
     end
@@ -28,7 +28,7 @@ describe AudioController do
       end
 
       it "render text of encoded Data URI Scheme" do
-        response.body.should match /^data:audio\/wav/
+        response.body.should match %r(^data:audio/wav)
         response.header['Content-Type'].should match(/text\/plain;/)
       end
     end
@@ -43,7 +43,7 @@ describe AudioController do
       end
 
       it "render text of encoded Data URI Scheme" do
-        response.body.should match /^data:audio\/ogg/
+        response.body.should match %r(^data:audio/ogg)
         response.header['Content-Type'].should match(/text\/plain;/)
       end
     end

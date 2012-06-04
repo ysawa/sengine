@@ -3,6 +3,7 @@
 class HomeController < ApplicationController
   respond_to :html
 
+  # GET /
   def index
     if user_signed_in?
       make_subtitle(:mypage)

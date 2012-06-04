@@ -21,6 +21,7 @@ class User
   field :last_sign_in_ip, type: String
   field :locale, type: String, default: 'ja_JP'
   field :name, type: String
+  field :remember_me, type: Boolean
   field :remember_created_at, type: Time
   field :sign_in_count, type: Integer
   field :timezone, type: Integer, default: 9

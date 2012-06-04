@@ -14,6 +14,7 @@ $ ->
     'narigin': '成銀'
     'uma': '馬'
     'ryu': '竜'
+    'reverse?': '成りますか？'
 
   $.i18n.setDictionary(ja)
 

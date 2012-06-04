@@ -22,10 +22,7 @@
         = yield
         = render 'common/notice'
         - if Rails.env.production?
-          :javascript
-            if (typeof FB !== "undefined") {
-              FB.XFBML.parse();
-            }
+          = render 'common/reparse_xfbml'
     %footer#global_foot
       .inner
         = render 'common/global_foot'

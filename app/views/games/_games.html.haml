@@ -36,5 +36,7 @@
             = link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete
 %nav.pagination.next_game
   - name = t('actions.see_more')
-  = link_to_next_page games, name, remote: true, class: :see_more do
+  - unless defined?(pagination_params)
+    - pagination_params = {}
+  = link_to_next_page games, name, remote: true, params: pagination_params, class: :see_more do
     %span.see_more= name

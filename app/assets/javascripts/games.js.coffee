@@ -13,6 +13,7 @@ $ ->
     )
     $.initialize_audio('put')
 
+    # TODO check if the selector always works (this code is very stinky)
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()
     $('.board[play] .piece.upward').live 'click', ->
@@ -74,12 +75,13 @@ $ ->
       in_opponent_area = (direction == 'sente' and to_point[1] <= 3) or (direction == 'gote' and to_point[1] >= 7)
       if move
         from_point = [piece_cell.point_x(), piece_cell.point_y()]
+        out_opponent_area = (direction == 'sente' and from_point[1] <= 3) or (direction == 'gote' and from_point[1] >= 7)
         not_reversed = $.inArray(role, ['fu', 'gin', 'keima', 'kyosha', 'kaku', 'hisha']) >= 0
         if in_opponent_first_line and $.inArray(role, ['fu', 'keima', 'kyosha']) >= 0
           reverse = true
         else if in_opponent_second_line and role == 'keima'
           reverse = true
-        else if not_reversed and in_opponent_area and confirm('成りますか?')
+        else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
           reverse = true
       $('.cell').removeClass('highlight')
       piece_selected.removeClass('selected')

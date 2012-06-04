@@ -4,14 +4,17 @@ class SettingController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
 
+  # GET /setting/edit
   def edit
     respond_with(current_user)
   end
 
+  # GET /setting
   def show
     respond_with(current_user)
   end
 
+  # PUT /setting
   def update
     if current_user.update_attributes(params[:user])
       make_setting_notice
