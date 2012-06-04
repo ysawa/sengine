@@ -28,6 +28,7 @@ en:
     destroy: '%{model} was successfully destoyed.'
     save: '%{model} was successfully saved.'
     update: '%{model} was successfully created.'
+    you_won: 'You won! Good game.'
   please:
     check: 'Please Check'
     check_: 'Please Check.'

@@ -29,6 +29,7 @@ ja:
     destroy: '%{model}を削除しました。'
     save: '%{model}を保存しました。'
     update: '%{model}を更新しました。'
+    you_won: 'あなたの勝ちです。お疲れ様でした。'
   please:
     check: 'チェックしてください'
     check_: 'チェックしてください。'
