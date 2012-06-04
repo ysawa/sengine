@@ -1,3 +1,2 @@
-
-alert();
-$('#game').replaceWith('<%= render 'games/game', game: @game, board: @board %>');
+<%- partial = render 'games/game', game: @game, board: @board %>
+$('#game').replaceWith('<%= escape_javascript partial %>');

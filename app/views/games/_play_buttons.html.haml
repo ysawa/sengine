@@ -1,13 +1,13 @@
 #play_buttons
   - if board.number > 0
-    = link_to '<<', game_path(game, number: 0) #, remote: true
-    = link_to '<', game_path(game, number: board.number - 1) #, remote: true
+    = link_to '<<', game_path(game, number: 0), remote: true
+    = link_to '<', game_path(game, number: board.number - 1), remote: true
   - else
     %span &lt;
     %span &lt;&lt;
   - if board.number < game.number
-    = link_to '>', game_path(game, number: board.number + 1) #, remote: true
-    = link_to '>>', game_path(game, number: game.number) #, remote: true
+    = link_to '>', game_path(game, number: board.number + 1), remote: true
+    = link_to '>>', game_path(game, number: game.number), remote: true
   - else
     %span &gt;
     %span &gt;&gt;
