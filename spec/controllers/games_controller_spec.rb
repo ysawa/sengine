@@ -38,6 +38,8 @@ describe GamesController do
     describe "GET show" do
       it "assigns the requested game as @game" do
         game = Game.create! valid_attributes
+        board = Board.hirate
+        game.boards << board
         get :show, { id: game.to_param }
         assigns(:game).should eq(game)
       end

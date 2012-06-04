@@ -78,6 +78,11 @@ class GamesController < ApplicationController
 
   # GET /games/1
   def show
+    if params[:number].present?
+      @board = @game.boards.where(number: params[:number].to_i).first
+    else
+      @board = @game.boards.last
+    end
     respond_with(@game)
   end
 

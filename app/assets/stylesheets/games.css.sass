@@ -112,7 +112,17 @@ nav.next_game
     @include button(simple, #eee)
     color: #fff
 
-#game_result
-  font-size: 16px
-  text-align: center
-  font-weight: bold
+#game
+  #game_result
+    font-size: 16px
+    text-align: center
+    font-weight: bold
+    margin: 20px 0
+  #play_buttons
+    margin: 20px 0
+    text-align: center
+    a
+      @include button(simple)
+      text-decoration: none
+    span
+      @include button(simple, #eee)

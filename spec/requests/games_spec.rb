@@ -35,10 +35,12 @@ describe "Games" do
       @sente_user = Fabricate(:user)
       @gote_user = Fabricate(:user)
       @game = Game.new
-      @game.boards << Board.hirate
       @game.sente_user = @sente_user
       @game.gote_user = @gote_user
       @game.save
+      @board = Board.hirate
+      @board.game = @game
+      @board.save
     end
 
     context 'if user signed in' do

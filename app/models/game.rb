@@ -19,7 +19,7 @@ class Game
     number = self.boards.count
     board = self.boards.last.dup
     board.apply_movement(movement)
-    board.number = number + 1
+    board.number = number
     self.boards << board
     self.movements << movement
     self.number = number

@@ -5,6 +5,7 @@ describe "games/show" do
     user_sign_in
     @game = assign(:game, stub_model(Game))
     @game.boards << Board.hirate
+    @board = assign(:board, @game.boards.first)
   end
 
   it "renders a board with 81 cells" do

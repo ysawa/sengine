@@ -1,0 +1,11 @@
+#game.board_container
+  = render 'boards/board', board: board, game: game
+  - if game.playing? && (game.sente_user == current_user || game.gote_user == current_user)
+    .actions
+      = link_to t('actions.give_up'), give_up_game_path(game), class: :button, method: :put, confirm: 'Are you sure?'
+  - unless game.playing?
+    #game_result
+      - won_decorator = UserDecorator.new game.won_user
+      = won_decorator.name
+      won!
+    = render 'play_buttons', game: game, board: board
