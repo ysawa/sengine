@@ -18,7 +18,7 @@ header#global_head
     $inner_height: 24px
     h1
       padding: 10px
-      font-size: 24px
+      font-size: 20px
       height: $inner_height
       line-height: $inner_height
       color: #000
@@ -34,6 +34,8 @@ header#global_head
       line-height: $inner_height
       height: $inner_height
       float: left
+      a
+        font-size: 14px
 section#global_body
   @include common_inner
 footer#global_foot
@@ -42,3 +44,50 @@ footer#global_foot
     a
       padding-right: 10px
     text-align: center
+
+/* Smart Phone */
+
+@media only screen and (max-device-width: 1024px) and (orientation:portrait)
+  $common_width: 640px
+  $max_width: $common_width
+  header#global_head
+    @include common_inner
+    & > .inner
+      $logo_width: 200px
+      h1
+        width: $logo_width - 20px
+      aside
+        width: $max_width - $logo_width - 20px
+  section#global_body
+    @include common_inner
+  footer#global_foot
+    @include common_inner
+    p
+      a
+        padding-right: 10px
+      text-align: center
+  #{$all_tags}
+    font-size: 24px
+
+@media only screen and (max-device-width: 1024px) and (orientation:landscape)
+  $common_width: 1024px
+  $max_width: $common_width
+  header#global_head
+    @include common_inner
+    & > .inner
+      $logo_width: 200px
+      h1
+        width: $logo_width - 20px
+      aside
+        width: $max_width - $logo_width - 20px
+  section#global_body
+    @include common_inner
+  footer#global_foot
+    @include common_inner
+    p
+      a
+        padding-right: 10px
+      text-align: center
+  #{$all_tags}
+    font-size: 24px
+

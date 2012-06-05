@@ -12,7 +12,7 @@ $line_color: #b37100
   @include user-select(none)
   width: $piece_size
   height: $piece_size
-  font-size: 15px
+  font-size: 18px
   font-weight: bold
   line-height: $piece_size
   text-align: center
@@ -38,7 +38,7 @@ $line_color: #b37100
 
 #game
   #game_result
-    font-size: 16px
+    font-size: 130%
     text-align: center
     font-weight: bold
     margin: 20px 0
@@ -51,6 +51,11 @@ $line_color: #b37100
       text-decoration: none
     span
       @include button(simple, #eee)
+    a, span
+      display: inline-block
+      font-size: 100%
+      margin: 0 3px
+      width: 50px
 
 .board_container
   .board
@@ -127,3 +132,6 @@ nav.next_game
   span.see_more
     @include button(simple, #eee)
     color: #fff
+  a.see_more, span.see_more
+    font-size: 100%
+    display: inline-block

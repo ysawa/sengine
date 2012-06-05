@@ -27,10 +27,10 @@
 h2
   margin-bottom: 10px
   font-weight: bold
-  font-size: 16px
+  font-size: 140%
 h3
   margin: 20px 0 10px
-  font-size: 14px
+  font-size: 130%
   font-weight: bold
 p
   margin: 10px 0
@@ -51,6 +51,7 @@ label
 a
   &.button
     @include button
+    font-size: 100%
     text-decoration: none
 
 .common_container
@@ -82,6 +83,7 @@ ul.menu
     margin: 25px 0
     a
       @include button
+      font-size: 100%
       display: block
       width: 120px
       text-align: center
@@ -98,3 +100,15 @@ ul.menu
 .fb_comments
   margin: 30px auto
   width: 600px
+  max-height: 600px
+  overflow: hidden
+
+/* Smart Phone */
+
+@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:portrait)
+  .fb_comments
+    max-height: 480px
+
+@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:landscape)
+  .fb_comments
+    max-height: 480px
