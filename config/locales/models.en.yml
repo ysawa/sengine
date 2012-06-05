@@ -53,6 +53,7 @@ en:
         password_confirmation: 'Password Confirmation'
         remember_me: 'Remember Me'
         sente_games: 'Black Games'
+        sound_on: 'Sound'
         timezone: 'Time Zone'
         timezone_string: 'Time Zone'
         won_games: 'Won Games'

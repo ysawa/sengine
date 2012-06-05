@@ -18,8 +18,27 @@ module ApplicationHelper
 
   def site_title(subtitle = nil)
     elements = []
-    if subtitle.present?
+    case subtitle
+    when nil
+    when String
       elements << subtitle
+    when Game
+      game = subtitle
+      if game.persisted?
+        vs = []
+        if game.sente_user
+          vs << game.sente_user.name
+        end
+        vs << 'vs'
+        if game.gote_user
+          vs << game.gote_user.name
+        end
+        elements << vs.join(' ')
+      else
+        elements << I18n.t('pages.controllers.games.new')
+      end
+    else
+      elements << subtitle.to_s
     end
     if Rails.env.production?
       elements << I18n.t('site.title')

@@ -52,6 +52,9 @@ en:
       en: 'English'
       ja: 'Japanese'
     opponent: 'Opponent'
+    sound:
+      off: 'OFF'
+      on: 'ON'
   site:
     copyright: '(c) 2012 将棋友の会.'
     title: 'ShogiMatch'

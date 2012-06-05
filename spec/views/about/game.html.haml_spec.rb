@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
+
 require 'spec_helper'
 
 describe "about/game" do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "renders about/us that is the first explanation for visitors" do
+    render
+  end
 end

@@ -53,6 +53,7 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'ログイン状態を保持'
         sente_games: '先手の対局'
+        sound_on: '音声'
         timezone: 'タイムゾーン'
         timezone_string: 'タイムゾーン'
         won_games: '勝った対局'

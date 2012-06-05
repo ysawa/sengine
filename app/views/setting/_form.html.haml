@@ -1,16 +1,23 @@
-= form_for(current_user, url: setting_path, class: :validated) do |f|
+= form_for(current_user, url: setting_path, html: { class: :validated }) do |f|
   .field
     = f.label :name
     %br
-    = f.text_field :name
+    = f.text_field :name, class: :required
   .field
     = f.label :locale
     %br
     - locales = Shogiengine::LOCALES.collect { |locale| [t("user.locales.#{locale}"), locale] }
-    = f.select :locale, locales
+    = f.select :locale, locales, {}, class: :required
   .field
     = f.label :timezone_string
     %br
-    = f.time_zone_select :timezone_string, nil, { :include_blank => true }, class: :required
+    = f.time_zone_select :timezone_string, nil, { :include_blank => true }
+  .field
+    = f.label :sound_on
+    %br
+    - [true, false].each do |value|
+      = f.radio_button :sound_on, value, class: :required
+      = t("user.sound")[value]
+      &nbsp;&nbsp;
   .actions
     = f.submit t('helpers.submit.save'), class: :send

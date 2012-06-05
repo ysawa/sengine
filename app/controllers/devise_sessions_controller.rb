@@ -7,6 +7,7 @@ class DeviseSessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
     if Rails.env.production?
+      # In production, forbid signing in by email and password.
       redirect_to root_path
     else
       resource = build_resource(nil, :unsafe => true)

@@ -11,7 +11,9 @@ class GamesController < ApplicationController
     if params[:number].to_i < number
       render
     elsif @game.won_user == current_user
-      render action: :won
+      flash[:notice] = t('notices.you_won')
+      # only redirect to @game
+      render js: "window.location = '#{game_path(@game)}'"
     else
       result = 'NO UPDATE'
       render text: result, content_type: Mime::TEXT

@@ -24,6 +24,7 @@ class User
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
   field :sign_in_count, type: Integer
+  field :sound_on, type: Boolean, default: true
   field :timezone, type: Integer, default: 9
   field :timezone_string, type: Integer
 

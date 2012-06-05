@@ -3,6 +3,10 @@
 class UserDecorator < ApplicationDecorator
   decorates :user
 
+  def games_count
+    model.sente_games.count + model.gote_games.count
+  end
+
   def gender
     case model.gender
     when 'male'
@@ -28,6 +32,10 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
+  def lost_games_count
+    model.lost_games.count
+  end
+
   def name(link = true)
     human_name = nil
     if model.name?
@@ -42,6 +50,10 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
+  def sound_on
+    I18n.t("user.sound")[model.sound_on]
+  end
+
   def timezone
     if model.timezone
       elements = ['GMT']
@@ -54,5 +66,9 @@ class UserDecorator < ApplicationDecorator
       elements.join
     else
     end
+  end
+
+  def won_games_count
+    model.won_games.count
   end
 end
