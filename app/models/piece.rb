@@ -4,8 +4,8 @@ class Piece
   class UnexpectedNormalize < StandardError; end
   class UnexpectedReverse < StandardError; end
   include Mongoid::Document
-  ROLES = %w(fu gin keima kyosha kaku hisha gyoku kin)
-  REVERSED_ROLES = %w(tokin narigin narikei narikyo uma ryu gyoku kin)
+  ROLES = %w(fu kyosha keima gin kin kaku hisha gyoku)
+  REVERSED_ROLES = %w(tokin narikyo narikei narigin kin uma ryu gyoku)
   field :sente, type: Boolean
   field :in_hand, type: Boolean
   field :role, type: String

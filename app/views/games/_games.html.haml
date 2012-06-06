@@ -20,13 +20,13 @@
           = link_to decorator.created_at, game
         %td
           - if sente_decorator
-            = sente_decorator.name
+            = sente_decorator.name(true)
         %td
           - if gote_decorator
-            = gote_decorator.name
+            = gote_decorator.name(true)
         %td
           - if won_decorator
-            = won_decorator.name
+            = won_decorator.name(true)
         %td
           = decorator.number
         %td

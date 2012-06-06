@@ -1,16 +1,7 @@
 - decorator = UserDecorator.new(user)
-%h3= User.human_attribute_name('image')
-%p
-  = decorator.image
-%h3= User.human_attribute_name('name')
-%p
-  = decorator.name(false)
-%h3= User.human_attribute_name('locale')
-%p
-  = decorator.locale
-%h3= User.human_attribute_name('timezone')
-%p
-  = decorator.timezone
-%h3= User.human_attribute_name('sound_on')
-%p
-  = decorator.sound_on
+%dl#user_profile
+  - %w(image name locale timezone sound_on).each do |attr_name|
+    %dt
+      = User.human_attribute_name(attr_name)
+    %dd
+      = decorator.public_send(attr_name)

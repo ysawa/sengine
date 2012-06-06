@@ -37,6 +37,13 @@ module ApplicationHelper
       else
         elements << I18n.t('pages.controllers.games.new')
       end
+    when User
+      user = subtitle
+      if user.persisted?
+        elements << user.name
+      else
+        elements << User.model_name.human
+      end
     else
       elements << subtitle.to_s
     end

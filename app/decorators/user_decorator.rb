@@ -17,11 +17,16 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
-  def image
+  def image(link = false)
     if model.facebook_id
-      h.image_tag "http://graph.facebook.com/#{model.facebook_id}/picture?type=square", alt: model.name
+      result = h.image_tag "http://graph.facebook.com/#{model.facebook_id}/picture?type=square", alt: model.name
     else
-      h.image_tag "noimage.gif", alt: model.name
+      result = h.image_tag "noimage.gif", alt: model.name
+    end
+    if link
+      h.link_to result, h.profile_path(model.id)
+    else
+      result
     end
   end
 
@@ -36,7 +41,7 @@ class UserDecorator < ApplicationDecorator
     model.lost_games.count
   end
 
-  def name(link = true)
+  def name(link = false)
     human_name = nil
     if model.name?
       human_name = model.name

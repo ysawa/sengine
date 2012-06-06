@@ -1,22 +1,19 @@
 - decorator = UserDecorator.new(user)
-%h3= User.human_attribute_name('image')
-%p
-  = decorator.image
-%h3= User.human_attribute_name('name')
-%p
-  = decorator.name(false)
-%h3= User.human_attribute_name('locale')
-%p
-  = decorator.locale
-%h3= User.human_attribute_name('timezone')
-%p
-  = decorator.timezone
-%h3= User.human_attribute_name('games')
-%p
-  = decorator.games_count
-%h3= User.human_attribute_name('won_games')
-%p
-  = decorator.won_games_count
-%h3= User.human_attribute_name('lost_games')
-%p
-  = decorator.lost_games_count
+%dl#user_profile
+  - %w(image name locale timezone).each do |attr_name|
+    %dt
+      = User.human_attribute_name(attr_name)
+    %dd
+      = decorator.public_send(attr_name)
+  %dt
+    = User.human_attribute_name('games')
+  %dd
+    = decorator.games_count
+  %dt
+    = User.human_attribute_name('won_games')
+  %dd
+    = decorator.won_games_count
+  %dt
+    = User.human_attribute_name('lost_games')
+  %dd
+    = decorator.lost_games_count

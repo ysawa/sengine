@@ -12,6 +12,7 @@ class PieceDecorator < ApplicationDecorator
   def html_class(options = {})
     options.stringify_keys!
     klasses = ['piece']
+    klasses << "piece_#{model.role}"
     klasses << ((model.sente? && !@reverse) || (!model.sente? && @reverse) ? 'upward' : 'downward')
     klasses << 'moved' if options['moved']
     klasses << 'playable' if options['play']

@@ -12,7 +12,6 @@ en:
     select_opponent: 'Select Opponent'
     show: 'Show'
     sign_in_and_start: 'Sign In and Start'
-  headers:
   helpers:
     submit:
       next: 'Next'
@@ -52,6 +51,7 @@ en:
       en: 'English'
       ja: 'Japanese'
     opponent: 'Opponent'
+    setting: 'Setting'
     sound:
       off: 'OFF'
       on: 'ON'

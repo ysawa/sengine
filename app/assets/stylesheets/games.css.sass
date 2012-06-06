@@ -4,37 +4,19 @@
 @import 'bourbon'
 @import 'common/helpers'
 
-$cell_size: 46px
-$piece_size: $cell_size - 2px
+$cell_size: 51px
+$cell_width: 56px
+$cell_height: 60px
+$side_cell_width: 20px
+$piece_size: 40px
 $line_color: #b37100
-
-@mixin piece
-  @include user-select(none)
-  width: $piece_size
-  height: $piece_size
-  font-size: 18px
-  font-weight: bold
-  line-height: $piece_size
-  text-align: center
-  &.moved
-    background-color: #ffab88
-  &.selected
-    background-color: #ffc077
-  &.upward
-    &.playable
-      cursor: pointer
-  &.downward
-    @include rotate180
 
 @mixin corner_cell
   @include user-select(none)
   font-size: 11px
   text-align: center
   font-weight: bold
-  background-color: #ffab00
   float: left
-  &.reverse
-    @include rotate180
 
 #game
   #game_result
@@ -65,46 +47,37 @@ $line_color: #b37100
 
 .board
   @include user-select(none)
-  border: 1px solid $line_color
-  width: $cell_size * 10 + 4px
-  height: $cell_size * 10 + 4px
+  width: $cell_width * 10
+  height: $cell_height * 10
+  background-repeat: no-repeat
+  background-image: url(/assets/boards/default.png)
+  background-position: 0 ($cell_height / 2)
   .row
     @include clearfix
     .cell
       @include user-select(none)
       float: left
-      border: 1px solid $line_color
       width: $piece_size
       height: $piece_size
-      background-color: #ffab00
+      padding: (($cell_height - $piece_size) / 2) (($cell_width - $piece_size) / 2)
       &.highlight
         cursor: pointer
         background-color: #ffc077
       .piece
-        @include piece
     .corner_cell
       @include corner_cell
-      width: $piece_size / 2 + 2px
-      height: $piece_size / 2 + 2px
-      @each $place in top, right, bottom, left
-        &.#{$place}
-          border-#{$place}: 1px solid $line_color
+      width: $side_cell_width
+      height: $cell_height / 2
     .edge_cell
       @include corner_cell
-      border:
-        top: 1px solid $line_color
-        bottom: 1px solid $line_color
-      width: $piece_size + 2px
-      height: $piece_size / 2 + 1px
-      line-height: $piece_size / 2 + 1px
+      width: $cell_width
+      height: $cell_height / 2
+      line-height: $cell_height / 2
     .side_cell
       @include corner_cell
-      border:
-        left: 1px solid $line_color
-        right: 1px solid $line_color
-      width: $piece_size / 2 + 1px
-      height: $piece_size + 2px
-      line-height: $piece_size + 2px
+      width: $side_cell_width
+      height: $cell_height
+      line-height: $cell_height
 .in_hand
   @include user-select(none)
   width: $cell_size * 9 + 2px
@@ -115,13 +88,59 @@ $line_color: #b37100
       .cell
         @include user-select(none)
         float: left
-        width: $piece_size + 2px
-        height: $piece_size + 2px
+        width: $piece_size
+        height: $piece_size
+        padding: (($cell_height - $piece_size) / 2) (($cell_width - $piece_size) / 2)
         &.highlight
           cursor: pointer
           background-color: #ffc077
         .piece
-          @include piece
+.piece
+  @include user-select(none)
+  text-indent: -9999px
+  width: $piece_size
+  height: $piece_size
+  font-size: 18px
+  font-weight: bold
+  line-height: $piece_size
+  text-align: center
+  background-image: url(/assets/pieces/default.png)
+  &.moved
+    background-color: #ffab88
+  &.selected
+    background-color: #ffc077
+  &.upward
+    &.playable
+      cursor: pointer
+  &.downward
+    @include rotate180
+  &.piece_fu
+  &.piece_kyosha
+    background-position: (- $piece_size) 0px
+  &.piece_keima
+    background-position: (- $piece_size * 2) 0px
+  &.piece_gin
+    background-position: (- $piece_size * 3) 0px
+  &.piece_kin
+    background-position: (- $piece_size * 4) 0px
+  &.piece_kaku
+    background-position: (- $piece_size * 5) 0px
+  &.piece_hisha
+    background-position: (- $piece_size * 6) 0px
+  &.piece_gyoku
+    background-position: (- $piece_size * 7) 0px
+  &.piece_tokin
+    background-position: 0px (- $piece_size)
+  &.piece_narikyo
+    background-position: (- $piece_size) (- $piece_size)
+  &.piece_narikei
+    background-position: (- $piece_size * 2) (- $piece_size)
+  &.piece_narigin
+    background-position: (- $piece_size * 3) (- $piece_size)
+  &.piece_uma
+    background-position: (- $piece_size * 5) (- $piece_size)
+  &.piece_ryu
+    background-position: (- $piece_size * 6) (- $piece_size)
 
 nav.next_game
   margin: 30px 0

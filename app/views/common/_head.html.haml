@@ -3,6 +3,8 @@
     = site_title
   - elsif @game
     = site_title @game
+  - elsif @user
+    = site_title @user
   - else
     = site_title @subtitle
 = stylesheet_link_tag    'application', media: 'all'

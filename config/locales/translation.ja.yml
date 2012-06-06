@@ -13,7 +13,6 @@ ja:
     select_opponent: '相手を選ぶ'
     show: '詳細'
     sign_in_and_start: 'ログインして始める'
-  headers:
   helpers:
     submit:
       next: '次へ'
