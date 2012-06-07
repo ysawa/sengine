@@ -73,7 +73,7 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = Game.all.desc(:created_at).page(params[:page])
+    @games = Game.all.desc(:created_at).page(params[:page]).per(5)
     respond_with(@games)
   end
 
