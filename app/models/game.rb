@@ -15,6 +15,31 @@ class Game
   belongs_to :author, class_name: 'User', inverse_of: :created_games
   before_destroy :destroy_boards
 
+  def check_if_playing
+    if self.playing?
+      board = self.boards.last
+      if board.gyoku_in_sente_hand?
+        # sente win
+        self.won_user = self.sente_user
+        self.lost_user = self.gote_user
+        self.playing = false
+      elsif board.gyoku_in_gote_hand?
+        # gote win
+        self.won_user = self.gote_user
+        self.lost_user = self.sente_user
+        self.playing = false
+      end
+      self.playing?
+    else
+      false
+    end
+  end
+
+  def check_if_playing!
+    check_if_playing
+    save
+  end
+
   def make_board_from_movement(movement)
     number = self.boards.count
     board = self.boards.last.dup
@@ -23,7 +48,12 @@ class Game
     self.boards << board
     self.movements << movement
     self.number = number
-    self.save
+    board
+  end
+
+  def make_board_from_movement!(movement)
+    board = make_board_from_movement(movement)
+    board.save && self.save
   end
 
   def users

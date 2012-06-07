@@ -28,6 +28,7 @@ ja:
     destroy: '%{model}を削除しました。'
     save: '%{model}を保存しました。'
     update: '%{model}を更新しました。'
+    you_lost: 'あなたの負けです。お疲れ様でした。'
     you_won: 'あなたの勝ちです。お疲れ様でした。'
   please:
     check: 'チェックしてください'
@@ -39,6 +40,9 @@ ja:
       sente: '先手'
       gote: '後手'
   user:
+    audio:
+      off: 'オフ'
+      on: 'オン'
     comment: 'コメント'
     date:
       western: '西暦'
@@ -53,9 +57,6 @@ ja:
       ja: '日本語'
     opponent: '対局相手'
     setting: '設定'
-    sound:
-      off: 'オフ'
-      on: 'オン'
   site:
     copyright: '(c) 2012 将棋友の会.'
     title: 'ShogiMatch'

@@ -5,10 +5,17 @@ $max_width: 760px
 $common_width: $max_width
 
 @mixin rotate180
-  -moz-transform: matrix(-1, 0, 0, -1, 0, 0)
-  -webkit-transform: matrix(-1, 0, 0, -1, 0, 0)
-  -o-transform: matrix(-1, 0, 0, -1, 0, 0)
-  transform: matrix(-1, 0, 0, -1, 0, 0)
+  /* FireFox */
+  -moz-transform: rotate(180deg)
+  /* Opera */
+  -o-transform: rotate(180deg)
+  /* webkit */
+  -webkit-transform: rotate(180deg)
+  /* IE9 */
+  -ms-transform: rotate(180deg)
+  /* Older IE */
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2)
+  /* Newer browsers (including IE9) */
+  transform: rotate(180deg)
 
 $all_tags: body, p, pre, ol, ul, li, table, th, td, div, span, h1, h2, h3, h4, h5, h6, dd, dt, dl, article, header, footer, section

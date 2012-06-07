@@ -1,0 +1,8 @@
+- if user_signed_in?
+  - audio_on = current_user.audio_on?
+- else
+  - audio_on = false
+:javascript
+  $(function () {
+    $.audio_enabled = #{audio_on};
+  });

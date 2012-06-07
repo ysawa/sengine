@@ -10,6 +10,7 @@ class User
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
 
+  field :audio_on, type: Boolean, default: true
   field :current_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
   field :facebook_id, type: Integer
@@ -19,12 +20,11 @@ class User
   field :gender, type: String
   field :last_sign_in_at, type: Time
   field :last_sign_in_ip, type: String
-  field :locale, type: String, default: 'ja_JP'
+  field :locale, type: String, default: 'ja'
   field :name, type: String
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
   field :sign_in_count, type: Integer
-  field :sound_on, type: Boolean, default: true
   field :timezone, type: Integer, default: 9
   field :timezone_string, type: Integer
 

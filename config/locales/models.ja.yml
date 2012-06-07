@@ -40,6 +40,7 @@ ja:
         role: '駒の種類'
         sente: '先手'
       user:
+        audio_on: '音声(駒の音)'
         created_games: '作成した対局'
         email: 'E-mail'
         games: '対局'
@@ -53,7 +54,6 @@ ja:
         password_confirmation: 'パスワード(確認)'
         remember_me: 'ログイン状態を保持'
         sente_games: '先手の対局'
-        sound_on: '音声'
         timezone: 'タイムゾーン'
         timezone_string: 'タイムゾーン'
         won_games: '勝った対局'

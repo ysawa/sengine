@@ -1,6 +1,11 @@
 $.extend
+  audio_enabled: false
   audio_schemes: {}
   audio_tag_support: !!(document.createElement('audio').canPlayType)
+  disable_audio: () ->
+    @audio_enabled = false
+  enable_audio: () ->
+    @audio_enabled = true
   find_enabled_audio_format: ->
     audio = new Audio("")
     if @audio_tag_support
@@ -23,7 +28,7 @@ $.extend
           $.audio_schemes[audio] = data
       )
   play_audio: (audio) ->
-    if @audio_tag_support
+    if @audio_enabled and @audio_tag_support
       if @audio_schemes[audio]
         audio = new Audio(@audio_schemes[audio])
         audio.play()

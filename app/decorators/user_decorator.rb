@@ -3,6 +3,10 @@
 class UserDecorator < ApplicationDecorator
   decorates :user
 
+  def audio_on
+    I18n.t("user.audio")[model.audio_on?]
+  end
+
   def games_count
     model.sente_games.count + model.gote_games.count
   end
@@ -53,10 +57,6 @@ class UserDecorator < ApplicationDecorator
     else
       human_name
     end
-  end
-
-  def sound_on
-    I18n.t("user.sound")[model.sound_on]
   end
 
   def timezone

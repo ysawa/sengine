@@ -84,6 +84,14 @@ class Board
     true
   end
 
+  def gyoku_in_gote_hand?
+    self.pieces.in_gote_hand('gyoku').present?
+  end
+
+  def gyoku_in_sente_hand?
+    self.pieces.in_sente_hand('gyoku').present?
+  end
+
   def piece_in_gote_hand(role = nil)
     self.pieces.in_gote_hand(role).first
   end

@@ -27,6 +27,7 @@ en:
     destroy: '%{model} was successfully destoyed.'
     save: '%{model} was successfully saved.'
     update: '%{model} was successfully created.'
+    you_lost: 'You lost. Good game.'
     you_won: 'You won! Good game.'
   please:
     check: 'Please Check'
@@ -38,6 +39,9 @@ en:
       sente: 'Black'
       gote: 'White'
   user:
+    audio:
+      off: 'OFF'
+      on: 'ON'
     comment: 'Comment'
     date:
       western: ''
@@ -52,9 +56,6 @@ en:
       ja: 'Japanese'
     opponent: 'Opponent'
     setting: 'Setting'
-    sound:
-      off: 'OFF'
-      on: 'ON'
   site:
     copyright: '(c) 2012 将棋友の会.'
     title: 'ShogiMatch'

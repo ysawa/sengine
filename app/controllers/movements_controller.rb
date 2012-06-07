@@ -9,7 +9,7 @@ class MovementsController < ApplicationController
   def create
     @movement = Movement.new(params[:movement])
     @movement.game = @game
-    @game.make_board_from_movement(@movement)
+    @game.make_board_from_movement!(@movement)
     respond_to do |format|
       format.js { render text: 'OK', content_type: Mime::TEXT }
       format.html { redirect_to game_path(@game) }

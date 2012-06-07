@@ -7,6 +7,7 @@
 $cell_size: 51px
 $cell_width: 56px
 $cell_height: 60px
+$edge_cell_height: 20px
 $side_cell_width: 20px
 $piece_size: 40px
 $line_color: #b37100
@@ -23,10 +24,10 @@ $line_color: #b37100
     font-size: 130%
     text-align: center
     font-weight: bold
-    margin: 20px 0
+    margin: 10px 0
   #play_buttons
     @include user-select(none)
-    margin: 20px 0
+    margin: 10px 0
     text-align: center
     a
       @include button(simple)
@@ -41,17 +42,16 @@ $line_color: #b37100
 
 .board_container
   .board
-    margin: 0 auto
+    margin: 10px auto
   .in_hand
     margin: 10px auto
 
 .board
   @include user-select(none)
-  width: $cell_width * 10
-  height: $cell_height * 10
+  width: $cell_width * 9 + $side_cell_width * 2
+  height: $cell_height * 9 + $edge_cell_height * 2
   background-repeat: no-repeat
   background-image: url(/assets/boards/default.png)
-  background-position: 0 ($cell_height / 2)
   .row
     @include clearfix
     .cell
@@ -67,21 +67,25 @@ $line_color: #b37100
     .corner_cell
       @include corner_cell
       width: $side_cell_width
-      height: $cell_height / 2
+      height: $edge_cell_height
     .edge_cell
+      /* top, bottom */
       @include corner_cell
       width: $cell_width
-      height: $cell_height / 2
-      line-height: $cell_height / 2
+      height: $edge_cell_height
+      line-height: $edge_cell_height
     .side_cell
+      /* left, right */
       @include corner_cell
       width: $side_cell_width
       height: $cell_height
       line-height: $cell_height
+
 .in_hand
   @include user-select(none)
-  width: $cell_size * 9 + 2px
-  height: $cell_size
+  width: $cell_width * 9
+  height: $cell_height
+  background-color: #f7f7f7
   .pieces
     .row
       @include clearfix

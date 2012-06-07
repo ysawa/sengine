@@ -8,12 +8,17 @@ class GamesController < ApplicationController
   # GET /games/1/check_update
   def check_update
     number = @game.boards.count
-    if params[:number].to_i < number
-      render
-    elsif @game.won_user == current_user
+    @game.check_if_playing!
+    if @game.won_user == current_user
       flash[:notice] = t('notices.you_won')
       # only redirect to @game
       render js: "window.location = '#{game_path(@game)}'"
+    elsif @game.lost_user == current_user
+      flash[:notice] = t('notices.you_lost')
+      # only redirect to @game
+      render js: "window.location = '#{game_path(@game)}'"
+    elsif params[:number].to_i < number
+      render
     else
       result = 'NO UPDATE'
       render text: result, content_type: Mime::TEXT
