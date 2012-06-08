@@ -1,0 +1,171 @@
+ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      form: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d"
+      year_month: "%Y年%m月"
+
+    day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
+    abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
+
+    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    abbr_month_names: [~, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+    order: [:year, :month, :day]
+
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"
+      form: "%Y/%m/%d %H:%M"
+      hour_minute: "%H:%M"
+      long: "%Y年%m月%d日(%a) %H:%M"
+      short: "%m/%d %H:%M"
+    am: "午前"
+    pm: "午後"
+
+  support:
+    array:
+      sentence_connector: "と"
+      skip_last_comma: true
+      words_connector: "と"
+      two_words_connector: "と"
+      last_word_connector: "と"
+
+    select:
+      prompt: "選択してください。"
+
+  number:
+    currency:
+      format:
+        format: "%n%u"
+        unit: "円"
+        separator: "."
+        delimiter: ","
+        precision: 0
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: "件"
+      format:
+        delimiter: ","
+        precision: 1
+      storage_units:
+        format: "%n%u"
+        units:
+          byte: "バイト"
+          kb: "キロバイト"
+          mb: "メガバイト"
+          gb: "ギガバイト"
+          tb: "テラバイト"
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "30秒前後"
+      less_than_x_seconds:
+        one:   "1秒以内"
+        other: "%{count}秒以内"
+      x_seconds:
+        one:   "1秒"
+        other: "%{count}秒"
+      less_than_x_minutes:
+        one:   "1分以内"
+        other: "%{count}分以内"
+      x_minutes:
+        one:   "1分"
+        other: "%{count}分"
+      about_x_hours:
+        one:   "約1時間"
+        other: "約%{count}時間"
+      x_days:
+        one:   "1日"
+        other: "%{count}日"
+      about_x_months:
+        one:   "約1ヶ月"
+        other: "約%{count}ヶ月"
+      x_months:
+        one:   "1ヶ月"
+        other: "%{count}ヶ月"
+      about_x_years:
+        one:   "約%{count}年"
+        other: "約%{count}年"
+      over_x_years:
+        one:   "%{count}年以上"
+        other: "%{count}年以上"
+
+  names:
+    corporation:
+      honorific: '%{model}様'
+    member:
+      honorific: '%{model}様'
+
+  mongoid:
+    errors:
+      messages:
+        validations: "入力項目にエラーが発生しました。"
+
+  errors:
+    full_messages:
+      format: "%{attribute}%{message}"
+    template:
+      header:
+        one:    "入力項目にエラーが発生しました。"
+        other:  "入力項目にエラーが発生しました。"
+      body: "次の項目を確認してください。"
+
+    messages:
+      already_confirmed: "はすでに認証されています。ログインしてください。"
+      not_locked: "がロックされていません。"
+      not_saved:
+        one: "%{resource}は保存できませんでした。1つ修正してください。"
+        other: "%{resource}は保存できませんでした。%{count}つ修正してください。"
+      accepted: "を受諾してください。"
+      blank: "をご入力ください。"
+      carrierwave_integrity_error: 'は画像ではありません。'
+      carrierwave_processing_error: 'は適切に加工ができません。'
+      confirmation: "が一致しません。"
+      check: 'をチェックしてください。'
+      duplicated: "が重複しています。"
+      empty: "をご入力ください。"
+      equal_to: "は%{count}にしてください。"
+      even: "は偶数にしてください。"
+      exclusion: "は予約されています。"
+      expired: "が切れています。"
+      filter: 'を絞り込んでください。'
+      greater_than: "は%{count}より大きい値にしてください。"
+      greater_than_or_equal_to: "は%{count}以上の値にしてください。"
+      inclusion: "に不正な内容が入っています。"
+      include_japanese: 'に日本語を含めることは出来ません。'
+      invalid: "に不正な内容が入っています。"
+      invalid_state_number: "の変更が不正です。"
+      less_than: "は%{count}より小さい値にしてください。"
+      less_than_or_equal_to: "は%{count}以下の値にしてください。"
+      not_a_number: "は数値でご入力ください。"
+      not_an_integer: "は整数でご入力ください。"
+      not_correct: 'が正しくありません。'
+      not_found: 'が見つかりません。'
+      magazine_not_published: 'は未配信となっております'
+      news_item_not_published: 'は非公開となっております'
+      odd: "は奇数にしてください。"
+      password: 'をご入力ください。(6文字以上)'
+      record_invalid: "バリデーションに失敗しました。 %{errors}"
+      select: 'を選択してください。'
+      taken: "はすでに登録されています。"
+      too_long: "は%{count}文字以内でご入力ください。"
+      too_short: "は%{count}文字以上でご入力ください。"
+      unchecked: "をチェックしてください。"
+      upload: 'をアップロードしてください。'
+      wrong_length: "は%{count}文字でご入力ください。"
+
