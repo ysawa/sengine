@@ -8,6 +8,27 @@ class ApplicationController < ActionController::Base
   before_filter :make_subtitle
 protected
 
+  def accepted_languages
+    # no language accepted
+    return [] if request.env["HTTP_ACCEPT_LANGUAGE"].nil?
+
+    # parse Accept-Language
+    accepted = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")
+    accepted = accepted.map { |l| l.strip.split(";") }
+    accepted = accepted.map { |l|
+      if (l.size == 2)
+        # quality present
+        [ l[0].split("-")[0].downcase, l[1].sub(/^q=/, "").to_f ]
+      else
+        # no quality specified =&gt; quality == 1
+        [ l[0].split("-")[0].downcase, 1.0 ]
+      end
+    }
+
+    # sort by quality
+    accepted.sort { |l1, l2| l1[1] <=> l2[1] }
+  end
+
   def load_facebook_token
     if session[:facebook_token].present?
       @facebook_token = session[:facebook_token]
@@ -42,10 +63,22 @@ protected
     session[:facebook_token] = token.to_s
   end
 
+  def select_locale_from_accepted_languages
+    locales = accepted_languages
+    selected = locales.find { |locale| Shogiengine::LOCALES.include? locale[0].to_sym }
+    if selected
+      selected[0]
+    else
+      nil
+    end
+  end
+
   def set_locale
     locale = nil
-    if user_signed_in?
+    if user_signed_in? && current_user.persisted?
       locale = current_user.locale.sub(/_.*$/, '')
+    else
+      locale = select_locale_from_accepted_languages
     end
     locale ||= I18n.default_locale
     I18n.locale = locale

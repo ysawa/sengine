@@ -20,7 +20,7 @@ class User
   field :gender, type: String
   field :last_sign_in_at, type: Time
   field :last_sign_in_ip, type: String
-  field :locale, type: String, default: 'ja'
+  field :locale, type: String, default: 'en'
   field :name, type: String
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time

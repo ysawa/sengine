@@ -40,12 +40,6 @@ $line_color: #b37100
       margin: 0 3px
       width: 50px
 
-.board_container
-  .board
-    margin: 10px auto
-  .in_hand
-    margin: 10px auto
-
 .board
   @include user-select(none)
   width: $cell_width * 9 + $side_cell_width * 2
@@ -83,8 +77,6 @@ $line_color: #b37100
 
 .in_hand
   @include user-select(none)
-  width: $cell_width * 9
-  height: $cell_height
   background-color: #f7f7f7
   .pieces
     .row
@@ -158,3 +150,38 @@ nav.next_game
   a.see_more, span.see_more
     font-size: 100%
     display: inline-block
+
+/* Layouts */
+
+.board_container
+  @include clearfix
+  width: $cell_width * 11 + $side_cell_width * 2 + 10px * 6
+  margin: 0 auto
+  .board
+    float: left
+    margin: 0 10px
+  .in_hand
+    float: left
+    margin: $edge_cell_height 10px
+    width: $cell_width
+    height: $cell_height * 9
+
+/* Smart Phone */
+
+@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:portrait)
+  .board_container
+    width: auto
+    .board
+      float: none
+      margin: 10px auto
+    .in_hand
+      float: none
+      margin: 10px auto
+      width: $cell_width * 9
+      height: $cell_height
+  .fb_comments
+    max-height: 300px
+
+@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:landscape)
+  .fb_comments
+    max-height: 300px

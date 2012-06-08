@@ -14,20 +14,20 @@ html, body
 body
   -webkit-text-size-adjust: none
 
-#{$all_tags}
+#{$document_tags}
   margin: 0
   padding: 0
   font-size: 14px
   line-height: 1.6
   color: $color
+
 pre
   background-color: #eee
   padding: 10px
+
 h1
   a
     text-decoration: none
-    &.hover
-      text-decoration: underline
 a
   color: $link_color
   text-decoration: none
@@ -81,14 +81,41 @@ select
   height: 20px
   border: 1px solid $border_color
   font-size: 12px
-input[type="submit"]
+input[type="submit"], button
+  font-size: 14px
   &.send
     @include button
-    font-size: 14px
 
 label
   color: #000
   font-weight: bold
 
-.hide
-  display: none
+.clearfix
+  &:after
+    content: "."
+    display: block
+    height: 0
+    clear: both
+    visibility: hidden
+
+/* for IE 7
+.clearfix
+  display: inline-block
+  min-height: 1%
+
+/* Hides from IE-mac
+* html .clearfix
+  height: 1%
+
+.clearfix
+  display: block
+
+/* Smart Phone */
+
+@media only screen and (max-width: 480px) and (max-device-width: 1024px)
+  #{$all-text-inputs}
+    font-size: 18px
+  select
+    font-size: 18px
+  input[type="submit"], button
+    font-size: 18px

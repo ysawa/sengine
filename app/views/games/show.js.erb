@@ -1,2 +1,3 @@
-<%- partial = render 'games/game', game: @game, board: @board %>
-$('#game').replaceWith('<%= escape_javascript partial %>');
+<%- game_partial = render 'games/game', game: @game, board: @board %>
+$('#game').replaceWith('<%= escape_javascript game_partial %>');
+$.play_audio('put');

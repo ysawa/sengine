@@ -8,7 +8,7 @@ class GamesController < ApplicationController
   # GET /games/1/check_update
   def check_update
     number = @game.boards.count
-    @game.check_if_playing!
+    @game.check_and_save_if_playing
     if @game.won_user == current_user
       flash[:notice] = t('notices.you_won')
       # only redirect to @game

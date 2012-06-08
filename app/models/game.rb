@@ -22,21 +22,22 @@ class Game
         # sente win
         self.won_user = self.sente_user
         self.lost_user = self.gote_user
-        self.playing = false
+        false
       elsif board.gyoku_in_gote_hand?
         # gote win
         self.won_user = self.gote_user
         self.lost_user = self.sente_user
-        self.playing = false
+        false
+      else
+        true
       end
-      self.playing?
     else
       false
     end
   end
 
-  def check_if_playing!
-    check_if_playing
+  def check_and_save_if_playing
+    self.playing = check_if_playing
     save
   end
 

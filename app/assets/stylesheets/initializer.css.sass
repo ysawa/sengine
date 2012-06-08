@@ -4,7 +4,9 @@
 @import 'bourbon'
 @import 'common/helpers'
 
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, p, blockquote, table, th, td
+/* All Tags */
+
+#{$document_tags}
   margin: 0
   padding: 0
 
@@ -89,24 +91,3 @@ pre, code, kdb, samp, tt
 
 input, select, textarea
   font-size: 100%
-
-.clearfix
-  &:after
-    content: "."
-    display: block
-    height: 0
-    clear: both
-    visibility: hidden
-
-/* for IE 7
-.clearfix
-  display: inline-block
-  min-height: 1%
-
-
-/* Hides from IE-mac
-* html .clearfix
-  height: 1%
-
-.clearfix
-  display: block

@@ -40,7 +40,7 @@ module IntegrationTestHelper
 
       def #{resource_name}_sign_in_with_visit(#{resource_name}, password, remember_me = false)
         visit new_#{resource_name}_session_path
-        within('#user_sign_in') do
+        within('form#user_sign_in') do
           fill_in '#{resource_name}[email]', with: #{resource_name}.email
           fill_in '#{resource_name}[password]', with: password
           check '#{resource_name}[remember_me]' if remember_me

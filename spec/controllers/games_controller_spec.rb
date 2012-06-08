@@ -52,14 +52,6 @@ describe GamesController do
       end
     end
 
-    describe "GET edit" do
-      it "assigns the requested game as @game" do
-        game = Game.create! valid_attributes
-        get :edit, { id: game.to_param }
-        assigns(:game).should eq(game)
-      end
-    end
-
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Game" do
@@ -93,46 +85,6 @@ describe GamesController do
           Game.any_instance.stub(:save).and_return(false)
           post :create, { game: {} }
           response.should render_template("new")
-        end
-      end
-    end
-
-    describe "PUT update" do
-      describe "with valid params" do
-        it "updates the requested game" do
-          game = Game.create! valid_attributes
-          Game.any_instance.should_receive(:update_attributes).with({ 'these' => 'params' })
-          put :update, { id: game.to_param, game: { 'these' => 'params' } }
-        end
-
-        it "assigns the requested game as @game" do
-          game = Game.create! valid_attributes
-          put :update, { id: game.to_param, game: valid_attributes }
-          assigns(:game).should eq(game)
-        end
-
-        it "redirects to the game" do
-          game = Game.create! valid_attributes
-          put :update, { id: game.to_param, game: valid_attributes }
-          response.should redirect_to(game)
-        end
-      end
-
-      describe "with invalid params" do
-        it "assigns the game as @game" do
-          game = Game.create! valid_attributes
-          # Trigger the behavior that occurs when invalid params are submitted
-          Game.any_instance.stub(:save).and_return(false)
-          put :update, { id: game.to_param, game: {} }
-          assigns(:game).should eq(game)
-        end
-
-        it "re-renders the 'edit' template" do
-          game = Game.create! valid_attributes
-          # Trigger the behavior that occurs when invalid params are submitted
-          Game.any_instance.stub(:save).and_return(false)
-          put :update, { id: game.to_param, game: {} }
-          response.should render_template("edit")
         end
       end
     end

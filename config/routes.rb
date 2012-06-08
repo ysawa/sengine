@@ -9,7 +9,7 @@ Shogiengine::Application.routes.draw do
 
   get "audio/encode/*filename", to: 'audio#encode'
 
-  resources :games do
+  resources :games, only: [:create, :destroy, :new, :index, :show] do
     resources :movements
     member do
       get :check_update
