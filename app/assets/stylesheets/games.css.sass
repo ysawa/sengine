@@ -8,8 +8,8 @@ $cell_size: 51px
 $cell_width: 56px
 $cell_height: 60px
 $edge_cell_height: 20px
-$side_cell_width: 20px
-$piece_size: 40px
+$side_cell_width: 18px
+$piece_size: 45px
 $line_color: #b37100
 
 @mixin corner_cell
@@ -39,11 +39,13 @@ $line_color: #b37100
       font-size: 100%
       margin: 0 3px
       width: 50px
+  .actions
+    margin: 10px 0
 
 .board
   @include user-select(none)
-  width: $cell_width * 9 + $side_cell_width * 2
-  height: $cell_height * 9 + $edge_cell_height * 2
+  width: $board_width
+  height: $board_height
   background-repeat: no-repeat
   background-image: url(/assets/boards/default.png)
   .row
@@ -53,7 +55,11 @@ $line_color: #b37100
       float: left
       width: $piece_size
       height: $piece_size
-      padding: (($cell_height - $piece_size) / 2) (($cell_width - $piece_size) / 2)
+      padding:
+        top: (($cell_height - $piece_size) / 2)
+        bottom: (($cell_height - $piece_size) / 2)
+        right: (($cell_width - $piece_size) / 2)
+        left: (($cell_width - $piece_size) / 2) + 1px
       &.highlight
         cursor: pointer
         background-color: #ffc077
@@ -139,7 +145,7 @@ $line_color: #b37100
     background-position: (- $piece_size * 6) (- $piece_size)
 
 nav.next_game
-  margin: 30px 0
+  margin: 20px 0
   .see_more
   a.see_more
     @include button(simple)
@@ -155,33 +161,34 @@ nav.next_game
 
 .board_container
   @include clearfix
-  width: $cell_width * 11 + $side_cell_width * 2 + 10px * 6
+  width: $cell_width * 11 + $side_cell_width * 2
   margin: 0 auto
   .board
     float: left
-    margin: 0 10px
+    margin: 0
   .in_hand
     float: left
-    margin: $edge_cell_height 10px
+    margin: 0
     width: $cell_width
     height: $cell_height * 9
+    padding: $edge_cell_height 0
 
 /* Smart Phone */
+@media only screen and (max-device-width: 1024px)
+  .fb_comments
+    max-height: 300px
 
-@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:portrait)
+@media only screen and (max-device-width: 1024px) and (orientation:portrait)
   .board_container
-    width: auto
+    width: $board_width
+    margin: 0 auto
     .board
       float: none
-      margin: 10px auto
     .in_hand
       float: none
-      margin: 10px auto
+      margin: 0 auto
       width: $cell_width * 9
       height: $cell_height
-  .fb_comments
-    max-height: 300px
+      padding: 0 $side_cell_width
 
-@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:landscape)
-  .fb_comments
-    max-height: 300px
+@media only screen and (max-device-width: 1024px) and (orientation:landscape)

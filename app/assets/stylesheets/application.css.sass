@@ -58,8 +58,10 @@ a
 
 .common_container
   padding: 10px
+  &#game_page
+    padding: 0
 table.resources
-  width: 100%
+  width: $common_width - 20px
   margin-bottom: 10px
   th, td
     text-align: center
@@ -89,7 +91,7 @@ ul.menu
       font-size: 100%
       display: block
       margin: 0 auto
-      width: 140px
+      width: 180px
       text-align: center
       text-decoration: none
 
@@ -102,17 +104,52 @@ ul.menu
 
 /* facebook */
 .fb_comments
-  margin: 30px auto
-  width: 600px
+  margin: 30px auto 0
+  width: 500px
   max-height: 600px
   overflow: hidden
 
 /* Smart Phone */
 
-@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:portrait)
-  .fb_comments
-    max-height: 480px
+@media only screen and (max-device-width: 1024px)
+  ul.menu
+    li
+      margin: 25px 0
+      a
+        width: 300px
+  #{$all-text-inputs}
+    font-size: 24px
+    height: 36px
+  select
+    font-size: 24px
+    height: 44px
+  input[type="radio"]
+    font-size: x-large
+    height: 30px
+    width: 30px
+  input[type="submit"], button
+    &.send
+      font-size: 24px
 
-@media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:landscape)
-  .fb_comments
-    max-height: 480px
+@media only screen and (max-device-width: 1024px) and (orientation:portrait)
+  $common_width: $mobile_portrait_width
+  $max_content_width: $common_width - 20px
+  table.resources
+    width: $max_content_width
+    th, td
+      &.spec
+        display: none
+  #{$all-text-inputs}
+    max-width: $max_content_width - 30px
+  select
+    max-width: $max_content_width
+
+@media only screen and (max-device-width: 1024px) and (orientation:landscape)
+  $common_width: $mobile_landscape_width
+  $max_content_width: $common_width - 20px
+  table.resources
+    width: $common_width - 20px
+  #{$all-text-inputs}
+    max-width: $max_content_width - 30px
+  select
+    max-width: $max_content_width

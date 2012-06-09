@@ -82,9 +82,9 @@ select
   border: 1px solid $border_color
   font-size: 12px
 input[type="submit"], button
-  font-size: 14px
   &.send
     @include button
+    font-size: 14px
 
 label
   color: #000
@@ -109,13 +109,3 @@ label
 
 .clearfix
   display: block
-
-/* Smart Phone */
-
-@media only screen and (max-width: 480px) and (max-device-width: 1024px)
-  #{$all-text-inputs}
-    font-size: 18px
-  select
-    font-size: 18px
-  input[type="submit"], button
-    font-size: 18px

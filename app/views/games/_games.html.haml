@@ -4,9 +4,9 @@
       %th= Game.model_name.human
       - %w(sente_user gote_user won_user number).each do |attr_name|
         %th= Game.human_attribute_name(attr_name)
-      %th
+      %th.spec
         = t('user.comment')
-      %th
+      %th.spec
         &nbsp;
 
   %tbody
@@ -35,9 +35,9 @@
             = won_decorator.name(true)
         %td
           = decorator.number
-        %td
+        %td.spec
           = decorator.facebook_comments_count
-        %td
+        %td.spec
           - if game.of_user? current_user
             = link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete
 %nav.pagination.next_game

@@ -46,9 +46,21 @@ footer#global_foot
     text-align: center
 
 /* Smart Phone */
+@media only screen and (max-device-width: 1024px)
+  header#global_head
+    & > .inner
+      h1
+        font-size: 100%
+      aside
+        a
+          font-size: 100%
+  footer#global_foot
+    p
+      span#credit
+        display: block
 
 @media only screen and (max-device-width: 1024px) and (orientation:portrait)
-  $common_width: 640px
+  $common_width: $mobile_portrait_width
   $max_width: $common_width
   header#global_head
     @include common_inner
@@ -70,7 +82,7 @@ footer#global_foot
     font-size: 24px
 
 @media only screen and (max-device-width: 1024px) and (orientation:landscape)
-  $common_width: 1024px
+  $common_width: $mobile_landscape_width
   $max_width: $common_width
   header#global_head
     @include common_inner
