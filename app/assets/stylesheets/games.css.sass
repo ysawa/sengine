@@ -53,13 +53,8 @@ $line_color: #b37100
     .cell
       @include user-select(none)
       float: left
-      width: $piece_size
-      height: $piece_size
-      padding:
-        top: (($cell_height - $piece_size) / 2)
-        bottom: (($cell_height - $piece_size) / 2)
-        right: (($cell_width - $piece_size) / 2)
-        left: (($cell_width - $piece_size) / 2) + 1px
+      width: $cell_width
+      height: $cell_height
       &.highlight
         cursor: pointer
         background-color: #ffc077
@@ -90,9 +85,8 @@ $line_color: #b37100
       .cell
         @include user-select(none)
         float: left
-        width: $piece_size
-        height: $piece_size
-        padding: (($cell_height - $piece_size) / 2) (($cell_width - $piece_size) / 2)
+        width: $cell_width
+        height: $cell_height
         &.highlight
           cursor: pointer
           background-color: #ffc077
@@ -100,11 +94,11 @@ $line_color: #b37100
 .piece
   @include user-select(none)
   text-indent: -9999px
-  width: $piece_size
-  height: $piece_size
+  width: $cell_width
+  height: $cell_height
   font-size: 18px
   font-weight: bold
-  line-height: $piece_size
+  line-height: $cell_height
   text-align: center
   background-image: url(/assets/pieces/default.png)
   &.moved
@@ -118,31 +112,31 @@ $line_color: #b37100
     @include rotate180
   &.piece_fu
   &.piece_kyosha
-    background-position: (- $piece_size) 0px
+    background-position: (- $cell_width) 0px
   &.piece_keima
-    background-position: (- $piece_size * 2) 0px
+    background-position: (- $cell_width * 2) 0px
   &.piece_gin
-    background-position: (- $piece_size * 3) 0px
+    background-position: (- $cell_width * 3) 0px
   &.piece_kin
-    background-position: (- $piece_size * 4) 0px
+    background-position: (- $cell_width * 4) 0px
   &.piece_kaku
-    background-position: (- $piece_size * 5) 0px
+    background-position: (- $cell_width * 5) 0px
   &.piece_hisha
-    background-position: (- $piece_size * 6) 0px
+    background-position: (- $cell_width * 6) 0px
   &.piece_gyoku
-    background-position: (- $piece_size * 7) 0px
+    background-position: (- $cell_width * 7) 0px
   &.piece_tokin
-    background-position: 0px (- $piece_size)
+    background-position: 0px (- $cell_height)
   &.piece_narikyo
-    background-position: (- $piece_size) (- $piece_size)
+    background-position: (- $cell_width) (- $cell_height)
   &.piece_narikei
-    background-position: (- $piece_size * 2) (- $piece_size)
+    background-position: (- $cell_width * 2) (- $cell_height)
   &.piece_narigin
-    background-position: (- $piece_size * 3) (- $piece_size)
+    background-position: (- $cell_width * 3) (- $cell_height)
   &.piece_uma
-    background-position: (- $piece_size * 5) (- $piece_size)
+    background-position: (- $cell_width * 5) (- $cell_height)
   &.piece_ryu
-    background-position: (- $piece_size * 6) (- $piece_size)
+    background-position: (- $cell_width * 6) (- $cell_height)
 
 nav.next_game
   margin: 20px 0
