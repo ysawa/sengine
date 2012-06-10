@@ -4,9 +4,19 @@ require 'spec_helper'
 
 describe "games/index" do
   before(:each) do
+    setup_controller_request
     user_sign_in
     @opponent = Fabricate(:user, name: 'opponent')
-    @game = Fabricate(:game, sente_user: @user, gote_user: @opponent)
+    @board = Board.hirate
+    @game = Game.new
+    @board.game = @game
+    @board.save
+    @sente_user = Fabricate(:user)
+    @gote_user = Fabricate(:user)
+    @game = Game.new
+    @game.sente_user = @sente_user
+    @game.gote_user = @gote_user
+    @game.save
     assign(:games, Game.all.page)
   end
 

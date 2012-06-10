@@ -4,6 +4,7 @@ require 'spec_helper'
 
 describe "home/mypage" do
   before :each do
+    setup_controller_request
     user_sign_in
   end
 
