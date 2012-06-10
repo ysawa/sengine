@@ -1,5 +1,7 @@
 %h1
   = link_to site_title, root_path
 %aside
+  - if Rails.env.production?
+    = link_to t('actions.invite_friends'), '#', class: :invite_facebook
   - if user_signed_in?
     = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete

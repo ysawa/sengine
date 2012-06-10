@@ -27,8 +27,22 @@ $ ->
   $('form.validated').validate()
   $('a.see_more').live 'click', ->
     $(this).hide()
+  if ($.check_if_smart_device())
+    # smart phone
+    true
+  $('a.invite_facebook').live 'click', ->
+    $.invite_facebook()
+    false
 
 $.extend
+  check_if_smart_device: ->
+    useragent = navigator.userAgent
+    useragent.match(/(iPad|iPhone|Android)/i)
+  invite_facebook: ->
+    FB.ui
+      method: 'apprequests',
+      message: "Let's play ShogiMatch!",
+      title : "Let's invite ShogiMatch!"
   notice: (message) ->
     @notice_with_title('Information', message)
   notice_with_title: (title, message) ->
