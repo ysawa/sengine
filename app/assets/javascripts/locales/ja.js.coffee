@@ -15,6 +15,8 @@ $ ->
     'uma': '馬'
     'ryu': '竜'
     'reverse?': '成りますか？'
+    'invite_facebook_title': "友達を招待する"
+    'invite_facebook_message': "一緒に将棋しませんか。(Let's play shogi!)"
 
   $.i18n.setDictionary(ja)
 

@@ -1,5 +1,5 @@
 .common_container#game_page
   = render 'games/game', game: @game, board: @board
 
-  - if Rails.env.production?
+  - if facebook_enabled?
     = render 'games/facebook_comments', game: @game

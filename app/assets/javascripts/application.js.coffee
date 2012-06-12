@@ -34,15 +34,26 @@ $ ->
     $.invite_facebook()
     false
 
+  # reloading facebook comments automatically if enabled
+  setInterval(
+    ->
+      condition = $.check_if_facebook_enabled()
+      condition &&= $('input[name="reload_comments"]').attr('checked')
+      if condition
+        $.reload_comments()
+    , 10000)
+
 $.extend
+  check_if_facebook_enabled: ->
+    typeof FB != "undefined"
   check_if_smart_device: ->
     useragent = navigator.userAgent
     useragent.match(/(iPad|iPhone|Android)/i)
   invite_facebook: ->
     FB.ui
-      method: 'apprequests',
-      message: "Let's play ShogiMatch!",
-      title : "Let's invite ShogiMatch!"
+      method: 'apprequests'
+      message: $.i18n.t('invite_facebook_message')
+      title: $.i18n.t('invite_facebook_title')
   notice: (message) ->
     @notice_with_title('Information', message)
   notice_with_title: (title, message) ->
@@ -69,6 +80,16 @@ $.extend
         'effect_out': effect_out
         'options_out': options_out
     )
+  reload_comments: ->
+    comments = $('div.fb_comments').children()
+    comments.html('')
+    comments.removeClass('fb_iframe_widget')
+    html = $('div.fb_comments').get(0).innerHTML
+    $('div.fb_comments').html(html)
+    $.reparse_xfbml()
+  reparse_xfbml: ->
+    FB.XFBML.parse()
+
 $.fn.extend
   blank: ->
     this.size() == 0

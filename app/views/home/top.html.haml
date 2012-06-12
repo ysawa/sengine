@@ -3,7 +3,7 @@
   %ul.menu
     %li
       - name = t('actions.sign_in_and_start')
-      - if Rails.env.production?
+      - if facebook_enabled?
         = link_to name, user_omniauth_authorize_path(:facebook)
       - else
         = link_to name, new_user_session_path

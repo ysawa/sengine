@@ -5,4 +5,3 @@ $('.board_container').html('<%= escape_javascript(render 'boards/board', game: @
 <%- elsif current_user == @game.gote_user and @game.movements.last.sente? %>
   $.play_audio('put');
 <%- end %>
-

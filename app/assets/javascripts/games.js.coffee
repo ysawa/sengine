@@ -13,6 +13,13 @@ $ ->
     )
     $.initialize_audio('put')
 
+    $('#play_buttons a').live 'ajax:beforeSend', ->
+      if $(this).hasClass 'processing'
+        false
+      else
+        $(this).addClass 'processing'
+        null
+
     # TODO check if the selector always works (this code is very stinky)
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()

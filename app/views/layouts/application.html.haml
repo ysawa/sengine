@@ -3,7 +3,7 @@
   %head
     = render 'common/head'
   %body
-    - if Rails.env.production?
+    - if facebook_enabled?
       = render 'common/facebook_javascript_sdk'
     %header#global_head
       .inner
@@ -12,7 +12,7 @@
       .inner{ 'data-pjax-container' => true }
         = yield
         = render 'common/notice'
-        - if Rails.env.production?
+        - if facebook_enabled?
           = render 'common/reparse_xfbml'
         = render 'common/audio'
     %footer#global_foot
