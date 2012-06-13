@@ -1,19 +1,19 @@
 = form_for(current_user, url: setting_path, html: { class: :validated }) do |f|
-  .field
+  %section.field
     = f.label :name
     = f.text_field :name, class: :required
-  .field
+  %section.field
     = f.label :locale
     - locales = Shogiengine::LOCALES.collect { |locale| [t("user.locales.#{locale}"), locale] }
     = f.select :locale, locales, {}, class: :required
-  .field
+  %section.field
     = f.label :timezone_string
     = f.time_zone_select :timezone_string, nil, { :include_blank => true }
-  .field
+  %section.field
     = f.label :audio_on
     - [true, false].each do |value|
       = label_tag "user_audio_on_#{value}", t("user.audio")[value], class: :inline
       = f.radio_button :audio_on, value, class: :required
       &nbsp;&nbsp;
-  .actions
+  %aside.actions
     = f.submit t('helpers.submit.save'), class: :send

@@ -18,6 +18,7 @@
 #= require_self
 #= require jquery.i18n
 #= require locales/ja
+#= require locales/en
 #= require audio
 #= require logic
 #= require_directory .
@@ -80,6 +81,13 @@ $.extend
         'effect_out': effect_out
         'options_out': options_out
     )
+  set_locale: (locale) ->
+    if locale == 'en'
+      $.set_locale_en()
+    else if locale == 'ja'
+      $.set_locale_ja()
+    null
+
   reload_comments: ->
     comments = $('div.fb_comments').children()
     comments.html('')

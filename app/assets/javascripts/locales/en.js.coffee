@@ -1,5 +1,5 @@
 $.extend
-  set_locale_ja: ->
+  set_locale_en: ->
     dictionary =
       'fu': '歩'
       'keima': '桂'
@@ -15,13 +15,13 @@ $.extend
       'narigin': '成銀'
       'uma': '馬'
       'ryu': '竜'
-      'reverse?': '成りますか？'
-      'invite_facebook_title': "友達を招待する"
-      'invite_facebook_message': "一緒に将棋しませんか。(Let's play shogi!)"
+      'reverse?': 'Reverse?'
+      'invite_facebook_title': "Let's invite your facebook friends"
+      'invite_facebook_message': "Let's play shogi!"
     $.i18n.setDictionary(dictionary)
 
     $.extend($.validator.messages,
-      required: "必須項目です。"
+      required: "The field is necessary."
       remote: "このフィールドを修正してください。"
       email: "有効なEメールアドレスを入力してください。"
       url: "有効なURLを入力してください。"

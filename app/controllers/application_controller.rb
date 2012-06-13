@@ -75,12 +75,14 @@ protected
 
   def set_locale
     locale = nil
+    user = user_signed_in? && current_user
     if user_signed_in? && current_user.persisted?
-      locale = current_user.locale.sub(/_.*$/, '')
+      locale = current_user.locale
     else
       locale = select_locale_from_accepted_languages
     end
     locale ||= I18n.default_locale
+    locale.sub!(/_.*$/, '')
     I18n.locale = locale
   end
 

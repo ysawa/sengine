@@ -1,10 +1,10 @@
 = form_for @game, html: { class: :validated } do |f|
-  .field
+  %section.field
     = label_tag 'game_order', t('actions.select_sente_or_gote')
     - %w(sente gote random).each do |order|
       = label_tag "game_order_#{order}", t("game.orders.#{order}"), class: :inline
       = radio_button_tag 'game_order', order, order == 'random', class: :required
-  .field
+  %section.field
     = label_tag 'game_opponent_id', t('actions.select_opponent')
     - User.where(:_id.ne => current_user.id).limit(10).each do |user|
       - user_decorator = UserDecorator.new(user)
@@ -13,5 +13,5 @@
         = user_decorator.image
         = user_decorator.name(false)
       = radio_button_tag 'game_opponent_id', user_id, false, class: :required
-  .actions
+  %section.actions
     = f.submit t('helpers.submit.play_game'), class: :send
