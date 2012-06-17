@@ -20,7 +20,7 @@ protected
         # quality present
         [ l[0].split("-")[0].downcase, l[1].sub(/^q=/, "").to_f ]
       else
-        # no quality specified =&gt; quality == 1
+        # no quality specified => quality == 1
         [ l[0].split("-")[0].downcase, 1.0 ]
       end
     }
@@ -82,7 +82,7 @@ protected
       locale = select_locale_from_accepted_languages
     end
     locale ||= I18n.default_locale
-    locale.sub!(/_.*$/, '')
+    locale = locale.to_s.sub(/_.*$/, '')
     I18n.locale = locale
   end
 
