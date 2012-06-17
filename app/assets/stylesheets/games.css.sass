@@ -11,6 +11,9 @@ $edge_cell_height: 20px
 $side_cell_width: 18px
 $piece_size: 45px
 $line_color: #b37100
+$highlight_color: #77c0ff
+$selected_color: $highlight_color
+$moved_color: $highlight_color
 
 @mixin corner_cell
   @include user-select(none)
@@ -57,7 +60,7 @@ $line_color: #b37100
       height: $cell_height
       &.highlight
         cursor: pointer
-        background-color: #ffc077
+        background-color: $highlight_color
       .piece
     .corner_cell
       @include corner_cell
@@ -89,7 +92,7 @@ $line_color: #b37100
         height: $cell_height
         &.highlight
           cursor: pointer
-          background-color: #ffc077
+          background-color: $highlight_color
         .piece
 .piece
   @include user-select(none)
@@ -102,9 +105,9 @@ $line_color: #b37100
   text-align: center
   background-image: url(/assets/pieces/default.png)
   &.moved
-    background-color: #ffab88
+    background-color: $moved_color
   &.selected
-    background-color: #ffc077
+    background-color: $selected_color
   &.upward
     &.playable
       cursor: pointer

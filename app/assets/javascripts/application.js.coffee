@@ -15,6 +15,7 @@
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
+#= require jquery-backstretch/jquery.backstretch
 #= require_self
 #= require jquery.i18n
 #= require locales/ja
@@ -34,6 +35,7 @@ $ ->
   $('a.invite_facebook').live 'click', ->
     $.invite_facebook()
     false
+  $.backstretch('/assets/bg/default.jpg')
 
   # reloading facebook comments automatically if enabled
   setInterval(

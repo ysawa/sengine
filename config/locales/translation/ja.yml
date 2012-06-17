@@ -45,11 +45,6 @@ ja:
       off: 'オフ'
       on: 'オン'
     comment: 'コメント'
-    date:
-      western: '西暦'
-      year: '年'
-      month: '月'
-      day: '日'
     genders:
       male: '男性'
       female: '女性'

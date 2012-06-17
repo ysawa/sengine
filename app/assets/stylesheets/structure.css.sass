@@ -8,11 +8,12 @@
   & > .inner
     margin: 0 auto
     width: $common_width
+    background: white
+    background: rgba(255, 255, 255, 0.8)
 header#global_head
   @include common_inner
   & > .inner
     @include clearfix
-    background-color: #eee
     $logo_width: 400px
     $height: 44px
     $inner_height: 24px
@@ -38,9 +39,14 @@ header#global_head
         font-size: 14px
 section#global_body
   @include common_inner
+  .inner
+    padding: 5px 0
 footer#global_foot
   @include common_inner
+  .inner
+    padding: 30px 0
   p
+    margin: 0
     a
       padding-right: 10px
     text-align: center
