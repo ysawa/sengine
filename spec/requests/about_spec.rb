@@ -10,13 +10,6 @@ describe "About", type: :request do
         response.status.should be(200)
       end
     end
-
-    describe "us" do
-      it "works" do
-        get about_us_path
-        response.status.should be(200)
-      end
-    end
   end
 
   context 'with signing in' do
@@ -40,15 +33,6 @@ describe "About", type: :request do
             end
           end
         end
-
-        describe "us" do
-          it "works!" do
-            visit about_us_path
-            within 'h2' do
-              page.should have_content "運営者情報"
-            end
-          end
-        end
       end
     end
 
@@ -64,15 +48,6 @@ describe "About", type: :request do
             visit about_game_path
             within 'h2' do
               page.should have_content 'About This Game'
-            end
-          end
-        end
-
-        describe "us" do
-          it "works!" do
-            visit about_us_path
-            within 'h2' do
-              page.should have_content 'About Us'
             end
           end
         end

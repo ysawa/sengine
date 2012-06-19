@@ -39,7 +39,7 @@
           = decorator.facebook_comments_count
         %td.spec
           - if game.of_user? current_user
-            = link_to t('actions.destroy'), game, confirm: 'Are you sure?', method: :delete
+            = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete
 %nav.pagination.next_game
   - name = t('actions.see_more')
   - unless defined?(pagination_params)

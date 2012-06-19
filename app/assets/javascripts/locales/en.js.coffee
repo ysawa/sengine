@@ -15,6 +15,7 @@ $.extend
       'narigin': '成銀'
       'uma': '馬'
       'ryu': '竜'
+      'Are you sure?': 'Are you sure?'
       'reverse?': 'Reverse?'
       'invite_facebook_title': "Let's invite your facebook friends"
       'invite_facebook_message': "Let's play shogi!"

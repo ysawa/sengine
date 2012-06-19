@@ -1,6 +1,5 @@
 Shogiengine::Application.routes.draw do
   get "about/game", as: :about_game
-  get "about/us", as: :about_us
 
   get "help", to: 'help#index', as: :help
 

@@ -6,6 +6,13 @@ module ApplicationHelper
     Rails.env.production?
   end
 
+  def link_to_about_us(name, options = {})
+    html_options = options.stringify_keys
+    html_options.reverse_merge!({ 'target' => '_blank', 'class' => 'out' })
+    href = "https://www.facebook.com/pages/将棋友の会/146331642097255"
+    link_to name, href, html_options
+  end
+
   def link_to_sign_in(name = nil, options = {})
     name ||= t('actions.sign_in_and_start')
     if Rails.env.production?

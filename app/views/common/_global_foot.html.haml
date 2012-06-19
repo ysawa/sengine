@@ -1,9 +1,9 @@
 %p
   - if user_signed_in?
     = link_to page_name('home', 'mypage'), root_path
-    = link_to page_name('about', 'us'), about_us_path
+    = link_to_about_us page_name('about', 'us')
     = link_to page_name('help', 'index'), help_path
   - else
     = link_to page_name('home', 'top'), root_path
-    = link_to page_name('about', 'us'), about_us_path
+    = link_to_about_us page_name('about', 'us')
   %span#credit= t('site.copyright')

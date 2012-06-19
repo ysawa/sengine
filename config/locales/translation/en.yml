@@ -31,6 +31,8 @@ en:
     update: '%{model} was successfully created.'
     you_lost: 'You lost. Good game.'
     you_won: 'You won! Good game.'
+  confirms:
+    are_you_sure_: 'Are you sure?'
   please:
     check: 'Please Check'
     check_: 'Please Check.'

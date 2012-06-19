@@ -25,8 +25,9 @@
 #= require_directory .
 
 $ ->
+  # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
-  $('form.validated').validate()
+
   $('a.see_more').live 'click', ->
     $(this).hide()
   if ($.check_if_smart_device())
@@ -37,6 +38,12 @@ $ ->
     false
   $.backstretch('/assets/bg/default.jpg')
 
+  $('a[target="_blank"]').live 'click', ->
+    if $.check_if_facebook_enabled()
+      href = $(this).attr('href')
+      if $.check_if_outside_url(href)
+        $.google_analytics_track_pageview(href)
+
   # reloading facebook comments automatically if enabled
   setInterval(
     ->
@@ -46,12 +53,35 @@ $ ->
         $.reload_comments()
     , 10000)
 
+  on_pjax_reload = ->
+    # Validations of Forms
+    $('form.validated').validate()
+  $(document).on('pjax:end', on_pjax_reload)
+  on_pjax_reload()
+
 $.extend
+  check_if_google_analytics_enabled: ->
+    typeof _gaq != "undefined"
   check_if_facebook_enabled: ->
     typeof FB != "undefined"
+  check_if_inside_url: (url) ->
+    host = location.host
+    if url.match(/^\//)
+      true
+    else if url.match(new RegExp("^http(|s)://#{host}"))
+      true
+    else
+      false
   check_if_smart_device: ->
     useragent = navigator.userAgent
     useragent.match(/(iPad|iPhone|Android)/i)
+  check_if_outside_url: (url) ->
+    !check_if_inside_url(url)
+  google_analytics_track_pageview: (url = null) ->
+    if url
+      _gaq.push(['_trackPageview', url])
+    else
+      _gaq.push(['_trackPageview'])
   invite_facebook: ->
     FB.ui
       method: 'apprequests'
@@ -89,7 +119,6 @@ $.extend
     else if locale == 'ja'
       $.set_locale_ja()
     null
-
   reload_comments: ->
     comments = $('div.fb_comments').children()
     comments.html('')
