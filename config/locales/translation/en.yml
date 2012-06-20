@@ -14,6 +14,7 @@ en:
     select_opponent: 'Select Opponent'
     show: 'Show'
     sign_in_and_start: 'Sign In and Start'
+    wait: 'Matta'
   helpers:
     submit:
       next: 'Next'

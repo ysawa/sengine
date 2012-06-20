@@ -9,6 +9,7 @@ $cell_width: 56px
 $cell_height: 60px
 $edge_cell_height: 20px
 $side_cell_width: 18px
+$board_width: $cell_width * 9 + $side_cell_width * 2
 $piece_size: 45px
 $line_color: #b37100
 $highlight_color: #77c0ff
@@ -28,6 +29,11 @@ $moved_color: $highlight_color
     text-align: center
     font-weight: bold
     margin: 10px 0
+  #game_buttons
+    @include user-select(none)
+    width: $board_width
+    margin: 20px auto
+    text-align: right
   #play_buttons
     @include user-select(none)
     margin: 10px 0
