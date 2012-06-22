@@ -81,7 +81,9 @@ $.extend
   fix_facebook_comments_height: ->
     height = $('.fb_comments iframe').height()
     if height == 160
-      $('.fb_comments').height(140)
+      $('.fb_comments, .fb_comments iframe').height(140)
+    else
+      $('.fb_comments, .fb_comments iframe').height(height)
   google_analytics_track_pageview: (url = null) ->
     if url
       _gaq.push(['_trackPageview', url])
