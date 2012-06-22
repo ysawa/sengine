@@ -23,7 +23,7 @@ $ ->
     # TODO check if the selector always works (this code is very stinky)
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()
-    $('.board[play] .piece.upward').live 'click', ->
+    $('.board .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
       $('.cell').removeClass('highlight')
@@ -34,7 +34,7 @@ $ ->
         $(this).highlight_orbit()
         $(this).addClass('selected')
 
-    $('.in_hand .piece.upward').live 'click', ->
+    $('.in_hand .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
       $('.cell').removeClass('highlight')
@@ -119,7 +119,7 @@ $ ->
         reversed_role = piece_selected.attr('role')
         piece_selected.attr('role', reversed_role)
       $('.in_hand .cell').each ->
-        if $(this).find('.piece').size() == 0
+        if $(this).find('.piece, .face, .number').size() == 0
           $(this).remove()
       turn = $('.board').attr('turn')
       if turn == 'sente'
