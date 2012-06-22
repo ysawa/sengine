@@ -7,6 +7,14 @@ class UserDecorator < ApplicationDecorator
     I18n.t("user.audio")[model.audio_on?]
   end
 
+  def facebook_url
+    if user.facebook_username
+      "https://www.facebook.com/#{user.facebook_username}"
+    else
+      '#'
+    end
+  end
+
   def games_count
     model.sente_games.count + model.gote_games.count
   end
