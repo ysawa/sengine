@@ -1,0 +1,30 @@
+- piece_roles = {}
+.in_hand{ class: direction }
+  .pieces
+    .row
+      - if reverse ^ (direction == 'upward')
+        - pieces = board.pieces.in_sente_hand
+        - user = game.sente_user
+      - else
+        - pieces = board.pieces.in_gote_hand
+        - user = game.gote_user
+      .cell
+        .face
+          = render 'users/face', user: user
+      - pieces.each do |piece|
+        - if piece_roles[piece.role]
+          - piece_roles[piece.role] += 1
+        - else
+          - piece_roles[piece.role] = 1
+      - pieces.each do |piece|
+        - number = piece_roles[piece.role]
+        - piece_decorator = PieceDecorator.new piece
+        - if number
+          .cell
+            - piece_decorator.reverse = reverse
+            = piece_decorator.tagify(play)
+            - if number > 1
+              .number
+                x
+                = number
+          - piece_roles[piece.role] = nil

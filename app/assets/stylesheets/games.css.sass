@@ -86,6 +86,7 @@ $moved_color: $highlight_color
         float: left
         width: $cell_width
         height: $cell_height
+        position: relative
         &.highlight
           cursor: pointer
           background-color: $highlight_color
@@ -94,6 +95,13 @@ $moved_color: $highlight_color
           width: $face_size
           height: $face_size
           padding: (($cell_height - $face_size) / 2) (($cell_width - $face_size) / 2)
+        .number
+          position: absolute
+          right: 0px
+          bottom: 0px
+          color: #f00
+          font-weight: bold
+
 .piece
   @include user-select(none)
   color: transparent
