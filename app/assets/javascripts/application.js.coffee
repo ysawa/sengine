@@ -58,6 +58,7 @@ $ ->
     $('form.validated').validate()
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
+  setTimeout($.fix_facebook_comments_height, 2000)
 
 $.extend
   check_if_google_analytics_enabled: ->
@@ -77,6 +78,10 @@ $.extend
     useragent.match(/(iPad|iPhone|Android)/i)
   check_if_outside_url: (url) ->
     !check_if_inside_url(url)
+  fix_facebook_comments_height: ->
+    height = $('.fb_comments iframe').height()
+    if height == 160
+      $('.fb_comments').height(140)
   google_analytics_track_pageview: (url = null) ->
     if url
       _gaq.push(['_trackPageview', url])
@@ -128,6 +133,7 @@ $.extend
     $.reparse_xfbml()
   reparse_xfbml: ->
     FB.XFBML.parse()
+    setTimeout($.fix_facebook_comments_height, 2000)
 
 $.fn.extend
   blank: ->
