@@ -90,6 +90,10 @@ $moved_color: $highlight_color
           cursor: pointer
           background-color: $highlight_color
         .piece
+        .face
+          width: $face_size
+          height: $face_size
+          padding: (($cell_height - $face_size) / 2) (($cell_width - $face_size) / 2)
 .piece
   @include user-select(none)
   color: transparent
