@@ -58,6 +58,13 @@ label
 a
   &.button
     @include button
+    @include inline-block
+    font-size: 100%
+    text-decoration: none
+span
+  &.button
+    @include button(simple, #eee)
+    @include inline-block
     font-size: 100%
     text-decoration: none
 
@@ -101,6 +108,7 @@ ul.menu
       text-decoration: none
 
 aside.actions
+  margin: 10px 0
 
 /* pnotify */
 .ui-pnotify-history-container

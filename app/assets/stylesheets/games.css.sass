@@ -29,27 +29,17 @@ $moved_color: $highlight_color
     text-align: center
     font-weight: bold
     margin: 10px 0
-  #game_buttons
+  aside#game_buttons
     @include user-select(none)
     width: $board_width
-    margin: 20px auto
+    margin: 10px auto
     text-align: right
-  #play_buttons
+  aside#play_buttons
     @include user-select(none)
     margin: 10px 0
     text-align: center
-    a
-      @include button(simple)
-      text-decoration: none
-    span
-      @include button(simple, #eee)
     a, span
-      display: inline-block
-      font-size: 100%
-      margin: 0 3px
-      width: 50px
-  .actions
-    margin: 10px 0
+      width: 60px
 
 .board
   @include user-select(none)
@@ -158,7 +148,7 @@ nav.next_game
     color: #fff
   a.see_more, span.see_more
     font-size: 100%
-    display: inline-block
+    @include inline-block
 
 /* Layouts */
 

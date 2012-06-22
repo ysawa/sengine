@@ -11,6 +11,10 @@ class ApplicationDecorator < Draper::Base
     EOS
   end
 
+  def current_user
+    h.current_user
+  end
+
   def localize_date(date, options = {})
     if date
       target = date.to_date
@@ -23,5 +27,9 @@ class ApplicationDecorator < Draper::Base
       target = time.to_time.in_time_zone
       I18n.l(target, options)
     end
+  end
+
+  def user_signed_in?
+    h.user_signed_in?
   end
 end
