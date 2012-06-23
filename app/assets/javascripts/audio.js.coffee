@@ -7,8 +7,8 @@ $.extend
   enable_audio: () ->
     @audio_enabled = true
   find_enabled_audio_format: ->
-    audio = new Audio("")
     if @audio_tag_support
+      audio = new Audio("")
       # select the supported and shortest audio format
       if ("" != audio.canPlayType("audio/ogg"))
         '.ogg'
@@ -19,8 +19,8 @@ $.extend
     else
       null
   initialize_audio: (audio) ->
-    format = @find_enabled_audio_format()
     if @audio_tag_support
+      format = @find_enabled_audio_format()
       @audio_schemes.put = null
       $.get(
         "/audio/encode/#{audio}#{format}",
