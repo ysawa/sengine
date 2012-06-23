@@ -28,21 +28,26 @@ $ ->
         return
       $('.cell').removeClass('highlight')
       if $(this).hasClass('selected')
+        $('.cell').removeClass('selected')
         $('.piece').removeClass('selected')
       else
+        $('.cell').removeClass('selected')
         $('.piece').removeClass('selected')
         $(this).highlight_orbit()
         $(this).addClass('selected')
+        $(this).parents('.cell').addClass('selected')
 
     $('.in_hand .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
       $('.cell').removeClass('highlight')
       if $(this).hasClass('selected')
+        $('.cell').removeClass('selected')
         $('.piece').removeClass('selected')
       else
         $('.piece').removeClass('selected')
         $(this).addClass('selected')
+        $(this).parents('.cell').addClass('selected')
         first_line = 1
         last_line = 9
         role = $(this).attr('role')
@@ -91,6 +96,7 @@ $ ->
         else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
           reverse = true
       $('.cell').removeClass('highlight')
+      $('.cell').removeClass('selected')
       piece_selected.removeClass('selected')
       game_id = $('.board').attr('game_id')
       movement =

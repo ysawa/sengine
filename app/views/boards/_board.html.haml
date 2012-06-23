@@ -33,8 +33,12 @@
         - else
           .side_cell
         - x_range.each do |x|
-          .cell{ x: x, y: y }
-            - piece = board.piece_on_point([x, y])
+          - piece = board.piece_on_point([x, y])
+          - if piece
+            - moved = piece_moved(piece, board.movement)
+          - else
+            - moved = nil
+          .cell{ x: x, y: y, class: (moved ? 'moved' : nil) }
             - if piece
               - piece_decorator = PieceDecorator.new piece
               - piece_decorator.reverse = reverse

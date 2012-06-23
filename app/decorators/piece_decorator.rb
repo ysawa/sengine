@@ -20,11 +20,7 @@ class PieceDecorator < ApplicationDecorator
   end
 
   def tagify(play, movement = nil)
-    if movement && movement.to_point == model.point
-      moved = true
-    else
-      moved = false
-    end
+    moved = h.piece_moved(model, movement)
     name = h.convert_piece_role_to_kanji model.role
     h.content_tag :div, name, id: model.id, role: model.role, direction: direction, class: html_class(play: play, moved: moved)
   end

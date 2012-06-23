@@ -4,4 +4,8 @@ module PiecesHelper
   def convert_piece_role_to_kanji(role)
     I18n.t('piece.roles')[role.to_sym]
   end
+
+  def piece_moved(piece, movement)
+    movement && (movement.to_point == piece.point)
+  end
 end

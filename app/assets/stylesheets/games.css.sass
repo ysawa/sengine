@@ -15,6 +15,7 @@ $line_color: #b37100
 $highlight_color: #77c0ff
 $selected_color: $highlight_color
 $moved_color: $highlight_color
+$pieces_image: url(/assets/pieces/default.png)
 
 @mixin corner_cell
   @include user-select(none)
@@ -22,6 +23,10 @@ $moved_color: $highlight_color
   text-align: center
   font-weight: bold
   float: left
+
+@mixin highlight
+  background-image: $pieces_image
+  background-position: (- $cell_width * 4) (- $cell_height)
 
 #game
   #game_result
@@ -54,9 +59,11 @@ $moved_color: $highlight_color
       float: left
       width: $cell_width
       height: $cell_height
-      &.highlight
+      &.moved,
+      &.highlight,
+      &.selected
         cursor: pointer
-        background-color: $highlight_color
+        @include highlight
       .piece
     .corner_cell
       @include corner_cell
@@ -87,9 +94,13 @@ $moved_color: $highlight_color
         width: $cell_width
         height: $cell_height
         position: relative
+        &.moved,
+        &.selected,
         &.highlight
           cursor: pointer
-          background-color: $highlight_color
+          @include highlight
+          cursor: pointer
+          @include highlight
         .piece
         .face
           width: $face_size
@@ -111,11 +122,9 @@ $moved_color: $highlight_color
   font-weight: bold
   line-height: $cell_height
   text-align: center
-  background-image: url(/assets/pieces/default.png)
+  background-image: $pieces_image
   &.moved
-    background-color: $moved_color
   &.selected
-    background-color: $selected_color
   &.upward
     &.playable
       cursor: pointer
