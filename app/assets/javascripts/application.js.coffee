@@ -58,7 +58,7 @@ $ ->
     $('form.validated').validate()
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
-  setTimeout($.fix_facebook_comments_height, 7000)
+  setInterval($.fix_facebook_comments_height, 1000)
 
 $.extend
   check_if_google_analytics_enabled: ->
@@ -135,7 +135,6 @@ $.extend
     $.reparse_xfbml()
   reparse_xfbml: ->
     FB.XFBML.parse()
-    setTimeout($.fix_facebook_comments_height, 2000)
 
 $.fn.extend
   blank: ->
