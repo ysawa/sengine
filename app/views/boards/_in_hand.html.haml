@@ -10,7 +10,7 @@
         - user = game.gote_user
       .cell
         .face
-          = render 'users/face', user: user
+          = render 'users/face', user: user, image_link: !(play && user == current_user)
       - pieces.each do |piece|
         - if piece_roles[piece.role]
           - piece_roles[piece.role] += 1
