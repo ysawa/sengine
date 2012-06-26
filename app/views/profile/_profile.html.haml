@@ -1,8 +1,16 @@
 - decorator = UserDecorator.new(user)
+%p
+  = link_to decorator.image, decorator.facebook_url, target: "_blank"
 %dl#user_profile
-  %p
-    = link_to decorator.image, decorator.facebook_url, target: "_blank"
-  - %w(name locale timezone).each do |attr_name|
+  %dt
+    = User.human_attribute_name('name')
+  %dd
+    = decorator.name
+    \(
+    = decorator.online
+    \)
+
+  - %w(locale timezone).each do |attr_name|
     %dt
       = User.human_attribute_name(attr_name)
     %dd

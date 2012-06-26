@@ -56,4 +56,5 @@ ja:
         sente_games: '先手の対局'
         timezone: 'タイムゾーン'
         timezone_string: 'タイムゾーン'
+        used_at: '使用日時'
         won_games: '勝った対局'

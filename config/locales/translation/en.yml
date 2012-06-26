@@ -29,6 +29,7 @@ en:
     create: '%{model} was successfully created.'
     destroy: '%{model} was successfully destoyed.'
     save: '%{model} was successfully saved.'
+    someone_deleted_this_game: 'This game is deleted.'
     update: '%{model} was successfully created.'
     you_lost: 'You lost. Good game.'
     you_won: 'You won! Good game.'
@@ -54,6 +55,9 @@ en:
     locales:
       en: 'English'
       ja: 'Japanese'
+    online:
+      off: 'Offline'
+      on: 'Online'
     opponent: 'Opponent'
     setting: 'Setting'
   site:

@@ -58,6 +58,8 @@ $ ->
     $('form.validated').validate()
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
+
+  # check and fix facebook comments plugin height every second
   setInterval($.fix_facebook_comments_height, 1000)
 
 $.extend

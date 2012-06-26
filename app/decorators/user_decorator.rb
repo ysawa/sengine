@@ -67,6 +67,10 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
+  def online
+    I18n.t("user.online")[model.online?]
+  end
+
   def timezone
     if model.timezone
       elements = ['GMT']

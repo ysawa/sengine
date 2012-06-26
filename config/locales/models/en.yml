@@ -56,4 +56,5 @@ en:
         sente_games: 'Black Games'
         timezone: 'Time Zone'
         timezone_string: 'Time Zone'
+        used_at: 'Time Used'
         won_games: 'Won Games'

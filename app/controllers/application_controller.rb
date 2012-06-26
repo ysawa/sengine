@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_timezone
   before_filter :make_subtitle
+  before_filter :update_user_used_at_if_signed_in
 protected
 
   def accepted_languages
@@ -101,5 +102,11 @@ protected
 
   def set_top_page_as_false
     @top_page = false
+  end
+
+  def update_user_used_at_if_signed_in
+    if user_signed_in?
+      current_user.update_attribute(:used_at, Time.now)
+    end
   end
 end

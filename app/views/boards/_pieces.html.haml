@@ -1,0 +1,44 @@
+.pieces
+  -# the row of top edge cells
+  .row
+    .corner_cell.left.top
+    - x_range.each do |x|
+      - if reverse
+        .edge_cell
+      - else
+        .edge_cell
+          = x
+    .corner_cell.right.top
+  -# the 81 cells and side cells of the center on the board
+  - y_range.each do |y|
+    .row
+      - if reverse
+        .side_cell.reverse
+          = convert_number_to_kanji(y)
+      - else
+        .side_cell
+      - x_range.each do |x|
+        - piece = board.piece_on_point([x, y])
+        - if piece
+          - moved = piece_moved(piece, board.movement)
+        - else
+          - moved = nil
+        .cell{ x: x, y: y, class: (moved ? 'moved' : nil) }
+          - if piece
+            - piece_decorator = PieceDecorator.new piece
+            - piece_decorator.reverse = reverse
+            = piece_decorator.tagify(play, board.movement)
+      .side_cell
+        - unless reverse
+          = convert_number_to_kanji(y)
+  -# the row of bottom edge cells
+  .row
+    .corner_cell.left.bottom
+    - x_range.each do |x|
+      - if reverse
+        .edge_cell.reverse
+          = x
+      - else
+        .edge_cell
+    .corner_cell.right.bottom
+

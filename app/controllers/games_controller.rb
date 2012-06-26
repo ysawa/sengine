@@ -3,25 +3,31 @@
 class GamesController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user!
-  before_filter :find_game, only: [:check_update, :destroy, :edit, :give_up, :show, :update]
+  before_filter :find_game, only: [:destroy, :edit, :give_up, :show, :update]
 
   # GET /games/1/check_update
   def check_update
-    number = @game.boards.count
-    @game.check_and_save_if_playing
-    if @game.won_user == current_user
-      flash[:notice] = t('notices.you_won')
-      # only redirect to @game
-      render js: "window.location = '#{game_path(@game)}'"
-    elsif @game.lost_user == current_user
-      flash[:notice] = t('notices.you_lost')
-      # only redirect to @game
-      render js: "window.location = '#{game_path(@game)}'"
-    elsif params[:number].to_i < number
-      render
+    @game = Game.where(_id: params[:id]).first
+    if @game
+      number = @game.boards.count
+      @game.check_and_save_if_playing
+      if @game.won_user == current_user
+        flash[:notice] = t('notices.you_won')
+        # only redirect to @game
+        render js: "window.location = '#{game_path(@game)}'"
+      elsif @game.lost_user == current_user
+        flash[:notice] = t('notices.you_lost')
+        # only redirect to @game
+        render js: "window.location = '#{game_path(@game)}'"
+      elsif params[:number].to_i < number
+        render
+      else
+        result = 'NO UPDATE'
+        render text: result, content_type: Mime::TEXT
+      end
     else
-      result = 'NO UPDATE'
-      render text: result, content_type: Mime::TEXT
+      flash[:notice] = t('notices.someone_deleted_this_game')
+      render js: "window.location = '/'"
     end
   end
 

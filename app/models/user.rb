@@ -27,6 +27,7 @@ class User
   field :sign_in_count, type: Integer
   field :timezone, type: Integer, default: 9
   field :timezone_string, type: Integer
+  field :used_at, type: Time
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
   has_many :gote_games, class_name: 'Game', inverse_of: :gote_user
@@ -39,6 +40,14 @@ class User
 
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
+  end
+
+  def offline?
+    !(self.used_at && self.used_at >= Time.now - 1.minute)
+  end
+
+  def online?
+    !offline?
   end
 
   def setup_name
