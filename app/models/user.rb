@@ -24,6 +24,7 @@ class User
   field :name, type: String
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
+  field :score, type: Integer, default: 0
   field :sign_in_count, type: Integer
   field :timezone, type: Integer, default: 9
   field :timezone_string, type: Integer

@@ -8,7 +8,7 @@ describe Piece do
   end
 
   let :piece do
-    Fabricate.build(:piece, board: board)
+    Piece.new(1) # SENTE FU
   end
 
   describe '.save' do
@@ -35,17 +35,6 @@ describe Piece do
       piece.sente = false
       piece.sente?.should be_false
       piece.gote?.should be_true
-    end
-  end
-
-  describe '.in_hand? and .on_board?' do
-    it 'both work!' do
-      piece.in_hand = true
-      piece.in_hand?.should be_true
-      piece.on_board?.should be_false
-      piece.in_hand = false
-      piece.in_hand?.should be_false
-      piece.on_board?.should be_true
     end
   end
 

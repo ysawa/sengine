@@ -1,6 +1,6 @@
 - decorator = UserDecorator.new(user)
 %dl#user_profile
-  - %w(image name locale timezone audio_on).each do |attr_name|
+  - %w(image name score locale timezone audio_on).each do |attr_name|
     %dt
       = User.human_attribute_name(attr_name)
     %dd

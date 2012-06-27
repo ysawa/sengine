@@ -7,39 +7,19 @@ class Board
   field :number, type: Integer
   belongs_to :game
   has_one :movement
-  embeds_many :pieces do
-    def in_hand(role = nil)
-      @target.select do |piece|
-        result = piece.in_hand?
-        result &&= role == piece.role if role
-        result
-      end
-    end
 
-    def in_gote_hand(role = nil)
-      @target.select do |piece|
-        result = piece.in_hand? && piece.gote?
-        result &&= role == piece.role if role
-        result
-      end
-    end
-
-    def in_sente_hand(role = nil)
-      @target.select do |piece|
-        result = piece.in_hand? && piece.sente?
-        result &&= role == piece.role if role
-        result
-      end
-    end
-
-    def on_point(point)
-      @target.select do |piece|
-        point == piece.point
-      end
+  # Pieces on the board
+  11.upto(99).each do |number|
+    unless (number % 10) == 0
+      field "p_#{number}", type: Integer, default: 0
     end
   end
 
+  # Pieces in hands
+  field :gote_hand, type: Hand, default: [nil, 0, 0, 0, 0, 0, 0, 0, 0]
+  field :sente_hand, type: Hand, default: [nil, 0, 0, 0, 0, 0, 0, 0, 0]
   before_destroy :destroy_movement
+
 
   # TODO this method must have some exceptions
   def apply_movement(movement)
@@ -71,17 +51,22 @@ class Board
 
   def hirate
     write_attributes({ sente: false, number: 0 })
-    piece_mirror('gyoku', [5, 9])
-    piece_opposite_mirror('kin', [4, 9])
-    piece_opposite_mirror('gin', [3, 9])
-    piece_opposite_mirror('keima', [2, 9])
-    piece_opposite_mirror('kyosha', [1, 9])
-    piece_mirror('kaku', [8, 8])
-    piece_mirror('hisha', [2, 8])
+    piece_opposite_mirror(Piece::KY, [1, 9])
+    piece_opposite_mirror(Piece::KE, [2, 9])
+    piece_opposite_mirror(Piece::GI, [3, 9])
+    piece_opposite_mirror(Piece::KI, [4, 9])
+    piece_mirror(Piece::OU, [5, 9])
+    piece_mirror(Piece::KA, [8, 8])
+    piece_mirror(Piece::HI, [2, 8])
     1.upto(9).each do |x|
-      piece_mirror('fu', [x, 7])
+      piece_mirror(Piece::FU, [x, 7])
     end
     true
+  end
+
+  def get_piece(point)
+    attr = "p_#{point[0]}#{point[1]}"
+    read_attribute(attr)
   end
 
   def gyoku_in_gote_hand?
@@ -104,6 +89,11 @@ class Board
     self.pieces.on_point(point).first
   end
 
+  def set_piece(piece, point)
+    attr = "p_#{point[0]}#{point[1]}"
+    write_attribute(attr, piece.to_i)
+  end
+
   class << self
     def hirate
       board = new
@@ -117,18 +107,19 @@ private
     self.movement.destroy if self.movement
   end
 
-  def piece_mirror(role, point, double = false)
+  def piece_mirror(piece, point, double = false)
     x = point[0]
     y = point[1]
-    self.pieces << Piece.place(role, [x, y], true)
-    self.pieces << Piece.place(role, [(10 - x).abs, (10 - y).abs], false)
+    piece_value = piece.to_i
+    set_piece(piece, [x, y])
+    set_piece(- piece, [10 - x, 10 - y])
     if double
-      self.pieces << Piece.place(role, [(10 - x).abs, y], true)
-      self.pieces << Piece.place(role, [x, (10 - y).abs], false)
+      set_piece(piece, [10 - x, y])
+      set_piece(- piece, [x, 10 - y])
     end
   end
 
-  def piece_opposite_mirror(role, point)
-    piece_mirror(role, point, true)
+  def piece_opposite_mirror(piece, point)
+    piece_mirror(piece, point, true)
   end
 end

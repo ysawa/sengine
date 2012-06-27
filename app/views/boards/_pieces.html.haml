@@ -18,11 +18,13 @@
       - else
         .side_cell
       - x_range.each do |x|
-        - piece = board.piece_on_point([x, y])
-        - if piece
-          - moved = piece_moved(piece, board.movement)
-        - else
+        - piece_value = board.get_piece([x, y])
+        - if piece_value == 0
           - moved = nil
+          - piece = nil
+        - else
+          -# moved = piece_moved(piece, board.movement)
+          - piece = Piece.new(piece_value)
         .cell{ x: x, y: y, class: (moved ? 'moved' : nil) }
           - if piece
             - piece_decorator = PieceDecorator.new piece
