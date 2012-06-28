@@ -18,18 +18,16 @@
       - else
         .side_cell
       - x_range.each do |x|
-        - piece_value = board.get_piece([x, y])
-        - if piece_value == 0
+        - piece = board.get_piece([x, y])
+        - if piece
           - moved = nil
-          - piece = nil
         - else
-          -# moved = piece_moved(piece, board.movement)
-          - piece = Piece.new(piece_value)
+          - moved = board.movement == [x, y]
         .cell{ x: x, y: y, class: (moved ? 'moved' : nil) }
           - if piece
             - piece_decorator = PieceDecorator.new piece
             - piece_decorator.reverse = reverse
-            = piece_decorator.tagify(play, board.movement)
+            = piece_decorator.tagify(play, moved)
       .side_cell
         - unless reverse
           = convert_number_to_kanji(y)

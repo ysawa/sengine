@@ -11,10 +11,10 @@ $.fn.extend
       direction = -1
     if role == 'fu'
       $.highlight_on_point_if_possible([x, y - 1 * direction])
-    else if role == 'keima'
+    else if role == 'ke'
       for i in [-1, 1]
         $.highlight_on_point_if_possible([x + i, y - 2 * direction])
-    else if role == 'gyoku'
+    else if role == 'ou'
       for i in [-1, 0, 1]
         this_x = x + i
         for j in [-1, 1]
@@ -22,20 +22,20 @@ $.fn.extend
           $.highlight_on_point_if_possible([this_x, this_y])
       for i in [-1, 1]
         $.highlight_on_point_if_possible([x + i, y])
-    else if role == 'gin'
+    else if role == 'gi'
       for i in [-1, 0, 1]
         this_x = x + i
         for j in [-1, 1]
           this_y = y + j * direction
           $.highlight_on_point_if_possible([this_x, this_y])
       $.cell_on_point([x, y + 1 * direction]).removeClass('highlight')
-    else if $.inArray(role, ['kin', 'tokin', 'narikyo', 'narikei', 'narigin']) != -1
+    else if $.inArray(role, ['ki', 'to', 'ny', 'nk', 'ng']) != -1
       for i in [-1, 0, 1]
         $.highlight_on_point_if_possible([x + i, y - 1 * direction])
       for i in [-1, 1]
         $.highlight_on_point_if_possible([x + i, y])
       $.highlight_on_point_if_possible([x, y + 1 * direction])
-    else if role == 'kyosha'
+    else if role == 'ky'
       highlight_cells = (point) ->
         if $.cell_on_point_have_proponent_piece(point)
           false
@@ -51,7 +51,7 @@ $.fn.extend
           break
         else
           $.highlight_on_point(point)
-    else if $.inArray(role, ['hisha', 'ryu']) != -1
+    else if $.inArray(role, ['hi', 'ry']) != -1
       highlight_cells = (point) ->
         if $.cell_on_point_have_proponent_piece(point)
           false
@@ -68,7 +68,7 @@ $.fn.extend
         for i in number_loop
           point = [x + i, y]
           break unless highlight_cells(point)
-    else if $.inArray(role, ['kaku', 'uma']) != -1
+    else if $.inArray(role, ['ka', 'um']) != -1
       highlight_cells = (point) ->
         if $.cell_on_point_have_proponent_piece(point)
           false
@@ -85,11 +85,11 @@ $.fn.extend
         for i in number_loop
           point = [x - i, y + i]
           break unless highlight_cells(point)
-    if role == 'ryu'
+    if role == 'ry'
       for i in [-1, 1]
         for j in [-1, 1]
           $.highlight_on_point_if_possible([x + i, y + j])
-    else if role == 'uma'
+    else if role == 'um'
       for i in [-1, 1]
         $.highlight_on_point_if_possible([x, y + i])
         $.highlight_on_point_if_possible([x + i, y])
@@ -148,6 +148,6 @@ $.extend
   highlight_on_point_if_possible: (point) ->
     unless $.cell_on_point_have_proponent_piece(point)
       $.highlight_on_point(point)
-  roles: ['fu', 'gin', 'keima', 'kyosha', 'kaku', 'hisha', 'gyoku', 'kin']
-  reversed_roles: ['tokin', 'narigin', 'narikei', 'narikyo', 'uma', 'ryu', 'gyoku', 'kin']
+  roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi', 'ou', 'ki']
+  reversed_roles: ['to', 'ng', 'nk', 'ny', 'um', 'ry', 'ou', 'ki']
 

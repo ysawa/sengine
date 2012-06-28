@@ -18,12 +18,12 @@ class Game
   def check_if_playing
     if self.playing?
       board = self.boards.last
-      if board.gyoku_in_sente_hand?
+      if board.ou_in_sente_hand?
         # sente win
         self.won_user = self.sente_user
         self.lost_user = self.gote_user
         false
-      elsif board.gyoku_in_gote_hand?
+      elsif board.ou_in_gote_hand?
         # gote win
         self.won_user = self.gote_user
         self.lost_user = self.sente_user

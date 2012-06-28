@@ -19,8 +19,7 @@ class PieceDecorator < ApplicationDecorator
     klasses
   end
 
-  def tagify(play, movement = nil)
-    moved = h.piece_moved(model, movement)
+  def tagify(play, moved = nil)
     name = h.convert_piece_role_to_kanji model.role
     h.content_tag :div, name, role: model.stringify_role, direction: direction, class: html_class(play: play, moved: moved)
   end

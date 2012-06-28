@@ -23,6 +23,8 @@ $ ->
     # TODO check if the selector always works (this code is very stinky)
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()
+
+    # select piece on the board
     $('.board .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
@@ -37,6 +39,7 @@ $ ->
         $(this).addClass('selected')
         $(this).parents('.cell').addClass('selected')
 
+    # select piece in self hand
     $('.in_hand .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
@@ -52,12 +55,12 @@ $ ->
         last_line = 9
         role = $(this).attr('role')
         direction = $(this).attr('direction')
-        if $.inArray(role, ['fu', 'kyosha']) >= 0
+        if $.inArray(role, ['fu', 'ky']) >= 0
           if direction == 'gote'
             last_line = 8
           else
             first_line = 2
-        else if role == 'keima'
+        else if role == 'ke'
           if direction == 'gote'
             last_line = 7
           else
@@ -70,6 +73,7 @@ $ ->
             unless $.cell_on_point_have_piece(point)
               $.highlight_on_point(point)
 
+    # move selected piece
     $('.cell.highlight').live 'click', ->
       $.play_audio('put')
       move = true
@@ -88,10 +92,10 @@ $ ->
       if move
         from_point = [piece_cell.point_x(), piece_cell.point_y()]
         out_opponent_area = (direction == 'sente' and from_point[1] <= 3) or (direction == 'gote' and from_point[1] >= 7)
-        not_reversed = $.inArray(role, ['fu', 'gin', 'keima', 'kyosha', 'kaku', 'hisha']) >= 0
-        if in_opponent_first_line and $.inArray(role, ['fu', 'keima', 'kyosha']) >= 0
+        not_reversed = $.inArray(role, ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']) >= 0
+        if in_opponent_first_line and $.inArray(role, ['fu', 'ke', 'ky']) >= 0
           reverse = true
-        else if in_opponent_second_line and role == 'keima'
+        else if in_opponent_second_line and role == 'ke'
           reverse = true
         else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
           reverse = true

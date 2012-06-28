@@ -18,13 +18,13 @@ describe Board do
       board.hirate
       board.sente.should be_false
       board.number.should == 0
-      fu = board.piece_on_point([1, 3])
+      fu = board.get_piece([1, 3])
       fu.should be_present
-      fu.role.should == 'fu'
+      fu.role.should == Piece::FU
       fu.sente.should be_false
-      kaku = board.piece_on_point([8, 8])
+      kaku = board.get_piece([8, 8])
       kaku.should be_present
-      kaku.role.should == 'kaku'
+      kaku.role.should == Piece::KA
       kaku.sente.should be_true
     end
   end
@@ -58,23 +58,23 @@ describe Board do
       attributes = {
         from_point: [7, 3],
         to_point: [7, 4],
-        role: 'fu'
+        role: Piece::FU
       }
       Fabricate(:movement, attributes)
     end
 
     it 'works!' do
-      piece_from_point = board.piece_on_point(movement.from_point)
-      piece_to_point = board.piece_on_point(movement.to_point)
-      piece_from_point.role.should == 'fu'
+      piece_from_point = board.get_piece(movement.from_point)
+      piece_to_point = board.get_piece(movement.to_point)
+      piece_from_point.role.should == Piece::FU
       piece_to_point.should be_blank
       board.apply_movement(movement)
 
       board.movement.should == movement
-      piece_from_point = board.piece_on_point(movement.from_point)
-      piece_to_point = board.piece_on_point(movement.to_point)
+      piece_from_point = board.get_piece(movement.from_point)
+      piece_to_point = board.get_piece(movement.to_point)
       piece_from_point.should be_nil
-      piece_to_point.role.should == 'fu'
+      piece_to_point.role.should == Piece::FU
     end
 
     it 'can take opponent piece' do
@@ -89,13 +89,13 @@ describe Board do
     it 'works!' do
       board.sente.should be_false
       board.number.should == 0
-      fu = board.piece_on_point([1, 3])
+      fu = board.get_piece([1, 3])
       fu.should be_present
-      fu.role.should == 'fu'
+      fu.role.should == Piece::FU
       fu.sente.should be_false
-      kaku = board.piece_on_point([8, 8])
+      kaku = board.get_piece([8, 8])
       kaku.should be_present
-      kaku.role.should == 'kaku'
+      kaku.role.should == Piece::KA
       kaku.sente.should be_true
     end
   end

@@ -11,6 +11,20 @@
       .cell
         .face
           = render 'users/face', user: user, image_link: !(play && user == current_user)
+      - Piece::HAND_ROLES.each do |role|
+        - number = pieces[role]
+        - if user == game.sente_user
+          - piece = Piece.new(role)
+        - else
+          - piece = Piece.new(- role)
+        - piece_decorator = PieceDecorator.new piece
+        - piece_decorator.reverse = reverse
+        - if number >= 1
+          .cell
+            = piece_decorator.tagify(play)
+            .number
+              x
+              = number
       -#
         - pieces.each do |piece|
           - if piece_roles[piece.role]

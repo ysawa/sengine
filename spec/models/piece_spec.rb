@@ -11,22 +11,6 @@ describe Piece do
     Piece.new(1) # SENTE FU
   end
 
-  describe '.save' do
-    it 'works!' do
-      piece.save.should be_true
-    end
-  end
-
-  describe '.point' do
-    it 'works!' do
-      piece.point = nil
-      piece.point.should be_nil
-      piece.point = [1, 2]
-      piece.point.should == [1, 2]
-      piece.read_attribute(:point).should == {'x' => 1, 'y' => 2}
-    end
-  end
-
   describe '.sente? and .gote?' do
     it 'both work!' do
       piece.sente = true
@@ -40,11 +24,11 @@ describe Piece do
 
   describe '.reverse and .normalize' do
     it 'both work!' do
-      piece.role = 'hisha'
+      piece.value = Piece::HI
       piece.reverse
-      piece.role.should == 'ryu'
+      piece.role.should == Piece::RY
       piece.normalize
-      piece.role.should == 'hisha'
+      piece.role.should == Piece::HI
     end
   end
 end

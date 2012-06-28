@@ -7,7 +7,7 @@ describe PieceDecorator do
     @board = Board.hirate
     @board.game = @game
     @board.save
-    @piece = Fabricate(:piece, board: @board)
+    @piece = Piece.new(Piece::FU)
     @decorator = PieceDecorator.new(@piece)
   end
 
@@ -16,7 +16,7 @@ describe PieceDecorator do
       piece_tag = @decorator.tagify(true)
       piece_tag.should include "<div"
       piece_tag.should include "piece"
-      piece_tag.should include "id=\"#{@piece.id}\""
+      piece_tag.should include "role_fu"
     end
   end
 end

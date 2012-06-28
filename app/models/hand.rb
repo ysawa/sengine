@@ -7,6 +7,7 @@ class Hand
   def deserialize(object)
     if object.present?
       [
+        nil,
         object["fu"],
         object["ky"],
         object["ke"],

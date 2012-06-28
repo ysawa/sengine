@@ -26,27 +26,31 @@ class Board
     self.movement = movement
     self.sente = movement.sente
     if movement.from_point
-      proponent_piece = piece_on_point(movement.from_point)
+      proponent_piece = get_piece(movement.from_point)
+      set_piece_value(0, movement.from_point)
     else
       if self.sente
-        proponent_piece = piece_in_sente_hand(movement.role)
+        proponent_piece = get_piece_in_sente_hand(movement.role_value)
+        minus_piece_in_sente_hand(movement.role_value)
       else
-        proponent_piece = piece_in_gote_hand(movement.role)
+        proponent_piece = get_piece_in_gote_hand(movement.role_value)
+        minus_piece_in_gote_hand(movement.role_value)
       end
     end
     # if an opponent piece is on the point where the proponent piece moves
-    opponent_piece = piece_on_point(movement.to_point)
+    opponent_piece = get_piece(movement.to_point)
     if opponent_piece
-      opponent_piece.in_hand = true
-      opponent_piece.sente = movement.sente
-      opponent_piece.point = nil
-      opponent_piece.normalize if opponent_piece.reversed?
+      opponent_piece.normalize
+      if self.sente
+        plus_piece_in_sente_hand(opponent_piece.role)
+      else
+        plus_piece_in_gote_hand(opponent_piece.role)
+      end
     end
-    proponent_piece.in_hand = false
     if movement.reverse?
-      proponent_piece.reverse
+      proponent_piece.reverse!
     end
-    proponent_piece.point = movement.to_point
+    set_piece_value(proponent_piece.value, movement.to_point)
   end
 
   def hirate
@@ -65,34 +69,80 @@ class Board
   end
 
   def get_piece(point)
+    piece_value = get_piece_value(point)
+    if piece_value == 0
+      nil
+    else
+      Piece.new(piece_value)
+    end
+  end
+
+  def get_piece_in_gote_hand(role_value)
+    if gote_hand[role_value] >= 1
+      Piece.new(- role_value)
+    else
+      nil
+    end
+  end
+
+  def get_piece_in_sente_hand(role_value)
+    if sente_hand[role_value] >= 1
+      Piece.new(role_value)
+    else
+      nil
+    end
+  end
+
+  def get_piece_value(point)
     attr = "p_#{point[0]}#{point[1]}"
     read_attribute(attr)
   end
 
-  def gyoku_in_gote_hand?
-    self.pieces.in_gote_hand('gyoku').present?
+  def minus_piece_in_gote_hand(role_value)
+    hand = self.gote_hand
+    if hand[role_value] >= 1
+      hand[role_value] -= 1
+    else
+      hand[role_value] = 0
+    end
+    self.gote_hand = hand
   end
 
-  def gyoku_in_sente_hand?
-    self.pieces.in_sente_hand('gyoku').present?
+  def minus_piece_in_sente_hand(role_value)
+    hand = self.sente_hand
+    if hand[role_value] >= 1
+      hand[role_value] -= 1
+    else
+      hand[role_value] = 0
+    end
+    self.sente_hand = hand
   end
 
-  def piece_in_gote_hand(role = nil)
-    self.pieces.in_gote_hand(role).first
+  def ou_in_gote_hand?
+    self.gote_hand[Piece::OU] >= 1
   end
 
-  def piece_in_sente_hand(role = nil)
-    self.pieces.in_sente_hand(role).first
+  def ou_in_sente_hand?
+    self.sente_hand[Piece::OU] >= 1
   end
 
-  def piece_on_point(point)
-    self.pieces.on_point(point).first
+  def plus_piece_in_gote_hand(role_value)
+    hand = self.gote_hand
+    hand[role_value] += 1
+    self.gote_hand = hand
+  end
+
+  def plus_piece_in_sente_hand(role_value)
+    hand = self.sente_hand
+    hand[role_value] += 1
+    self.sente_hand = hand
   end
 
   def set_piece(piece, point)
     attr = "p_#{point[0]}#{point[1]}"
     write_attribute(attr, piece.to_i)
   end
+  alias :set_piece_value :set_piece
 
   class << self
     def hirate
@@ -111,11 +161,11 @@ private
     x = point[0]
     y = point[1]
     piece_value = piece.to_i
-    set_piece(piece, [x, y])
-    set_piece(- piece, [10 - x, 10 - y])
+    set_piece_value(piece_value, [x, y])
+    set_piece_value(- piece_value, [10 - x, 10 - y])
     if double
-      set_piece(piece, [10 - x, y])
-      set_piece(- piece, [x, 10 - y])
+      set_piece_value(piece_value, [10 - x, y])
+      set_piece_value(- piece_value, [x, 10 - y])
     end
   end
 
