@@ -29,6 +29,9 @@ class ScoreCalculator
     end
     @winner_next_score = @winner_score + @score_change
     @loser_next_score = @loser_score - @score_change
+    if @loser_next_score < 0
+      @loser_next_score = 0
+    end
   end
 
   def initialize(winner_score = 0, loser_score = 0)

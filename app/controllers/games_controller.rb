@@ -71,6 +71,7 @@ class GamesController < ApplicationController
     end
     @game.playing = false
     if @game.save
+      @game.apply_score_changes!
       redirect_to game_path(@game)
     else
       render :show

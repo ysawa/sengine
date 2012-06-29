@@ -63,6 +63,15 @@ describe ScoreCalculator do
         @calculator.winner_next_score.should == 1029
         @calculator.loser_next_score.should == 1308
       end
+
+      it 'score should not be below 0' do
+        @calculator.winner_score = 0
+        @calculator.loser_score = 0
+        @calculator.calculate
+        @calculator.score_change.should == 16
+        @calculator.winner_next_score.should == 16
+        @calculator.loser_next_score.should == 0
+      end
     end
   end
 
