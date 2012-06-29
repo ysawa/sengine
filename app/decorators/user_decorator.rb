@@ -19,6 +19,10 @@ class UserDecorator < ApplicationDecorator
     model.sente_games.count + model.gote_games.count
   end
 
+  def grade
+    h.stringify_grade(model.grade)
+  end
+
   def gender
     case model.gender
     when 'male'

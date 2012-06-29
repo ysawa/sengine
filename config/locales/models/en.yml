@@ -46,6 +46,7 @@ en:
         games: 'Games'
         gender: 'Gender'
         gote_games: 'White Games'
+        grade: 'Grade'
         image: 'Image'
         locale: 'Locale'
         lost_games: 'Lost Games'

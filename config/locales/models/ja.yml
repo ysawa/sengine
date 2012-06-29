@@ -46,6 +46,7 @@ ja:
         games: '対局'
         gender: '性別'
         gote_games: '後手の対局'
+        grade: '棋力'
         image: '画像'
         locale: '言語'
         lost_games: '負けた対局'
