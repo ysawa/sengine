@@ -30,10 +30,11 @@ class UserDecorator < ApplicationDecorator
   end
 
   def image(link = false)
+    title = model.name
     if model.facebook_id
-      result = h.image_tag "http://graph.facebook.com/#{model.facebook_id}/picture?type=square", alt: model.name
+      result = h.image_tag "http://graph.facebook.com/#{model.facebook_id}/picture?type=square", alt: title, title: title
     else
-      result = h.image_tag "noimage.gif", alt: model.name
+      result = h.image_tag "noimage.gif", alt: title, title: title
     end
     if link
       h.link_to result, h.profile_path(model.id)
