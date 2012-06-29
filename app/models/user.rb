@@ -18,6 +18,7 @@ class User
   field :email, type: String
   field :encrypted_password, type: String
   field :gender, type: String
+  field :grade, type: Integer, default: 0
   field :last_sign_in_at, type: Time
   field :last_sign_in_ip, type: String
   field :locale, type: String, default: 'en'
