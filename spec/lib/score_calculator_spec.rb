@@ -63,7 +63,6 @@ describe ScoreCalculator do
         @calculator.winner_next_score.should == 1029
         @calculator.loser_next_score.should == 1308
       end
-
     end
   end
 
