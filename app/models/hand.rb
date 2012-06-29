@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# the numbers of pieces in hands of players
 class Hand
   include Mongoid::Fields::Serializable
+  # Hand means the numbers of pieces in hands of players
 
   def deserialize(object)
     if object.present?
