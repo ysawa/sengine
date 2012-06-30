@@ -68,30 +68,7 @@ footer#global_foot
       span#credit
         display: block
 
-@media only screen and (max-device-width: 1024px) and (orientation:portrait)
   $common_width: $mobile_portrait_width
-  $max_width: $common_width
-  header#global_head
-    @include common_inner
-    & > .inner
-      $logo_width: 200px
-      h1
-        width: $logo_width - 20px
-      aside
-        width: $max_width - $logo_width - 20px
-  section#global_body
-    @include common_inner
-  footer#global_foot
-    @include common_inner
-    p
-      a
-        padding-right: 10px
-      text-align: center
-  #{$document_tags}
-    font-size: 24px
-
-@media only screen and (max-device-width: 1024px) and (orientation:landscape)
-  $common_width: $mobile_landscape_width
   $max_width: $common_width
   header#global_head
     @include common_inner

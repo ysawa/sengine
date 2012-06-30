@@ -153,7 +153,6 @@ aside.actions
     &.send
       font-size: 24px
 
-@media only screen and (max-device-width: 1024px) and (orientation:portrait)
   $common_width: $mobile_portrait_width
   $max_content_width: $common_width - 20px
   table.resources
@@ -161,16 +160,6 @@ aside.actions
     th, td
       &.spec
         display: none
-  #{$all-text-inputs}
-    max-width: $max_content_width - 30px
-  select
-    max-width: $max_content_width
-
-@media only screen and (max-device-width: 1024px) and (orientation:landscape)
-  $common_width: $mobile_landscape_width
-  $max_content_width: $common_width - 20px
-  table.resources
-    width: $common_width - 20px
   #{$all-text-inputs}
     max-width: $max_content_width - 30px
   select
