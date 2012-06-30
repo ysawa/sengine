@@ -24,9 +24,13 @@ $pieces_image: url(/assets/pieces/default.png)
   font-weight: bold
   float: left
 
-@mixin highlight
+@mixin selected
   background-image: $pieces_image
   background-position: (- $cell_width * 4) (- $cell_height)
+
+@mixin highlight
+  background-image: $pieces_image
+  background-position: (- $cell_width * 7) (- $cell_height)
 
 #game
   #game_result
@@ -60,8 +64,10 @@ $pieces_image: url(/assets/pieces/default.png)
       width: $cell_width
       height: $cell_height
       &.moved,
-      &.highlight,
       &.selected
+        cursor: pointer
+        @include selected
+      &.highlight
         cursor: pointer
         @include highlight
       .piece
@@ -95,12 +101,9 @@ $pieces_image: url(/assets/pieces/default.png)
         height: $cell_height
         position: relative
         &.moved,
-        &.selected,
-        &.highlight
+        &.selected
           cursor: pointer
-          @include highlight
-          cursor: pointer
-          @include highlight
+          @include selected
         .piece
         .face
           width: $face_size

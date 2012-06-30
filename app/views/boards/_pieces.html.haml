@@ -20,9 +20,9 @@
       - x_range.each do |x|
         - piece = board.get_piece([x, y])
         - if piece
-          - moved = nil
+          - moved = board.movement && board.movement.to_point == [x, y]
         - else
-          - moved = board.movement == [x, y]
+          - moved = nil
         .cell{ x: x, y: y, class: (moved ? 'moved' : nil) }
           - if piece
             - piece_decorator = PieceDecorator.new piece
