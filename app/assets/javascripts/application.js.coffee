@@ -83,10 +83,13 @@ $.extend
     !check_if_inside_url(url)
   fix_facebook_comments_height: ->
     height = $('.fb_comments iframe').height()
+    iframe = $('.fb_comments, .fb_comments iframe')
     if height == 160
-      $('.fb_comments, .fb_comments iframe').height(140)
+      iframe.height(140)
+    else if height == 480
+      # TODO fix the height
     else
-      $('.fb_comments, .fb_comments iframe').height(height)
+      iframe.height(height)
   fix_whole_container_height: () ->
     $(window).bind('load resize', ->
       $('div.whole_container').css('min-height', $(window).height())
