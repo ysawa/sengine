@@ -40,14 +40,14 @@ section#global_body
   @include common_inner
   .inner
     padding: 5px 0
-    & > ins
-      display: block !important
-      margin: 10px auto !important
-      background: #fff
 footer#global_foot
   @include common_inner
   .inner
     padding: 30px 0
+    & > ins
+      @include atmospheric_background
+      display: block !important
+      margin: 10px auto !important
   p
     margin: 0
     a
