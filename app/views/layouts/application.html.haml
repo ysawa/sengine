@@ -3,20 +3,21 @@
   %head
     = render 'common/head'
   %body
-    - if facebook_enabled?
-      = render 'common/facebook_javascript_sdk'
-    %header#global_head
-      .inner
-        = render 'common/global_head'
-    %section#global_body
-      .inner{ 'data-pjax-container' => true }
-        = yield
-        = render 'common/notice'
-        - if facebook_enabled?
-          = render 'common/reparse_xfbml'
-        = render 'common/audio'
-        = render 'common/locale'
-    %footer#global_foot
-      .inner
-        = render 'common/google_adsense'
-        = render 'common/global_foot'
+    .whole_container
+      - if facebook_enabled?
+        = render 'common/facebook_javascript_sdk'
+      %header#global_head
+        .inner
+          = render 'common/global_head'
+      %section#global_body
+        .inner{ 'data-pjax-container' => true }
+          = yield
+          = render 'common/notice'
+          - if facebook_enabled?
+            = render 'common/reparse_xfbml'
+          = render 'common/audio'
+          = render 'common/locale'
+      %footer#global_foot
+        .inner
+          = render 'common/google_adsense'
+          = render 'common/global_foot'

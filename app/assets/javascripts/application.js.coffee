@@ -25,6 +25,7 @@
 #= require_directory .
 
 $ ->
+  $.fix_whole_container_height()
   # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
 
@@ -86,6 +87,10 @@ $.extend
       $('.fb_comments, .fb_comments iframe').height(140)
     else
       $('.fb_comments, .fb_comments iframe').height(height)
+  fix_whole_container_height: () ->
+    $(window).bind('load resize', ->
+      $('div.whole_container').css('min-height', $(window).height())
+    )
   google_analytics_track_pageview: (url = null) ->
     if url
       _gaq.push(['_trackPageview', url])

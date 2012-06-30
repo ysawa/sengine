@@ -8,7 +8,12 @@
   & > .inner
     margin: 0 auto
     width: $common_width
-    @include atmospheric_background
+
+.whole_container
+  margin: 0 auto
+  width: $common_width
+  @include atmospheric_background
+
 header#global_head
   @include common_inner
   & > .inner
@@ -70,6 +75,8 @@ footer#global_foot
 
   $common_width: $mobile_portrait_width
   $max_width: $common_width
+  .whole_container
+    width: $max_width
   header#global_head
     @include common_inner
     & > .inner
