@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class AboutController < ApplicationController
+  protect_from_forgery only: %w(game)
 
   # GET /about/game
   def game

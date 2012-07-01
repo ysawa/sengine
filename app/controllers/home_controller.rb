@@ -2,7 +2,7 @@
 
 class HomeController < ApplicationController
   respond_to :html
-  protect_from_forgery only: %w(index)
+  protect_from_forgery except: %w(index)
 
   # GET /
   def index
