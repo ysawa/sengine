@@ -35,7 +35,6 @@ $ ->
   $('a.invite_facebook').live 'click', ->
     $.invite_facebook()
     false
-  $.backstretch('/assets/bg/default.jpg')
 
   $('a[target="_blank"]').live 'click', ->
     if $.check_if_facebook_enabled()
