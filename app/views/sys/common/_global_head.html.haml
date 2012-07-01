@@ -1,0 +1,5 @@
+%h1
+  = link_to sys_site_title, sys_root_path
+%aside
+  - if user_signed_in?
+    = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete
