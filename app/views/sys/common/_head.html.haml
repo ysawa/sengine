@@ -1,0 +1,15 @@
+%title
+  - if @top_page
+    = sys_site_title
+  - elsif @game
+    = sys_site_title @game
+  - elsif @user
+    = sys_site_title @user
+  - else
+    = sys_site_title @subtitle
+= stylesheet_link_tag    'sys/application', media: 'all'
+= javascript_include_tag 'sys/application'
+= csrf_meta_tags
+<!--[if lt IE 9]>
+<script src="/html5shiv/html5shiv.js"></script>
+<![endif]-->

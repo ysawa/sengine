@@ -10,6 +10,7 @@ class User
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
 
+  field :admin, type: Boolean, default: false
   field :audio_on, type: Boolean, default: true
   field :current_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
@@ -37,8 +38,14 @@ class User
   has_many :lost_games, class_name: 'Game', inverse_of: :lost_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
+  attr_protected :admin, :encrypted_password
+
   after_validation :setup_name
   after_validation :setup_timezone
+
+  def admin?
+    User.first.id == self.id
+  end
 
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })

@@ -1,6 +1,12 @@
 Shogiengine::Application.routes.draw do
-  get "about/game", as: :about_game
 
+  namespace :sys do
+    root to: "home#index"
+
+    resources :users
+  end
+
+  get "about/game", as: :about_game
   get "help", to: 'help#index', as: :help
 
   devise_for :users,

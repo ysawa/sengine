@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    = render 'sys/common/head'
+  %body
+    .whole_container
+      %header#global_head
+        .inner
+          = render 'sys/common/global_head'
+      %section#global_body
+        .inner{ 'data-pjax-container' => true }
+          = yield
+          = render 'common/notice'
+          = render 'common/locale'
+      %footer#global_foot
+        .inner
+          = render 'sys/common/global_foot'
