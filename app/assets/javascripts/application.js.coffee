@@ -79,6 +79,19 @@ $.extend
     useragent.match(/(iPad|iPhone|Android)/i)
   check_if_outside_url: (url) ->
     !check_if_inside_url(url)
+  fix_android_width: ->
+    portrait_width = undefined
+    landscape_width = undefined
+    if /(Android|iPhone|iPod)/.test(window.navigator.userAgent)
+      $(window).bind("resize", ->
+        if Math.abs(window.orientation) is 0
+          portrait_width = $(window).width()  unless portrait_width
+          $("html").css "zoom", portrait_width / 540.0
+        else
+          landscape_width = $(window).width()  unless landscape_width
+          $("html").css "zoom", landscape_width / 540.0
+      ).trigger "resize"
+
   fix_facebook_comments_height: ->
     height = $('.fb_comments iframe').height()
     iframe = $('.fb_comments, .fb_comments iframe')
