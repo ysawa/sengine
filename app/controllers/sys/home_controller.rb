@@ -2,5 +2,7 @@
 
 class Sys::HomeController < Sys::ApplicationController
   def index
+    @subtitle = nil
+    @top_page = true
   end
 end
