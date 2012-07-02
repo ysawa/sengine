@@ -15,7 +15,6 @@
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
-#= require jquery-backstretch/jquery.backstretch
 #= require helpers/jquery_i18n
 #= require_self
 #= require audio
@@ -23,7 +22,6 @@
 #= require_directory .
 
 $ ->
-  $.fix_whole_container_height()
   # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
 
@@ -78,19 +76,6 @@ $.extend
     useragent.match(/(iPad|iPhone|Android)/i)
   check_if_outside_url: (url) ->
     !check_if_inside_url(url)
-  fix_android_width: ->
-    portrait_width = undefined
-    landscape_width = undefined
-    if /(Android|iPhone|iPod)/.test(window.navigator.userAgent)
-      $(window).bind("resize", ->
-        if Math.abs(window.orientation) is 0
-          portrait_width = $(window).width()  unless portrait_width
-          $("html").css "zoom", portrait_width / 540.0
-        else
-          landscape_width = $(window).width()  unless landscape_width
-          $("html").css "zoom", landscape_width / 540.0
-      ).trigger "resize"
-
   fix_facebook_comments_height: ->
     height = $('.fb_comments iframe').height()
     iframe = $('.fb_comments, .fb_comments iframe')
@@ -100,10 +85,6 @@ $.extend
       # TODO fix the height
     else
       iframe.height(height)
-  fix_whole_container_height: () ->
-    $(window).bind('load resize', ->
-      $('div.whole_container').css('min-height', $(window).height())
-    )
   google_analytics_track_pageview: (url = null) ->
     if url
       _gaq.push(['_trackPageview', url])

@@ -6,6 +6,8 @@ en:
           new: 'Sign In'
       about:
         game: 'About This Game'
+        privacy: 'Privacy Policy'
+        tos: 'Terms of Service'
         us: 'About Us'
       games:
         created_at: 'Start'
@@ -22,3 +24,10 @@ en:
       setting:
         edit: 'Setting'
         show: 'Setting'
+      sys:
+        home:
+          index: 'System'
+        games:
+          index: 'Games'
+        users:
+          index: 'Users'

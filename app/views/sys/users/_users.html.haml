@@ -1,0 +1,23 @@
+- attr_names = %w(image name grade locale timezone)
+%table.resources
+  %thead
+    %tr
+      - attr_names.each do |attr_name|
+        - attr_human_name = User.human_attribute_name(attr_name)
+        %th
+          = attr_human_name
+      %th{ colspan: 3 }
+        &nbsp;
+  %tbody
+    - users.each do |user|
+      - decorator = UserDecorator.new user
+      %tr
+        - attr_names.each do |attr_name|
+          %td
+            = decorator.public_send attr_name
+        %td
+          = link_to t('actions.show'), [:sys, user]
+        %td
+          = link_to t('actions.edit'), edit_sys_user_path(user)
+        %td
+          = link_to t('actions.destroy'), [:sys, user], method: :delete

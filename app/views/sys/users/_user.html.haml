@@ -1,0 +1,9 @@
+- decorator = UserDecorator.new(user)
+%p
+  = link_to decorator.image, decorator.facebook_url, target: "_blank"
+%dl#user_profile
+  - %w(name grade score locale timezone audio_on).each do |attr_name|
+    %dt
+      = User.human_attribute_name(attr_name)
+    %dd
+      = decorator.public_send(attr_name)

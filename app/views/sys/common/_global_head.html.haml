@@ -1,5 +1,7 @@
 %h1
   = link_to sys_site_title, sys_root_path
 %aside
+  = link_to User.model_name.human, sys_users_path
+  = link_to Game.model_name.human, sys_games_path
   - if user_signed_in?
-    = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete
+    = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete, class: :right

@@ -6,6 +6,8 @@ ja:
           new: 'ログイン'
       about:
         game: 'このゲームについて'
+        privacy: 'プライバシーポリシー'
+        tos: '利用規約'
         us: '運営者情報'
       games:
         created_at: '開始時刻'
@@ -22,3 +24,10 @@ ja:
       setting:
         edit: '設定'
         show: '設定'
+      sys:
+        home:
+          index: '管理画面'
+        games:
+          index: '対局一覧'
+        users:
+          index: 'ユーザー一覧'

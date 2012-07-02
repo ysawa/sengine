@@ -18,7 +18,7 @@ header#global_head
   @include common_inner
   & > .inner
     @include clearfix
-    $logo_width: 400px
+    $logo_width: 120px
     $height: 44px
     $inner_height: 24px
     h1
@@ -33,7 +33,7 @@ header#global_head
         color: #000
         text-decoration: none
     aside
-      text-align: right
+      text-align: left
       width: $max_width - $logo_width - 20px
       padding: 10px
       line-height: $inner_height
@@ -41,6 +41,8 @@ header#global_head
       float: left
       a
         font-size: 14px
+        &.right
+          float: right
 section#global_body
   @include common_inner
   .inner

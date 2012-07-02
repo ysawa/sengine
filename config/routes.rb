@@ -3,10 +3,20 @@ Shogiengine::Application.routes.draw do
   namespace :sys do
     root to: "home#index"
 
-    resources :users
+    resources :games, only: [:destroy, :edit, :index, :show, :update]
+
+    resources :users, only: [:destroy, :edit, :index, :show, :update] do
+      member do
+        put :unset_admin
+        put :set_admin
+      end
+    end
   end
 
-  get "about/game", as: :about_game
+  %w(game privacy tos).each do |page|
+    get "about/#{page}", as: "about_#{page}"
+  end
+
   get "help", to: 'help#index', as: :help
 
   devise_for :users,

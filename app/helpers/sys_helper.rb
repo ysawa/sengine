@@ -33,10 +33,9 @@ module SysHelper
       elements << subtitle.to_s
     end
     if Rails.env.production?
-      elements << 'Sys'
-      elements << I18n.t('site.title')
+      elements << I18n.t('pages.controllers.sys.home.index')
     else
-      elements << 'Sys'
+      elements << 'System'
     end
     elements.join(' | ')
   end
