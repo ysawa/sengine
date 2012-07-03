@@ -107,10 +107,12 @@ $pieces_image: url(/assets/pieces/default.png)
           cursor: pointer
           @include selected
         .piece
-        .face
+        div.face
           width: $face_size
           height: $face_size
           padding: (($cell_height - $face_size) / 2) (($cell_width - $face_size) / 2)
+          a
+            display: block
         .number
           position: absolute
           right: 0px
