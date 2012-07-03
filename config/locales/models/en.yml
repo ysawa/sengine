@@ -40,6 +40,7 @@ en:
         role: 'Role'
         sente: 'Turn'
       user:
+        admin: 'Admin'
         audio_on: 'Sound'
         created_games: 'Created Games'
         email: 'E-mail'

@@ -40,6 +40,7 @@ ja:
         role: '駒の種類'
         sente: '先手'
       user:
+        admin: '管理者'
         audio_on: '音声(駒の音)'
         created_games: '作成した対局'
         email: 'E-mail'

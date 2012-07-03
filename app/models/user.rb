@@ -42,10 +42,7 @@ class User
 
   after_validation :setup_name
   after_validation :setup_timezone
-
-  def admin?
-    User.first.id == self.id
-  end
+  before_create :set_admin_if_first_user
 
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
@@ -63,13 +60,14 @@ class User
     if self.name.blank? && self.email? && self.email_changed?
       self.name = self.email.sub(/@.*$/, '')
     end
-    true
+    nil
   end
 
   def setup_timezone
     if self.timezone_string? && self.timezone_string_changed?
       self.timezone = ActiveSupport::TimeZone[self.timezone_string].utc_offset / 3600
     end
+    nil
   end
 
   class << self
@@ -104,5 +102,11 @@ class User
         end
       end
     end
+  end
+private
+
+  def set_admin_if_first_user
+    self.admin = (User.count == 0)
+    nil
   end
 end

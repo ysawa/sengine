@@ -14,4 +14,4 @@
         = user_decorator.name(false)
       = radio_button_tag 'game_opponent_id', user_id, false, class: :required
   %section.actions
-    = f.submit t('helpers.submit.play_game'), class: :send
+    = f.submit t('helpers.submit.play_game'), class: :send, disable_with: 'Now Loading...'

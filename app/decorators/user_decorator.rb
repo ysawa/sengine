@@ -3,6 +3,14 @@
 class UserDecorator < ApplicationDecorator
   decorates :user
 
+  def admin
+    if user.admin
+      '○'
+    else
+      '×'
+    end
+  end
+
   def audio_on
     I18n.t("user.audio")[model.audio_on?]
   end

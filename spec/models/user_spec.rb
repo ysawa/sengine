@@ -52,4 +52,23 @@ describe User do
       @user.gote_games.should == [game]
     end
   end
+
+  describe 'callback of :set_admin_if_first_user' do
+    before :each do
+      User.delete_all
+    end
+
+    it 'the first user will be admin when created' do
+      user = Fabricate(:user, email: 'test@example.com')
+      user.admin.should be_true
+    end
+
+    it 'only the first user will be admin when created' do
+      user = Fabricate(:user, email: 'test1@example.com')
+      user = Fabricate(:user, email: 'test2@example.com')
+      user.admin.should be_false
+      user = Fabricate(:user, email: 'test3@example.com')
+      user.admin.should be_false
+    end
+  end
 end

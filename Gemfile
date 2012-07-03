@@ -8,6 +8,7 @@ gem 'rails', '3.2.3'
 # Database ORM: Mongoid
 gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
+gem 'mongoid-mapreduce'
 
 # Use Devise to authenticate users
 gem 'devise', '2.1.0'

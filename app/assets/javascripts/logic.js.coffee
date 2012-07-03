@@ -1,3 +1,7 @@
+###
+# Game logics of Shogi
+# TODO refactor: it should be implemented not $, but Shogi
+###
 $.fn.extend
   have_piece: ->
     $(this).find('.piece').size() > 0

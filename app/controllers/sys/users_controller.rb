@@ -3,7 +3,7 @@
 class Sys::UsersController < Sys::ApplicationController
   respond_to :html
   before_filter :find_users
-  before_filter :find_user, only: %w(destroy edit set_admin show unset_admin udpate)
+  before_filter :find_user, only: %w(destroy edit set_admin show unset_admin update)
 
   # GET /setting/edit
   def edit
@@ -16,7 +16,7 @@ class Sys::UsersController < Sys::ApplicationController
 
   def set_admin
     @user.admin = true
-    if (current_user != @user) && @user.save
+    if @user.save && (current_user != @user)
       respond_with(@user, location: sys_user_path(@user))
     else
       render :show
@@ -29,8 +29,8 @@ class Sys::UsersController < Sys::ApplicationController
   end
 
   def unset_admin
-    @user.admin = true
-    if (current_user != @user) && @user.save
+    @user.admin = false
+    if @user.save && (current_user != @user)
       respond_with(@user, location: sys_user_path(@user))
     else
       render :show

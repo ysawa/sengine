@@ -4,6 +4,9 @@
 @import 'bourbon'
 @import 'common/helpers'
 
+body
+  background: #f7f7f7
+
 @mixin common_inner
   & > .inner
     margin: 0 auto
@@ -16,6 +19,7 @@
 
 header#global_head
   @include common_inner
+  background: #f0f0f0
   & > .inner
     @include clearfix
     $logo_width: 120px
@@ -60,41 +64,3 @@ footer#global_foot
     a
       padding-right: 10px
     text-align: center
-
-/* Smart Phone */
-@media only screen and (max-device-width: 1024px)
-  header#global_head
-    & > .inner
-      h1
-        font-size: 100%
-      aside
-        a
-          font-size: 100%
-  footer#global_foot
-    p
-      span#credit
-        display: block
-
-  $common_width: $mobile_portrait_width
-  $max_width: $common_width
-  .whole_container
-    width: $max_width
-  header#global_head
-    @include common_inner
-    & > .inner
-      $logo_width: 200px
-      h1
-        width: $logo_width - 20px
-      aside
-        width: $max_width - $logo_width - 20px
-  section#global_body
-    @include common_inner
-  footer#global_foot
-    @include common_inner
-    p
-      a
-        padding-right: 10px
-      text-align: center
-  #{$document_tags}
-    font-size: 24px
-

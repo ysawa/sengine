@@ -11,6 +11,7 @@
 # GO AFTER THE REQUIRES BELOW.
 #
 #= require jquery
+#= require jquery-ui
 #= require jquery_ujs
 #= require jquery.pjax
 #= require jquery.pnotify
@@ -22,23 +23,29 @@
 #= require_directory .
 
 $ ->
+  ###
+  # Features as Application
+  ###
+
+  $('.whole_container').css('min-height', $(window).height())
+
   # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
+
+  # After PJAX requests, we can operate callbacks as we like.
+  on_pjax_reload = ->
+    # Validations of Forms
+    $('form.validated').validate()
+
+  $(document).on('pjax:end', on_pjax_reload)
+  on_pjax_reload()
+
 
   $('a.see_more').live 'click', ->
     $(this).hide()
   if ($.check_if_smart_device())
     # smart phone
     true
-  $('a.invite_facebook').live 'click', ->
-    $.invite_facebook()
-    false
-
-  $('a[target="_blank"]').live 'click', ->
-    if $.check_if_facebook_enabled()
-      href = $(this).attr('href')
-      if $.check_if_outside_url(href)
-        $.google_analytics_track_pageview(href)
 
   # reloading facebook comments automatically if enabled
   setInterval(
@@ -49,11 +56,27 @@ $ ->
         $.reload_comments()
     , 10000)
 
-  on_pjax_reload = ->
-    # Validations of Forms
-    $('form.validated').validate()
-  $(document).on('pjax:end', on_pjax_reload)
-  on_pjax_reload()
+
+  ###
+  # Features around Facebook
+  ###
+
+  # Raw application in Facebook is not good.
+  # Redirect to apps.facebook.com as a native facebook app.
+  if self == top and !($.check_if_smart_device())
+    host = window.location.host
+    unless host.match(/(localhost|127\.0\.0\.1)/)
+      href = "https://apps.facebook.com/shogiengine/"
+      window.location.href = href
+  $('a.invite_facebook').live 'click', ->
+    $.invite_facebook()
+    false
+
+  $('a[target="_blank"]').live 'click', ->
+    if $.check_if_facebook_enabled()
+      href = $(this).attr('href')
+      if $.check_if_outside_url(href)
+        $.google_analytics_track_pageview(href)
 
   # check and fix facebook comments plugin height every second
   setInterval($.fix_facebook_comments_height, 1000)

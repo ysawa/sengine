@@ -3,6 +3,7 @@
 class Movement
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::MapReduce
   field :sente, type: Boolean
   field :from_point, type: Point
   field :move, type: Boolean
