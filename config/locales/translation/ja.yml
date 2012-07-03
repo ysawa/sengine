@@ -27,6 +27,12 @@ ja:
       sign_out: 'ログアウト'
       new_member: '新規会員登録'
       new_password: 'パスワード再発行'
+  views:
+    pagination:
+      first: '<<'
+      last: '>>'
+      next: '次へ'
+      previous: '前へ'
   notices:
     create: '%{model}を作成しました。'
     destroy: '%{model}を削除しました。'

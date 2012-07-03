@@ -27,6 +27,12 @@ en:
       sign_out: 'Sign Out'
       new_member: 'New Member'
       new_password: 'New Password'
+  views:
+    pagination:
+      first: '<<'
+      last: '>>'
+      next: 'Next'
+      previous: 'Previous'
   notices:
     create: '%{model} was successfully created.'
     destroy: '%{model} was successfully destoyed.'

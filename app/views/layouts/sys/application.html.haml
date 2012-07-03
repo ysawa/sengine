@@ -3,6 +3,8 @@
   %head
     = render 'sys/common/head'
   %body
+    - if facebook_enabled?
+      = render 'common/facebook_javascript_sdk'
     .whole_container
       %header#global_head
         .inner
@@ -10,6 +12,8 @@
       %section#global_body
         .inner{ 'data-pjax-container' => true }
           = yield
+          - if facebook_enabled?
+            = render 'common/reparse_xfbml'
           = render 'common/notice'
           = render 'common/locale'
       %footer#global_foot

@@ -11,7 +11,7 @@ class Sys::UsersController < Sys::ApplicationController
   end
 
   def index
-    @users = @users.page(params[:page])
+    @users = @users.desc(:created_at).page(params[:page])
   end
 
   def set_admin

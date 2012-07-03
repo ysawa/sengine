@@ -1,0 +1,9 @@
+#game
+  .board_container
+    = render 'boards/board', board: board, game: game
+  - unless game.playing?
+    #game_result
+      - won_decorator = UserDecorator.new game.won_user
+      = won_decorator.name
+      won!
+  = render 'sys/games/play_buttons', game: game, board: board

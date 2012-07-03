@@ -1,0 +1,2 @@
+<%- game_partial = render 'sys/games/game', game: @game, board: @board %>
+$('#game').replaceWith('<%= escape_javascript game_partial %>');

@@ -1,3 +1,15 @@
-.common_container#home_container
+.common_container#home_page
   %h2= @subtitle
+  %h3
+    = User.model_name.human
+  %p
+    = User.count
+  %h3
+    = Game.model_name.human
+  %p
+    = Game.count
+  %h3
+    = Movement.model_name.human
+  %p
+    = Movement.count
 

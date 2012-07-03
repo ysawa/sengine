@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Sys::GamesController < Sys::ApplicationController
-  respond_to :html
+  respond_to :html, :js
   before_filter :find_games
   before_filter :find_game, only: %w(destroy edit set_admin show unset_admin udpate)
 
@@ -11,11 +11,16 @@ class Sys::GamesController < Sys::ApplicationController
   end
 
   def index
-    @games = @games.page(params[:page])
+    @games = @games.desc(:created_at).page(params[:page])
   end
 
   # GET /setting
   def show
+    if params[:number].present?
+      @board = @game.boards.where(number: params[:number].to_i).first
+    else
+      @board = @game.boards.last
+    end
     respond_with(@game)
   end
 

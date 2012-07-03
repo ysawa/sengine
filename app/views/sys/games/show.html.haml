@@ -1,2 +1,3 @@
-.common_container#games_container
+.common_container#game_page.broad
   %h2= @subtitle
+  = render 'sys/games/game', game: @game, board: @board

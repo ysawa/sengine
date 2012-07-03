@@ -14,6 +14,8 @@
  *= require jquery.pnotify.default
  *= require jquery.pnotify.default.icons
  *= require_self
+ *= require ../games
+ *= require ../pieces
  *= require_directory .
  */
 
@@ -71,13 +73,14 @@ span
 
 .common_container
   padding: 10px
-  &#game_page
+  &.broad
     padding: 0
 table.resources
   width: $common_width - 20px
   margin-bottom: 10px
   th, td
     text-align: center
+    font-size: 12px
     vertical-align: middle
   thead tr
     th, td
@@ -91,8 +94,8 @@ table.resources
       border-bottom: 1px dotted $border_color
   td
     img.face
-      width: 22px
-      height: 22px
+      width: 19px
+      height: 19px
 
 form
   section.field
@@ -111,6 +114,15 @@ ul.menu
       width: 180px
       text-align: center
       text-decoration: none
+
+nav.pagination
+  $color: #333
+  ul
+    li
+      @include inline-block
+      &.active
+        a, span
+          color: $color
 
 aside.actions
   margin: 10px 0

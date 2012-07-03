@@ -16,6 +16,7 @@ ja:
       game:
         author: '作成者'
         boards: '局面'
+        created_at: '作成日時'
         gote_user: '後手'
         lost_user: '敗者'
         movements: '棋譜'
@@ -42,6 +43,7 @@ ja:
       user:
         admin: '管理者'
         audio_on: '音声(駒の音)'
+        created_at: '作成日時'
         created_games: '作成した対局'
         email: 'E-mail'
         games: '対局'

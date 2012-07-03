@@ -1,3 +1,4 @@
-.common_container#users_container
+.common_container#user_page
   %h2= @subtitle
   = render 'users', users: @users
+  = paginate @users
