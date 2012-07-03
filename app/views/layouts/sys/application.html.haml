@@ -2,7 +2,7 @@
 %html
   %head
     = render 'sys/common/head'
-  %body
+  %body.admin
     - if facebook_enabled?
       = render 'common/facebook_javascript_sdk'
     .whole_container

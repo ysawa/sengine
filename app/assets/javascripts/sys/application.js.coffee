@@ -10,3 +10,8 @@
 
 $ ->
   $('.whole_container').css('min-height', $(window).height())
+
+$.extend
+  check_if_facebook_enabled: ->
+    typeof FB != "undefined"
+
