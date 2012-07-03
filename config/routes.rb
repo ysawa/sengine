@@ -14,7 +14,7 @@ Shogiengine::Application.routes.draw do
   end
 
   %w(game privacy tos).each do |page|
-    get "about/#{page}", as: "about_#{page}"
+    match "about/#{page}", as: "about_#{page}"
   end
 
   get "help", to: 'help#index', as: :help
