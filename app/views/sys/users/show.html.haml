@@ -1,4 +1,7 @@
 .common_container#users_container
   = render 'user', user: @user
   .actions
-    = link_to t('actions.set_admin'), set_admin_sys_user_path(@user), method: :put
+    - if @user.admin?
+      = link_to t('actions.unset_admin'), unset_admin_sys_user_path(@user), method: :put
+    - else
+      = link_to t('actions.set_admin'), set_admin_sys_user_path(@user), method: :put

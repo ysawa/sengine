@@ -2,15 +2,15 @@
 
 require 'spec_helper'
 
-describe "sys/users/index" do
+describe "sys/users/edit" do
   before :each do
     setup_controller_request
     @user = Fabricate(:user)
     user_sign_in(@user)
-    assign(:users, User.all.page)
+    assign(:user, @user)
   end
 
-  it "renders sys/users/index" do
+  it "renders sys/users/edit" do
     render
   end
 end
