@@ -14,10 +14,10 @@ class User
   field :audio_on, type: Boolean, default: true
   field :current_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
-  field :facebook_id, type: Integer
-  field :facebook_username, type: String
   field :email, type: String
   field :encrypted_password, type: String
+  field :facebook_id, type: Integer
+  field :facebook_username, type: String
   field :gender, type: String
   field :grade, type: Integer, default: 0
   field :last_sign_in_at, type: Time
@@ -38,7 +38,7 @@ class User
   has_many :lost_games, class_name: 'Game', inverse_of: :lost_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
-  attr_protected :admin, :encrypted_password
+  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count
 
   after_validation :setup_name
   after_validation :setup_timezone

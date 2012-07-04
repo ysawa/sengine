@@ -3,6 +3,9 @@
     = f.label :name
     = f.text_field :name, class: :required
   %section.field
+    = f.label :score
+    = f.text_field :score, class: :required
+  %section.field
     = f.label :locale
     - locales = Shogiengine::LOCALES.collect { |locale| [t("user.locales.#{locale}"), locale] }
     = f.select :locale, locales, {}, class: :required
