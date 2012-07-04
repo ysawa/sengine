@@ -11,7 +11,7 @@ gem 'bson_ext', '~> 1.5'
 gem 'mongoid-mapreduce'
 
 # Use Devise to authenticate users
-gem 'devise', '2.1.0'
+gem 'devise', '2.1.2'
 gem 'omniauth-facebook'
 
 # Use The Decorator Pattern
