@@ -18,7 +18,7 @@ describe FeedbacksController do
     it "assigns all feedbacks as @feedbacks" do
       feedback = Feedback.create! valid_attributes
       get :index, {}
-      assigns(:feedbacks).should eq([feedback])
+      assigns(:feedbacks).should eq(Feedback.published.parents.page)
     end
   end
 
@@ -46,7 +46,7 @@ describe FeedbacksController do
 
       it "redirects to the created feedback" do
         post :create, {:feedback => valid_attributes}
-        response.should redirect_to(Feedback.last)
+        response.should redirect_to(feedbacks_path)
       end
     end
 
