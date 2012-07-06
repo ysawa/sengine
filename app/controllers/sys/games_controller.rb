@@ -5,16 +5,17 @@ class Sys::GamesController < Sys::ApplicationController
   before_filter :find_games
   before_filter :find_game, only: %w(destroy edit set_admin show unset_admin udpate)
 
-  # GET /setting/edit
+  # GET /sys/games/edit
   def edit
     respond_with(@game)
   end
 
+  # GET /sys/games
   def index
     @games = @games.desc(:created_at).page(params[:page])
   end
 
-  # GET /setting
+  # GET /sys/games/1
   def show
     if params[:number].present?
       @board = @game.boards.where(number: params[:number].to_i).first
@@ -24,7 +25,7 @@ class Sys::GamesController < Sys::ApplicationController
     respond_with(@game)
   end
 
-  # PUT /setting
+  # PUT /sys/games
   def update
     if @game.update_attributes(params[:game])
       respond_with(@game, location: sys_game_path(@game))

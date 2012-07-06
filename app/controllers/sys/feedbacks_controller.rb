@@ -14,7 +14,7 @@ class Sys::FeedbacksController < ApplicationController
     @feedbacks = @feedbacks.desc(:created_at).page(params[:page])
   end
 
-  # GET /sys/feedbacks
+  # GET /sys/feedbacks/1
   def show
     if params[:number].present?
       @board = @feedback.boards.where(number: params[:number].to_i).first
