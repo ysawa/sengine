@@ -39,6 +39,7 @@ ja:
     save: '%{model}を保存しました。'
     update: '%{model}を更新しました。'
     someone_deleted_this_game: '対局が削除されました。'
+    thanks_for_feedbacking: 'フィードバックしていただきありがとうございます。個別に対応していきます。しばらくお待ちください。'
     you_lost: 'あなたの負けです。お疲れ様でした。'
     you_won: 'あなたの勝ちです。お疲れ様でした。'
   confirms:

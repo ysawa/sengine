@@ -25,21 +25,3 @@
             .number
               x
               = number
-      -#
-        - pieces.each do |piece|
-          - if piece_roles[piece.role]
-            - piece_roles[piece.role] += 1
-          - else
-            - piece_roles[piece.role] = 1
-        - pieces.each do |piece|
-          - number = piece_roles[piece.role]
-          - piece_decorator = PieceDecorator.new piece
-          - if number
-            .cell
-              - piece_decorator.reverse = reverse
-              = piece_decorator.tagify(play)
-              - if number > 1
-                .number
-                  x
-                  = number
-            - piece_roles[piece.role] = nil

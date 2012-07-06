@@ -38,6 +38,7 @@ en:
     destroy: '%{model} was successfully destoyed.'
     save: '%{model} was successfully saved.'
     someone_deleted_this_game: 'This game is deleted.'
+    thanks_for_feedbacking: 'Thanks for your feedbacking! We will write the response and upgrade our game.'
     update: '%{model} was successfully created.'
     you_lost: 'You lost. Good game.'
     you_won: 'You won! Good game.'

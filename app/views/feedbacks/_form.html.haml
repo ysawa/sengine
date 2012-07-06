@@ -1,0 +1,6 @@
+= form_for @feedback do |f|
+  %section.field
+    = f.label :content
+    = f.text_area :content, rows: 4, class: :required
+  %aside.actions
+    = f.submit t('helpers.submit.save'), class: :send, disable_with: 'Submitting...'

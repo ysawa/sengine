@@ -2,6 +2,7 @@ ja:
   mongoid:
     models:
       board: '局面'
+      feedback: 'フィードバック'
       game: '対局'
       movement: '指し手'
       piece: '駒'
@@ -13,6 +14,8 @@ ja:
         number: '手数'
         pieces: '駒'
         sente: '先手'
+      feedback:
+        content: '内容'
       game:
         author: '作成者'
         boards: '局面'

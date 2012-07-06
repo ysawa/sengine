@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+require 'score_calculator'
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -68,6 +69,11 @@ class User
       self.timezone = ActiveSupport::TimeZone[self.timezone_string].utc_offset / 3600
     end
     nil
+  end
+
+  def write_score_with_grade(score)
+    self.score = score
+    self.grade = ScoreCalculator.score_to_grade(self.score)
   end
 
   class << self

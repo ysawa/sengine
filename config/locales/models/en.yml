@@ -2,6 +2,7 @@ en:
   mongoid:
     models:
       board: 'Board'
+      feedback: 'Feedback'
       game: 'Game'
       movement: 'Movement'
       piece: 'Piece'
@@ -13,6 +14,8 @@ en:
         number: 'Number'
         pieces: 'Pieces'
         sente: 'Black'
+      feedback:
+        content: 'Content'
       game:
         author: 'Author'
         boards: 'Boards'

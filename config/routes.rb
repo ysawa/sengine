@@ -2,6 +2,7 @@ Shogiengine::Application.routes.draw do
 
   namespace :sys do
     root to: "home#index"
+    resources :feedbacks
 
     resources :games, only: [:destroy, :edit, :index, :show, :update]
 
@@ -23,6 +24,8 @@ Shogiengine::Application.routes.draw do
     controllers: { omniauth_callbacks: "devise_omniauth_callbacks", sessions: "devise_sessions" }
 
   get "audio/encode/*filename", to: 'audio#encode'
+
+  resources :feedbacks, only: [:create, :index, :show]
 
   resources :games, only: [:create, :destroy, :new, :index, :show] do
     resources :movements
