@@ -1,5 +1,5 @@
 .fb_comments
-  %fb:comments{ 'data-href' => game_url(game, protocol: 'http'), 'data-num-posts' => 5, 'data-width' => 500, 'mobile' => false }
+  %fb:comments{ 'data-href' => game_url(game, protocol: 'http'), 'data-num-posts' => 5, 'data-width' => 540, 'mobile' => false }
 .fb_comments_controller
   = check_box_tag 'reload_comments', true, false
   = label_tag 'reload_comments', 'Reload comments automatically.', class: :inline

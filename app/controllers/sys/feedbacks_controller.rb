@@ -3,8 +3,15 @@
 class Sys::FeedbacksController < ApplicationController
   respond_to :html, :js
   before_filter :find_feedbacks
+  before_filter :find_feedback, only: [:destroy, :edit, :show, :update]
 
-  # GET /sys/feedbacks/edit
+  # DELETE /sys/feedbacks/1
+  def destroy
+    @feedback.destroy
+    respond_with(@feedback, location: [:sys, @feedback])
+  end
+
+  # GET /sys/feedbacks/1/edit
   def edit
     respond_with(@feedback)
   end

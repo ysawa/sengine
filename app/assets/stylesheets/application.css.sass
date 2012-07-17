@@ -56,6 +56,9 @@ label
     display: inline
     font-weight: normal
 
+.mobile_show
+  display: none
+
 a
   &.button
     @include button
@@ -123,18 +126,23 @@ aside.actions
   @include user-select(none)
   margin: 30px auto 0
   padding: 10px
-  width: 500px
+  width: 540px
   max-height: 600px
   overflow: hidden
   @include atmospheric_background(0.5)
 .fb_comments_controller
   @include user-select(none)
   margin: 0 auto
-  width: 500px
+  width: 540px
 
 /* Smart Phone */
 
 @media only screen and (max-device-width: 1024px)
+  .mobile_hide
+    display: none
+  .mobile_show
+    display: auto
+
   ul.menu
     li
       margin: 25px 0
