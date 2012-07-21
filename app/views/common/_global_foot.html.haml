@@ -4,7 +4,7 @@
     = link_to page_name('help', 'index'), help_path
   - else
     = link_to page_name('home', 'top'), root_path
-  = link_to Feedback.model_name.human, feedbacks_path, class: :mobile_show
+  = link_to Feedback.model_name.human, feedbacks_path
   = link_to page_name('about', 'tos'), about_tos_path
   = link_to page_name('about', 'privacy'), about_privacy_path
   = link_to_about_us page_name('about', 'us')

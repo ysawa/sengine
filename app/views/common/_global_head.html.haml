@@ -3,6 +3,5 @@
 %aside
   - if facebook_enabled?
     = link_to t('actions.invite_friends'), '#', class: :invite_facebook
-  = link_to Feedback.model_name.human, feedbacks_path, class: :mobile_hide
   - if user_signed_in?
     = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete
