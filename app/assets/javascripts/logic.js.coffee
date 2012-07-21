@@ -6,6 +6,7 @@ $.fn.extend
   have_piece: ->
     $(this).find('.piece').size() > 0
   highlight_orbit: ->
+    # TODO too long! Shorten this.
     x = $(this).point_x()
     y = $(this).point_y()
     role = $(this).attr('role')
@@ -152,6 +153,9 @@ $.extend
   highlight_on_point_if_possible: (point) ->
     unless $.cell_on_point_have_proponent_piece(point)
       $.highlight_on_point(point)
-  roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi', 'ou', 'ki']
-  reversed_roles: ['to', 'ng', 'nk', 'ny', 'um', 'ry', 'ou', 'ki']
+  roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi', 'ki', 'ou', 'to', 'ng', 'nk', 'ny', 'um', 'ry', 'ou', 'ki']
+  normal_roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']
+  reversed_roles: ['to', 'ng', 'nk', 'ny', 'um', 'ry']
+  special_roles: ['ou', 'ki']
+  hand_roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi', 'ki', 'ou']
 

@@ -39,6 +39,27 @@ $ ->
         $(this).addClass('selected')
         $(this).parents('.cell').addClass('selected')
 
+    highlight_available_cells = (role, direction) ->
+      first_line = 1
+      last_line = 9
+      if $.inArray(role, ['fu', 'ky']) >= 0
+        if direction == 'gote'
+          last_line = 8
+        else
+          first_line = 2
+      else if role == 'ke'
+        if direction == 'gote'
+          last_line = 7
+        else
+          first_line = 3
+      for x in [1..9]
+        if role == 'fu' and $.cell_on_column_have_proponent_fu(x)
+          continue
+        for y in [first_line..last_line]
+          point = [x, y]
+          unless $.cell_on_point_have_piece(point)
+            $.highlight_on_point(point)
+
     # select piece in self hand
     $('.in_hand .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
@@ -51,58 +72,24 @@ $ ->
         $('.piece').removeClass('selected')
         $(this).addClass('selected')
         $(this).parents('.cell').addClass('selected')
-        first_line = 1
-        last_line = 9
         role = $(this).attr('role')
         direction = $(this).attr('direction')
-        if $.inArray(role, ['fu', 'ky']) >= 0
-          if direction == 'gote'
-            last_line = 8
-          else
-            first_line = 2
-        else if role == 'ke'
-          if direction == 'gote'
-            last_line = 7
-          else
-            first_line = 3
-        for x in [1..9]
-          if role == 'fu' and $.cell_on_column_have_proponent_fu(x)
-            continue
-          for y in [first_line..last_line]
-            point = [x, y]
-            unless $.cell_on_point_have_piece(point)
-              $.highlight_on_point(point)
+        highlight_available_cells(role, direction)
 
-    # move selected piece
-    $('.cell.highlight').live 'click', ->
-      $.play_audio('put')
-      move = true
-      piece_selected = $('.piece.selected')
-      role = piece_selected.attr('role')
-      direction = piece_selected.attr('direction')
-      reverse = false
-      if piece_selected.parents('.in_hand').size() >= 1
-        move = false
-      piece_cell = piece_selected.parents('.cell')
-      from_point = null
-      to_point = [$(this).point_x(), $(this).point_y()]
+    select_reverse_or_not = (role, from_point, to_point, direction) ->
       in_opponent_first_line = (direction == 'sente' and to_point[1] == 1) or (direction == 'gote' and to_point[1] == 9)
       in_opponent_second_line = (direction == 'sente' and to_point[1] == 2) or (direction == 'gote' and to_point[1] == 8)
       in_opponent_area = (direction == 'sente' and to_point[1] <= 3) or (direction == 'gote' and to_point[1] >= 7)
-      if move
-        from_point = [piece_cell.point_x(), piece_cell.point_y()]
-        out_opponent_area = (direction == 'sente' and from_point[1] <= 3) or (direction == 'gote' and from_point[1] >= 7)
-        not_reversed = $.inArray(role, ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']) >= 0
-        if in_opponent_first_line and $.inArray(role, ['fu', 'ke', 'ky']) >= 0
-          reverse = true
-        else if in_opponent_second_line and role == 'ke'
-          reverse = true
-        else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
-          reverse = true
-      $('.cell').removeClass('highlight')
-      $('.cell').removeClass('selected')
-      piece_selected.removeClass('selected')
-      game_id = $('.board').attr('game_id')
+      out_opponent_area = (direction == 'sente' and from_point[1] <= 3) or (direction == 'gote' and from_point[1] >= 7)
+      not_reversed = $.inArray(role, ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']) >= 0
+      if in_opponent_first_line and $.inArray(role, ['fu', 'ke', 'ky']) >= 0
+        reverse = true
+      else if in_opponent_second_line and role == 'ke'
+        reverse = true
+      else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
+        reverse = true
+
+    send_movement_to_server = (game_id, role, move, from_point, to_point, reverse, direction) ->
       movement =
         role: role
         move: move
@@ -117,6 +104,34 @@ $ ->
         url: "/games/#{game_id}/movements"
         data:
           movement: movement
+
+    # move selected piece
+    $('.cell.highlight').live 'click', ->
+      $.play_audio('put')
+
+      # initialize movement
+      move = true
+      piece_selected = $('.piece.selected')
+      role = piece_selected.attr('role')
+      direction = piece_selected.attr('direction')
+      reverse = false
+      if piece_selected.parents('.in_hand').size() >= 1
+        move = false
+      piece_cell = piece_selected.parents('.cell')
+      from_point = null
+      if move
+        from_point = [piece_cell.point_x(), piece_cell.point_y()]
+      to_point = [$(this).point_x(), $(this).point_y()]
+      if move
+        reverse = select_reverse_or_not(role, from_point, to_point, direction)
+
+      # movement will be executed below
+      $('.cell').removeClass('highlight')
+      $('.cell').removeClass('selected')
+      piece_selected.removeClass('selected')
+      game_id = $('.board').attr('game_id')
+      send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
+
       if $.cell_on_point_have_opponent_piece(to_point)
         piece = $.cell_on_point(to_point).find('.piece')
         piece.attr('direction', piece_selected.attr('direction'))
