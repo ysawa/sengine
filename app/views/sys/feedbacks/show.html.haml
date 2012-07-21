@@ -1,0 +1,5 @@
+.common_container#feedback_page
+  %h2= @subtitle
+  = render 'feedbacks/feedback', feedback: @feedback
+
+  = link_to t('actions.back'), sys_feedbacks_path

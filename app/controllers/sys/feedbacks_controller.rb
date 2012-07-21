@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class Sys::FeedbacksController < ApplicationController
+class Sys::FeedbacksController < Sys::ApplicationController
   respond_to :html, :js
   before_filter :find_feedbacks
   before_filter :find_feedback, only: [:destroy, :edit, :show, :update]
@@ -23,11 +23,6 @@ class Sys::FeedbacksController < ApplicationController
 
   # GET /sys/feedbacks/1
   def show
-    if params[:number].present?
-      @board = @feedback.boards.where(number: params[:number].to_i).first
-    else
-      @board = @feedback.boards.last
-    end
     respond_with(@feedback)
   end
 

@@ -9,6 +9,9 @@ ja:
         privacy: 'プライバシーポリシー'
         tos: '利用規約'
         us: '運営者情報'
+      feedbacks:
+        index: 'お客様の声一覧'
+        show: 'お客様の声詳細'
       games:
         created_at: '開始時刻'
         finished_at: '終了時刻'
@@ -27,7 +30,11 @@ ja:
       sys:
         home:
           index: '管理画面'
+        feedbacks:
+          index: 'お客様の声一覧'
+          show: 'お客様の声詳細'
         games:
           index: '対局一覧'
+          show: '対局詳細'
         users:
           index: 'ユーザー一覧'

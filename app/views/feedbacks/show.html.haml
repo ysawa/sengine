@@ -1,5 +1,4 @@
 .common_container#feedback_page
-  %p
-    = @feedback.content
+  = render 'feedback', feedback: @feedback
 
-  = link_to 'Back', feedbacks_path
+  = link_to t('actions.back'), feedbacks_path

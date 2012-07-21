@@ -15,6 +15,7 @@ ja:
         pieces: '駒'
         sente: '先手'
       feedback:
+        created_at: '投稿日時'
         content: '内容'
       game:
         author: '作成者'

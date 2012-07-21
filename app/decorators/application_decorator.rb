@@ -32,4 +32,25 @@ class ApplicationDecorator < Draper::Base
   def user_signed_in?
     h.user_signed_in?
   end
+
+protected
+
+  def extract_links(html, options = {})
+    uris = []
+    URI.extract(html, %w(http https)).each do |uri|
+      next if uris.include?(uri)
+      html.gsub!(uri, h.link_to(h.truncate(uri, length: 40), uri, options))
+      uris << uri
+    end
+    html.html_safe
+  end
+
+  def prettify(text)
+    if text.present?
+      html = ERB::Util.html_escape(text).gsub(/(\r\n|\r|\n)/, '<br>').html_safe
+      extract_links(html)
+    else
+      ''
+    end
+  end
 end
