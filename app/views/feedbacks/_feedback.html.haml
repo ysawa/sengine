@@ -1,3 +1,9 @@
 - decorator = FeedbackDecorator.new feedback
-%p
-  = decorator.content
+%article.feedback
+  %aside.face
+    = decorator.author_image
+  %section.content
+    %p
+      = decorator.content
+  %aside.created_at
+    = decorator.created_at

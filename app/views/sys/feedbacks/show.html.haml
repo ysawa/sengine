@@ -1,5 +1,9 @@
 .common_container#feedback_page
   %h2= @subtitle
   = render 'feedbacks/feedback', feedback: @feedback
+  - @feedback.children.each do |child|
+    = render 'feedbacks/feedback', feedback: child
+  %h3= t('actions.reply')
+  = render 'form'
 
   = link_to t('actions.back'), sys_feedbacks_path

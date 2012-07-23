@@ -4,7 +4,7 @@
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
-#= require helpers/jquery_i18n
+#= require_directory ../helpers/
 #= require_self
 #= require_directory .
 
@@ -14,4 +14,3 @@ $ ->
 $.extend
   check_if_facebook_enabled: ->
     typeof FB != "undefined"
-

@@ -1,9 +1,9 @@
 %table.resources
   %thead
     %tr
-      - %w(created_at content).each do |attr_name|
+      - %w(created_at content published).each do |attr_name|
         %th= Feedback.human_attribute_name(attr_name)
-      %th.spec{ colspan: 2 }
+      %th.spec{ colspan: 3 }
         &nbsp;
 
   %tbody
@@ -15,6 +15,13 @@
         %td
           = decorator.content(false, 30)
         %td
+          = decorator.published
+        %td
           = link_to t('actions.show'), [:sys, feedback]
+        %td
+          - if feedback.published?
+            = link_to t('actions.unpublish'), unpublish_sys_feedback_path(feedback), method: :put
+          - else
+            = link_to t('actions.publish'), publish_sys_feedback_path(feedback), method: :put
         %td
           = link_to t('actions.destroy'), [:sys, feedback], confirm: t('confirms.are_you_sure_'), method: :delete

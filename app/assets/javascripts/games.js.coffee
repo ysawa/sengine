@@ -26,7 +26,7 @@ $ ->
 
     # select piece on the board
     $('.board .piece.upward.playable').live 'click', ->
-      unless $(this).attr('direction') == $.board_turn()
+      unless $(this).attr('direction') == Shogi.board_turn()
         return
       $('.cell').removeClass('highlight')
       if $(this).hasClass('selected')
@@ -53,12 +53,12 @@ $ ->
         else
           first_line = 3
       for x in [1..9]
-        if role == 'fu' and $.cell_on_column_have_proponent_fu(x)
+        if role == 'fu' and Shogi.cell_on_column_have_proponent_fu(x)
           continue
         for y in [first_line..last_line]
           point = [x, y]
-          unless $.cell_on_point_have_piece(point)
-            $.highlight_on_point(point)
+          unless Shogi.cell_on_point_have_piece(point)
+            Shogi.highlight_on_point(point)
 
     # select piece in self hand
     $('.in_hand .piece.upward.playable').live 'click', ->
@@ -132,8 +132,8 @@ $ ->
       game_id = $('.board').attr('game_id')
       send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
 
-      if $.cell_on_point_have_opponent_piece(to_point)
-        piece = $.cell_on_point(to_point).find('.piece')
+      if Shogi.cell_on_point_have_opponent_piece(to_point)
+        piece = Shogi.cell_on_point(to_point).find('.piece')
         piece.attr('direction', piece_selected.attr('direction'))
         piece.removeClass('downward')
         piece.addClass('upward')

@@ -6,7 +6,9 @@ class ApplicationDecorator < Draper::Base
     class_eval <<-EOS
       def #{attr_name}(options = {})
         time = model.read_attribute(:#{attr_name})
-        localize_time(time, options)
+        if time
+          h.time_tag time, localize_time(time, options)
+        end
       end
     EOS
   end
@@ -31,6 +33,10 @@ class ApplicationDecorator < Draper::Base
 
   def user_signed_in?
     h.user_signed_in?
+  end
+
+  def user_admin?
+    user_signed_in? && current_user.admin?
   end
 
 protected

@@ -2,7 +2,12 @@ Shogiengine::Application.routes.draw do
 
   namespace :sys do
     root to: "home#index"
-    resources :feedbacks
+    resources :feedbacks do
+      member do
+        put :publish
+        put :unpublish
+      end
+    end
 
     resources :games, only: [:destroy, :edit, :index, :show, :update]
 
