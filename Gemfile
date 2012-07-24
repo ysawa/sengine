@@ -15,7 +15,7 @@ gem 'devise', '2.1.2'
 gem 'omniauth-facebook'
 
 # Use The Decorator Pattern
-gem 'draper', '0.11.1'
+gem 'draper', '0.15.0'
 
 # Pagination
 gem 'kaminari'
@@ -69,7 +69,7 @@ end
 
 group :development, :test do
   gem 'fakeweb', '1.3.0'
-  gem 'rspec-rails', '2.8.1'
+  gem 'rspec-rails', '2.11.0'
   gem 'spork', '1.0.0rc1'
   gem 'capybara', '1.1.2'
   gem 'fabrication', '1.2.0'
