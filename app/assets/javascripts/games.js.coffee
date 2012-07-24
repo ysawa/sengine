@@ -24,7 +24,7 @@ $ ->
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()
 
-    # select piece on the board
+    # user's selection of piece on the board
     $('.board .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == Shogi.board_turn()
         return
@@ -60,7 +60,7 @@ $ ->
           unless Shogi.cell_on_point_have_piece(point)
             Shogi.highlight_on_point(point)
 
-    # select piece in self hand
+    # user's selection of piece in his or her hand
     $('.in_hand .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
         return
@@ -107,6 +107,7 @@ $ ->
 
     # move selected piece
     $('.cell.highlight').live 'click', ->
+      # TODO this function is too long
       $.play_audio('put')
 
       # initialize movement
@@ -146,6 +147,8 @@ $ ->
       $('.in_hand .cell').each ->
         if $(this).find('.piece, .face, .number').size() == 0
           $(this).remove()
+
+      # change turn
       turn = $('.board').attr('turn')
       if turn == 'sente'
         $('.board').attr('turn', 'gote')
