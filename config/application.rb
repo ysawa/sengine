@@ -63,6 +63,9 @@ module Shogiengine
 
     config.middleware.use Rack::Pjax
 
+    require 'default_form_builder'
+    config.action_view.default_form_builder = DefaultFormBuilder
+
     # Enable the asset pipeline
     config.assets.enabled = true
     config.generators.stylesheet_engine = :sass

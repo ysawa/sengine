@@ -13,7 +13,7 @@ protected
     # no language accepted
     return [] if request.env["HTTP_ACCEPT_LANGUAGE"].nil?
 
-    # parse Accept-Language
+    # parse Accept-Language and get accepted locales
     accepted = request.env["HTTP_ACCEPT_LANGUAGE"].split(",")
     accepted = accepted.map { |l| l.strip.split(";") }
     accepted = accepted.map { |l|
@@ -26,7 +26,7 @@ protected
       end
     }
 
-    # sort by quality
+    # sort locales by quality
     accepted.sort { |l1, l2| l1[1] <=> l2[1] }
   end
 

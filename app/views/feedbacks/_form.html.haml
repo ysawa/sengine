@@ -3,4 +3,4 @@
     = f.label :content
     = f.text_area :content, rows: 4, class: :required
   %aside.actions
-    = f.submit t('helpers.submit.save'), class: :send, disable_with: 'Submitting...'
+    = f.submit t('helpers.submit.submit'), disable_with: t('actions.submitting')

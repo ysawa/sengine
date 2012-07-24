@@ -4,6 +4,8 @@ require 'spec_helper'
 
 describe "feedbacks/show" do
   before(:each) do
+    setup_controller_request
+    user_sign_in
     @feedback = assign(:feedback, stub_model(Feedback,
       :content => "内容"
     ))
