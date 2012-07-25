@@ -20,7 +20,7 @@ $ ->
         $(this).addClass 'processing'
         null
 
-    # TODO check if the selector always works (this code is very stinky)
+    # TODO check if the selector always works when requesting with pjax (this code is very stinky)
     game_id = $('.board').attr('game_id')
     $('.board, .in_hand').disableSelection()
 
@@ -39,27 +39,6 @@ $ ->
         $(this).addClass('selected')
         $(this).parents('.cell').addClass('selected')
 
-    highlight_available_cells = (role, direction) ->
-      first_line = 1
-      last_line = 9
-      if $.inArray(role, ['fu', 'ky']) >= 0
-        if direction == 'gote'
-          last_line = 8
-        else
-          first_line = 2
-      else if role == 'ke'
-        if direction == 'gote'
-          last_line = 7
-        else
-          first_line = 3
-      for x in [1..9]
-        if role == 'fu' and Shogi.cell_on_column_have_proponent_fu(x)
-          continue
-        for y in [first_line..last_line]
-          point = [x, y]
-          unless Shogi.cell_on_point_have_piece(point)
-            Shogi.highlight_on_point(point)
-
     # user's selection of piece in his or her hand
     $('.in_hand .piece.upward.playable').live 'click', ->
       unless $(this).attr('direction') == $.board_turn()
@@ -74,7 +53,7 @@ $ ->
         $(this).parents('.cell').addClass('selected')
         role = $(this).attr('role')
         direction = $(this).attr('direction')
-        highlight_available_cells(role, direction)
+        Shogi.highlight_available_cells(role, direction)
 
     select_reverse_or_not = (role, from_point, to_point, direction) ->
       in_opponent_first_line = (direction == 'sente' and to_point[1] == 1) or (direction == 'gote' and to_point[1] == 9)
@@ -89,25 +68,8 @@ $ ->
       else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
         reverse = true
 
-    send_movement_to_server = (game_id, role, move, from_point, to_point, reverse, direction) ->
-      movement =
-        role: role
-        move: move
-        put: !move
-        to_point: to_point
-        reverse: reverse
-        sente: direction == 'sente'
-      movement.from_point = from_point if from_point
-      $.ajax
-        asyn: false
-        type: "POST"
-        url: "/games/#{game_id}/movements"
-        data:
-          movement: movement
-
     # move selected piece
     $('.cell.highlight').live 'click', ->
-      # TODO this function is too long
       $.play_audio('put')
 
       # initialize movement
@@ -131,28 +93,10 @@ $ ->
       $('.cell').removeClass('selected')
       piece_selected.removeClass('selected')
       game_id = $('.board').attr('game_id')
-      send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
+      Shogi.send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
 
-      if Shogi.cell_on_point_have_opponent_piece(to_point)
-        piece = Shogi.cell_on_point(to_point).find('.piece')
-        piece.attr('direction', piece_selected.attr('direction'))
-        piece.removeClass('downward')
-        piece.addClass('upward')
-        $('.in_hand.upward .pieces .row').append('<div class="cell"></div>')
-        $('.in_hand.upward .pieces .row .cell:last').append(piece)
-      $(this).append(piece_selected)
-      if reverse
-        reversed_role = piece_selected.attr('role')
-        piece_selected.attr('role', reversed_role)
-      $('.in_hand .cell').each ->
-        if $(this).find('.piece, .face, .number').size() == 0
-          $(this).remove()
+      Shogi.execute_movement_on_board(piece_selected, to_point, reverse)
 
-      # change turn
-      turn = $('.board').attr('turn')
-      if turn == 'sente'
-        $('.board').attr('turn', 'gote')
-      else
-        $('.board').attr('turn', 'sente')
+      Shogi.flip_turn()
   initialize_game()
 
