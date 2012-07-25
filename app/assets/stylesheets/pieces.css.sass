@@ -6,7 +6,6 @@
 
 $cell_width: 56px
 $cell_height: 60px
-$pieces_image: url(/assets/pieces/default.png)
 
 .piece
   @include user-select(none)
@@ -18,7 +17,7 @@ $pieces_image: url(/assets/pieces/default.png)
   font-weight: bold
   line-height: $cell_height
   text-align: center
-  background: $pieces_image no-repeat
+  background-repeat: no-repeat
   &.moved
   &.selected
   &.upward
@@ -79,5 +78,3 @@ $pieces_image: url(/assets/pieces/default.png)
     background-position: (- $cell_width * 6) (- $cell_height)
     &.downward
       background-position: (- $cell_width * 6) (- $cell_height * 3)
-
-

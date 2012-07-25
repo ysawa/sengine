@@ -1,4 +1,7 @@
 en:
+  game:
+    themes:
+      default: 'Default'
   piece:
     roles:
       fu: 'Fu'

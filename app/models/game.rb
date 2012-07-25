@@ -7,6 +7,9 @@ class Game
   field :finished_at, type: Time
   field :number, type: Integer, default: 0
   field :playing, type: Boolean, default: true
+  field :theme, type: String, default: 'default'
+
+  THEMES = %w(default)
   has_many :boards
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games

@@ -1,4 +1,7 @@
 ja:
+  game:
+    themes:
+      default: 'デフォルト'
   piece:
     roles:
       fu: '歩'

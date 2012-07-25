@@ -2,7 +2,8 @@
 %html{ 'xmlns:fb' => "http://ogp.me/ns/fb#" }
   %head
     = render 'common/head'
-  %body
+  - html_class = make_theme_class_from_game(@game)
+  %body{ class: html_class }
     - if facebook_enabled?
       = render 'common/facebook_javascript_sdk'
     .whole_container

@@ -15,7 +15,6 @@ $line_color: #b37100
 $highlight_color: #77c0ff
 $selected_color: $highlight_color
 $moved_color: $highlight_color
-$pieces_image: url(/assets/pieces/default.png)
 
 @mixin corner_cell
   @include user-select(none)
@@ -25,11 +24,9 @@ $pieces_image: url(/assets/pieces/default.png)
   float: left
 
 @mixin selected
-  background-image: $pieces_image
   background-position: (- $cell_width * 4) (- $cell_height)
 
 @mixin highlight
-  background-image: $pieces_image
   background-position: (- $cell_width * 7) (- $cell_height)
 
 #game_page

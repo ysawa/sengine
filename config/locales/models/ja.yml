@@ -27,6 +27,7 @@ ja:
         movements: '棋譜'
         number: '手数'
         sente_user: '先手'
+        theme: '盤面'
         won_user: '勝者'
       movement:
         board: '局面'

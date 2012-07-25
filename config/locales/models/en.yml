@@ -24,6 +24,7 @@ en:
         movements: 'Movements'
         number: 'Number'
         sente_user: 'Black Player'
+        theme: 'Board'
         won_user: 'Won Player'
       movement:
         board: 'Board'
