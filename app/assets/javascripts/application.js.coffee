@@ -36,11 +36,14 @@ $ ->
   on_pjax_reload = ->
     # Validations of Forms
     $('form.validated').validate()
+    body_class = $('body').attr('class')
+    body_class = body_class.replace(/theme_\w+/, '')
+    $('body').attr('class', body_class)
     if $('#game').present()
       theme = $('#game').attr('game-theme')
-      $('body').attr('class', "theme_#{theme}")
+      $('body').addClass("theme_#{theme}")
     else
-      $('body').attr('class', 'theme_default')
+      $('body').addClass('theme_default')
 
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
