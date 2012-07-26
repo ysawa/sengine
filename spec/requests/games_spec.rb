@@ -18,7 +18,7 @@ describe "Games" do
         user_sign_in_with_visit(@current_user, 'testtest')
         visit root_path
         click_link I18n.t('pages.controllers.games.index')
-        page.should have_selector 'table.resources'
+        page.should have_selector 'ul#games'
       end
     end
 
