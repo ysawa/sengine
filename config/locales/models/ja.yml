@@ -2,7 +2,7 @@ ja:
   mongoid:
     models:
       board: '局面'
-      feedback: 'お客様の声'
+      feedback: 'みんなの声'
       game: '対局'
       movement: '指し手'
       piece: '駒'
