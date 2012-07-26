@@ -13,13 +13,15 @@
     - if gote_decorator
       = gote_decorator.image(true)
       = gote_decorator.name(true)
-  %p
+
     - if won_decorator
+      , and
       = won_decorator.name(true)
       won.
-      %br
+
+    = Game.human_attribute_name(:number)
     = decorator.number
-  %p
+
     - if game.of_user? current_user
       = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete
 
