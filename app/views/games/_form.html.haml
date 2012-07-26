@@ -6,12 +6,18 @@
       = radio_button_tag 'game_order', order, order == 'random', class: :required
   %section.field
     = label_tag 'game_opponent_id', t('actions.select_opponent')
-    - User.where(:_id.ne => current_user.id).limit(10).each do |user|
+    - User.where(:_id.ne => current_user.id).limit(10).each_with_index do |user, i|
       - user_decorator = UserDecorator.new(user)
       - user_id = user.id.to_s
       %label.inline{ for: "game_opponent_id_#{user_id}" }
         = user_decorator.image
         = user_decorator.name(false)
-      = radio_button_tag 'game_opponent_id', user_id, false, class: :required
+      = radio_button_tag 'game_opponent_id', user_id, i == 0, class: :required
+  %section.field
+    = f.label :theme
+    - Game::THEMES.each do |theme|
+      %label.inline{ for: "game_theme_#{theme}" }
+        = theme
+      = f.radio_button :theme, theme, class: :required
   %section.actions
     = f.submit t('helpers.submit.play_game'), disable_with: t('actions.now_loading')

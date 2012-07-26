@@ -2,14 +2,14 @@
 
 /* Themes */
 body
-  @each $theme in default
+  @each $theme in default, test
     &.theme_#{$theme}
       background-image: url('/assets/bg/#{$theme}.jpg')
       $piece_image: url(/assets/pieces/#{$theme}.png)
       .piece
         background-image: $piece_image
       .board
-        background-image: url(/assets/boards/#{$theme}.png)
+        background-image: url(/assets/boards/#{$theme}.jpg)
         .row
           .cell
             &.moved,
