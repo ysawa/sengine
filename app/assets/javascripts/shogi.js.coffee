@@ -12,6 +12,8 @@ class Shogi
 
   @board_turn: ->
     $('.board').attr('turn')
+  @cell_have_piece: (cell) ->
+    cell.find('.piece').size() > 0
   @cell_on_point: (point) ->
     x = parseInt point[0]
     y = parseInt point[1]
@@ -69,6 +71,16 @@ class Shogi
     else
       $('.board').attr('turn', 'sente')
 
+  @get_point_x: (object) ->
+    if object.hasClass('piece')
+      parseInt object.parents('.cell').attr('x')
+    else if object.hasClass('cell')
+      parseInt object.attr('x')
+  @get_point_y: (object) ->
+    if object.hasClass('piece')
+      parseInt object.parents('.cell').attr('y')
+    else if object.hasClass('cell')
+      parseInt object.attr('y')
   @highlight_available_cells = (role, direction) ->
     first_line = 1
     last_line = 9
@@ -164,6 +176,52 @@ class Shogi
   @highlight_on_point_if_possible: (point) ->
     unless Shogi.cell_on_point_have_proponent_piece(point)
       Shogi.highlight_on_point(point)
+
+  @highlight_orbit_of_piece: (piece) ->
+    piece = $(piece)
+    x = Shogi.get_point_x(piece)
+    y = Shogi.get_point_y(piece)
+    role = piece.attr('role')
+    sente = piece.attr('direction') == 'sente'
+    direction = +1
+    unless sente
+      direction = -1
+    switch role
+      when 'fu'
+        Shogi.highlight_for_role_fu(x, y, direction)
+      when 'ke'
+        Shogi.highlight_for_role_ke(x, y, direction)
+      when 'ou'
+        Shogi.highlight_for_role_ou(x, y, direction)
+      when 'gi'
+        Shogi.highlight_for_role_gi(x, y, direction)
+      when 'ki', 'to', 'ny', 'nk', 'ng'
+        Shogi.highlight_for_role_ki(x, y, direction)
+      when 'ky'
+        Shogi.highlight_for_role_ky(x, y, direction)
+      when 'hi'
+        Shogi.highlight_for_role_hi(x, y, direction)
+      when 'ry'
+        Shogi.highlight_for_role_hi(x, y, direction)
+        Shogi.highlight_for_diagonal_walk(x, y)
+      when 'ka'
+        Shogi.highlight_for_role_ka(x, y, direction)
+      when 'um'
+        Shogi.highlight_for_role_ka(x, y, direction)
+        Shogi.highlight_for_orthogonal_walk(x, y)
+
+  @select_reverse_or_not = (role, from_point, to_point, direction) ->
+    in_opponent_first_line = (direction == 'sente' and to_point[1] == 1) or (direction == 'gote' and to_point[1] == 9)
+    in_opponent_second_line = (direction == 'sente' and to_point[1] == 2) or (direction == 'gote' and to_point[1] == 8)
+    in_opponent_area = (direction == 'sente' and to_point[1] <= 3) or (direction == 'gote' and to_point[1] >= 7)
+    out_opponent_area = (direction == 'sente' and from_point[1] <= 3) or (direction == 'gote' and from_point[1] >= 7)
+    not_reversed = $.inArray(role, ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']) >= 0
+    if in_opponent_first_line and $.inArray(role, ['fu', 'ke', 'ky']) >= 0
+      reverse = true
+    else if in_opponent_second_line and role == 'ke'
+      reverse = true
+    else if not_reversed and (in_opponent_area or out_opponent_area) and confirm($.i18n.t('reverse?'))
+      reverse = true
 
   @send_movement_to_server = (game_id, role, move, from_point, to_point, reverse, direction) ->
     movement =

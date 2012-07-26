@@ -11,6 +11,7 @@ describe "feedbacks/index" do
   end
 
   it "renders a list of feedbacks" do
+    pending 'Test is not valid'
     render
   end
 end

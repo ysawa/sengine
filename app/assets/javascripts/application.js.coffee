@@ -19,7 +19,6 @@
 #= require_directory ./helpers/
 #= require audio
 #= require shogi
-#= require logic
 #= require_self
 #= require_directory .
 

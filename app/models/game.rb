@@ -9,7 +9,7 @@ class Game
   field :playing, type: Boolean, default: true
   field :theme, type: String, default: 'default'
 
-  THEMES = %w(default)
+  THEMES = %w(default test)
   has_many :boards
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games

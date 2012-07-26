@@ -1,45 +1,6 @@
-%table.resources
-  %thead
-    %tr
-      %th= Game.model_name.human
-      - %w(sente_user gote_user won_user number).each do |attr_name|
-        %th= Game.human_attribute_name(attr_name)
-      %th.spec
-        = t('user.comment')
-      %th.spec
-        &nbsp;
-
-  %tbody
-    - games.each do |game|
-      - decorator = GameDecorator.new game
-      - sente_decorator = game.sente_user ? UserDecorator.new(game.sente_user) : nil
-      - gote_decorator = game.gote_user ? UserDecorator.new(game.gote_user) : nil
-      - won_decorator = game.won_user ? UserDecorator.new(game.won_user) : nil
-      %tr
-        %td
-          = link_to decorator.created_at, game
-        %td
-          - if sente_decorator
-            = sente_decorator.image(true)
-            %br
-            = sente_decorator.name(true)
-        %td
-          - if gote_decorator
-            = gote_decorator.image(true)
-            %br
-            = gote_decorator.name(true)
-        %td
-          - if won_decorator
-            = won_decorator.image(true)
-            %br
-            = won_decorator.name(true)
-        %td
-          = decorator.number
-        %td.spec
-          = decorator.facebook_comments_count
-        %td.spec
-          - if game.of_user? current_user
-            = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete
+%ul.games
+  - games.each do |game|
+    = render 'games/list', game: game
 %nav.pagination.next_game
   - name = t('actions.see_more')
   - unless defined?(pagination_params)
