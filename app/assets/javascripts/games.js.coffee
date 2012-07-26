@@ -41,7 +41,7 @@ $ ->
 
     # user's selection of piece in his or her hand
     $('.in_hand .piece.upward.playable').live 'click', ->
-      unless $(this).attr('direction') == $.board_turn()
+      unless $(this).attr('direction') == Shogi.board_turn()
         return
       $('.cell').removeClass('highlight')
       if $(this).hasClass('selected')
@@ -70,7 +70,7 @@ $ ->
       piece_cell = piece_selected.parents('.cell')
       from_point = null
       if move
-        from_point = [Shogi.get_point_x(piece_cell), Shogi.point_y(piece_cell)]
+        from_point = [Shogi.get_point_x(piece_cell), Shogi.get_point_y(piece_cell)]
       to_point = [Shogi.get_point_x($(this)), Shogi.get_point_y($(this))]
       if move
         reverse = Shogi.select_reverse_or_not(role, from_point, to_point, direction)
