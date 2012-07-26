@@ -37,7 +37,7 @@ $ ->
     # Validations of Forms
     $('form.validated').validate()
     body_class = $('body').attr('class')
-    body_class = body_class.replace(/theme_\w+/, '')
+    body_class = body_class.replace(/theme_\w+/, '').replace(/\s+/, ' ')
     $('body').attr('class', body_class)
     if $('#game').present()
       theme = $('#game').attr('game-theme')
