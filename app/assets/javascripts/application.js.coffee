@@ -36,6 +36,11 @@ $ ->
   on_pjax_reload = ->
     # Validations of Forms
     $('form.validated').validate()
+    if $('#game').present()
+      theme = $('#game').attr('game-theme')
+      $('body').attr('class', "theme_#{theme}")
+    else
+      $('body').attr('class', 'theme_default')
 
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
