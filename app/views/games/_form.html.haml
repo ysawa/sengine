@@ -17,6 +17,7 @@
     = f.label :theme
     - Game::THEMES.each do |theme|
       %label.inline{ for: "game_theme_#{theme}" }
+        = game_theme_icon theme
         = theme
       = f.radio_button :theme, theme, class: :required
   %section.actions

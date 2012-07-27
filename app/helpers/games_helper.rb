@@ -11,6 +11,10 @@ module GamesHelper
     end
   end
 
+  def game_theme_icon(theme)
+    image_tag "themes/#{theme}.gif", class: 'theme'
+  end
+
   def convert_number_to_kanji(number)
     KANSUJIS[number]
   end
