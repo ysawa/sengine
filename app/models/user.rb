@@ -13,10 +13,12 @@ class User
 
   field :admin, type: Boolean, default: false
   field :audio_on, type: Boolean, default: true
+  field :birth, type: Date
   field :current_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
   field :email, type: String
   field :encrypted_password, type: String
+  field :facebook_access_token, type: String
   field :facebook_id, type: Integer
   field :facebook_username, type: String
   field :gender, type: String
@@ -40,11 +42,54 @@ class User
   has_many :lost_games, class_name: 'Game', inverse_of: :lost_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
 
-  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count
+  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count
 
   after_validation :setup_name
   after_validation :setup_timezone
   before_create :set_admin_if_first_user
+
+  def facebook_birth=(date)
+    if date.present?
+      date =~ %r|(\d+)/(\d+)/(\d+)|
+      month, day, year = $1, $2, $3
+      date = Date.new(year.to_i, month.to_i, day.to_i)
+    end
+    self.birth = date
+  end
+
+  def find_facebook_friends(limit = 100, page = 0, recursive = false)
+    return [] if self.facebook_access_token.blank?
+    friend_maps = []
+    url = "https://graph.facebook.com/me/friends?access_token=#{self.facebook_access_token}"
+    if limit
+      url += "&limit=#{limit}"
+      if page
+        url += "&offset=#{limit * page}"
+      end
+    end
+    client = HTTPClient.new
+    while true
+      response = JSON.parse client.get_content(url)
+      break if response["data"].blank?
+      friend_maps += response["data"]
+      if recursive && defined?(response['paging']['next'])
+        url = response["paging"]['next']
+      else
+        break
+      end
+    end
+    friend_maps
+  end
+
+  def find_facebook_friend_ids(limit = 100, page = 0, recursive = false)
+    facebook_ids = []
+    while true
+      friend_maps = find_facebook_friends(limit, page, false)
+      facebook_ids += friend_maps.collect { |map| map['id'] }
+      break unless recursive
+    end
+    facebook_ids
+  end
 
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
@@ -78,6 +123,11 @@ class User
   end
 
   class << self
+    def facebook_friends(member)
+      criteria.where(:_id.ne => member.id, :facebook_id.in => member.find_facebook_friend_ids)
+    end
+
+    # find or initialize user with data from facebook
     def find_for_facebook_oauth(access_token, signed_in_resource=nil)
       data = access_token.extra.raw_info
       user = where(email: data.email).first
@@ -86,11 +136,13 @@ class User
         user = new(:email => data.email, :password => Devise.friendly_token[0,20])
       end
       user.facebook_id = data.id
+      user.facebook_access_token = access_token.credentials.token
       user.name = data.name
       user.facebook_username = data.username
       user.locale = data.locale
       user.timezone = data.timezone
       user.gender = data.gender
+      user.facebook_birth = data.birthday
       user.save
       user
     end
@@ -106,6 +158,7 @@ class User
           user.timezone = data["timezone"]
           user.timezone_string = ActiveSupport::TimeZone[user.timezone].to_s.sub(/^.* /, '')
           user.gender = data["gender"]
+          user.facebook_birth = data["birthday"]
         end
       end
     end

@@ -6,7 +6,7 @@
       = radio_button_tag 'game_order', order, order == 'random', class: :required
   %section.field
     = label_tag 'game_opponent_id', t('actions.select_opponent')
-    - User.where(:_id.ne => current_user.id).limit(10).each_with_index do |user, i|
+    - @friends.each_with_index do |user, i|
       - user_decorator = UserDecorator.new(user)
       - user_id = user.id.to_s
       %label.inline{ for: "game_opponent_id_#{user_id}" }

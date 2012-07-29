@@ -20,6 +20,8 @@ gem 'draper', '0.15.0'
 # Pagination
 gem 'kaminari'
 
+gem 'httpclient'
+
 # Pjax
 # gem 'pjax_rails'
 gem 'rack-pjax'

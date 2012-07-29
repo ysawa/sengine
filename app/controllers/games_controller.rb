@@ -87,6 +87,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    @friends = User.facebook_friends(current_user)
     respond_with(@game)
   end
 
