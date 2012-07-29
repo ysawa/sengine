@@ -2,10 +2,10 @@
   %h2= @subtitle
   %ul.menu
     %li
-      = link_to page_name('games', 'new'), new_game_path
+      = link_to page_name('games', 'new'), new_game_path, disable_with: t('actions.now_loading')
     %li
-      = link_to page_name('games', 'index'), games_path
+      = link_to page_name('games', 'index'), games_path, disable_with: t('actions.now_loading')
     %li
-      = link_to page_name('setting', 'edit'), edit_setting_path
+      = link_to page_name('setting', 'edit'), edit_setting_path, disable_with: t('actions.now_loading')
     %li
-      = link_to page_name('help', 'index'), help_path
+      = link_to page_name('help', 'index'), help_path, disable_with: t('actions.now_loading')
