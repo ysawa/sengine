@@ -3,3 +3,10 @@
     $(function () {
       $.notice('#{escape_javascript flash[:notice]}');
     });
+- if user_signed_in? && current_user.grade_increased
+  - grade_notice = I18n.t('notices.you_upgrade', grade: stringify_grade(current_user.grade))
+  - current_user.grade_increased = false
+  :javascript
+    $(function () {
+      $.notice('#{escape_javascript grade_notice}');
+    });

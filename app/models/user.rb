@@ -23,6 +23,7 @@ class User
   field :facebook_username, type: String
   field :gender, type: String
   field :grade, type: Integer, default: 0
+  field :grade_increased, type: Boolean, default: false
   field :last_sign_in_at, type: Time
   field :last_sign_in_ip, type: String
   field :locale, type: String, default: 'en'
@@ -117,14 +118,24 @@ class User
     nil
   end
 
-  def write_score_with_grade(score)
+  def write_grade_with_score(score)
+    past_grade = self.grade
     self.score = score
     self.grade = ScoreCalculator.score_to_grade(self.score)
+    if past_grade < self.grade
+      self.grade_increased = true
+    end
+    self.grade
   end
 
   class << self
     def facebook_friends(member)
-      criteria.where(:_id.ne => member.id, :facebook_id.in => member.find_facebook_friend_ids)
+      crit = criteria
+      crit = crit.where(:_id.ne => member.id)
+      if Rails.env.production?
+        crit = crit.where(:facebook_id.in => member.find_facebook_friend_ids)
+      end
+      crit
     end
 
     # find or initialize user with data from facebook

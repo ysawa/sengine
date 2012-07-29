@@ -52,6 +52,7 @@ ja:
     thanks_for_feedbacking: 'フィードバックしていただきありがとうございます。個別に対応していきます。しばらくお待ちください。'
     you_lost: 'あなたの負けです。お疲れ様でした。'
     you_won: 'あなたの勝ちです。お疲れ様でした。'
+    you_upgrade: 'おめでとうございます。あなたは%{grade}になりました。'
   confirms:
     are_you_sure_: '本当に実行しますか。'
   please:

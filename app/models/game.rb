@@ -24,8 +24,8 @@ class Game
     calculator.winner_score = self.won_user.score
     calculator.loser_score = self.lost_user.score
     calculator.calculate
-    self.won_user.write_score_with_grade(calculator.winner_next_score)
-    self.lost_user.write_score_with_grade(calculator.loser_next_score)
+    self.won_user.write_grade_with_score(calculator.winner_next_score)
+    self.lost_user.write_grade_with_score(calculator.loser_next_score)
     if self.won_user.valid? && self.lost_user.valid?
       self.won_user.save
       self.lost_user.save
@@ -62,6 +62,8 @@ class Game
       unless self.playing
         # game finished first
         apply_score_changes!
+        save
+        return false
       end
       save
     else

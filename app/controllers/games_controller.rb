@@ -41,6 +41,7 @@ class GamesController < ApplicationController
       make_game_notice
       respond_with(@game)
     else
+      @friends = User.facebook_friends(current_user)
       render :new
     end
   end
@@ -142,5 +143,9 @@ private
       return false
     end
     true
+  end
+
+  def stringify_grade(grade)
+    I18n.t("user.grades.grade_#{grade}")
   end
 end
