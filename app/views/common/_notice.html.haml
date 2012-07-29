@@ -9,17 +9,19 @@
     - score = current_user.score
     - if score_differential >= 0
       - score_notice = t('notices.your_score_increased', score: score, differential: score_differential)
+      - notice_type = 'success'
     - else
       - score_notice = t('notices.your_score_decreased', score: score, differential: - score_differential)
+      - notice_type = 'info'
     - current_user.score_differential = nil
     :javascript
       $(function () {
-        $.notice('#{escape_javascript score_notice}');
+        $.notice('#{escape_javascript score_notice}', '#{escape_javascript notice_type}');
       });
   - if current_user.grade_increased
     - grade_notice = t('notices.you_upgrade', grade: stringify_grade(current_user.grade))
     - current_user.grade_increased = false
     :javascript
       $(function () {
-        $.notice('#{escape_javascript grade_notice}');
+        $.notice('#{escape_javascript grade_notice}', 'success');
       });

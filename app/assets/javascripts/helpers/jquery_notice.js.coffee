@@ -1,8 +1,11 @@
 $.extend
-  notice: (message) ->
+  notice: (message, type = null) ->
     @notice_with_title('Information', message)
-  notice_with_title: (title, message) ->
+  notice_with_title: (title, message, type = null) ->
     $.pnotify(
-      pnotify_title: title
-      pnotify_text: message
+      title: title
+      text: message
+      type: type
+      hide: false
+      styling: 'jqueryui'
     )
