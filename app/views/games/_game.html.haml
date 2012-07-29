@@ -1,4 +1,4 @@
-#game{ 'game-theme' => game.theme }
+%article#game{ 'game-theme' => game.theme }
   = render 'boards/board', board: board, game: game
   - if game.playing? && (game.sente_user == current_user || game.gote_user == current_user)
     %aside.actions#game_buttons
