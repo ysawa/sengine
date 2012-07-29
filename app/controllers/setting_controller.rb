@@ -19,7 +19,7 @@ class SettingController < ApplicationController
     if current_user.update_attributes(params[:user])
       set_locale
       make_setting_notice
-      respond_with(current_user, location: setting_path)
+      respond_with(current_user, location: edit_setting_path)
     else
       render :edit
     end
