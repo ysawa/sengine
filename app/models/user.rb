@@ -31,6 +31,7 @@ class User
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
   field :score, type: Integer, default: 0
+  field :score_differential, type: Integer
   field :sign_in_count, type: Integer
   field :themes, type: Array, default: []
   field :timezone, type: Integer, default: 9
@@ -120,6 +121,7 @@ class User
 
   def write_grade_with_score(score)
     past_grade = self.grade
+    self.score_differential = score - self.score
     self.score = score
     self.grade = ScoreCalculator.score_to_grade(self.score)
     if past_grade < self.grade
