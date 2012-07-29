@@ -1,6 +1,7 @@
 .common_container#feedback_page
   %h2= @subtitle
 
-  = render 'form', feedback: @feedback
+  - if user_signed_in?
+    = render 'form', feedback: @feedback
   = render 'feedbacks', feedbacks: @feedbacks
   = paginate @feedbacks

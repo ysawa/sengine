@@ -2,7 +2,7 @@
 
 class FeedbacksController < ApplicationController
   respond_to :html, :js
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:create]
   before_filter :find_feedback, only: [:show]
 
   # POST /feedbacks

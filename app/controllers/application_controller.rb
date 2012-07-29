@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_timezone
   before_filter :make_subtitle
-  before_filter :update_user_used_at_if_signed_in
+  after_filter :save_current_user_if_signed_in
 protected
 
   def accepted_languages
@@ -64,6 +64,13 @@ protected
     session[:facebook_token] = token.to_s
   end
 
+  def save_current_user_if_signed_in
+    if user_signed_in?
+      current_user.used_at = Time.now
+      current_user.save
+    end
+  end
+
   def select_locale_from_accepted_languages
     locales = accepted_languages
     selected = locales.find { |locale| Shogiengine::LOCALES.include? locale[0].to_sym }
@@ -102,11 +109,5 @@ protected
 
   def set_top_page_as_false
     @top_page = false
-  end
-
-  def update_user_used_at_if_signed_in
-    if user_signed_in?
-      current_user.update_attribute(:used_at, Time.now)
-    end
   end
 end

@@ -1,6 +1,5 @@
 #game{ 'game-theme' => game.theme }
-  .board_container
-    = render 'boards/board', board: board, game: game
+  = render 'boards/board', board: board, game: game
   - if game.playing? && (game.sente_user == current_user || game.gote_user == current_user)
     %aside.actions#game_buttons
       = link_to t('actions.give_up'), give_up_game_path(game), class: :button, method: :put, confirm: t('confirms.are_you_sure_')
