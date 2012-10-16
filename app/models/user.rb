@@ -35,7 +35,7 @@ class User
   field :sign_in_count, type: Integer
   field :themes, type: Array, default: []
   field :timezone, type: Integer, default: 9
-  field :timezone_string, type: Integer
+  field :timezone_string, type: String
   field :used_at, type: Time
 
   has_many :sente_games, class_name: 'Game', inverse_of: :sente_user
@@ -116,6 +116,9 @@ class User
   def setup_timezone
     if self.timezone_string? && self.timezone_string_changed?
       self.timezone = ActiveSupport::TimeZone[self.timezone_string].utc_offset / 3600
+    end
+    if self.timezone? && self.timezone_string.blank?
+      self.timezone_string = ActiveSupport::TimeZone[9].name
     end
     nil
   end

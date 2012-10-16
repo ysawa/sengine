@@ -8,7 +8,7 @@
     = f.select :locale, locales, {}, class: :required
   %section.field
     = f.label :timezone_string
-    = f.time_zone_select :timezone_string, nil, { :include_blank => true }
+    = f.time_zone_select :timezone_string, nil, { include_blank: User.human_attribute_name(:timezone) }
   %section.field
     = f.label :audio_on
     - [true, false].each do |value|
