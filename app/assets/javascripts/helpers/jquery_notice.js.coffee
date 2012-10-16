@@ -6,6 +6,5 @@ $.extend
       title: title
       text: message
       type: type
-      hide: false
       styling: 'jqueryui'
     )
