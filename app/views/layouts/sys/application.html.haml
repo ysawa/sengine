@@ -1,14 +1,14 @@
 !!!
 %html
   %head
-    = render 'sys/common/head'
+    = render 'sys/shared/head'
   %body.admin
     - if facebook_enabled?
       = render 'common/facebook_javascript_sdk'
     .whole_container
       %header#global_head
         .inner
-          = render 'sys/common/global_head'
+          = render 'sys/shared/global_head'
       %section#global_body
         .inner{ 'data-pjax-container' => true }
           = yield
@@ -18,4 +18,4 @@
           = render 'common/locale'
       %footer#global_foot
         .inner
-          = render 'sys/common/global_foot'
+          = render 'sys/shared/global_foot'
