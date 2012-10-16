@@ -25,6 +25,9 @@ Spork.prefork do
     # config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.before(:each) do
       FakeWeb.allow_net_connect = %r[^https?://(localhost|127\.0\.0\.1)]
+      Mongoid.session(:default).collections.each do |collection|
+        collection.drop
+      end
     end
 
     config.after(:each) do
