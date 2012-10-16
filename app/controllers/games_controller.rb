@@ -11,12 +11,10 @@ class GamesController < ApplicationController
     if @game
       number = @game.boards.count
       @game.check_and_save_if_playing
-      if @game.won_user == current_user
-        flash[:notice] = t('notices.you_won')
+      if @game.won_user_id == current_user.id
         # only redirect to @game
         render js: "window.location = '#{game_path(@game)}'"
-      elsif @game.lost_user == current_user
-        flash[:notice] = t('notices.you_lost')
+      elsif @game.lost_user_id == current_user.id
         # only redirect to @game
         render js: "window.location = '#{game_path(@game)}'"
       elsif params[:number].to_i < number
@@ -70,7 +68,9 @@ class GamesController < ApplicationController
       @game.lost_user = @game.gote_user
       @game.won_user = @game.sente_user
     end
+    @game.finished_at = Time.now
     @game.playing = false
+    @game.given_up = true
     if @game.save
       @game.apply_score_changes!
       redirect_to game_path(@game)

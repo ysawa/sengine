@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "setting/edit" do
   before :each do
-    setup_controller_request
     user_sign_in
   end
 

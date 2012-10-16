@@ -4,7 +4,7 @@
     = f.text_field :name, class: :required
   %section.field
     = f.label :locale
-    - locales = Shogiengine::LOCALES.collect { |locale| [t("user.locales.#{locale}"), locale] }
+    - locales = Shogiengine::LOCALES.collect { |locale| [translate_user_locale(locale), locale] }
     = f.select :locale, locales, {}, class: :required
   %section.field
     = f.label :timezone_string

@@ -40,6 +40,8 @@ Shogiengine::Application.routes.draw do
     end
   end
 
+  get "notices", to: "home#notices", as: :notices
+
   get "profile/:id", to: "profile#show", as: :profile
 
   get "setting", to: "setting#show", as: :setting

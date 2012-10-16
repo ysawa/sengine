@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "games/index" do
   before(:each) do
-    setup_controller_request
     user_sign_in
     @opponent = Fabricate(:user, name: 'opponent')
     @board = Board.hirate

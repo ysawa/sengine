@@ -1,0 +1,4 @@
+- if user_signed_in?
+  :javascript
+    $.reload_notices();
+    setInterval($.reload_notices, 20000);

@@ -20,20 +20,11 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  Mongoid.configure do |config|
-    config.autocreate_indexes = true
-  end
-
   RSpec.configure do |config|
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     # config.fixture_path = "#{::Rails.root}/spec/fixtures"
     config.before(:each) do
       FakeWeb.allow_net_connect = %r[^https?://(localhost|127\.0\.0\.1)]
-      Mongoid.database.collections.each do |collection|
-        unless collection.name =~ /^system\./
-          collection.remove
-        end
-      end
     end
 
     config.after(:each) do

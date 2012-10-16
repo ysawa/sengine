@@ -17,9 +17,7 @@ module IntegrationTestHelper
   end
 
   def setup_controller_request(env = {})
-    c = ApplicationController.new
-    c.request = ActionDispatch::TestRequest.new(env)
-    c.set_current_view_context
+    ActiveSupport::Deprecation.warn("remove the code")
   end
 
   %w(user).each do |resource_name|

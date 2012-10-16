@@ -150,30 +150,14 @@ class User
       end
       user.facebook_id = data.id
       user.facebook_access_token = access_token.credentials.token
-      user.name = data.name
       user.facebook_username = data.username
-      user.locale = data.locale
-      user.timezone = data.timezone
-      user.gender = data.gender
-      user.facebook_birth = data.birthday
+      user.name ||= data.name
+      user.locale ||= data.locale
+      user.timezone ||= data.timezone
+      user.gender ||= data.gender
+      user.facebook_birth ||= data.birthday
       user.save
       user
-    end
-
-    def new_with_session(params, session)
-      tap do |user|
-        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-          user.name = data["name"]
-          user.facebook_id = data["id"]
-          user.facebook_username = data["username"]
-          user.email = data["email"]
-          user.locale = data["locale"]
-          user.timezone = data["timezone"]
-          user.timezone_string = ActiveSupport::TimeZone[user.timezone].to_s.sub(/^.* /, '')
-          user.gender = data["gender"]
-          user.facebook_birth = data["birthday"]
-        end
-      end
     end
   end
 private

@@ -103,3 +103,9 @@ $.extend
     useragent.match(/(iPad|iPhone|Android)/i)
   check_if_outside_url: (url) ->
     !check_if_inside_url(url)
+  reload_notices: ->
+    $.ajax
+      type: "GET"
+      url: "/notices.js"
+      dataType: "script"
+

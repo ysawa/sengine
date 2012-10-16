@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe UserDecorator do
   before :each do
-    setup_controller_request
     @user = Fabricate(:user)
     @decorator = UserDecorator.new(@user)
   end

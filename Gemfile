@@ -1,21 +1,19 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Database ORM: Mongoid
-gem 'mongoid', '~> 2.4'
-gem 'bson_ext', '~> 1.5'
-gem 'mongoid-mapreduce'
+gem 'mongoid'
 
 # Use Devise to authenticate users
-gem 'devise', '2.1.2'
+gem 'devise'
 gem 'omniauth-facebook'
 
 # Use The Decorator Pattern
-gem 'draper', '0.15.0'
+gem 'draper'
 
 # Pagination
 gem 'kaminari'
@@ -40,6 +38,7 @@ gem 'jquery-rails'
 # Haml
 gem 'haml'
 gem 'haml-rails'
+gem 'sass'
 
 # Borbon Sass Plugin
 gem 'bourbon'
@@ -51,7 +50,7 @@ gem 'bourbon'
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -59,24 +58,40 @@ gem 'bourbon'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-group :production do
+group :development do
   gem 'thin'
 end
 
 group :test do
   # Pretty printed test output
-  gem 'turn', '0.8.3', require: false
-  # gem 'capybara-webkit', '0.8.0'
+  gem 'turn', require: false
+  gem 'capybara-webkit' if RUBY_PLATFORM =~ /darwin/i # mac os x
 end
 
 group :development, :test do
-  gem 'fakeweb', '1.3.0'
-  gem 'rspec-rails', '2.11.0'
-  gem 'spork', '1.0.0rc1'
-  gem 'capybara', '1.1.2'
-  gem 'fabrication', '1.2.0'
-  gem 'rb-fsevent', '0.4.0'
-  gem 'launchy', '2.0.5'
-  gem 'guard-spork', '0.5.1'
-  gem 'guard-rspec', '0.6.0'
+  gem 'fakeweb'
+  gem 'rspec-rails'
+  gem 'spork', '1.0.0rc3'
+  gem 'capybara'
+  gem 'fabrication'
+  gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i # mac os x
+  gem 'launchy'
+  gem 'guard-spork'
+  gem 'guard-rspec'
+
+  # Notifiers
+  case RUBY_PLATFORM
+  when /linux/i
+    gem 'libnotify'
+  when /darwin/i
+    gem 'growl'
+  when /mswin(?!ce)|mingw|cygwin|bccwin/i
+    gem 'rb-notifu'
+  end
+end
+
+# Deploy with Capistrano
+group :deployment do
+  gem 'capistrano'
+  gem 'capistrano_colors'
 end

@@ -15,6 +15,14 @@ class UserDecorator < ApplicationDecorator
     I18n.t("user.audio")[model.audio_on?]
   end
 
+  def face(image_link = false)
+    content = image(image_link)
+    if model.online?
+      content += h.content_tag :aside, online, class: :online
+    end
+    h.content_tag :section, content, class: :face
+  end
+
   def facebook_url
     if user.facebook_username
       "https://www.facebook.com/#{user.facebook_username}"

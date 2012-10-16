@@ -5,13 +5,6 @@ require 'spec_helper'
 describe SettingController do
 
   context 'if NOT signed in' do
-    describe "GET 'show'" do
-      it "returns http redirect" do
-        get 'show'
-        response.should be_redirect
-      end
-    end
-
     describe "GET 'edit'" do
       it "returns http redirect" do
         get 'edit'
@@ -31,13 +24,6 @@ describe SettingController do
 
     before :each do
       user_sign_in
-    end
-
-    describe "GET 'show'" do
-      it "returns http success" do
-        get 'show'
-        response.should be_success
-      end
     end
 
     describe "GET 'edit'" do

@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "sys/users/edit" do
   before :each do
-    setup_controller_request
     @user = Fabricate(:user)
     user_sign_in(@user)
     assign(:user, @user)

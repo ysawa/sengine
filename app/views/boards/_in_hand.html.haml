@@ -8,9 +8,10 @@
       - else
         - pieces = board.gote_hand
         - user = game.gote_user
+      - user_decorator = UserDecorator.new(user)
       .cell
-        .face
-          = render 'users/face', user: user, image_link: !(play && user == current_user)
+        - link = !(play && user == current_user)
+        = user_decorator.face(link)
       - Piece::HAND_ROLES.each do |role|
         - number = pieces[role]
         - if user == game.sente_user

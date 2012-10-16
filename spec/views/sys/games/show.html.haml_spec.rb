@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "sys/games/show" do
   before :each do
-    setup_controller_request
     user_sign_in
     @board = Board.hirate
     @board.game = @game

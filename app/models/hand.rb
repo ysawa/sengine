@@ -1,41 +1,56 @@
 # -*- coding: utf-8 -*-
 
 class Hand
-  include Mongoid::Fields::Serializable
   # Hand means the numbers of pieces in hands of players
 
-  def deserialize(object)
-    if object.present?
-      [
-        nil,
-        object["fu"],
-        object["ky"],
-        object["ke"],
-        object["gi"],
-        object["ki"],
-        object["ka"],
-        object["hi"],
-        object["ou"]
-      ]
-    else
-      nil
-    end
+  KEY_NAMES = %w(fu ky ke gi ki ka hi ou)
+  attr_reader *KEY_NAMES
+
+  def initialize(fu, ky, ke, gi, ki, ka, hi, ou)
+    @fu, @ky, @ke, @gi, @ki, @ka, @hi, @ou =
+      fu, ky, ke, gi, ki, ka, hi, ou
   end
 
-  def serialize(object)
-    if object.present?
-      {
-        "fu" => object[1].to_i,
-        "ky" => object[2].to_i,
-        "ke" => object[3].to_i,
-        "gi" => object[4].to_i,
-        "ki" => object[5].to_i,
-        "ka" => object[6].to_i,
-        "hi" => object[7].to_i,
-        "ou" => object[8].to_i,
-      }
-    else
-      nil
+  def mongoize
+    [nil, fu, ky, ke, gi, ki, ka, hi, ou]
+  end
+
+  class << self
+
+    # Get the object as it was stored in the database, and instantiate
+    # this custom class from it.
+    def demongoize(object)
+      hand_series = object[1,8]
+      Hand.new(*hand_series)
+    end
+
+    # Takes any possible object and converts it to how it would be
+    # stored in the database.
+    def mongoize(object)
+      case object
+      when Hand
+        object.mongoize
+      when Hash
+        hand_map = object.stringify_keys
+        result = [nil]
+        KEY_NAMES.each do |key|
+          result << hand_map[key]
+        end
+        result
+      else
+        object
+      end
+    end
+
+    # Converts the object that was supplied to a criteria and converts it
+    # into a database friendly form.
+    def evolve(object)
+      case object
+      when Hand
+        object.mongoize
+      else
+        object
+      end
     end
   end
 end

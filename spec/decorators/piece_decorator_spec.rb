@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe PieceDecorator do
   before :each do
-    setup_controller_request
     @game = Fabricate(:game)
     @board = Board.hirate
     @board.game = @game

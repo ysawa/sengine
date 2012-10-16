@@ -21,4 +21,4 @@
         = theme
       = f.radio_button :theme, theme, class: :required
   %section.actions
-    = f.submit t('helpers.submit.play_game'), disable_with: t('actions.now_loading')
+    = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')

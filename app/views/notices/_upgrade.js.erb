@@ -1,0 +1,7 @@
+<%- if current_user.grade_increased %>
+  <%- grade_notice = t('notices.you_upgrade', grade: stringify_grade(current_user.grade)) %>
+  <%- current_user.grade_increased = false %>
+  $(function () {
+    $.notice('<%= escape_javascript grade_notice %>', 'success');
+  });
+<%- end %>

@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "sys/feedbacks/index" do
   before :each do
-    setup_controller_request
     @feedback = Fabricate(:feedback)
     user_sign_in
     assign(:feedbacks, Feedback.all.page)

@@ -4,9 +4,9 @@
     %li
       - name = t('actions.sign_in_and_start')
       - if facebook_enabled?
-        = link_to name, user_omniauth_authorize_path(:facebook), disable_with: t('actions.now_loading')
+        = link_to name, user_omniauth_authorize_path(:facebook), 'data-disable-with' => t('actions.now_loading')
       - else
-        = link_to name, new_user_session_path, disable_with: t('actions.now_loading')
+        = link_to name, new_user_session_path, 'data-disable-with' => t('actions.now_loading')
     %li
       - name = t('actions.about_app')
-      = link_to name, about_game_path, disable_with: t('actions.now_loading')
+      = link_to name, about_game_path, 'data-disable-with' => t('actions.now_loading')

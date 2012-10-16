@@ -1,6 +1,5 @@
 - decorator = UserDecorator.new(user)
-%p
-  = link_to decorator.image, decorator.facebook_url, target: "_blank"
+= link_to decorator.face, decorator.facebook_url, target: "_blank"
 %dl#user_profile
   %dt
     = User.human_attribute_name('name')

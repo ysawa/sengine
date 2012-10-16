@@ -5,9 +5,11 @@ class Game
   include Mongoid::Document
   include Mongoid::Timestamps
   field :finished_at, type: Time
+  field :given_up, type: Boolean
   field :number, type: Integer, default: 0
   field :playing, type: Boolean, default: true
   field :theme, type: String, default: 'default'
+  field :user_noticed_ids, type: Array, default: []
 
   THEMES = %w(default test)
   has_many :boards
@@ -18,6 +20,14 @@ class Game
   belongs_to :lost_user, class_name: 'User', inverse_of: :lost_games
   belongs_to :author, class_name: 'User', inverse_of: :created_games
   before_destroy :destroy_boards
+
+  attr_protected :user_noticed_ids
+
+  def append_user_noticed(user)
+    self.user_noticed_ids << user._id
+    self.user_noticed_ids.uniq!
+    self.user_noticed_ids
+  end
 
   def apply_score_changes!
     calculator = ScoreCalculator.new
@@ -61,6 +71,7 @@ class Game
       self.playing = check_if_playing
       unless self.playing
         # game finished first
+        self.finished_at = Time.now
         apply_score_changes!
         save
         return false
@@ -103,8 +114,16 @@ class Game
   end
 
   class << self
+    def finished
+      criteria.where(:finished_at.lte => Time.now)
+    end
+
     def of_user(user)
       criteria.any_of({ sente_user_id: user.id }, { gote_user_id: user.id })
+    end
+
+    def unnoticed(user)
+      criteria.where(:user_noticed_ids.nin => [user._id])
     end
   end
 

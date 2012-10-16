@@ -15,10 +15,11 @@
           = yield
           - if facebook_enabled?
             = render 'common/reparse_xfbml'
-          = render 'common/notice'
+          = render 'common/notices'
           = render 'common/audio'
           = render 'common/locale'
       %footer#global_foot
         .inner
           = render 'common/google_adsense'
           = render 'common/global_foot'
+          = render 'common/notice_reloader'

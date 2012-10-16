@@ -1,0 +1,12 @@
+<%- unless defined?(notice_type) %>
+  <%- notice_type = nil %>
+<%- end %>
+<%- if notice_type %>
+  $(function () {
+    $.notice('<%= escape_javascript notice_message %>', '<%= escape_javascript notice_type %>');
+  });
+<%- else %>
+  $(function () {
+    $.notice('<%= escape_javascript notice_message %>');
+  });
+<%- end %>

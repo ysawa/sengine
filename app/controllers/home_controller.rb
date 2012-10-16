@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 class HomeController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
   protect_from_forgery except: %w(index)
+
+  before_filter :authenticate_user!, only: [:notices]
 
   # GET /
   def index
@@ -14,5 +16,9 @@ class HomeController < ApplicationController
       @top_page = true
       render action: :top
     end
+  end
+
+  # GET /notices
+  def notices
   end
 end

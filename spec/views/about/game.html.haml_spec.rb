@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "about/game" do
   before :each do
-    setup_controller_request
   end
 
   it "renders about/us that is the first explanation for visitors" do

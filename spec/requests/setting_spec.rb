@@ -5,9 +5,9 @@ require 'spec_helper'
 describe 'Setting' do
 
   context 'if NOT signed in' do
-    describe "show" do
+    describe "edit" do
       it "returns http redirect" do
-        get setting_path
+        get edit_setting_path
         response.should be_redirect
       end
     end
@@ -19,10 +19,9 @@ describe 'Setting' do
       user_sign_in_with_visit(@user, 'testtest')
     end
 
-    describe "show" do
+    describe "edit" do
       it "works!" do
-        visit setting_path
-        page.should have_content @user.name
+        visit edit_setting_path
       end
     end
   end

@@ -4,9 +4,9 @@ require 'spec_helper'
 
 describe "games/new" do
   before(:each) do
-    setup_controller_request
     user_sign_in
     assign(:game, stub_model(Game).as_new_record)
+    assign(:friends, User.all)
   end
 
   it "renders new game form" do

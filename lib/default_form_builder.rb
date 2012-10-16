@@ -34,7 +34,7 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
     value ||= submit_default_value
     options = options.stringify_keys
     options['class'] = :send
-    options['disable_with'] = I18n.t('actions.saving')
+    options['data-disable-with'] = I18n.t('actions.saving')
     @template.submit_tag(value, options)
   end
 end

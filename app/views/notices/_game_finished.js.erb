@@ -1,0 +1,15 @@
+<%- Game.finished.unnoticed(current_user).limit(5).each do |game| %>
+  <%- if game.won_user_id == current_user.id %>
+    <%- notice_message = t('notices.you_won') %>
+  <%- elsif game.lost_user_id == current_user.id %>
+    <%- notice_message = t('notices.you_lost') %>
+  <%- end %>
+
+  <%- if notice_message %>
+    $(function () {
+      $.notice('<%= escape_javascript notice_message %>', 'info');
+    });
+  <%- end %>
+  <%- game.append_user_noticed(current_user) %>
+  <%- game.save %>
+<%- end %>
