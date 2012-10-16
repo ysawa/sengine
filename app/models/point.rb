@@ -8,12 +8,33 @@ class Point
   KEY_NAMES = %w(x y)
   attr_reader *KEY_NAMES
 
+  def generate_name(key)
+    case key
+    when 0
+      'x'
+    when 1
+      'y'
+    else
+      key.to_sym
+    end
+  end
+
   def initialize(x, y)
     @x, @y = x, y
   end
 
   def mongoize
     [x, y]
+  end
+
+  def [](key)
+    name = generate_name key
+    instance_variable_get("@#{name}")
+  end
+
+  def []=(key, value)
+    name = generate_name key
+    instance_variable_set("@#{name}", value)
   end
 
   class << self

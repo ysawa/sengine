@@ -6,6 +6,15 @@ class Hand
   KEY_NAMES = %w(fu ky ke gi ki ka hi ou)
   attr_reader *KEY_NAMES
 
+  def generate_name(key)
+    case key
+    when Integer
+      KEY_NAMES[key - 1]
+    else
+      key.to_s
+    end
+  end
+
   def initialize(fu, ky, ke, gi, ki, ka, hi, ou)
     @fu, @ky, @ke, @gi, @ki, @ka, @hi, @ou =
       fu, ky, ke, gi, ki, ka, hi, ou
@@ -13,6 +22,16 @@ class Hand
 
   def mongoize
     [nil, fu, ky, ke, gi, ki, ka, hi, ou]
+  end
+
+  def [](key)
+    name = generate_name key
+    instance_variable_get("@#{name}")
+  end
+
+  def []=(key, value)
+    name = generate_name key
+    instance_variable_set("@#{name}", value)
   end
 
   class << self
