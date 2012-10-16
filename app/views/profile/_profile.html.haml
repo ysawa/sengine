@@ -9,7 +9,7 @@
     = decorator.online
     \)
 
-  - %w(grade score locale timezone).each do |attr_name|
+  - %w(grade score).each do |attr_name|
     %dt
       = User.human_attribute_name(attr_name)
     %dd
