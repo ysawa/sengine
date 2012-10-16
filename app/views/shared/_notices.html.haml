@@ -1,4 +1,4 @@
 - if flash[:notice]
-  - content = render 'notices/flash_notice.js.haml'
+  - content = render partial: 'notices/flash_notice', formats: [:js]
   :javascript
     #{content}
