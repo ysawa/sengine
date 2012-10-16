@@ -3,7 +3,8 @@
 module ApplicationHelper
 
   def facebook_enabled?
-    Rails.env.production?
+    # Rails.env.production?
+    true
   end
 
   def link_to_about_us(name, options = {})
@@ -15,11 +16,12 @@ module ApplicationHelper
 
   def link_to_sign_in(name = nil, options = {})
     name ||= t('actions.sign_in_and_start')
-    if Rails.env.production?
-      link_to name, user_omniauth_authorize_path(:facebook), options
-    else
-      link_to name, new_user_session_path, options
-    end
+    # if Rails.env.production?
+    #   link_to name, user_omniauth_authorize_path(:facebook), options
+    # else
+    #   link_to name, new_user_session_path, options
+    # end
+    link_to name, user_omniauth_authorize_path(:facebook), options
   end
 
   def page_name(controller_path, action_name)
@@ -58,11 +60,7 @@ module ApplicationHelper
     else
       elements << subtitle.to_s
     end
-    if Rails.env.production?
-      elements << I18n.t('site.title')
-    else
-      elements << 'Demo'
-    end
+    elements << I18n.t('site.title')
     elements.join(' | ')
   end
 end

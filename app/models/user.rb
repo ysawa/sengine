@@ -58,6 +58,7 @@ class User
     end
     self.birth = date
   end
+  alias facebook_birth birth
 
   def find_facebook_friends(limit = 100, page = 0, recursive = false)
     return [] if self.facebook_access_token.blank?

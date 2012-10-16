@@ -74,7 +74,7 @@ $ ->
   if self == top and !($.check_if_smart_device())
     host = window.location.host
     unless host.match(/(localhost|127\.0\.0\.1)|minsho\.com/)
-      href = "https://apps.facebook.com/shogiengine/"
+      href = "https://apps.facebook.com/minnashogidev/"
       window.location.href = href
   $('a.invite_facebook').live 'click', ->
     $.invite_facebook()
