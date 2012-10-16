@@ -4,7 +4,7 @@
     = render 'sys/shared/head'
   %body.admin
     - if facebook_enabled?
-      = render 'common/facebook_javascript_sdk'
+      = render 'shared/facebook_javascript_sdk'
     .whole_container
       %header#global_head
         .inner
@@ -13,9 +13,9 @@
         .inner{ 'data-pjax-container' => true }
           = yield
           - if facebook_enabled?
-            = render 'common/reparse_xfbml'
-          = render 'common/notices'
-          = render 'common/locale'
+            = render 'shared/reparse_xfbml'
+          = render 'shared/notices'
+          = render 'shared/locale'
       %footer#global_foot
         .inner
           = render 'sys/shared/global_foot'
