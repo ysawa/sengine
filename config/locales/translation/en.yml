@@ -23,6 +23,8 @@ en:
     unpublish: 'Unpublish'
     unset_admin: 'Unset Admin'
     wait: 'Matta'
+  feeds:
+    game_finished: '%{winner} won %{loser}. Congratulations!'
   helpers:
     submit:
       next: 'Next'

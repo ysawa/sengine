@@ -50,6 +50,18 @@ class User
   after_validation :setup_timezone
   before_create :set_admin_if_first_user
 
+  def create_facebook_feed(message, options = {})
+    if facebook_access_token?
+      url = "https://graph.facebook.com/me/feed?access_token=#{self.facebook_access_token}"
+      post_options = options.stringify_keys
+      post_options.reverse_merge!({ 'message' => message })
+      client = HTTPClient.new
+      client.post_content(url, post_options)
+    end
+  rescue => e
+    p e
+  end
+
   def facebook_birth=(date)
     if date.present?
       date =~ %r|(\d+)/(\d+)/(\d+)|

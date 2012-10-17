@@ -73,6 +73,7 @@ class Game
         # game finished first
         self.finished_at = Time.now
         apply_score_changes!
+        create_facebook_won_feed
         save
         return false
       end
@@ -80,6 +81,13 @@ class Game
     else
       false
     end
+  end
+
+  def create_facebook_won_feed(options = {})
+    message = I18n.t('feeds.game_finished',
+      winner: self.won_user.name,
+      loser: self.lost_user.name, locale: self.won_user.locale)
+    self.won_user.create_facebook_feed(message, options)
   end
 
   def make_board_from_movement(movement)

@@ -74,8 +74,8 @@ $ ->
   # Redirect to apps.facebook.com as a native facebook app.
   if self == top and !($.check_if_smart_device())
     host = window.location.host
-    unless host.match(/(localhost|127\.0\.0\.1)|minsho\.com/)
-      href = "https://apps.facebook.com/minnashogidev/"
+    unless host.match(/(localhost|127\.0\.0\.1)/)
+      href = "http://apps.facebook.com/minnashogidev/"
       window.location.href = href
   $('a.invite_facebook').live 'click', ->
     $.invite_facebook()
