@@ -31,5 +31,5 @@ $.extend
     if @audio_enabled and @audio_tag_support
       if @audio_schemes[audio]
         audio = new Audio(@audio_schemes[audio])
-        audio.volume = 0.1
+        audio.volume = 0.5
         audio.play()
