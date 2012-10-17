@@ -1,9 +1,10 @@
+- app_id = escape_javascript Shogiengine.system.facebook[:app_id]
 #fb-root
 :javascript
 
   window.fbAsyncInit = function() {
     FB.init({
-        appId: '461056497254265',
+        appId: '#{app_id}',
         cookie: true,
         xfbml: true,
         oauth: true
@@ -14,7 +15,7 @@
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=461056497254265";
+      js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=#{app_id}";
       fjs.parentNode.insertBefore(js, fjs);
     } (document, 'script', 'facebook-jssdk')
   );
