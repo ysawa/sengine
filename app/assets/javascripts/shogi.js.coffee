@@ -56,6 +56,11 @@ class Shogi
       piece.addClass('upward')
       $('.in_hand.upward .pieces .row').append('<div class="cell"></div>')
       $('.in_hand.upward .pieces .row .cell:last').append(piece)
+    if piece_selected.parents('.in_hand').present()
+      number = piece_selected.siblings('.number')
+      number_text = number.text()
+      integer = parseInt(number_text.replace('x', ''))
+      number.text(number_text.replace("#{integer}", integer - 1))
     Shogi.cell_on_point(to_point).append(piece_selected)
     if reverse
       reversed_role = piece_selected.attr('role')

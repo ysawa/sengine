@@ -8,6 +8,10 @@ class Point
   KEY_NAMES = %w(x y)
   attr_reader *KEY_NAMES
 
+  def blank?
+    !(@x || @y)
+  end
+
   def generate_name(key)
     case key
     when 0
@@ -31,6 +35,9 @@ class Point
         object = object.stringify_keys
         @x = object['x']
         @y = object['y']
+      when Point
+        @x = object.x
+        @y = object.y
       end
     end
     @x = @x.to_i if @x
@@ -40,6 +47,10 @@ class Point
 
   def mongoize
     { 'x' => x, 'y' => y }
+  end
+
+  def present?
+    !!(@x || @y)
   end
 
   def x=(x)
@@ -61,6 +72,11 @@ class Point
     name = generate_name key
     value = value.to_i if value
     instance_variable_set("@#{name}", value)
+  end
+
+  def ==(object)
+    point = Point.new(object)
+    self.x == point.x && self.y == point.y
   end
 
   class << self
