@@ -12,6 +12,8 @@ describe Point do
       point.x.should == 4
       point.x = 9
       point.x.should == 9
+      point.x = nil
+      point.x.should == nil
     end
   end
 
@@ -20,6 +22,8 @@ describe Point do
       point.y.should == 5
       point.y = 9
       point.y.should == 9
+      point.y = nil
+      point.y.should == nil
     end
   end
 
