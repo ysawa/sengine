@@ -1,7 +1,14 @@
 $('.board_container').html('<%= escape_javascript(render 'boards/board', game: @game, board: @game.boards.last) %>');
 
-<%- if current_user == @game.sente_user and @game.movements.last.gote? %>
+<%- if current_user == @game.sente_user && @game.movements.last.gote? %>
+  <%- movement_executed = true %>
+<%- elsif current_user == @game.gote_user && @game.movements.last.sente? %>
+  <%- movement_executed = true %>
+<%- else %>
+  <%- movement_executed = false %>
+<%- end %>
+
+<%- if movement_executed %>
   $.play_audio('put');
-<%- elsif current_user == @game.gote_user and @game.movements.last.sente? %>
-  $.play_audio('put');
+  $.notice('<%= escape_javascript t('notices.its_your_turn') %>');
 <%- end %>

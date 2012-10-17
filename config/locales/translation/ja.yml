@@ -46,6 +46,7 @@ ja:
   notices:
     create: '%{model}を作成しました。'
     destroy: '%{model}を削除しました。'
+    its_your_turn: 'あなたの手番です。'
     publish: '%{model}を公開しました。'
     save: '%{model}を保存しました。'
     unpublish: '%{model}を非公開にしました。'

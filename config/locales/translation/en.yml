@@ -46,6 +46,7 @@ en:
   notices:
     create: '%{model} was successfully created.'
     destroy: '%{model} was successfully destoyed.'
+    its_your_turn: "It's your turn."
     publish: '%{model} was successfully published.'
     save: '%{model} was successfully saved.'
     unpublish: '%{model} was successfully unpublished.'
