@@ -8,6 +8,10 @@ class HomeController < ApplicationController
 
   # GET /
   def index
+    if params[:redirect]
+      redirect_to params[:redirect]
+      return
+    end
     if user_signed_in?
       make_subtitle(:mypage)
       render action: :mypage

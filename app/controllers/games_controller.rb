@@ -73,7 +73,7 @@ class GamesController < ApplicationController
     @game.given_up = true
     if @game.save
       @game.apply_score_changes!
-      @game.create_facebook_won_feed(link: 'http://apps.facebook.com/minnashogidev/about/tos', name: 'name of shogi', description: 'description of shogi', caption: 'caption of shogi')
+      @game.create_facebook_won_feed
       redirect_to game_path(@game)
     else
       render :show

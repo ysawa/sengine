@@ -2,4 +2,4 @@ facebook:
   app_id: ""
   app_secret: ""
   enabled: true
-  root: 'app.facebook.com/minnashogidev'
+  root: 'apps.facebook.com/minnashogidev'

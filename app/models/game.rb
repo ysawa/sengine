@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'score_calculator'
 class Game
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -84,10 +83,28 @@ class Game
   end
 
   def create_facebook_won_feed(options = {})
-    message = I18n.t('feeds.game_finished',
-      winner: self.won_user.name,
-      loser: self.lost_user.name, locale: self.won_user.locale)
-    self.won_user.create_facebook_feed(message, options)
+    locale = self.won_user.locale
+    options = options.stringify_keys
+    app_root = Shogiengine.system.facebook[:root]
+    options['name'] = "#{self.sente_user.name} vs #{self.gote_user.name}"
+    redirect = "/games/#{self.id}"
+    options['link'] = "http://#{app_root}?redirect=#{URI.encode redirect}"
+    options['caption'] = app_root
+    options['description'] = "#{self.sente_user.name} vs #{self.gote_user.name}. From: #{I18n.l(self.created_at, locale: locale)}"
+    if self.won_user.grade_increased
+      message = I18n.t('feeds.game_finished_and_upgrade',
+        winner: self.won_user.name,
+        loser: self.lost_user.name,
+        grade: I18n.t("user.grades.grade_#{self.won_user.grade}", locale: locale),
+        locale: locale)
+      self.won_user.create_facebook_feed(message, options)
+    else
+      message = I18n.t('feeds.game_finished',
+        winner: self.won_user.name,
+        loser: self.lost_user.name,
+        locale: locale)
+      self.won_user.create_facebook_feed(message, options)
+    end
   end
 
   def make_board_from_movement(movement)

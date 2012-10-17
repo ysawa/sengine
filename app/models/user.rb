@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'score_calculator'
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -52,14 +51,10 @@ class User
 
   def create_facebook_feed(message, options = {})
     if facebook_access_token?
-      url = "https://graph.facebook.com/me/feed?access_token=#{self.facebook_access_token}"
-      post_options = options.stringify_keys
-      post_options.reverse_merge!({ 'message' => message })
-      client = HTTPClient.new
-      client.post_content(url, post_options)
+      graph = Facebook::Graph.new('me/feed', self.facebook_access_token, options)
+      graph.params['message'] = message
+      graph.post
     end
-  rescue => e
-    p e
   end
 
   def facebook_birth=(date)
