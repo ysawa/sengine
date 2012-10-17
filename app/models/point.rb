@@ -68,7 +68,7 @@ class Point
     # Get the object as it was stored in the database, and instantiate
     # this custom class from it.
     def demongoize(object)
-      new(*object)
+      new(object)
     end
 
     # Takes any possible object and converts it to how it would be
