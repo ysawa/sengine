@@ -90,7 +90,7 @@ class Game
     redirect = "/games/#{self.id}"
     options['link'] = "http://#{app_root}?redirect=#{URI.encode redirect}"
     options['caption'] = app_root
-    options['description'] = "#{self.sente_user.name} vs #{self.gote_user.name}. From: #{I18n.l(self.created_at, locale: locale)}"
+    options['description'] = "From: #{I18n.l(self.created_at, locale: locale)}"
     if self.won_user.grade_increased
       message = I18n.t('feeds.game_finished_and_upgrade',
         winner: self.won_user.name,
