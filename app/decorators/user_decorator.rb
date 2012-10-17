@@ -15,7 +15,7 @@ class UserDecorator < ApplicationDecorator
     I18n.t("user.audio")[model.audio_on?]
   end
 
-  def face(image_link = false)
+  def face(image_link = false, image_options = {})
     content = image(image_link)
     if model.online?
       content += h.content_tag :aside, online, class: :online
@@ -49,13 +49,21 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
-  def image(link = false)
+  def image(link = false, image_options = {})
     title = model.name
+    image_options = image_options.stringify_keys
+    image_options.reverse_merge!('alt' => title, 'title' => title, 'class' => :face)
     if model.facebook_id
-      result = h.image_tag "http://graph.facebook.com/#{model.facebook_id}/picture?type=square", alt: title, title: title, class: :face
+      if image_options['class'].to_s =~ /large/
+        size_params = 'width=100&height=100'
+      else
+        size_params = 'type=square'
+      end
+      image_url = "http://graph.facebook.com/#{model.facebook_id}/picture?#{size_params}"
     else
-      result = h.image_tag "noimage.gif", alt: title, title: title, class: :face
+      image_url = "noimage.gif"
     end
+    result = h.image_tag image_url, image_options
     if link
       h.link_to result, h.profile_path(model.id)
     else
