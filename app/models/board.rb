@@ -25,7 +25,7 @@ class Board
   def apply_movement(movement)
     self.movement = movement
     self.sente = movement.sente
-    if movement.from_point
+    if movement.from_point?
       proponent_piece = get_piece(movement.from_point)
       set_piece_value(0, movement.from_point)
     else

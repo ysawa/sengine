@@ -76,7 +76,7 @@ class Hand
     # stored in the database.
     def mongoize(object)
       case object
-      when Point
+      when Hand
         object.mongoize
       when Array, Hash
         new(object).mongoize
@@ -89,7 +89,7 @@ class Hand
     # into a database friendly form.
     def evolve(object)
       case object
-      when Point
+      when Hand
         object.mongoize
       else
         object
