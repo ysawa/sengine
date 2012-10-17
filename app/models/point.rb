@@ -19,12 +19,37 @@ class Point
     end
   end
 
-  def initialize(x, y)
-    @x, @y = x, y
+  def initialize(*objects)
+    if objects[1]
+      @x, @y = objects
+    else
+      object = objects[0]
+      case object
+      when Array
+        @x, @y = object
+      when Hash
+        object = object.stringify_keys
+        @x = object['x']
+        @y = object['y']
+      end
+    end
+    @x = @x.to_i if @x
+    @y = @y.to_i if @y
+    nil
   end
 
   def mongoize
-    [x, y]
+    { 'x' => x, 'y' => y }
+  end
+
+  def x=(x)
+    @x = x
+    @x = @x.to_i if @x
+  end
+
+  def y=(y)
+    @y = y
+    @y = @y.to_i if @y
   end
 
   def [](key)
@@ -34,6 +59,7 @@ class Point
 
   def []=(key, value)
     name = generate_name key
+    value = value.to_i if value
     instance_variable_set("@#{name}", value)
   end
 
@@ -51,9 +77,8 @@ class Point
       case object
       when Point
         object.mongoize
-      when Hash
-        point_map = object.stringify_keys
-        KEK_NAMES.collect { |key| point_map[key] }
+      when Array, Hash
+        new(object).mongoize
       else
         object
       end
