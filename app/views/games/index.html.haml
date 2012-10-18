@@ -4,6 +4,10 @@
       = @subtitle[1]
     - else
       = @subtitle
+  - %w(playing mine friends).each do |page|
+    - name = t("pages.controllers.games.#{page}")
+    - href = { controller: 'games', action: page }
+    = link_to name, href
   = render 'games/games', games: @games
   %p
     = link_to page_name('games', 'new'), new_game_path

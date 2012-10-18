@@ -49,6 +49,20 @@ describe GamesController do
       end
     end
 
+    describe "GET mine" do
+      it "assigns all games as @games" do
+        game = Game.create! valid_attributes
+        get :mine, {}
+        assigns(:games).should eq([])
+      end
+
+      it "assigns all games as @games" do
+        game = Game.create! valid_attributes({ sente_user_id: @user.id })
+        get :mine, {}
+        assigns(:games).should eq([game])
+      end
+    end
+
     describe "GET show" do
       it "assigns the requested game as @game" do
         game = Game.create! valid_attributes
