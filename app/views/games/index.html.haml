@@ -1,5 +1,9 @@
 .common_container#game_page
-  %h2= @subtitle
+  %h2
+    - if @subtitle.is_a? Array
+      = @subtitle[1]
+    - else
+      = @subtitle
   = render 'games/games', games: @games
   %p
     = link_to page_name('games', 'new'), new_game_path

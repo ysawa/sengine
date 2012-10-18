@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe GamesController do
 
-  def valid_attributes
-    {}
+  def valid_attributes(attributes = {})
+    {}.merge(attributes)
   end
 
   def valid_session
@@ -32,6 +32,20 @@ describe GamesController do
         game = Game.create! valid_attributes
         get :index, {}
         assigns(:games).should eq([game])
+      end
+    end
+
+    describe "GET playing" do
+      it "assigns all games as @games" do
+        game = Game.create! valid_attributes
+        get :playing, {}
+        assigns(:games).should eq([game])
+      end
+
+      it "assigns all games as @games" do
+        game = Game.create! valid_attributes({ playing: false })
+        get :playing, {}
+        assigns(:games).should eq([])
       end
     end
 

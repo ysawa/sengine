@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user!
   before_filter :find_game, only: [:destroy, :edit, :give_up, :show, :update]
+  before_filter :append_games_subtitle, only: [:friends, :mine, :playing]
 
   # GET /games/1/check_update
   def check_update
@@ -59,6 +60,16 @@ class GamesController < ApplicationController
     end
   end
 
+  # GET /games/friends
+  def friends
+    @games = Game.all.desc(:created_at).page(params[:page]).per(5)
+    respond_with(@games) do |format|
+      format.html do
+        render :index
+      end
+    end
+  end
+
   # PUT /games/1/give_up
   def give_up
     if current_user == @game.sente_user
@@ -86,11 +97,31 @@ class GamesController < ApplicationController
     respond_with(@games)
   end
 
+  # GET /games/mine
+  def mine
+    @games = Game.all.desc(:created_at).page(params[:page]).per(5)
+    respond_with(@games) do |format|
+      format.html do
+        render :index
+      end
+    end
+  end
+
   # GET /games/new
   def new
     @game = Game.new
     @friends = User.facebook_friends(current_user)
     respond_with(@game)
+  end
+
+  # GET /games/playing
+  def playing
+    @games = Game.playing.desc(:created_at).page(params[:page]).per(5)
+    respond_with(@games) do |format|
+      format.html do
+        render :index
+      end
+    end
   end
 
   # GET /games/1
@@ -114,6 +145,10 @@ class GamesController < ApplicationController
   end
 
 private
+  def append_games_subtitle
+    @subtitle = [@subtitle, I18n.t('pages.controllers.games.index')]
+  end
+
   def find_game
     @game = Game.find(params[:id])
   end

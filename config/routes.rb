@@ -34,6 +34,11 @@ Shogiengine::Application.routes.draw do
 
   resources :games, only: [:create, :destroy, :new, :index, :show] do
     resources :movements
+    collection do
+      get :friends
+      get :mine
+      get :playing
+    end
     member do
       get :check_update
       put :give_up

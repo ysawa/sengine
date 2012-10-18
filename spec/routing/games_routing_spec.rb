@@ -30,5 +30,17 @@ describe GamesController do
     it "routes to #check_update" do
       get("/games/1/check_update").should route_to("games#check_update", :id => "1")
     end
+
+    it "routes to #friends" do
+      get("/games/friends").should route_to("games#friends")
+    end
+
+    it "routes to #mine" do
+      get("/games/mine").should route_to("games#mine")
+    end
+
+    it "routes to #playing" do
+      get("/games/playing").should route_to("games#playing")
+    end
   end
 end

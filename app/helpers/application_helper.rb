@@ -50,6 +50,8 @@ module ApplicationHelper
       else
         elements << User.model_name.human
       end
+    when Array
+      elements = subtitle
     else
       elements << subtitle.to_s
     end

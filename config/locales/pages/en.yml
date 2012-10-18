@@ -12,8 +12,11 @@ en:
       games:
         created_at: 'Start'
         finished_at: 'Finish'
-        index: 'Past Games'
+        friends: 'Friends'
+        index: 'Games'
+        mine: 'Mine'
         new: 'New Game'
+        playing: 'Playing'
       help:
         index: 'Help'
       home:
@@ -29,5 +32,6 @@ en:
           index: 'System'
         games:
           index: 'Games'
+          show: 'Game Detail'
         users:
           index: 'Users'

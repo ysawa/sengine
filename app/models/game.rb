@@ -147,6 +147,10 @@ class Game
       criteria.any_of({ sente_user_id: user.id }, { gote_user_id: user.id })
     end
 
+    def playing
+      criteria.where(playing: true)
+    end
+
     def unnoticed(user)
       criteria.where(:user_noticed_ids.nin => [user._id])
     end
