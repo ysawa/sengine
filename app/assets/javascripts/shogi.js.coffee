@@ -49,22 +49,28 @@ class Shogi
     result
 
   @execute_movement_on_board = (piece_selected, to_point, reverse) ->
+    # take opponent piece into proponent hand
     if Shogi.cell_on_point_have_opponent_piece(to_point)
       piece = Shogi.cell_on_point(to_point).find('.piece')
       piece.attr('direction', piece_selected.attr('direction'))
       piece.removeClass('downward')
       piece.addClass('upward')
-      $('.in_hand.upward .pieces .row').append('<div class="cell"></div>')
-      $('.in_hand.upward .pieces .row .cell:last').append(piece)
+      @normalize_piece(piece)
+      cell = $('<div>').addClass('cell')
+      cell.append(piece)
+      $('.in_hand.upward .pieces .row').append(cell)
     if piece_selected.parents('.in_hand').present()
       number = piece_selected.siblings('.number')
       number_text = number.text()
       integer = parseInt(number_text.replace('x', ''))
-      number.text(number_text.replace("#{integer}", integer - 1))
-    Shogi.cell_on_point(to_point).append(piece_selected)
+      if integer <= 1
+        piece_selected.parents('.cell').remove()
+      else
+        number.text(number_text.replace("#{integer}", integer - 1))
+    cell = Shogi.cell_on_point(to_point)
+    cell.append(piece_selected).addClass('moved')
     if reverse
-      reversed_role = piece_selected.attr('role')
-      piece_selected.attr('role', reversed_role)
+      @reverse_piece(piece_selected)
     $('.in_hand .cell').each ->
       if $(this).find('.piece, .face, .number').size() == 0
         $(this).remove()
@@ -215,6 +221,16 @@ class Shogi
         Shogi.highlight_for_role_ka(x, y, direction)
         Shogi.highlight_for_orthogonal_walk(x, y)
 
+  @normalize_piece = (piece) ->
+    me = @
+    $.each(@reversed_roles, (i, role) ->
+      if piece.attr('role') == role
+        piece.attr('role', role)
+        piece.removeClass("role_#{role}")
+        piece.addClass("role_#{me.normal_roles[i]}")
+        return false
+    )
+
   @select_reverse_or_not = (role, from_point, to_point, direction) ->
     in_opponent_first_line = (direction == 'sente' and to_point[1] == 1) or (direction == 'gote' and to_point[1] == 9)
     in_opponent_second_line = (direction == 'sente' and to_point[1] == 2) or (direction == 'gote' and to_point[1] == 8)
@@ -243,5 +259,15 @@ class Shogi
       url: "/games/#{game_id}/movements"
       data:
         movement: movement
+
+  @reverse_piece = (piece) ->
+    me = @
+    $.each(@normal_roles, (i, role) ->
+      if piece.attr('role') == role
+        piece.attr('role', role)
+        piece.removeClass("role_#{role}")
+        piece.addClass("role_#{me.reversed_roles[i]}")
+        return false
+    )
 
 this.Shogi = Shogi
