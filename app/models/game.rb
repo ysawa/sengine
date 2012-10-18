@@ -85,11 +85,11 @@ class Game
   def create_facebook_won_feed(options = {})
     locale = self.won_user.locale
     options = options.stringify_keys
-    app_root = Shogiengine.system.facebook[:root]
+    site_root = Shogiengine.system.site[:root_url]
     options['name'] = "#{self.sente_user.name} vs #{self.gote_user.name}"
-    redirect = "/games/#{self.id}"
-    options['link'] = "http://#{app_root}?redirect=#{URI.encode redirect}"
-    options['caption'] = app_root
+    game_path = "/games/#{self.id}"
+    options['link'] = "#{site_root}#{game_path}"
+    options['caption'] = site_root.sub(/^(http|https):\/\//, '')
     options['description'] = "From: #{I18n.l(self.created_at, locale: locale)}"
     if self.won_user.grade_increased
       message = I18n.t('feeds.game_finished_and_upgrade',
