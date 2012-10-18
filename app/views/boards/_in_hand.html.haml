@@ -12,7 +12,10 @@
       .cell
         - link = !(play && user == current_user)
         = user_decorator.face(link)
-      - Piece::HAND_ROLES.each do |role|
+      - all_roles = Piece::HAND_ROLES
+      - if direction == 'upward'
+        - all_roles = all_roles.reverse
+      - all_roles.each do |role|
         - number = pieces[role]
         - if user == game.sente_user
           - piece = Piece.new(role)
