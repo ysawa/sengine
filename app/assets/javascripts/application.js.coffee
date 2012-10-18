@@ -46,7 +46,6 @@ $ ->
       $('body').addClass('theme_default')
 
   $(document).on('pjax:end', on_pjax_reload)
-  $(document).on('pjax:end', $.scroll_to_top)
   on_pjax_reload()
 
 
@@ -106,5 +105,3 @@ $.extend
       type: "GET"
       url: "/notices.js"
       dataType: "script"
-  scroll_to_top: ->
-    $("html, body").animate({ scrollTop: 0 }, 0)
