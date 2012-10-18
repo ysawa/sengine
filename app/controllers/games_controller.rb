@@ -64,9 +64,8 @@ class GamesController < ApplicationController
   def friends
     @games = Game.all.desc(:created_at).page(params[:page]).per(5)
     respond_with(@games) do |format|
-      format.html do
-        render :index
-      end
+      format.html { render :index }
+      format.js { render :index }
     end
   end
 
@@ -101,9 +100,8 @@ class GamesController < ApplicationController
   def mine
     @games = Game.of_user(current_user).desc(:created_at).page(params[:page]).per(5)
     respond_with(@games) do |format|
-      format.html do
-        render :index
-      end
+      format.html { render :index }
+      format.js { render :index }
     end
   end
 
@@ -118,9 +116,8 @@ class GamesController < ApplicationController
   def playing
     @games = Game.playing.desc(:created_at).page(params[:page]).per(5)
     respond_with(@games) do |format|
-      format.html do
-        render :index
-      end
+      format.html { render :index }
+      format.js { render :index }
     end
   end
 
