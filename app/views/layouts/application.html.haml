@@ -1,5 +1,5 @@
 !!!
-%html{ 'xmlns:fb' => "http://ogp.me/ns/fb#" }
+%html{ 'xmlns:fb' => "http://ogp.me/ns/fb#", lang: I18n.locale }
   %head
     = render 'shared/head'
   - html_class = make_theme_class_from_game(@game)
