@@ -67,7 +67,7 @@ class User
   end
   alias facebook_birth birth
 
-  def find_facebook_friends(limit = 100, page = 0, recursive = false)
+  def find_facebook_friends(limit = 100, page = 0, recursive = true)
     return [] if self.facebook_access_token.blank?
     friend_maps = []
     params = {}
@@ -77,13 +77,16 @@ class User
         params['offset'] = limit * page
       end
     end
-    graph = Facebook::Graph.new('me/friends', self.facebook_access_token, params)
     while true
+      if page && limit
+        params['offset'] = limit * page
+      end
+      graph = Facebook::Graph.new('me/friends', self.facebook_access_token, params)
       response = JSON.parse graph.get
       break if response["data"].blank?
       friend_maps += response["data"]
-      if recursive && defined?(response['paging']['next'])
-        url = response["paging"]['next']
+      if recursive && defined?(response['paging']['next']) && response['paging']['next'].present?
+        page += 1
       else
         break
       end
@@ -91,12 +94,14 @@ class User
     friend_maps
   end
 
-  def find_facebook_friend_ids(limit = 100, page = 0, recursive = false)
+  def find_facebook_friend_ids(limit = 100, page = 0, recursive = true)
     facebook_ids = []
     while true
       friend_maps = find_facebook_friends(limit, page, false)
+      break if friend_maps.blank?
       facebook_ids += friend_maps.collect { |map| map['id'] }
       break unless recursive
+      page += 1
     end
     facebook_ids
   end
