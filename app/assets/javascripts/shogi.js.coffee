@@ -64,9 +64,10 @@ class Shogi
       number_text = number.text()
       integer = parseInt(number_text.replace('x', ''))
       if integer <= 1
-        piece_selected.parents('.cell').remove()
+        piece_selected.parents('.cell').hide()
       else
         number.text(number_text.replace("#{integer}", integer - 1))
+        piece_selected = piece_selected.clone()
     cell = Shogi.cell_on_point(to_point)
     cell.append(piece_selected).addClass('moved')
     if reverse
