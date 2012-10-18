@@ -101,6 +101,13 @@ class User
     facebook_ids
   end
 
+  def friend_ids
+    return @friend_ids if @friend_ids
+    facebook_ids = find_facebook_friend_ids
+    users = User.where(:facebook_id.in => facebook_ids).only(:facebook_id)
+    @friend_ids = users.collect { |user| user.id }
+  end
+
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
   end
