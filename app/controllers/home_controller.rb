@@ -12,6 +12,10 @@ class HomeController < ApplicationController
       redirect_to params[:redirect]
       return
     end
+    if params[:fb_source]
+      render layout: 'facebook', action: :top
+      return
+    end
     if user_signed_in?
       make_subtitle(:mypage)
       render action: :mypage

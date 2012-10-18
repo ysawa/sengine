@@ -145,9 +145,7 @@ class User
     def facebook_friends(member)
       crit = criteria
       crit = crit.where(:_id.ne => member.id)
-      if Rails.env.production?
-        crit = crit.where(:facebook_id.in => member.find_facebook_friend_ids)
-      end
+      crit = crit.where(:facebook_id.in => member.find_facebook_friend_ids)
       crit
     end
 

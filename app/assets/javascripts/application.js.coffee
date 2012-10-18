@@ -72,11 +72,8 @@ $ ->
 
   # Raw application in Facebook is not good.
   # Redirect to apps.facebook.com as a native facebook app.
-  if self == top and !($.check_if_smart_device())
-    host = window.location.host
-    unless host.match(/(localhost|127\.0\.0\.1)/)
-      href = "http://apps.facebook.com/minnashogidev/"
-      window.location.href = href
+  if self != top
+    top.location.href = self.location.href.replace(/\?.+$/, '')
   $('a.invite_facebook').live 'click', ->
     $.invite_facebook()
     false
@@ -110,7 +107,4 @@ $.extend
       url: "/notices.js"
       dataType: "script"
   scroll_to_top: ->
-    if self == top
-      $("html, body").animate({ scrollTop: 0 }, 0)
-    else if typeof FB != 'undefined'
-      FB.Canvas.scrollTo(0, 0)
+    $("html, body").animate({ scrollTop: 0 }, 0)
