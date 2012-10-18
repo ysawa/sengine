@@ -13,7 +13,7 @@ module Facebook
       Rails.logger.error error
     end
 
-    def initialize(api, access_token, params = {})
+    def initialize(api, access_token = nil, params = {})
       @api = api
       @access_token = access_token
       @params = HashWithIndifferentAccess.new params
@@ -29,7 +29,7 @@ module Facebook
     def url
       elements = [ROOT]
       elements << @api
-      elements << "&access_token=#{@access_token}"
+      elements << "&access_token=#{@access_token}" if @access_token
       elements.join('/')
     end
   end

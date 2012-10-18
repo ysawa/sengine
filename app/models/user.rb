@@ -70,16 +70,16 @@ class User
   def find_facebook_friends(limit = 100, page = 0, recursive = false)
     return [] if self.facebook_access_token.blank?
     friend_maps = []
-    url = "https://graph.facebook.com/me/friends?access_token=#{self.facebook_access_token}"
+    params = {}
     if limit
-      url += "&limit=#{limit}"
+      params['limit'] = limit
       if page
-        url += "&offset=#{limit * page}"
+        params['offset'] = limit * page
       end
     end
-    client = HTTPClient.new
+    graph = Facebook::Graph.new('me/friends', self.facebook_access_token, params)
     while true
-      response = JSON.parse client.get_content(url)
+      response = JSON.parse graph.get
       break if response["data"].blank?
       friend_maps += response["data"]
       if recursive && defined?(response['paging']['next'])
@@ -154,11 +154,13 @@ class User
     # find or initialize user with data from facebook
     def find_for_facebook_oauth(access_token, signed_in_resource=nil)
       data = access_token.extra.raw_info
-      user = where(email: data.email).first
+      user = where(facebook_id: data.id).first
+      user ||= where(email: data.email).first
       unless user
         # Create a user with a stub password.
         user = new(:email => data.email, :password => Devise.friendly_token[0,20])
       end
+      user.email = data.email
       user.facebook_id = data.id
       user.facebook_access_token = access_token.credentials.token
       user.facebook_username = data.username
