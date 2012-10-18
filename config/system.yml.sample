@@ -3,3 +3,5 @@ facebook:
   app_secret: ""
   enabled: true
   root: 'apps.facebook.com/minnashogidev'
+site:
+  about_us_url: "https://www.facebook.com/pages/将棋友の会/146331642097255"
