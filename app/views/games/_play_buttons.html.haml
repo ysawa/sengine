@@ -5,6 +5,8 @@
   - else
     %span{ class: :button } &lt;&lt;
     %span{ class: :button } &lt;
+  %span{ class: :button }
+    = board.number
   - if board.number < game.number
     = link_to '>', game_path(game, number: board.number + 1), remote: true, class: :button
     = link_to '>>', game_path(game, number: game.number), remote: true, class: :button
