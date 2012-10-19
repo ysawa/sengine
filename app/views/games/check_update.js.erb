@@ -1,11 +1,13 @@
 $('.board_container').html('<%= escape_javascript(render 'boards/board', game: @game, board: @game.boards.last) %>');
 
+<%- notice_title = t('notices.information') %>
+<%- its_your_turn = t('notices.its_your_turn') %>
 <%- if current_user == @game.sente_user && @game.movements.last.gote? %>
   $.play_audio('put');
-  $.notice('<%= escape_javascript t('notices.its_your_turn') %>');
+  $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript its_your_turn %>');
 <%- elsif current_user == @game.gote_user && @game.movements.last.sente? %>
   $.play_audio('put');
-  $.notice('<%= escape_javascript t('notices.its_your_turn') %>');
+  $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript its_your_turn %>');
 <%- elsif !(current_user == @game.sente_user || current_user == @game.gote_user) %>
   $.play_audio('put');
 <%- end %>
