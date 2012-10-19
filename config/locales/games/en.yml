@@ -2,6 +2,7 @@ en:
   game:
     themes:
       default: 'Default'
+      test: 'Test'
   piece:
     roles:
       fu: 'Fu'

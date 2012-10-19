@@ -2,6 +2,7 @@ ja:
   game:
     themes:
       default: 'デフォルト'
+      test: 'テスト'
   piece:
     roles:
       fu: '歩'
