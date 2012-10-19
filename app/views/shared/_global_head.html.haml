@@ -2,9 +2,6 @@
   = link_to site_title, root_path
 %nav#global_navi
   %ul
-    - if facebook_enabled?
-      %li
-        = link_to t('actions.invite_friends'), '#', class: :invite_facebook
     - if user_signed_in?
       %li.pulldown
         %a{ href: '#' }
@@ -26,4 +23,6 @@
           = link_to name, user_omniauth_authorize_path(:facebook), 'data-disable-with' => t('actions.now_loading')
         - else
           = link_to name, new_user_session_path, 'data-disable-with' => t('actions.now_loading')
-
+    - if facebook_enabled?
+      %li
+        = link_to t('actions.invite_friends'), '#', class: :invite_facebook

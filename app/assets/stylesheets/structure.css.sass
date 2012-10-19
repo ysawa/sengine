@@ -40,14 +40,17 @@ header#global_head
       line-height: $inner_height
       height: $inner_height
       float: left
+      @include clearfix
       a
         font-size: 14px
       img.face
         @include square($inner_height)
       ul
+        line-height: $inner_height
         li
           line-height: $inner_height
-          display: inline-block
+          display: block
+          float: right
           a
             display: block
             padding: 0 10px
@@ -62,6 +65,7 @@ header#global_head
             width: 100%
             li
               width: 100%
+              float: none
               display: block
               a
                 line-height: 30px
@@ -78,6 +82,7 @@ footer#global_foot
   @include common_inner
   .inner
     padding: 30px 0 60px
+    overflow: hidden
     & > ins
       @include atmospheric_background
       display: block !important
@@ -89,14 +94,12 @@ footer#global_foot
     text-align: center
 
 /* Smart Phone */
-@media only screen and (max-device-width: 1024px)
+@media only screen and (max-width: 759px)
   header#global_head
     & > .inner
       h1
-        font-size: 100%
       nav#global_navi
         a
-          font-size: 100%
   footer#global_foot
     p
       span#credit
