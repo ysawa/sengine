@@ -61,6 +61,7 @@ en:
     you_upgrade: 'You are %{grade}. Congratulations!'
   confirms:
     are_you_sure_: 'Are you sure?'
+    are_you_sure_to_give_it_up: 'Are you sure to give it up?'
   please:
     check: 'Please Check'
     check_: 'Please Check.'

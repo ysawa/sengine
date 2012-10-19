@@ -61,7 +61,8 @@ ja:
     you_won: 'あなたの勝ちです。お疲れ様でした。'
     you_upgrade: 'おめでとうございます。あなたは%{grade}になりました。'
   confirms:
-    are_you_sure_: '本当に実行しますか。'
+    are_you_sure_: '本当に実行しますか?'
+    are_you_sure_to_give_it_up: '本当に投了しますか?'
   please:
     check: 'チェックしてください'
     check_: 'チェックしてください。'
