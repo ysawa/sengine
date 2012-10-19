@@ -119,15 +119,19 @@ article#game
 nav.next_game
   margin: 20px 0
   .see_more
+    width: 500px
+    text-align: center
+    margin: 0 auto
   a.see_more
-    @include button(simple)
+    @include button(simple, #aaa)
+    display: block
     text-decoration: none
   span.see_more
     @include button(simple, #eee)
+    display: block
     color: #fff
   a.see_more, span.see_more
     font-size: 100%
-    @include inline-block
 
 ul#games
   li.game
