@@ -48,6 +48,7 @@ en:
     destroy: '%{model} was successfully destoyed.'
     information: 'Information'
     its_your_turn: "It's your turn."
+    model_was_not_found: '%{model} was not found.'
     publish: '%{model} was successfully published.'
     save: '%{model} was successfully saved.'
     someone_deleted_this_game: 'This game is deleted.'

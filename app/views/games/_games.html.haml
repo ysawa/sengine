@@ -1,6 +1,9 @@
 %ul#games
   - games.each do |game|
     = render 'games/list', game: game
+  - if games.blank?
+    %li.no_game
+      = t('notices.model_was_not_found', model: Game.model_name.human)
 %nav.pagination.next_game
   - name = t('actions.see_more')
   - unless defined?(pagination_params)

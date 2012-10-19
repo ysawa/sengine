@@ -49,6 +49,7 @@ ja:
     destroy: '%{model}を削除しました。'
     information: 'お知らせ'
     its_your_turn: 'あなたの手番です。'
+    model_was_not_found: '%{model}は見つかりませんでした。'
     publish: '%{model}を公開しました。'
     save: '%{model}を保存しました。'
     someone_deleted_this_game: '対局が削除されました。'
