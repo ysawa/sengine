@@ -112,6 +112,31 @@ ul.menu
       text-align: center
       text-decoration: none
 
+ul.tabs
+  @include clearfix
+  border-bottom: 1px solid $border_color
+  li
+    display: block
+    float: left
+    width: 100px
+    height: 30px
+    margin-right: 10px
+    a
+      text-align: center
+      display: block
+      width: 100px
+      line-height: 30px
+      color: #333
+      @include border-top-left-radius(5px)
+      @include border-top-right-radius(5px)
+      border: 1px solid $border_color
+      border-bottom: 0
+      background-color: #fff
+      text-decoration: none
+      &:hover, &.active
+        color: #000
+        @include background-image(linear-gradient(white 0, $border_color 50%))
+
 aside.actions
   margin: 10px 0
 
