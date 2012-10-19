@@ -21,6 +21,7 @@ header#global_head
     $logo_width: 200px
     $height: 44px
     $inner_height: 24px
+    background-color: #f7f7f7
     h1
       padding: 10px
       font-size: 20px
@@ -42,9 +43,10 @@ header#global_head
       a
         font-size: 14px
       img.face
-        @include square(22px)
+        @include square($inner_height)
       ul
         li
+          line-height: $inner_height
           display: inline-block
           a
             display: block

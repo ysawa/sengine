@@ -1,13 +1,7 @@
-.common_container#home_page
-  %h2= @subtitle
-  %ul.menu
-    %li
-      - name = t('actions.sign_in_and_start')
-      - if facebook_enabled?
-        = link_to name, user_omniauth_authorize_path(:facebook), 'data-disable-with' => t('actions.now_loading')
-      - else
-        = link_to name, new_user_session_path, 'data-disable-with' => t('actions.now_loading')
-    %li
-      - name = t('actions.about_app')
-      = link_to name, about_game_path, 'data-disable-with' => t('actions.now_loading')
+.common_container#top_page
+  %article#top_main
+    #top_image
+      = image_tag 'home/keyvisual.jpg'
+    %nav#top_navi
+      = render 'home/top/menu'
   = render 'shared/facebook_like_top'

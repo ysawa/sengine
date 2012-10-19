@@ -1,0 +1,7 @@
+%ul.menu
+  %li
+    = link_to page_name('games', 'new'), new_game_path, 'data-disable-with' => t('actions.now_loading')
+  %li
+    = link_to page_name('games', 'index'), playing_games_path, 'data-disable-with' => t('actions.now_loading')
+  %li
+    = link_to page_name('help', 'index'), help_path, 'data-disable-with' => t('actions.now_loading')

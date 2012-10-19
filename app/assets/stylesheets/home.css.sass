@@ -4,4 +4,33 @@
 @import 'bourbon'
 @import 'shared/helpers'
 
-#home_page
+#top_page
+  article#top_main
+    @include clearfix
+    $image_width: 400px
+    width: $common_width - 20px
+    margin-bottom: 30px
+    #top_image
+      width: $image_width
+      float: left
+      img
+        width: $image_width
+    nav#top_navi
+      width: $common_width - 20px - $image_width
+      float: left
+
+/* Smart Phone */
+@media only screen and (max-device-width: 1024px)
+  #top_page
+    article#top_main
+      width: 100%
+      @include clearfix
+      #top_image
+        float: none
+        width: 100%
+        text-align: center
+      nav#top_navi
+        float: none
+        width: 100%
+
+#mypage
