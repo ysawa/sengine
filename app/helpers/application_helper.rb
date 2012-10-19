@@ -2,6 +2,13 @@
 
 module ApplicationHelper
 
+  def current_user_decorator
+    return @current_user_decorator if @current_user_decorator
+    if current_user
+      @current_user_decorator = UserDecorator.new current_user
+    end
+  end
+
   def facebook_enabled?
     # Rails.env.production?
     Shogiengine.system.facebook[:enabled]

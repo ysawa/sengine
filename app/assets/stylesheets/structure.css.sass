@@ -18,7 +18,7 @@ header#global_head
   @include common_inner
   & > .inner
     @include clearfix
-    $logo_width: 400px
+    $logo_width: 200px
     $height: 44px
     $inner_height: 24px
     h1
@@ -32,7 +32,7 @@ header#global_head
       a
         color: #000
         text-decoration: none
-    aside
+    nav#global_navi
       text-align: right
       width: $max_width - $logo_width - 20px
       padding: 10px
@@ -41,6 +41,33 @@ header#global_head
       float: left
       a
         font-size: 14px
+      img.face
+        @include square(22px)
+      ul
+        li
+          display: inline-block
+          a
+            display: block
+            padding: 0 10px
+        li.pulldown
+          position: relative
+          & > a
+            text-decoration: none
+          ul
+            background: #fff
+            position: absolute
+            display: none
+            width: 100%
+            li
+              width: 100%
+              display: block
+              a
+                line-height: 30px
+          &:hover
+            background: #fff
+            ul
+              display: block
+
 section#global_body
   @include common_inner
   .inner
@@ -65,7 +92,7 @@ footer#global_foot
     & > .inner
       h1
         font-size: 100%
-      aside
+      nav#global_navi
         a
           font-size: 100%
   footer#global_foot
