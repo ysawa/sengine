@@ -32,7 +32,7 @@ class User
   field :score, type: Integer, default: 0
   field :score_differential, type: Integer
   field :sign_in_count, type: Integer
-  field :themes, type: Array, default: []
+  field :themes, type: Array, default: %w(default)
   field :timezone, type: Integer, default: 9
   field :timezone_string, type: String
   field :used_at, type: Time

@@ -11,6 +11,7 @@ module Facebook
       client.get_content(url, @params)
     rescue => error
       Rails.logger.error error
+      '{}'
     end
 
     def initialize(api, access_token = nil, params = {})
@@ -24,6 +25,7 @@ module Facebook
       client.post_content(url, @params)
     rescue => error
       Rails.logger.error error
+      '{}'
     end
 
     def url
