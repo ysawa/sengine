@@ -11,6 +11,7 @@
 
 # Ignore configuration files
 /config/*.yml
+/config/unicorn.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
