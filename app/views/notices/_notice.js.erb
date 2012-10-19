@@ -1,12 +1,13 @@
 <%- unless defined?(notice_type) %>
   <%- notice_type = nil %>
 <%- end %>
+<%- notice_title = t('notices.information') %>
 <%- if notice_type %>
   $(function () {
-    $.notice('<%= escape_javascript notice_message %>', '<%= escape_javascript notice_type %>');
+    $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript notice_message %>', '<%= escape_javascript notice_type %>');
   });
 <%- else %>
   $(function () {
-    $.notice('<%= escape_javascript notice_message %>');
+    $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript notice_message %>');
   });
 <%- end %>
