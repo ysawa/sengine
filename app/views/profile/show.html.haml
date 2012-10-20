@@ -1,3 +1,14 @@
 .common_container#user_page
   %h2= @subtitle
   = render 'profile/profile', user: @user
+  %ul.tabs
+    %li
+      %span.active
+        = t('user.theme_collection')
+  = render 'theme_collection', user: @user
+  %ul.tabs
+    %li
+      %span.active
+        = Game.model_name.human
+  - games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
+  = render 'games/games', games: games

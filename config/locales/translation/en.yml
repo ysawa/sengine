@@ -116,6 +116,7 @@ en:
       on: 'Online'
     opponent: 'Opponent'
     setting: 'Setting'
+    theme_collection: 'Collection'
   site:
     copyright: '(c) 2012 将棋友の会(Shogi Tomo No Kai).'
     title: 'Minna no Shogi'

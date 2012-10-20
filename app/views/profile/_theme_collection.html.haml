@@ -1,0 +1,6 @@
+%section.theme_collection
+  - user.themes.each do |theme|
+    %section.theme
+      = game_theme_icon theme
+      %br
+      = human_theme_name theme

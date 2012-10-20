@@ -116,6 +116,7 @@ ja:
       on: 'オンライン'
     opponent: '対局相手'
     setting: '設定'
+    theme_collection: 'コレクション'
   site:
     copyright: '(c) 2012 将棋友の会.'
     title: 'みんなの将棋'
