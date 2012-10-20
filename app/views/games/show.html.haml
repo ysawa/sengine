@@ -1,7 +1,7 @@
 .common_container#game_page.broad
   = render 'games/game', game: @game, board: @board
 
-  -# if facebook_enabled?
+  - if facebook_enabled?
     = render 'games/facebook_comments', game: @game
 
 - your_turn = false
