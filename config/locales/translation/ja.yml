@@ -42,6 +42,7 @@ ja:
       previous: '前へ'
       truncate: '...'
   feeds:
+    game_created: '%{sente}さんと%{gote}さんが対局開始しました。'
     game_finished: '%{winner}さんは%{loser}さんに勝ちました。お祝いしましょう!'
     game_finished_and_upgrade: '%{winner}さんは%{loser}さんに勝ち、%{grade}になりました。おめでとうございます!'
   notices:

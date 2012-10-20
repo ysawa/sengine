@@ -38,6 +38,7 @@ class GamesController < ApplicationController
       @game.boards << Board.hirate
       @game.save
       make_game_notice
+      @game.create_facebook_created_feed
       respond_with(@game)
     else
       @friends = User.facebook_friends(current_user)

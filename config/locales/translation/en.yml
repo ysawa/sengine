@@ -24,7 +24,9 @@ en:
     unset_admin: 'Unset Admin'
     wait: 'Matta'
   feeds:
+    game_created: '%{sente}さんと%{gote}さんが対局開始しました。'
     game_finished: '%{winner} won %{loser}. Congratulations!'
+    game_finished_and_upgrade: '%{winner} won %{loser} to be %{grade}. Congratulations!'
   helpers:
     submit:
       next: 'Next'
