@@ -42,9 +42,9 @@ ja:
       previous: '前へ'
       truncate: '...'
   feeds:
-    game_created: '%{sente}さんと%{gote}さんが対局開始しました。'
-    game_finished: '%{winner}さんは%{loser}さんに勝ちました。お祝いしましょう!'
-    game_finished_and_upgrade: '%{winner}さんは%{loser}さんに勝ち、%{grade}になりました。おめでとうございます!'
+    game_created: 'みんなの将棋で%{sente}さんと%{gote}さんが対局開始しました。'
+    game_finished: 'みんなの将棋で%{winner}さんは%{loser}さんに勝ちました。'
+    game_finished_and_upgrade: '%{winner}さんは%{loser}さんに勝ち、%{grade}になりました。'
   notices:
     create: '%{model}を作成しました。'
     destroy: '%{model}を削除しました。'

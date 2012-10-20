@@ -23,10 +23,6 @@ en:
     unpublish: 'Unpublish'
     unset_admin: 'Unset Admin'
     wait: 'Matta'
-  feeds:
-    game_created: '%{sente}さんと%{gote}さんが対局開始しました。'
-    game_finished: '%{winner} won %{loser}. Congratulations!'
-    game_finished_and_upgrade: '%{winner} won %{loser} to be %{grade}. Congratulations!'
   helpers:
     submit:
       next: 'Next'
@@ -45,6 +41,10 @@ en:
       next: 'Next'
       previous: 'Previous'
       truncate: '...'
+  feeds:
+    game_created: '%{sente} and %{gote} play Shogi on Minna no Shogi.'
+    game_finished: '%{winner} won %{loser} on Minna no Shogi.'
+    game_finished_and_upgrade: '%{winner} won %{loser} to be %{grade}.'
   notices:
     create: '%{model} was successfully created.'
     destroy: '%{model} was successfully destoyed.'
