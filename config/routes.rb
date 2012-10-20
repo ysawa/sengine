@@ -1,5 +1,7 @@
 Shogiengine::Application.routes.draw do
 
+  resources :comments
+
   namespace :sys do
     root to: "home#index"
     resources :feedbacks do
