@@ -1,6 +1,5 @@
 = form_for @feedback do |f|
   %section.field
-    = f.label :content
-    = f.text_area :content, rows: 4, class: :required
-  %aside.actions
+    = f.text_area :content, rows: 4, class: :required, placeholder: t('notices.please_feedback')
+  %section.actions
     = f.submit t('helpers.submit.submit'), 'data-disable-with' => t('actions.submitting')
