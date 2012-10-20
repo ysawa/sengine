@@ -75,6 +75,9 @@ en:
       random: 'Random'
       sente: 'Black'
       gote: 'White'
+    status:
+      finished: 'Finished'
+      playing: 'Playing'
   user:
     audio:
       off: 'OFF'

@@ -75,6 +75,9 @@ ja:
       random: 'おまかせ'
       sente: '先手'
       gote: '後手'
+    status:
+      finished: '対局終了'
+      playing: '対局中'
   user:
     audio:
       off: 'オフ'

@@ -16,6 +16,12 @@
     = Game.human_attribute_name(:number)
     = decorator.number
   .game_status
+    - if game.playing?
+      %span.playing
+        = t('game.status.playing')
+    - else
+      %span.finished
+        = t('game.status.finished')
     - if game.of_user? current_user
       = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete, 'data-remote' => true, class: :delete
     - if won_decorator

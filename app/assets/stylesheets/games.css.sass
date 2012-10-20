@@ -149,13 +149,21 @@ ul#games
     .game_info,
     .game_status
       float: left
+      line-height: 25px
     .game_users
       width: 150px
+      line-height: 50px
     .game_info
       width: 320px
     .game_status
       text-align: right
       width: 250px
+      .playing
+        color: #c00
+        font-weight: bold
+      .finished
+        color: #00c
+        font-weight: bold
   li.no_game
     color: #f33
     font-weight: bold
@@ -165,14 +173,14 @@ ul#games
   ul#games
     li.game
       width: 500px
-      div
+      div, span
         font-size: 14px
       .game_users
         width: 150px
       .game_info
-        width: 220px
+        width: 180px
       .game_status
-        width: 130px
+        width: 170px
 
 form.edit_game
 
