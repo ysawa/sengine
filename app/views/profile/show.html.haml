@@ -11,4 +11,4 @@
       %span.active
         = Game.model_name.human
   - games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
-  = render 'games/games', games: games
+  = render 'games/games', games: games, pagination_params: { controller: :games, action: :index, user_id: @user.id }

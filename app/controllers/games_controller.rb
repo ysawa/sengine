@@ -94,7 +94,12 @@ class GamesController < ApplicationController
 
   # GET /games
   def index
-    @games = Game.all.desc(:created_at).page(params[:page]).per(5)
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
+    else
+      @games = Game.all.desc(:created_at).page(params[:page]).per(5)
+    end
     respond_with(@games)
   end
 
