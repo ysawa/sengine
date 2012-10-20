@@ -1,26 +1,22 @@
 - decorator = UserDecorator.new(user)
 - image_tag = decorator.image(false, class: 'face large')
-= link_to image_tag, decorator.facebook_url, target: "_blank"
-%dl#user_profile
-  %dt
-    = User.human_attribute_name('name')
-  %dd
-    = decorator.name
-
-  - %w(grade score).each do |attr_name|
+#user_profile
+  = link_to image_tag, decorator.facebook_url, target: "_blank", id: :user_face
+  %dl
     %dt
-      = User.human_attribute_name(attr_name)
+      = User.human_attribute_name('name')
     %dd
-      = decorator.public_send(attr_name)
-  %dt
-    = User.human_attribute_name('games')
-  %dd
-    = decorator.games_count
-  %dt
-    = User.human_attribute_name('won_games')
-  %dd
-    = decorator.won_games_count
-  %dt
-    = User.human_attribute_name('lost_games')
-  %dd
-    = decorator.lost_games_count
+      = decorator.name
+      = decorator.grade
+
+    - %w(score).each do |attr_name|
+      %dt
+        = User.human_attribute_name(attr_name)
+      %dd
+        = decorator.public_send(attr_name)
+    %dt
+      = Game.model_name.human
+    %dd
+      = decorator.won_games_count
+      \/
+      = decorator.lost_games_count

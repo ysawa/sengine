@@ -6,13 +6,27 @@
 
 #user_page
 
-dl#user_profile
+#user_profile
   @include clearfix
-  dt, dd
-  dt
-    font-weight: bold
-  dd
-    margin-bottom: 15px
+  margin-bottom: 30px
+  a#user_face
+    float: left
+    display: block
+    width: 100px
+    height: 100px
+    margin-right: 20px
+  dl
+    float: left
+    width: 300px
+    @include clearfix
+    dt, dd
+      float: left
+      margin-bottom: 12px
+    dt
+      font-weight: bold
+      width: 80px
+    dd
+      width: 220px
 
 section.face
   width: 50px
