@@ -25,7 +25,7 @@ class User
   field :grade_increased, type: Boolean, default: false
   field :last_sign_in_at, type: Time
   field :last_sign_in_ip, type: String
-  field :locale, type: String, default: 'en'
+  field :locale, type: String
   field :name, type: String
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
@@ -175,7 +175,7 @@ class User
       user.facebook_access_token = access_token.credentials.token
       user.facebook_username = data.username
       user.name ||= data.name
-      user.locale ||= data.locale
+      user.locale ||= data.locale || 'en'
       user.timezone ||= data.timezone
       user.gender ||= data.gender
       user.facebook_birth ||= data.birthday
