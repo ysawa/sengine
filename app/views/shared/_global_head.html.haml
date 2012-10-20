@@ -11,6 +11,8 @@
           %li
             = link_to page_name('games', 'new'), new_game_path
           %li
+            = link_to page_name('games', 'index'), playing_games_path
+          %li
             = link_to page_name('profile', 'show'), profile_path(current_user.id)
           %li
             = link_to page_name('setting', 'edit'), edit_setting_path
