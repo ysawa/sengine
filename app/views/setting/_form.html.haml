@@ -15,5 +15,5 @@
       = label_tag "user_audio_on_#{value}", t("user.audio")[value], class: :inline
       = f.radio_button :audio_on, value, class: :required
       &nbsp;&nbsp;
-  %aside.actions
+  %section.actions
     = f.submit t('helpers.submit.save')

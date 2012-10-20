@@ -6,8 +6,8 @@
         - @comment.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  %section.field
     = f.label :content
     = f.text_field :content
-  .actions
+  %section.actions
     = f.submit 'Save'
