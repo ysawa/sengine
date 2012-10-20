@@ -8,6 +8,5 @@ describe "about/game" do
 
   it "renders the first explanation for visitors" do
     render
-    rendered.should include "<h3>\nFacebookの友達と将棋を指そう!\n</h3>"
   end
 end
