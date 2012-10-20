@@ -35,8 +35,7 @@ header#global_head
         text-decoration: none
     nav#global_navi
       text-align: right
-      width: $max_width - $logo_width - 20px
-      padding: 10px
+      width: $max_width - $logo_width
       line-height: $inner_height
       height: $inner_height
       float: left
@@ -53,7 +52,7 @@ header#global_head
           float: right
           a
             display: block
-            padding: 0 10px
+            padding: 10px
         li.pulldown
           position: relative
           min-width: 104px
@@ -70,7 +69,10 @@ header#global_head
               float: none
               display: block
               a
-                line-height: 30px
+                line-height: 20px
+                text-decoration: none
+                &:hover
+                  background-color: #f7f7f7
           &:hover
             background: #fff
             ul
@@ -118,7 +120,7 @@ footer#global_foot
       h1
         width: $logo_width - 20px
       nav#global_navi
-        width: $max_width - $logo_width - 20px
+        width: $max_width - $logo_width
   section#global_body
     @include common_inner
   footer#global_foot
