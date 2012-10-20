@@ -1,4 +1,4 @@
-= form_for @game, html: { class: :validated } do |f|
+= form_for @game, html: { class: %w(validated edit_game) } do |f|
   %section.field
     = label_tag 'game_order', t('actions.select_sente_or_gote')
     - %w(sente gote random).each do |order|
