@@ -23,5 +23,5 @@
     = decorator.number
 
     - if game.of_user? current_user
-      = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete
+      = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete, 'data-remote' => true, class: :delete
 

@@ -51,7 +51,10 @@ class GamesController < ApplicationController
     if @game.destroy
       make_game_notice
     end
-    respond_with(@game, location: games_path)
+    respond_with(@games) do |format|
+      format.html { render :index }
+      format.js { render nothing: true }
+    end
   end
 
   # GET /games/1/edit

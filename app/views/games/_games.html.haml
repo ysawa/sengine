@@ -10,3 +10,11 @@
     - pagination_params = {}
   = link_to_next_page games, name, remote: true, params: pagination_params, class: :see_more do
     %span.see_more= name
+:javascript
+  $(function () {
+    $('li.game a.delete').live('ajax:success', function () {
+      var link = $(this);
+      var game = link.parents('li.game');
+      game.hide();
+    });
+  });
