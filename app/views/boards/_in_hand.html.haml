@@ -9,7 +9,13 @@
         - pieces = board.gote_hand
         - user = game.gote_user
       - user_decorator = UserDecorator.new(user)
-      .cell
+      - in_turn = false
+      - is_sente = (game.number % 2) == 0
+      - if is_sente && user == game.sente_user
+        - in_turn = true
+      - elsif !is_sente && user == game.gote_user
+        - in_turn = true
+      .cell{ class: (in_turn ? :in_turn : nil) }
         - link = !(play && user == current_user)
         = user_decorator.face(link)
       - all_roles = Piece::HAND_ROLES

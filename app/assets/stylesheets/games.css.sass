@@ -102,6 +102,8 @@ article#game
         &.selected
           cursor: pointer
           @include selected
+        &.in_turn
+          @include selected
         .piece
         section.face
           width: $face_size
