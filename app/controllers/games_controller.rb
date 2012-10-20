@@ -63,7 +63,8 @@ class GamesController < ApplicationController
 
   # GET /games/friends
   def friends
-    @games = Game.of_user_friends(current_user).desc(:created_at).page(params[:page]).per(5)
+    @games = Game.of_user_friends(current_user).of_not_user(current_user)
+    @games = @games.desc(:created_at).page(params[:page]).per(5)
     respond_with(@games) do |format|
       format.html { render :index }
       format.js { render :index }

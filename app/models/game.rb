@@ -163,6 +163,10 @@ class Game
       criteria.any_of({ sente_user_id: user.id }, { gote_user_id: user.id })
     end
 
+    def of_not_user(user)
+      criteria.where(:sente_user_id.ne => user.id, :gote_user_id.ne => user.id)
+    end
+
     def of_user_friends(user)
       ids = user.friend_ids
       criteria.any_of({ :sente_user_id.in => ids }, { :gote_user_id.in => ids })
