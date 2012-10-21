@@ -13,7 +13,12 @@
   .game_info
     = link_to "#{decorator.created_at}〜".html_safe, game
     %br
+    = t('game.time_span')
+    \:
+    = decorator.time_span
+    \/
     = Game.human_attribute_name(:number)
+    \:
     = decorator.number
   .game_status
     - if game.playing?

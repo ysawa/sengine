@@ -80,6 +80,7 @@ en:
     status:
       finished: 'Finished'
       playing: 'Playing'
+    time_span: 'Time'
   user:
     audio:
       off: 'OFF'

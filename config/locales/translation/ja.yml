@@ -80,6 +80,7 @@ ja:
     status:
       finished: '対局終了'
       playing: '対局中'
+    time_span: '時間'
   user:
     audio:
       off: 'オフ'
