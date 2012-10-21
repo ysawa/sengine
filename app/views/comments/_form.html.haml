@@ -1,13 +1,25 @@
-= form_for @comment do |f|
-  - if @comment.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
-      %ul
-        - @comment.errors.full_messages.each do |msg|
-          %li= msg
-
+- html_options = { remote: true, class: :edit_comment }
+- if comment.game
+  - resource = [comment.game, comment]
+- else
+  - resource = comment
+= form_for resource, html: html_options do |f|
+  = current_user_decorator.image
   %section.field
-    = f.label :content
-    = f.text_field :content
-  %section.actions
-    = f.submit 'Save'
+    - html_options = {}
+    - html_options[:placeholder] = Comment.human_attribute_name(:content)
+    - html_options[:rows] =  4
+    = f.text_area :content, html_options
+    = f.submit t('helpers.submit.save'), disabled: true, 'data-disable-with' => t('actions.now_loading')
+  :javascript
+    $(function () {
+      $('form.edit_comment').on('keyup', 'textarea', function () {
+        var value = $(this).val();
+        var submit = $(this).siblings('input[type="submit"]');
+        if (value.match(/^\s*$/)) {
+          submit.attr('disabled', true);
+        } else {
+          submit.attr('disabled', false);
+        }
+      });
+    });

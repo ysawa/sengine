@@ -1,0 +1,72 @@
+@charset "utf-8"
+
+/* Initializers of the Sass */
+@import 'bourbon'
+@import 'shared/helpers'
+
+#comments_set
+  margin: 0 10px
+
+form.edit_comment
+  width: 740px
+  border-bottom: 1px solid $border_color
+  @include atmospheric_background
+  @include clearfix
+  img.face
+    margin: 10px
+    float: left
+  section.field
+    float: left
+    margin: 10px 0
+    textarea#comment_content
+      margin: 0
+      width: 434px
+    input[type="submit"]
+      width: 100px
+@media only screen and (max-width: 759px)
+  form.edit_comment
+    width: 520px
+
+ul#comments
+  li.comment
+    @include clearfix
+    border-bottom: 1px solid $border_color
+    padding: 10px
+    width: 720px
+    .comment_content
+      float: left
+      line-height: 25px
+      width: 440px
+    @include atmospheric_background
+    img.face
+      float: left
+      margin-right: 10px
+  li.no_comment
+    color: #f33
+    font-weight: bold
+    padding: 20px 10px
+    border-bottom: 1px solid $border_color
+@media only screen and (max-width: 759px)
+  ul#comments
+    li.comment
+      width: 500px
+      div, span
+        font-size: 14px
+
+nav.next_comment
+  margin: 20px 0
+  .see_more
+    width: 460px
+    text-align: center
+    margin: 0 auto
+  a.see_more
+    @include pill_button(#aaa)
+    display: block
+    text-decoration: none
+  span.see_more
+    @include pill_button(#eee)
+    display: block
+    color: #fff
+  a.see_more, span.see_more
+    font-size: 100%
+

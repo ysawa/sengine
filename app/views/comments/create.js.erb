@@ -1,0 +1,4 @@
+<%- content = render 'comments/comment', comment: @comment %>
+$('ul#comments').prepend('<%= escape_javascript content %>');
+<%- form = render 'comments/form', comment: Comment.new(game: @game) %>
+$('form.edit_comment').replaceWith('<%= escape_javascript form %>');

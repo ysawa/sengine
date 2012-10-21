@@ -12,6 +12,7 @@ class Game
 
   THEMES = %w(default test)
   has_many :boards
+  has_many :comments
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games
   belongs_to :gote_user, class_name: 'User', inverse_of: :gote_games

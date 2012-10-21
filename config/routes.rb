@@ -1,7 +1,5 @@
 Shogiengine::Application.routes.draw do
 
-  resources :comments
-
   namespace :sys do
     root to: "home#index"
     resources :feedbacks do
@@ -36,6 +34,7 @@ Shogiengine::Application.routes.draw do
 
   get "games/opponent_fields", to: "games#opponent_fields", as: "opponent_fields_game"
   resources :games, only: [:create, :destroy, :new, :index, :show] do
+    resources :comments
     resources :movements
     collection do
       get :friends

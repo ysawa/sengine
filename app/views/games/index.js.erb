@@ -1,3 +1,2 @@
 $('nav.next_game').before('<%= escape_javascript(render 'games/games', games: @games, with_pagination: true) %>');
 $('nav.next_game:last').remove();
-<%= render 'shared/reparse_xfbml.js' %>

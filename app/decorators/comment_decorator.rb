@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
-class CommentDecorator < Draper::Base
+class CommentDecorator < ApplicationDecorator
   decorates :comment
 
-  def content
-  end
-
-  def user_image
-    if user_admin? && model.user
-      UserDecorator.new(model.user).image
+  def author_image(link = false)
+    if model.author
+      UserDecorator.new(model.author).image(link)
     else
       h.image_tag "noimage.gif", class: :face
+    end
+  end
+
+  def content
+    if model.content
+      h.formatted_text(model.content).html_safe
     end
   end
 end

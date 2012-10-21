@@ -1,4 +1,15 @@
 - if defined?(game)
-  - comments = game.comments
-- comments.each do |comment|
-  - comment.user_name
+  - comments = game.comments.desc(:created_at).page.per(5)
+%ul#comments
+  - comments.each do |comment|
+    = render 'comments/comment', comment: comment
+  - if defined?(show_not_found) && show_not_found && comments.blank?
+    %li.no_comment
+      = t('notices.model_was_not_found', model: comment.model_name.human)
+- if defined?(with_pagination) && with_pagination
+  %nav.pagination.next_comment
+    - name = t('actions.see_more')
+    - unless defined?(pagination_params)
+      - pagination_params = {}
+    = link_to_next_page comments, name, remote: true, params: pagination_params, class: :see_more do
+      %span.see_more= name

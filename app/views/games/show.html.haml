@@ -1,7 +1,13 @@
 .common_container#game_page.broad
   = render 'games/game', game: @game, board: @board
 
-  =# render 'comments/comments', game: @game
+  #comments_set
+    %ul.tabs
+      %li
+        %span.active
+          = Comment.model_name.human
+    = render 'comments/form', comment: Comment.new(game: @game)
+    = render 'comments/comments', game: @game, with_pagination: true, pagination_params: { controller: :comments, action: :index, game_id: @game.id }
 
 - your_turn = false
 - last_movement = @game.movements.last

@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
 class CommentsController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
+  before_filter :authenticate_user!
   before_filter :find_comment, only: %w(destroy edit show update)
+  before_filter :find_game
 
   # POST /comments
   def create
     @comment = Comment.new(params[:comment])
+    @comment.author = current_user
+    @comment.game = @game if @game
     if @comment.save
-      flash[:notice] = "Comment successfully created"
       respond_with(@comment)
     else
       render :new
@@ -17,8 +20,8 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
-    flash[:notice] = "Comment successfully destroyed." if @comment.destroy
-    respond_with(@comment, location: comments_path)
+    @comment.destroy
+    respond_with(@comment, location: game_comments_path(@game))
   end
 
   # GET /comments/1/edit
@@ -30,7 +33,12 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    respond_with(@comments = Comment.all)
+    if @game
+      @comments = @game.comments.desc(:created_at).page(params[:page]).per(5)
+    else
+      @comments = Comment.all.desc(:created_at).page(params[:page]).per(5)
+    end
+    respond_with(@comments)
   end
 
   # GET /comments/new
@@ -46,7 +54,6 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   def update
     if @comment.update_attributes(params[:comment])
-      flash[:notice] = "Comment successfully updated."
       respond_with(@comment)
     else
       render :edit
@@ -57,5 +64,11 @@ private
 
   def find_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def find_game
+    if params[:game_id]
+      @game = Game.find(params[:game_id])
+    end
   end
 end

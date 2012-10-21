@@ -1,0 +1,7 @@
+- decorator = CommentDecorator.new comment
+%li.comment
+  = decorator.author_image true
+  .comment_content
+    = decorator.content
+    %br
+    = decorator.created_at

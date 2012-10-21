@@ -14,6 +14,16 @@ module ApplicationHelper
     Shogiengine.system.facebook[:enabled]
   end
 
+  def formatted_text(text)
+    html = text.gsub(/(\r\n|\r|\n)/, '<br>')
+    URI.extract(html, %w(http https)).each do |uri|
+      next if uris.include?(uri)
+      html.gsub!(uri, link_to(truncate(uri, length: 60), uri, options))
+      uris << uri
+    end
+    html
+  end
+
   def link_to_sign_in(name = nil, options = {})
     name ||= t('actions.sign_in_and_start')
     # if Rails.env.production?

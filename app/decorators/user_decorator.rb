@@ -67,6 +67,8 @@ class UserDecorator < ApplicationDecorator
     case link
     when true
       h.link_to result, h.profile_path(model.id)
+    when :facebook
+      h.link_to result, "http://www.facebook.com/#{model.facebook_username}"
     when String, Hash
       h.link_to result, link
     else
