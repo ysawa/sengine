@@ -18,3 +18,9 @@
         %span.active
           = t("game.everyone")
   = render 'games/games', games: games, with_pagination: false
+  %ul.tabs#comments_tab
+    %li
+      %span.active
+        = Comment.model_name.human
+  - comments = Comment.desc(:created_at).limit(3).to_a
+  = render 'comments/comments', comments: comments, with_pagination: false
