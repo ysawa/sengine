@@ -26,5 +26,4 @@
       = link_to t('actions.destroy'), game, confirm: t('confirms.are_you_sure_'), method: :delete, 'data-remote' => true, class: :delete
     - if won_decorator
       %br
-      = won_decorator.name(true)
-      won.
+      = t('user.games.won', user: won_decorator.name(true)).html_safe

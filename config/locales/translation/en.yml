@@ -88,6 +88,7 @@ en:
     games:
       result: 'Results'
       win_loss: '%{win} wins / %{loss} losses'
+      won: '%{user} won'
     genders:
       male: 'Male'
       female: 'Female'
