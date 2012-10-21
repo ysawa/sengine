@@ -67,7 +67,7 @@ a
     font-size: 100%
     text-decoration: none
     &.active
-      @include pill_button(#f00)
+      @include pill_button($activated_color)
       font-size: 100%
       text-decoration: none
 span
@@ -170,7 +170,7 @@ aside.actions
       background: #fff
       float: left
       &.active
-        background: #77f
+        background: $activated_color
   .left, .right
     position: absolute
     z-index: 2
