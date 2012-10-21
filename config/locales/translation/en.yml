@@ -85,6 +85,9 @@ en:
       off: 'OFF'
       on: 'ON'
     comment: 'Comment'
+    games:
+      result: 'Results'
+      win_loss: '%{win} wins / %{loss} losses'
     genders:
       male: 'Male'
       female: 'Female'

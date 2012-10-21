@@ -85,6 +85,9 @@ ja:
       off: 'オフ'
       on: 'オン'
     comment: 'コメント'
+    games:
+      result: '戦績'
+      win_loss: '%{win}勝 / %{loss}敗'
     grades:
       grade_0: '初心者'
       grade_1: '15級'

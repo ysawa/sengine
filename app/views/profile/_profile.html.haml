@@ -9,14 +9,11 @@
       = decorator.name
       = decorator.grade
 
-    - %w(score).each do |attr_name|
-      %dt
-        = User.human_attribute_name(attr_name)
-      %dd
-        = decorator.public_send(attr_name)
     %dt
-      = Game.model_name.human
+      = User.human_attribute_name('score')
     %dd
-      = decorator.won_games_count
-      \/
-      = decorator.lost_games_count
+      = decorator.score
+    %dt
+      = t('user.games.result')
+    %dd
+      = t('user.games.win_loss', win: decorator.won_games_count, loss: decorator.lost_games_count)

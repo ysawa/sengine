@@ -103,6 +103,12 @@ class UserDecorator < ApplicationDecorator
     I18n.t("user.online")[model.online?]
   end
 
+  def score
+    if model.score
+      h.number_with_delimiter model.score
+    end
+  end
+
   def timezone
     if model.timezone
       elements = ['GMT']
