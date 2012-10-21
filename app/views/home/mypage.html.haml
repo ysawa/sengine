@@ -1,3 +1,7 @@
 .common_container#mypage
   %h2= @subtitle
-  = render 'home/mypage/menu'
+  %article#mypage_main
+    #mypage_profile
+      = render 'profile/profile', user: current_user
+    %nav#mypage_navi
+      = render 'home/mypage/menu'

@@ -35,3 +35,37 @@
         width: 100%
 
 #mypage
+  article#mypage_main
+    @include clearfix
+    $profile_width: 400px
+    width: $common_width - 20px
+    #mypage_profile
+      float: left
+      width: $profile_width
+      #user_profile
+        width: $profile_width
+      dl
+        width: $profile_width - 120px
+        dt
+          width: 80px
+        dd
+          width: $profile_width
+          width: 200px
+    nav#mypage_navi
+      float: left
+      width: $common_width - 20px - $profile_width
+      ul.menu
+        li
+          margin-top: 0
+
+@media only screen and (max-width: 759px)
+  #mypage
+    article#mypage_main
+      width: 100%
+      @include clearfix
+      #mypage_profile
+        display: none
+      nav#top_navi
+        float: none
+        width: 100%
+
