@@ -1,9 +1,15 @@
 = form_for @game, html: { class: %w(validated edit_game) } do |f|
   %section.field
     = label_tag 'game_order', "1. #{t('actions.select_sente_or_gote')}"
-    - %w(sente gote random).each do |order|
-      = label_tag "game_order_#{order}", t("game.orders.#{order}"), class: :inline
-      = radio_button_tag 'game_order', order, order == 'random', class: :required
+    = hidden_field_tag 'game_order', 'random'
+    #order_field
+      - %w(sente gote random).each do |order|
+        - html_options = { 'game-order' => order }
+        - if order == 'random'
+          - html_options[:class] = 'button active game_order'
+        - else
+          - html_options[:class] = 'button game_order'
+        = link_to t("game.orders.#{order}"), '#', html_options
   %section.field
     = label_tag 'game_opponent_id', "2. #{t('actions.select_opponent')}"
     = hidden_field_tag 'game_opponent_id', nil
@@ -39,6 +45,13 @@
     = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
 :javascript
   $(function () {
+    $('form.edit_game').on('click', 'a.game_order', function () {
+      var game_order = $(this).attr('game-order');
+      $('a.game_order').removeClass('active');
+      $(this).addClass('active');
+      $('input#game_order').val(game_order);
+      return false;
+    });
     $('form.edit_game').on('click', 'img.face', function () {
       var user_id = $(this).attr('user-id');
       $("input#game_opponent_id").val(user_id);
