@@ -64,8 +64,11 @@ class UserDecorator < ApplicationDecorator
       image_url = "noimage.gif"
     end
     result = h.image_tag image_url, image_options
-    if link
+    case link
+    when true
       h.link_to result, h.profile_path(model.id)
+    when String, Hash
+      h.link_to result, link
     else
       result
     end

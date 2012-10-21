@@ -2,6 +2,7 @@ ja:
   actions:
     about_app: 'このアプリについて'
     back: '戻る'
+    back_to_game: '対局に戻る'
     back_to_mypage: 'マイページに戻る'
     back_to_top: 'TOPに戻る'
     destroy: '削除'
