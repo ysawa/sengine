@@ -122,7 +122,7 @@ class GamesController < ApplicationController
 
   # GET /games/opponent_fields
   def opponent_fields
-    @friends = User.facebook_friends(current_user)
+    @friends = User.facebook_friends(current_user).desc(:used_at)
     render layout: false
   end
 

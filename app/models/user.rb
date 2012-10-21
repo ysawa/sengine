@@ -12,7 +12,6 @@ class User
 
   field :admin, type: Boolean, default: false
   field :audio_on, type: Boolean, default: true
-  field :birth, type: Date
   field :current_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
   field :email, type: String
@@ -57,16 +56,6 @@ class User
       graph.post
     end
   end
-
-  def facebook_birth=(date)
-    if date.present?
-      date =~ %r|(\d+)/(\d+)/(\d+)|
-      month, day, year = $1, $2, $3
-      date = Date.new(year.to_i, month.to_i, day.to_i)
-    end
-    self.birth = date
-  end
-  alias facebook_birth birth
 
   def find_facebook_friends(limit = 100, page = 0, recursive = true)
     return [] if self.facebook_access_token.blank?
@@ -179,7 +168,6 @@ class User
       user.locale ||= data.locale || 'en'
       user.timezone ||= data.timezone
       user.gender ||= data.gender
-      user.facebook_birth ||= data.birthday
       user.save
       user
     end
