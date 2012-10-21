@@ -5,8 +5,10 @@
       = render 'profile/profile', user: current_user
     %nav#mypage_navi
       = render 'home/mypage/menu'
+  - comments = []
   - games = Game.of_user(current_user).playing.desc(:created_at).limit(3).to_a
   - if games.present?
+    - comments = Comment.of_game(games).desc(:created_at).limit(3).to_a
     %ul.tabs
       %li
         %span.active
@@ -22,5 +24,6 @@
     %li
       %span.active
         = Comment.model_name.human
-  - comments = Comment.desc(:created_at).limit(3).to_a
+  - if comments.blank?
+    - comments = Comment.desc(:created_at).limit(3).to_a
   = render 'comments/comments', comments: comments, with_pagination: false, with_game: true
