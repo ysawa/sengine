@@ -62,13 +62,13 @@ label
 
 a
   &.button
-    @include button
+    @include pill_button
     @include inline-block
     font-size: 100%
     text-decoration: none
 span
   &.button
-    @include button(simple, #eee)
+    @include pill_button(#eee)
     @include inline-block
     font-size: 100%
     text-decoration: none
@@ -107,7 +107,8 @@ ul.menu
   li
     margin: 25px 0
     a
-      @include button
+      @include pill_button
+      padding: 10px 15px
       font-size: 100%
       display: block
       margin: 0 auto

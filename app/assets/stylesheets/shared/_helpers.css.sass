@@ -8,6 +8,7 @@ $board_height: 580px
 $mobile_landscape_width: 1120px
 $mobile_portrait_width: $board_width
 $face_size: 50px
+$button_color: #f93
 
 @mixin rotate180
   /* FireFox */
@@ -35,3 +36,7 @@ $document_tags: body, p, pre, ol, ul, li, table, th, td, div, span, h1, h2, h3, 
 @mixin square($size)
   width: $size
   height: $size
+
+@mixin pill_button($background_color: $button_color)
+  @include button(pill, $background_color)
+  padding: 10px 15px
