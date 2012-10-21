@@ -74,7 +74,8 @@ $ ->
   if self != top
     top.location.href = self.location.href.replace(/\?.+$/, '')
   $('a.invite_facebook').live 'click', ->
-    $.invite_facebook()
+    if $.check_if_facebook_enabled()
+      $.invite_facebook()
     false
 
   $('a[target="_blank"]').live 'click', ->

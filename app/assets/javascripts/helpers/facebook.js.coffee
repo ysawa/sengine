@@ -1,5 +1,6 @@
 $.extend
   check_if_facebook_enabled: ->
+    return false if ($.browser.msie && parseInt($.browser.version) < 8)
     typeof FB != "undefined"
   fix_facebook_comments_height: ->
     height = $('.fb_comments iframe').height()
