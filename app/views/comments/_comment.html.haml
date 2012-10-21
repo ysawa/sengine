@@ -5,3 +5,7 @@
     = decorator.content
     %br
     = decorator.created_at
+    - if defined?(with_game) && with_game && comment.game
+      - game_decorator = GameDecorator.new comment.game
+      - name = t('actions.see_model', model: Game.model_name.human)
+      \(#{link_to name, comment.game})

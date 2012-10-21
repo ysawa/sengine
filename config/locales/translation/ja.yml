@@ -14,6 +14,7 @@ ja:
     publish: '公開'
     reply: '返信'
     saving: '保存中...'
+    see_model: '%{model}をみる'
     see_more: 'もっと見る'
     select_sente_or_gote: '先手・後手'
     select_opponent: '相手を選ぶ'

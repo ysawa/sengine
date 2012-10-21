@@ -14,6 +14,7 @@ en:
     publish: 'Publish'
     reply: 'Reply'
     saving: 'Saving...'
+    see_model: 'See %{model}'
     see_more: 'See More'
     select_sente_or_gote: 'Black/White'
     select_opponent: 'Select Opponent'

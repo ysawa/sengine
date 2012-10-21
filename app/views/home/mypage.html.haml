@@ -23,4 +23,4 @@
       %span.active
         = Comment.model_name.human
   - comments = Comment.desc(:created_at).limit(3).to_a
-  = render 'comments/comments', comments: comments, with_pagination: false
+  = render 'comments/comments', comments: comments, with_pagination: false, with_game: true
