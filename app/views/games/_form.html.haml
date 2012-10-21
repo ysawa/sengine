@@ -7,25 +7,28 @@
   %section.field
     = label_tag 'game_opponent_id', "2. #{t('actions.select_opponent')}"
     = hidden_field_tag 'game_opponent_id', nil
-    #opponent_fields.slider
+    #opponents_slider.slider
       .left.disabled
       .right.disabled
       %ul.slides
     :javascript
       $(function () {
         $.get("/games/opponent_fields", function (data) {
-          $("#opponent_fields ul.slides").html(data);
-          if ($("#opponent_fields img.face").size() == 0) {
+          var slides = $("#opponents_slider ul.slides");
+          slides.html(data);
+          var size = $("#opponents_slider img.face").size();
+          if (size == 0) {
             $.invite_facebook();
           } else {
-            $("#opponent_fields img.face:first").click();
+            $("#opponents_slider img.face:first").click();
+            $('#opponents_slider').form_slider();
           }
         });
       });
   %section.field
     = f.label :theme, "3. #{Game.human_attribute_name :theme}"
     = f.hidden_field :theme
-    .slider
+    #themes_slider.slider
       .left.disabled
       .right.disabled
       %ul.slides
@@ -54,4 +57,5 @@
     });
 
     $('img.theme:first').click();
+    $('#themes_slider').form_slider();
   });
