@@ -11,7 +11,7 @@
       %span.active
         = Game.model_name.human
   - games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
-  = render 'games/games', games: games, pagination_params: { controller: :games, action: :index, user_id: @user.id }
+  = render 'games/games', games: games, pagination_params: { controller: :games, action: :index, user_id: @user.id }, with_pagination: true
   - if params[:from]
     %section.actions
       = link_to t('actions.back_to_game'), params[:from], class: :button

@@ -16,9 +16,7 @@
       - elsif !is_sente && user == game.gote_user
         - in_turn = true
       .cell{ class: (in_turn ? :in_turn : nil) }
-        - link = !(play && user == current_user)
-        - if link
-          - link = profile_path(user.id, from: game_path(game))
+        - link = profile_path(user.id, from: game_path(game))
         = user_decorator.face(link)
       - all_roles = Piece::HAND_ROLES
       - if direction == 'upward'
