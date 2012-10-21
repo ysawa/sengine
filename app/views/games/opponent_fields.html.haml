@@ -3,4 +3,5 @@
     - user_decorator = UserDecorator.new(user)
     - user_id = user.id.to_s
     %li.slide
-      = user_decorator.face(false, { 'user-id' => user_id })
+      %a{ class: :face, href: '#' }
+        = user_decorator.face(false, { 'user-id' => user_id })

@@ -22,11 +22,11 @@
         $.get("/games/opponent_fields", function (data) {
           var slides = $("#opponents_slider ul.slides");
           slides.html(data);
-          var size = $("#opponents_slider img.face").size();
+          var size = $("#opponents_slider a.face").size();
           if (size == 0) {
             $.invite_facebook();
           } else {
-            $("#opponents_slider img.face:first").click();
+            $("#opponents_slider a.face:first").click();
             $('#opponents_slider').form_slider();
           }
         });
@@ -40,7 +40,8 @@
       %ul.slides
         - current_user.themes.each do |theme|
           %li.slide
-            = game_theme_icon theme, 'theme-id' => theme
+            %a{ class: :theme, href: '#' }
+              = game_theme_icon theme, 'theme-id' => theme
   %section.actions
     = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
 :javascript
@@ -52,23 +53,25 @@
       $('input#game_order').val(game_order);
       return false;
     });
-    $('form.edit_game').on('click', 'img.face', function () {
-      var user_id = $(this).attr('user-id');
+    $('form.edit_game').on('click', 'a.face', function () {
+      var user_id = $(this).find('img').attr('user-id');
       $("input#game_opponent_id").val(user_id);
       var sliders = $(this).parents('.slider');
       sliders.find('.slide').removeClass('active');
       $(this).parents('.slide').addClass('active');
+      return false;
     });
-    $('form.edit_game').on('click', 'img.theme', function () {
-      var theme_id = $(this).attr('theme-id');
+    $('form.edit_game').on('click', 'a.theme', function () {
+      var theme_id = $(this).children('img').attr('theme-id');
       $("input#game_theme").val(theme_id);
       var body_class = $('body').attr('class');
       $('body').attr('class', body_class.replace(/theme_\w+/, 'theme_' + theme_id));
       var sliders = $(this).parents('.slider');
       sliders.find('.slide').removeClass('active');
       $(this).parents('.slide').addClass('active');
+      return false;
     });
 
-    $('img.theme:first').click();
+    $('a.theme:first').click();
     $('#themes_slider').form_slider();
   });
