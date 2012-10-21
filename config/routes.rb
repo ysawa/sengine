@@ -34,6 +34,7 @@ Shogiengine::Application.routes.draw do
 
   resources :feedbacks, only: [:create, :index, :show]
 
+  get "games/opponent_fields", to: "games#opponent_fields", as: "opponent_fields_game"
   resources :games, only: [:create, :destroy, :new, :index, :show] do
     resources :movements
     collection do

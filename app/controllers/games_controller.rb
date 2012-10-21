@@ -41,7 +41,6 @@ class GamesController < ApplicationController
       @game.create_facebook_created_feed
       respond_with(@game)
     else
-      @friends = User.facebook_friends(current_user)
       render :new
     end
   end
@@ -118,8 +117,13 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
-    @friends = User.facebook_friends(current_user)
     respond_with(@game)
+  end
+
+  # GET /games/opponent_fields
+  def opponent_fields
+    @friends = User.facebook_friends(current_user)
+    render layout: false
   end
 
   # GET /games/playing
