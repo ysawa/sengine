@@ -16,12 +16,16 @@
     #opponents_slider.slider
       .left.disabled
       .right.disabled
-      %ul.slides
+      .now_loading
+        = t('actions.now_loading')
     :javascript
       $(function () {
         $.get("/games/opponent_fields", function (data) {
-          var slides = $("#opponents_slider ul.slides");
+          var slider = $("#opponents_slider");
+          var slides = $("<ul>").addClass('slides');
           slides.html(data);
+          slider.append(slides);
+          slider.children('.now_loading').remove();
           var size = $("#opponents_slider a.face").size();
           if (size == 0) {
             $.invite_facebook();
