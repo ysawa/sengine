@@ -6,22 +6,44 @@
       = radio_button_tag 'game_order', order, order == 'random', class: :required
   %section.field
     = label_tag 'game_opponent_id', t('actions.select_opponent')
-    #opponent_fields
+    = hidden_field_tag 'game_opponent_id', nil
+    #opponent_fields.slider
     :javascript
       $(function () {
         $.get("/games/opponent_fields", function (data) {
           $("#opponent_fields").html(data);
-          if ($("#opponent_fields input").size() == 0) {
+          if ($("#opponent_fields img.face").size() == 0) {
             $.invite_facebook();
-          };
+          } else {
+            $("#opponent_fields img.face:first").click();
+          }
         });
       });
   %section.field
     = f.label :theme
-    - current_user.themes.each do |theme|
-      %label.inline{ for: "game_theme_#{theme}" }
-        = game_theme_icon theme
-        = human_theme_name theme
-      = f.radio_button :theme, theme, class: :required
+    = f.hidden_field :theme
+    .slider
+      - current_user.themes.each do |theme|
+        .slide
+          = game_theme_icon theme, 'theme-id' => theme
   %section.actions
     = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
+:javascript
+  $(function () {
+    $('form.edit_game').on('click', 'img.face', function () {
+      var sliders = $(this).parents('.slider');
+      sliders.children('.slide').removeClass('active');
+      $(this).parents('.slide').addClass('active');
+    });
+    $('form.edit_game').on('click', 'img.theme', function () {
+      var theme_id = $(this).attr('theme-id');
+      $("input#game_theme").val(theme_id);
+      var body_class = $('body').attr('class');
+      $('body').attr('class', body_class.replace(/theme_\w+/, 'theme_' + theme_id));
+      var sliders = $(this).parents('.slider');
+      sliders.children('.slide').removeClass('active');
+      $(this).parents('.slide').addClass('active');
+    });
+
+    $('img.theme:first').click();
+  });

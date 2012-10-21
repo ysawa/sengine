@@ -11,8 +11,13 @@ module GamesHelper
     end
   end
 
-  def game_theme_icon(theme)
-    image_tag "themes/#{theme}.gif", class: 'theme'
+  def game_theme_icon(theme, html_options = {})
+    html_options = html_options.stringify_keys
+    html_options.reverse_merge!(
+      'class' => 'theme',
+      'title' => human_theme_name(theme)
+    )
+    image_tag "themes/#{theme}.gif", html_options
   end
 
   def convert_number_to_kanji(number)

@@ -2,7 +2,5 @@
   - @friends.each_with_index do |user, i|
     - user_decorator = UserDecorator.new(user)
     - user_id = user.id.to_s
-    %label.inline{ for: "game_opponent_id_#{user_id}" }
-      = user_decorator.image
-      = user_decorator.name(false)
-    = radio_button_tag 'game_opponent_id', user_id, i == 0, class: :required
+    .slide
+      = user_decorator.face
