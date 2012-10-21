@@ -144,6 +144,17 @@ ul.tabs
 aside.actions
   margin: 10px 0
 
+.slider
+  @include clearfix
+  @include user-select
+  .slide
+    @include square(50px)
+    padding: 5px
+    background: #fff
+    float: left
+    &.active
+      background: #77f
+
 /* pnotify */
 .ui-pnotify-history-container
   display: none
