@@ -13,4 +13,4 @@
         - html_classes << 'active'
       %li
         = link_to name, href, class: html_classes
-  = render 'games/games', games: @games
+  = render 'games/games', games: @games, show_not_found: true
