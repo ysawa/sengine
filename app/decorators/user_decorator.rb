@@ -16,7 +16,7 @@ class UserDecorator < ApplicationDecorator
   end
 
   def face(image_link = false, image_options = {})
-    content = image(image_link)
+    content = image(image_link, image_options)
     if model.online?
       content += h.content_tag :aside, online, class: :online
     end
