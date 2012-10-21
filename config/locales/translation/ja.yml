@@ -72,6 +72,7 @@ ja:
     check_: 'チェックしてください。'
     select: '選択してください'
   game:
+    everyone: 'みんなの対局'
     orders:
       random: 'おまかせ'
       sente: '先手'

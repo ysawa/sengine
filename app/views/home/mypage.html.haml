@@ -5,10 +5,16 @@
       = render 'profile/profile', user: current_user
     %nav#mypage_navi
       = render 'home/mypage/menu'
-  - if @games.present?
+  - games = Game.of_user(current_user).playing.desc(:created_at).limit(3).to_a
+  - if games.present?
     %ul.tabs
       %li
         %span.active
           = t("pages.controllers.games.playing")
-    = render 'games/games', games: @games, with_pagination: false
-
+  - else
+    - games = Game.desc(:created_at).limit(3).to_a
+    %ul.tabs
+      %li
+        %span.active
+          = t("game.everyone")
+  = render 'games/games', games: games, with_pagination: false

@@ -17,7 +17,6 @@ class HomeController < ApplicationController
       return
     end
     if user_signed_in?
-      @games = Game.of_user(current_user).playing.desc(:created_at).page(params[:page]).per(3)
       make_subtitle(:mypage)
       render action: :mypage
     else

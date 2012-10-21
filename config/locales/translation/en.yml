@@ -72,6 +72,7 @@ en:
     check_: 'Please Check.'
     select: 'Please Select'
   game:
+    everyone: 'Games'
     orders:
       random: 'Random'
       sente: 'Black'
