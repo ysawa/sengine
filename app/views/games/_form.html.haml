@@ -8,10 +8,13 @@
     = label_tag 'game_opponent_id', "2. #{t('actions.select_opponent')}"
     = hidden_field_tag 'game_opponent_id', nil
     #opponent_fields.slider
+      .left.disabled
+      .right.disabled
+      %ul.slides
     :javascript
       $(function () {
         $.get("/games/opponent_fields", function (data) {
-          $("#opponent_fields").html(data);
+          $("#opponent_fields ul.slides").html(data);
           if ($("#opponent_fields img.face").size() == 0) {
             $.invite_facebook();
           } else {
@@ -23,9 +26,12 @@
     = f.label :theme, "3. #{Game.human_attribute_name :theme}"
     = f.hidden_field :theme
     .slider
-      - current_user.themes.each do |theme|
-        .slide
-          = game_theme_icon theme, 'theme-id' => theme
+      .left.disabled
+      .right.disabled
+      %ul.slides
+        - current_user.themes.each do |theme|
+          %li.slide
+            = game_theme_icon theme, 'theme-id' => theme
   %section.actions
     = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
 :javascript
@@ -34,7 +40,7 @@
       var user_id = $(this).attr('user-id');
       $("input#game_opponent_id").val(user_id);
       var sliders = $(this).parents('.slider');
-      sliders.children('.slide').removeClass('active');
+      sliders.find('.slide').removeClass('active');
       $(this).parents('.slide').addClass('active');
     });
     $('form.edit_game').on('click', 'img.theme', function () {
@@ -43,7 +49,7 @@
       var body_class = $('body').attr('class');
       $('body').attr('class', body_class.replace(/theme_\w+/, 'theme_' + theme_id));
       var sliders = $(this).parents('.slider');
-      sliders.children('.slide').removeClass('active');
+      sliders.find('.slide').removeClass('active');
       $(this).parents('.slide').addClass('active');
     });
 

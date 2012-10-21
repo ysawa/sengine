@@ -2,5 +2,5 @@
   - @friends.each_with_index do |user, i|
     - user_decorator = UserDecorator.new(user)
     - user_id = user.id.to_s
-    .slide
+    %li.slide
       = user_decorator.face(false, { 'user-id' => user_id })
