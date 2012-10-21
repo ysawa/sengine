@@ -6,9 +6,9 @@
       - %w(sente gote random).each do |order|
         - html_options = { 'game-order' => order }
         - if order == 'random'
-          - html_options[:class] = 'button active game_order'
+          - html_options[:class] = 'active game_order'
         - else
-          - html_options[:class] = 'button game_order'
+          - html_options[:class] = 'game_order'
         = link_to t("game.orders.#{order}"), '#', html_options
   %section.field
     = label_tag 'game_opponent_id', "2. #{t('actions.select_opponent')}"
