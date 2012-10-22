@@ -14,6 +14,7 @@ set :deploy_via, :remote_cache
 set :deploy_to, "/var/lib/#{application}"
 set :rails_env, "production"
 set :use_sudo, false
+set :ssh_options, port: "22"
 
 role :web, "localhost"                          # Your HTTP server, Apache/etc
 role :app, "localhost"                          # This may be the same as your `Web` server
