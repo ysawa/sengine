@@ -48,6 +48,7 @@ ja:
     game_finished: 'みんなの将棋で%{winner}さんは%{loser}さんに勝ちました。'
     game_finished_and_upgrade: '%{winner}さんは%{loser}さんに勝ち、%{grade}になりました。'
   notices:
+    comment_appended: 'コメントが追加されました。'
     create: '%{model}を作成しました。'
     destroy: '%{model}を削除しました。'
     information: 'お知らせ'

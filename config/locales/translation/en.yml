@@ -48,6 +48,7 @@ en:
     game_finished: '%{winner} won %{loser} on Minna no Shogi.'
     game_finished_and_upgrade: '%{winner} won %{loser} to be %{grade}.'
   notices:
+    comment_appended: 'Comment was created.'
     create: '%{model} was successfully created.'
     destroy: '%{model} was successfully destoyed.'
     information: 'Information'

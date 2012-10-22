@@ -34,7 +34,11 @@ Shogiengine::Application.routes.draw do
 
   get "games/opponent_fields", to: "games#opponent_fields", as: "opponent_fields_game"
   resources :games, only: [:create, :destroy, :new, :index, :show] do
-    resources :comments
+    resources :comments do
+      collection do
+        get :check_update
+      end
+    end
     resources :movements
     collection do
       get :friends
