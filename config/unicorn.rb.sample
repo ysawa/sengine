@@ -10,7 +10,7 @@ worker_processes 2
 working_directory "/var/lib/#{application}/current"
 
 if ENV['RAILS_ENV'] == 'production'
-  shared_path = "/var/lib/#{application}/current"
+  shared_path = "/var/lib/#{application}/share"
   stderr_path = "#{shared_path}/log/unicorn.stderr.log"
   stdout_path = "#{shared_path}/log/unicorn.stdout.log"
 end

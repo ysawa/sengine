@@ -6,7 +6,8 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
-set :application, "minsho"
+set :application, "shogiengine"
+set :keep_releases, 5
 set :repository,  "git://github.com/ysawa/shogiengine.git"
 set :scm, :git
 set :branch, "master"
@@ -16,10 +17,11 @@ set :rails_env, "production"
 set :use_sudo, false
 set :ssh_options, port: "22"
 set :bundle_flags, "--quiet"
+set :user, 'shogiengine'
 
-role :web, "localhost"                          # Your HTTP server, Apache/etc
-role :app, "localhost"                          # This may be the same as your `Web` server
-role :db,  "localhost", primary: true # This is where Rails migrations will run
+role :web, "enique.jp"                          # Your HTTP server, Apache/etc
+role :app, "enique.jp"                          # This may be the same as your `Web` server
+role :db,  "enique.jp", primary: true # This is where Rails migrations will run
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
@@ -33,20 +35,37 @@ namespace :deploy do
   end
 
   task :stop, roles: :app, except: { no_release: true } do
-    run "kill -KILL -s QUIT `cat #{shared_path}/pids/unicorn.pid`"
+    pid_file = "#{shared_path}/pids/unicorn.pid"
+    run "kill -KILL -s QUIT `cat #{pid_file}`"
   end
 
   task :restart, roles: :app, except: { no_release: true } do
-    run "kill -KILL -s USR2 `cat #{shared_path}/pids/unicorn.pid`"
+    pid_file = "#{shared_path}/pids/unicorn.pid"
+    run "kill -KILL -s USR2 `cat #{pid_file}`"
+  end
+
+  task :setup_app_directories, roles: :app, except: { no_release: true } do
+    directories = "#{shared_path}/sockets #{shared_path}/config"
+    run "mkdir -p #{directories}; chmod g+w #{directories}"
+  end
+
+  desc "Symlinks files to configure"
+  task :symlink_config, roles: :app do
+    files = %w(mongoid.yml unicorn.rb system.yml)
+    files.each do |file|
+      run "ln -nfs #{shared_path}/config/#{file} #{release_path}/config/#{file}"
+    end
   end
 end
+after 'deploy:setup', 'deploy:setup_app_directories'
+after 'deploy:update_code', 'deploy:symlink_config'
 
 namespace :assets do
-  task :precompile, :roles => :web do
-    run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:precompile"
+  task :precompile, roles: :web do
+    run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:precompile"
   end
-  task :cleanup, :roles => :web do
-    run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:clean"
+  task :cleanup, roles: :web do
+    run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:clean"
   end
 end
-after :deploy, "assets:precompile"
+after 'deploy:update_code', "assets:precompile"
