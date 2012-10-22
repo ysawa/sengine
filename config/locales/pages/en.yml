@@ -24,7 +24,7 @@ en:
       help:
         index: 'Help'
       home:
-        mypage: 'MyPage'
+        mypage: 'My Page'
         top: 'Top'
       profile:
         show: 'Profile'

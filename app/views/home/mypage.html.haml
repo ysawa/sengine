@@ -9,13 +9,13 @@
   - games = Game.of_user(current_user).playing.desc(:created_at).limit(3).to_a
   - if games.present?
     - comments = Comment.of_game(games).desc(:created_at).limit(3).to_a
-    %ul.tabs
+    %ul.tabs#games_tab
       %li
         %span.active
           = t("pages.controllers.games.playing")
   - else
     - games = Game.desc(:created_at).limit(3).to_a
-    %ul.tabs
+    %ul.tabs#games_tab
       %li
         %span.active
           = t("game.everyone")
