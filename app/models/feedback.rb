@@ -20,12 +20,14 @@ class Feedback
   def dislike!(user)
     self.dislike_user_ids << (user.id)
     self.dislike_user_ids.uniq!
+    self.like_user_ids.delete user.id
     save
   end
 
   def like!(user)
     self.like_user_ids << (user.id)
     self.like_user_ids.uniq!
+    self.dislike_user_ids.delete user.id
     save
   end
 
