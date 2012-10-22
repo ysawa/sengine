@@ -96,4 +96,5 @@ end
 group :deployment do
   gem 'capistrano'
   gem 'capistrano_colors'
+  gem 'rvm-capistrano'
 end
