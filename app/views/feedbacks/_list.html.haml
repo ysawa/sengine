@@ -1,7 +1,5 @@
 - decorator = FeedbackDecorator.new feedback
 - html_classes = %w(feedback)
-- if defined?(number) && number == 0
-  - html_classes << 'first'
 %li{ class: html_classes }
   .status_buttons
     .status_button

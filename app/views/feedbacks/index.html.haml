@@ -3,5 +3,4 @@
   = render 'about'
   - if user_signed_in?
     = render 'form', feedback: @feedback
-  = render 'feedbacks', feedbacks: @feedbacks
-  = paginate @feedbacks
+  = render 'feedbacks', feedbacks: @feedbacks, with_pagination: true, first: true

@@ -1,6 +1,9 @@
-%ul#feedbacks
-  - feedbacks.each_with_index do |feedback, i|
-    = render 'feedbacks/list', feedback: feedback, number: i
+- html_classes = []
+- if defined?(first) && first
+  - html_classes << 'first'
+%ul#feedbacks{ class: html_classes }
+  - feedbacks.each do |feedback|
+    = render 'feedbacks/list', feedback: feedback
   - if defined?(show_not_found) && show_not_found && feedbacks.blank?
     %li.no_feedback
       = t('notices.model_was_not_found', model: Feedback.model_name.human)

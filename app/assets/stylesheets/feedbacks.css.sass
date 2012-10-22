@@ -24,6 +24,7 @@ article.feedback
 
 form.edit_feedback
   width: 520px
+  margin-bottom: 30px
   section.field
     margin: 10px 0
     @include clearfix
@@ -38,7 +39,8 @@ form.edit_feedback
   form.edit_feedback
 
 ul#feedbacks
-  margin-top: 30px
+  &.first
+    border-top: 1px solid $border_color
   li.feedback
     @include clearfix
     border-bottom: 1px solid $border_color
@@ -76,8 +78,6 @@ ul#feedbacks
     font-weight: bold
     padding: 20px 10px
     border-bottom: 1px solid $border_color
-  li.first
-    border-top: 1px solid $border_color
 @media only screen and (max-width: 759px)
   ul#feedbacks
     li.feedback
@@ -98,3 +98,19 @@ ul#feedbacks
           line-height: 38px
           float: left
 
+nav.next_feedback
+  margin: 20px 0
+  .see_more
+    width: 460px
+    text-align: center
+    margin: 0 auto
+  a.see_more
+    @include pill_button(#aaa)
+    display: block
+    text-decoration: none
+  span.see_more
+    @include pill_button(#eee)
+    display: block
+    color: #fff
+  a.see_more, span.see_more
+    font-size: 100%

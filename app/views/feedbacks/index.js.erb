@@ -1,0 +1,2 @@
+$('nav.next_feedback').before('<%= escape_javascript(render 'feedbacks/feedbacks', feedbacks: @feedbacks, with_pagination: true) %>');
+$('nav.next_feedback:last').remove();
