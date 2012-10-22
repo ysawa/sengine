@@ -8,6 +8,5 @@
   - unless game.playing?
     #game_result
       - won_decorator = UserDecorator.new game.won_user
-      = won_decorator.name
-      won!
+      = t('user.games.won', user: won_decorator.name(true)).html_safe
     = render 'play_buttons', game: game, board: board
