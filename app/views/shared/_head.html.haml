@@ -20,7 +20,8 @@
 %link{ rel: "shortcut icon", href: "/assets/favicon.png", type: "image/png" }
 %link{ rel: "shortcut icon", href: "/assets/favicon.ico", type: "image/vnd.microsoft.icon" }
 %meta{ itemprop: "image", content: "/assets/favicon.png" }
+- app_id = escape_javascript Shogiengine.system.facebook[:app_id]
+%meta{ property: "fb:app_id", content: app_id }
 = render 'shared/meta_seo'
 - if Rails.env.production?
   = render 'shared/google_analytics'
-
