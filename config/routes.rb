@@ -30,7 +30,12 @@ Shogiengine::Application.routes.draw do
 
   get "audio/encode/*filename", to: 'audio#encode'
 
-  resources :feedbacks, only: [:create, :index, :show]
+  resources :feedbacks, only: [:create, :index, :show] do
+    member do
+      put :dislike
+      put :like
+    end
+  end
 
   get "games/opponent_fields", to: "games#opponent_fields", as: "opponent_fields_game"
   resources :games, only: [:create, :destroy, :new, :index, :show] do

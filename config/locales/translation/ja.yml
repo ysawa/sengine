@@ -57,7 +57,9 @@ ja:
     publish: '%{model}を公開しました。'
     save: '%{model}を保存しました。'
     someone_deleted_this_game: '対局が削除されました。'
+    thanks_for_disliking: '反対にしました。'
     thanks_for_feedbacking: 'フィードバックしていただきありがとうございます。個別に対応していきます。しばらくお待ちください。'
+    thanks_for_liking: '賛成にしました。'
     unpublish: '%{model}を非公開にしました。'
     update: '%{model}を更新しました。'
     your_score_decreased: 'スコアが%{differential}下がりました。%{score}になりました。'
@@ -74,6 +76,10 @@ ja:
     feedback: '感想や意見を自由に投稿しましょう。'
     make_your_comment: 'コメント投稿ができます。'
     select: '選択してください'
+  feedback:
+    actions:
+      like: '賛成'
+      dislike: '反対'
   game:
     everyone: 'みんなの対局'
     orders:

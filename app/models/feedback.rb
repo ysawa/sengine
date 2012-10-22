@@ -4,10 +4,30 @@ class Feedback
   include Mongoid::Document
   include Mongoid::Timestamps
   field :content, type: String
-  field :published, type: Boolean, default: false
+  field :dislike_user_ids, type: Array
+  field :like_user_ids, type: Array
+  field :published, type: Boolean, default: true
   belongs_to :author, class_name: 'User'
   has_many :children, class_name: 'Feedback', inverse_of: :parent
   belongs_to :parent, class_name: 'Feedback', inverse_of: :children
+
+  def checked?(user)
+    result = self.like_user_ids.include?(user.id)
+    result ||= self.dislike_user_ids.include?(user.id)
+    result
+  end
+
+  def dislike!(user)
+    self.dislike_user_ids << (user.id)
+    self.dislike_user_ids.uniq!
+    save
+  end
+
+  def like!(user)
+    self.like_user_ids << (user.id)
+    self.like_user_ids.uniq!
+    save
+  end
 
   def publish!
     self.published = true

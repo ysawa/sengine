@@ -57,7 +57,9 @@ en:
     publish: '%{model} was successfully published.'
     save: '%{model} was successfully saved.'
     someone_deleted_this_game: 'This game is deleted.'
+    thanks_for_disliking: 'Thanks for disliking it!'
     thanks_for_feedbacking: 'Thanks for your feedbacking! We will write the response and upgrade our game.'
+    thanks_for_liking: 'Thanks for liking it!'
     unpublish: '%{model} was successfully unpublished.'
     update: '%{model} was successfully created.'
     your_score_decreased: 'Your score decreased by %{differential}. Your score is %{score} now.'
@@ -74,6 +76,10 @@ en:
     feedback: 'Write your feedback as you like.'
     make_your_comment: 'Make your comment.'
     select: 'Please Select'
+  feedback:
+    actions:
+      like: 'Like'
+      dislike: 'Dislike'
   game:
     everyone: 'Games'
     orders:

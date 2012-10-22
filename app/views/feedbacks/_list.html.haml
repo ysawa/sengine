@@ -1,0 +1,30 @@
+- decorator = FeedbackDecorator.new feedback
+- html_classes = %w(feedback)
+- if defined?(number) && number == 0
+  - html_classes << 'first'
+- if user_signed_in?
+  - checked = feedback.checked?(current_user)
+- else
+  - checked = false
+%li{ class: html_classes }
+  .status_buttons
+    .status_button
+      - href = like_feedback_path(feedback)
+      - name = t('feedback.actions.like')
+      - if checked
+        %span.like= name
+      - else
+        = link_to name, href, class: %w(like), 'data-method' => :put
+      .number
+        = decorator.like_number
+    .status_button
+      - href = dislike_feedback_path(feedback)
+      - name = t('feedback.actions.dislike')
+      - if checked
+        %span.dislike= name
+      - else
+        = link_to name, href, class: %w(dislike), 'data-method' => :put
+      .number
+        = decorator.dislike_number
+  .feedback_content
+    = decorator.content

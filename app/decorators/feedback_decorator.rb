@@ -23,6 +23,14 @@ class FeedbackDecorator < ApplicationDecorator
     end
   end
 
+  def dislike_number
+    model.dislike_user_ids.size
+  end
+
+  def like_number
+    model.like_user_ids.size
+  end
+
   def published
     if model.published
       '○'

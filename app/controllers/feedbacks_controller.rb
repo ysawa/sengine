@@ -2,8 +2,8 @@
 
 class FeedbacksController < ApplicationController
   respond_to :html, :js
-  before_filter :authenticate_user!, only: [:create]
-  before_filter :find_feedback, only: [:show]
+  before_filter :authenticate_user!, only: [:create, :dislike, :like]
+  before_filter :find_feedback, only: [:dislike, :like, :show]
 
   # POST /feedbacks
   def create
@@ -17,9 +17,24 @@ class FeedbacksController < ApplicationController
     end
   end
 
+  # PUT /feedbacks/1/dislike
+  def dislike
+    @feedback.dislike!(current_user)
+    flash[:notice] = t('notices.thanks_for_disliking')
+    respond_with(@feedback, location: feedbacks_path)
+  end
+
+  # PUT /feedbacks/1/like
+  def like
+    @feedback.like!(current_user)
+    flash[:notice] = t('notices.thanks_for_liking')
+    respond_with(@feedback, location: feedbacks_path)
+  end
+
   # GET /feedbacks
   def index
-    @feedbacks = Feedback.parents.published.page(params[:page])
+    @feedbacks = Feedback.parents.published.desc(:created_at)
+    @feedbacks = @feedbacks.page(params[:page]).per(10)
     @feedback = Feedback.new
     respond_with(@feedbacks)
   end
