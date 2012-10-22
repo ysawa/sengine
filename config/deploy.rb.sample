@@ -38,3 +38,13 @@ namespace :deploy do
     run "kill -KILL -s USR2 `cat #{shared_path}/pids/unicorn.pid`"
   end
 end
+
+namespace :assets do
+  task :precompile, :roles => :web do
+    run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:precompile"
+  end
+  task :cleanup, :roles => :web do
+    run "cd #{current_path} && RAILS_ENV=production bundle exec rake assets:clean"
+  end
+end
+after :deploy, "assets:precompile"
