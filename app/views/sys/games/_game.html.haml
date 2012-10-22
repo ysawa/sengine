@@ -1,6 +1,5 @@
-#game
-  .board_container
-    = render 'boards/board', board: board, game: game
+%article#game{ 'game-theme' => game.theme }
+  = render 'boards/board', board: board, game: game
   - unless game.playing?
     #game_result
       - won_decorator = UserDecorator.new game.won_user

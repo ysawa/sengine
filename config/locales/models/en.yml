@@ -21,6 +21,7 @@ en:
         created_at: 'Created'
         content: 'Content'
         published: 'Published'
+        success: 'Success'
       game:
         author: 'Author'
         boards: 'Boards'

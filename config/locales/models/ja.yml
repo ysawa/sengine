@@ -21,6 +21,7 @@ ja:
         created_at: '投稿日時'
         content: '内容'
         published: '公開'
+        success: '成功'
       game:
         author: '作成者'
         boards: '局面'

@@ -3,7 +3,7 @@
 class Sys::FeedbacksController < Sys::ApplicationController
   respond_to :html, :js
   before_filter :find_feedbacks
-  before_filter :find_feedback, only: [:destroy, :edit, :show, :publish, :unpublish, :update]
+  before_filter :find_feedback, only: [:destroy, :edit, :show, :success, :publish, :unpublish, :unsuccess, :update]
 
   # POST /feedbacks
   def create
@@ -40,6 +40,16 @@ class Sys::FeedbacksController < Sys::ApplicationController
     respond_with(@feedback)
   end
 
+  # PUT /sys/feedbacks/1/success
+  def success
+    if @feedback.success!
+      make_feedback_notice
+      respond_with(@feedback, location: sys_feedbacks_path)
+    else
+      redirect_to sys_feedbacks_path
+    end
+  end
+
   # PUT /sys/feedbacks/1/publish
   def publish
     if @feedback.publish!
@@ -53,6 +63,16 @@ class Sys::FeedbacksController < Sys::ApplicationController
   # PUT /sys/feedbacks/1/unpublish
   def unpublish
     if @feedback.unpublish!
+      make_feedback_notice
+      respond_with(@feedback, location: sys_feedbacks_path)
+    else
+      redirect_to sys_feedbacks_path
+    end
+  end
+
+  # PUT /sys/feedbacks/1/unsuccess
+  def unsuccess
+    if @feedback.unsuccess!
       make_feedback_notice
       respond_with(@feedback, location: sys_feedbacks_path)
     else

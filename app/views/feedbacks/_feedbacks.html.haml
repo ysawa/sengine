@@ -1,7 +1,5 @@
 - html_classes = []
-- if defined?(first) && first
-  - html_classes << 'first'
-%ul#feedbacks{ class: html_classes }
+%ul#feedbacks
   - feedbacks.each do |feedback|
     = render 'feedbacks/list', feedback: feedback
   - if defined?(show_not_found) && show_not_found && feedbacks.blank?

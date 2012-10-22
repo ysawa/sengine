@@ -1,0 +1,27 @@
+@charset "utf-8"
+
+/* Initializers of the Sass */
+@import 'bourbon'
+@import 'shared/helpers'
+
+#user_profile
+  @include clearfix
+  margin-bottom: 30px
+  a#user_face
+    float: left
+    display: block
+    width: 100px
+    height: 100px
+    margin-right: 20px
+  dl
+    float: left
+    width: 600px
+    @include clearfix
+    dt, dd
+      float: left
+      margin-bottom: 12px
+    dt
+      font-weight: bold
+      width: 120px
+    dd
+      width: 480px

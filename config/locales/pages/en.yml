@@ -12,6 +12,7 @@ en:
       feedbacks:
         index: "Everyone's Voice"
         show: 'Voice'
+        success: 'Success'
       games:
         created_at: 'Start'
         finished_at: 'Finish'

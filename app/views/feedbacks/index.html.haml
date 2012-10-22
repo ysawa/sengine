@@ -3,4 +3,13 @@
   = render 'about'
   - if user_signed_in?
     = render 'form', feedback: @feedback
-  = render 'feedbacks', feedbacks: @feedbacks, with_pagination: true, first: true
+  %ul.tabs
+    - %w(index success).each do |page|
+      - name = t("pages.controllers.feedbacks.#{page}")
+      - href = { controller: 'feedbacks', action: page }
+      - html_classes = []
+      - if action_name == page
+        - html_classes << 'active'
+      %li
+        = link_to name, href, class: html_classes
+  = render 'feedbacks', feedbacks: @feedbacks, with_pagination: true

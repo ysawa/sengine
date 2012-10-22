@@ -3,7 +3,9 @@
   = render 'feedbacks/feedback', feedback: @feedback
   - @feedback.children.each do |child|
     = render 'feedbacks/feedback', feedback: child
-  %h3= t('actions.reply')
-  = render 'form'
-
-  = link_to t('actions.back'), sys_feedbacks_path
+  .actions
+    - if @feedback.success?
+      = link_to t('actions.unsuccess'), unsuccess_sys_feedback_path(@feedback), 'data-method' => :put
+    - else
+      = link_to t('actions.success'), success_sys_feedback_path(@feedback), 'data-method' => :put
+    = link_to t('actions.back'), sys_feedbacks_path

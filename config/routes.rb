@@ -5,7 +5,9 @@ Shogiengine::Application.routes.draw do
     resources :feedbacks do
       member do
         put :publish
+        put :success
         put :unpublish
+        put :unsuccess
       end
     end
 
@@ -31,6 +33,9 @@ Shogiengine::Application.routes.draw do
   get "audio/encode/*filename", to: 'audio#encode'
 
   resources :feedbacks, only: [:create, :index, :show] do
+    collection do
+      get :success
+    end
     member do
       put :dislike
       put :like

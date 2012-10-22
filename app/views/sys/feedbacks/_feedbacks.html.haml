@@ -1,7 +1,7 @@
 %table.resources
   %thead
     %tr
-      - %w(created_at content published).each do |attr_name|
+      - %w(created_at content published success).each do |attr_name|
         %th= Feedback.human_attribute_name(attr_name)
       %th.spec{ colspan: 3 }
         &nbsp;
@@ -13,9 +13,11 @@
         %td
           = decorator.created_at
         %td
-          = decorator.content(false, 30)
+          = decorator.content(false, 20)
         %td
           = decorator.published
+        %td
+          = decorator.success
         %td
           = link_to t('actions.show'), [:sys, feedback]
         %td

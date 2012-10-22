@@ -2,7 +2,8 @@
 %html{ lang: I18n.locale }
   %head
     = render 'sys/shared/head'
-  %body.admin
+  - html_class = make_theme_class_from_game(@game)
+  %body.admin{ class: html_class }
     - if facebook_enabled?
       = render 'shared/facebook_javascript_sdk'
     .whole_container

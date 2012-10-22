@@ -38,4 +38,12 @@ class FeedbackDecorator < ApplicationDecorator
       '×'
     end
   end
+
+  def success
+    if model.success
+      '○'
+    else
+      '×'
+    end
+  end
 end

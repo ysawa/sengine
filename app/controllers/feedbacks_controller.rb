@@ -33,7 +33,7 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks
   def index
-    @feedbacks = Feedback.parents.published.desc(:created_at)
+    @feedbacks = Feedback.parents.published.unsuccess.desc(:created_at)
     @feedbacks = @feedbacks.page(params[:page]).per(10)
     @feedback = Feedback.new
     respond_with(@feedbacks)
@@ -42,6 +42,16 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/1
   def show
     respond_with(@feedback)
+  end
+
+  # GET /games/success
+  def success
+    @feedbacks = Feedback.parents.published.success.desc(:created_at)
+    @feedbacks = @feedbacks.page(params[:page]).per(10)
+    @feedback = Feedback.new
+    respond_with(@feedbacks) do |format|
+      format.html { render :index }
+    end
   end
 
 private
