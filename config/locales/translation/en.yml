@@ -82,6 +82,8 @@ en:
     actions:
       like: 'Like'
       dislike: 'Dislike'
+    status:
+      success: '[SUCCESS]'
   game:
     everyone: 'Games'
     orders:

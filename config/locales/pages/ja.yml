@@ -12,7 +12,7 @@ ja:
       feedbacks:
         index: 'みんなの声'
         show: 'みんなの声詳細'
-        success: '実現した声'
+        success: '解決した声'
       games:
         created_at: '開始時刻'
         finished_at: '終了時刻'

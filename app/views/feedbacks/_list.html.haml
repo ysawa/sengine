@@ -22,4 +22,7 @@
       .number
         = decorator.dislike_number
   .feedback_content
+    - if feedback.success?
+      %span.success
+        = t('feedback.status.success')
     = decorator.content

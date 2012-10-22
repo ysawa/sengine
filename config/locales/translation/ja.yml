@@ -84,6 +84,8 @@ ja:
     actions:
       like: '賛成'
       dislike: '反対'
+    status:
+      success: '[解決済み]'
   game:
     everyone: 'みんなの対局'
     orders:
