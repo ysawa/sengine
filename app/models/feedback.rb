@@ -4,8 +4,8 @@ class Feedback
   include Mongoid::Document
   include Mongoid::Timestamps
   field :content, type: String
-  field :dislike_user_ids, type: Array
-  field :like_user_ids, type: Array
+  field :dislike_user_ids, type: Array, default: []
+  field :like_user_ids, type: Array, default: []
   field :published, type: Boolean, default: true
   belongs_to :author, class_name: 'User'
   has_many :children, class_name: 'Feedback', inverse_of: :parent
