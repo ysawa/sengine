@@ -1,4 +1,5 @@
 facebook:
+  admin_id: ""
   app_id: ""
   app_secret: ""
   enabled: true
