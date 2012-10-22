@@ -55,16 +55,6 @@ $ ->
     # smart phone
     true
 
-  # reloading facebook comments automatically if enabled
-  setInterval(
-    ->
-      condition = $.check_if_facebook_enabled()
-      condition &&= $('input[name="reload_comments"]').attr('checked')
-      if condition
-        $.reload_comments()
-    , 10000)
-
-
   ###
   # Features around Facebook
   ###
