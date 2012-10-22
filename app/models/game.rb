@@ -91,7 +91,7 @@ class Game
     game_path = "/games/#{self.id}"
     options['link'] = "#{site_root}#{game_path}"
     options['caption'] = site_root.sub(/^(http|https):\/\//, '')
-    options['description'] = "From: #{I18n.l(self.created_at, locale: locale)}"
+    options['description'] = I18n.t('site.meta.description', locale: locale)
     message = I18n.t('feeds.game_created',
       sente: self.sente_user.name,
       gote: self.gote_user.name,
@@ -107,7 +107,7 @@ class Game
     game_path = "/games/#{self.id}"
     options['link'] = "#{site_root}#{game_path}"
     options['caption'] = site_root.sub(/^(http|https):\/\//, '')
-    options['description'] = "From: #{I18n.l(self.created_at, locale: locale)}"
+    options['description'] = I18n.t('site.meta.description', locale: locale)
     if self.won_user.grade_increased
       message = I18n.t('feeds.game_finished_and_upgrade',
         winner: self.won_user.name,

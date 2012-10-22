@@ -142,4 +142,7 @@ ja:
     theme_collection: 'コレクション'
   site:
     copyright: '(c) 2012 将棋友の会.'
+    meta:
+      keywords: '将棋,Facebookアプリ,棋力,ボードゲーム,どうぶつ将棋,脳トレ,教育'
+      description: 'みんなの将棋はFacebookアプリの将棋ゲームです。友達と将棋をプレイしよう。'
     title: 'みんなの将棋'

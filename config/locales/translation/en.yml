@@ -140,4 +140,7 @@ en:
     theme_collection: 'Collection'
   site:
     copyright: '(c) 2012 将棋友の会(Shogi Tomo No Kai).'
+    meta:
+      keywords: 'Shogi,将棋,Board Game,Brain Training,Education'
+      description: 'Minna no Shogi is the Facebook application to play Shogi with your friends.'
     title: 'Minna no Shogi'
