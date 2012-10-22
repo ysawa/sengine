@@ -1,4 +1,4 @@
-= form_for(current_user, url: setting_path, html: { class: :validated }) do |f|
+= form_for(current_user, url: setting_path, html: { class: %w(edit_user validated) }) do |f|
   %section.field
     = f.label :name
     = f.text_field :name, class: :required
