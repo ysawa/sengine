@@ -9,7 +9,7 @@ $ ->
             "/games/#{game_id}/check_update",
             number: game_number
           )
-      , 1500
+      , 2000
     )
     setInterval(
       ->
@@ -25,7 +25,7 @@ $ ->
               after: after
               except_ids: except_ids
             )
-      , 15000
+      , 20000
     )
     $.initialize_audio('put')
 
