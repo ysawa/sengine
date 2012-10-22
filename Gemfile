@@ -93,8 +93,6 @@ group :development, :test do
 end
 
 # Deploy with Capistrano
-group :deployment do
-  gem 'capistrano'
-  gem 'capistrano_colors'
-  gem 'rvm-capistrano'
-end
+gem 'capistrano'
+gem 'capistrano_colors'
+gem 'rvm-capistrano'
