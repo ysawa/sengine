@@ -13,7 +13,7 @@ class CommentDecorator < ApplicationDecorator
 
   def content
     if model.content
-      h.formatted_text(model.content).html_safe
+      prettify model.content
     end
   end
 end

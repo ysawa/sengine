@@ -9,6 +9,9 @@ en:
         privacy: 'Privacy Policy'
         tos: 'Terms of Service'
         us: 'About Us'
+      feedbacks:
+        index: "Everyone's Voice"
+        show: 'Voice'
       games:
         created_at: 'Start'
         finished_at: 'Finish'

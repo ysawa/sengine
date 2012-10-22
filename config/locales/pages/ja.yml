@@ -10,7 +10,7 @@ ja:
         tos: '利用規約'
         us: '運営者情報'
       feedbacks:
-        index: 'みんなの声一覧'
+        index: 'みんなの声'
         show: 'みんなの声詳細'
       games:
         created_at: '開始時刻'
