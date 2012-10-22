@@ -54,7 +54,6 @@ ja:
     information: 'お知らせ'
     its_your_turn: 'あなたの手番です。'
     model_was_not_found: '%{model}は見つかりませんでした。'
-    please_feedback: '感想や意見を自由に投稿しましょう。'
     publish: '%{model}を公開しました。'
     save: '%{model}を保存しました。'
     someone_deleted_this_game: '対局が削除されました。'
@@ -72,6 +71,8 @@ ja:
   please:
     check: 'チェックしてください'
     check_: 'チェックしてください。'
+    feedback: '感想や意見を自由に投稿しましょう。'
+    make_your_comment: 'コメント投稿ができます。'
     select: '選択してください'
   game:
     everyone: 'みんなの対局'

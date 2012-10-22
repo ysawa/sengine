@@ -54,7 +54,6 @@ en:
     information: 'Information'
     its_your_turn: "It's your turn."
     model_was_not_found: '%{model} was not found.'
-    please_feedback: 'Write your feedback as you like.'
     publish: '%{model} was successfully published.'
     save: '%{model} was successfully saved.'
     someone_deleted_this_game: 'This game is deleted.'
@@ -72,6 +71,8 @@ en:
   please:
     check: 'Please Check'
     check_: 'Please Check.'
+    feedback: 'Write your feedback as you like.'
+    make_your_comment: 'Make your comment.'
     select: 'Please Select'
   game:
     everyone: 'Games'

@@ -7,7 +7,7 @@
   = current_user_decorator.image
   %section.field
     - html_options = {}
-    - html_options[:placeholder] = Comment.human_attribute_name(:content)
+    - html_options[:placeholder] = t('please.make_your_comment')
     - html_options[:rows] =  4
     = f.text_area :content, html_options
     = f.submit t('helpers.submit.save'), disabled: true, 'data-disable-with' => t('actions.now_loading')
