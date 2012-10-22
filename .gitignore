@@ -12,6 +12,7 @@
 # Ignore configuration files
 /config/*.yml
 /config/unicorn.rb
+/config/deploy.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
