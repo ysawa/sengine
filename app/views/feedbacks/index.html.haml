@@ -12,4 +12,4 @@
         - html_classes << 'active'
       %li
         = link_to name, href, class: html_classes
-  = render 'feedbacks', feedbacks: @feedbacks, with_pagination: true
+  = render 'feedbacks', feedbacks: @feedbacks, with_pagination: true, show_not_found: true
