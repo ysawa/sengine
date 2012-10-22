@@ -11,6 +11,7 @@ class Feedback
   belongs_to :author, class_name: 'User'
   has_many :children, class_name: 'Feedback', inverse_of: :parent
   belongs_to :parent, class_name: 'Feedback', inverse_of: :children
+  before_save :strip_tail_line_feeds
 
   def checked?(user)
     result = self.like_user_ids.include?(user.id)
@@ -35,6 +36,12 @@ class Feedback
   def publish!
     self.published = true
     save
+  end
+
+  def strip_tail_line_feeds
+    if self.content?
+      self.content = self.content.sub(/(\r\n|\r|\n)+\z/,'')
+    end
   end
 
   def success!
