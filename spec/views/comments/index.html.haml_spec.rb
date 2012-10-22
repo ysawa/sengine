@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "comments/index" do
   before(:each) do
+    user_sign_in
     assign(:comments, [
       stub_model(Comment,
         :content => "Content"

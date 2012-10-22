@@ -38,14 +38,6 @@ describe CommentsController do
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested comment as @comment" do
-      comment = Comment.create! valid_attributes
-      get :edit, { game_id: @game.to_param, id: comment.to_param}
-      assigns(:comment).should eq(comment)
-    end
-  end
-
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Comment" do
@@ -62,7 +54,7 @@ describe CommentsController do
 
       it "redirects to the created comment" do
         post :create, { game_id: @game.to_param, comment: valid_attributes}
-        response.should redirect_to(Comment.last)
+        response.should redirect_to(game_comment_path @game, Comment.last)
       end
     end
 
@@ -83,50 +75,6 @@ describe CommentsController do
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested comment" do
-        comment = Comment.create! valid_attributes
-        # Assuming there are no other comments in the database, this
-        # specifies that the Comment created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Comment.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, { game_id: @game.to_param, id: comment.to_param, comment: {'these' => 'params'}}
-      end
-
-      it "assigns the requested comment as @comment" do
-        comment = Comment.create! valid_attributes
-        put :update, { game_id: @game.to_param, id: comment.to_param, comment: valid_attributes}
-        assigns(:comment).should eq(comment)
-      end
-
-      it "redirects to the comment" do
-        comment = Comment.create! valid_attributes
-        put :update, { game_id: @game.to_param, id: comment.to_param, comment: valid_attributes}
-        response.should redirect_to(comment)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the comment as @comment" do
-        comment = Comment.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Comment.any_instance.stub(:save).and_return(false)
-        put :update, { game_id: @game.to_param, id: comment.to_param, comment: {}}
-        assigns(:comment).should eq(comment)
-      end
-
-      it "re-renders the 'edit' template" do
-        comment = Comment.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Comment.any_instance.stub(:save).and_return(false)
-        put :update, { game_id: @game.to_param, id: comment.to_param, comment: {}}
-        response.should render_template("edit")
-      end
-    end
-  end
-
   describe "DELETE destroy" do
     it "destroys the requested comment" do
       comment = Comment.create! valid_attributes
@@ -138,7 +86,7 @@ describe CommentsController do
     it "redirects to the comments list" do
       comment = Comment.create! valid_attributes
       delete :destroy, { game_id: @game.to_param, id: comment.to_param}
-      response.should redirect_to(comments_url)
+      response.should redirect_to(game_comments_path @game)
     end
   end
 

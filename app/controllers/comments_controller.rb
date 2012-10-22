@@ -3,7 +3,7 @@
 class CommentsController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user!
-  before_filter :find_comment, only: %w(destroy edit show update)
+  before_filter :find_comment, only: %w(destroy show)
   before_filter :find_game
 
   # GET /games/1/comments/check_update
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
     @comment.author = current_user
     @comment.game = @game if @game
     if @comment.save
-      respond_with(@comment)
+      respond_with(@comment, location: game_comment_path(@game, @comment))
     else
       render :new
     end
@@ -49,13 +49,6 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_with(@comment, location: game_comments_path(@game))
-  end
-
-  # GET /comments/1/edit
-  def edit
-    respond_with(@comment) do |format|
-      format.html { render action: :edit }
-    end
   end
 
   # GET /comments
@@ -70,21 +63,13 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    respond_with(@comment = Comment.new)
+    @comment = Comment.new(game: @game)
+    respond_with(@comment)
   end
 
   # GET /comments/1
   def show
     respond_with(@comment)
-  end
-
-  # PUT /comments/1
-  def update
-    if @comment.update_attributes(params[:comment])
-      respond_with(@comment)
-    else
-      render :edit
-    end
   end
 
 private

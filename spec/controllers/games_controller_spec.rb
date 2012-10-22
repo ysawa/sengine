@@ -37,13 +37,13 @@ describe GamesController do
 
     describe "GET playing" do
       it "assigns all games as @games" do
-        game = Game.create! valid_attributes
+        game = Game.create! valid_attributes(sente_user: @user)
         get :playing, {}
-        assigns(:games).should eq([game])
+        assigns(:games).to_a.should eq([game])
       end
 
       it "assigns all games as @games" do
-        game = Game.create! valid_attributes({ playing: false })
+        game = Game.create! valid_attributes({ playing: false, sente_user: @user })
         get :playing, {}
         assigns(:games).should eq([])
       end
@@ -57,7 +57,7 @@ describe GamesController do
       end
 
       it "assigns all games as @games" do
-        game = Game.create! valid_attributes({ sente_user_id: @user.id })
+        game = Game.create! valid_attributes({ sente_user: @user })
         get :mine, {}
         assigns(:games).should eq([game])
       end

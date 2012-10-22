@@ -18,7 +18,7 @@ describe FeedbacksController do
     it "assigns all feedbacks as @feedbacks" do
       feedback = Feedback.create! valid_attributes
       get :index, {}
-      assigns(:feedbacks).should eq(Feedback.published.parents.page)
+      assigns(:feedbacks).should eq(Feedback.published.parents.page.to_a)
     end
   end
 
