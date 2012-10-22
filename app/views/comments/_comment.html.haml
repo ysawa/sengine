@@ -1,11 +1,19 @@
 - decorator = CommentDecorator.new comment
+- if defined?(with_game) && with_game && comment.game
+  - game_decorator = GameDecorator.new comment.game
+  - name = t('actions.see_model', model: Game.model_name.human)
+  - game_link = link_to name, comment.game
+- else
+  - game_link = nil
 %li.comment{ 'comment-id' => comment.id }
   = decorator.author_image true
   .comment_content
     = decorator.content
     %br
     = decorator.created_at
-    - if defined?(with_game) && with_game && comment.game
-      - game_decorator = GameDecorator.new comment.game
-      - name = t('actions.see_model', model: Game.model_name.human)
-      \(#{link_to name, comment.game})
+    - if game_link
+      %span.mobile_show
+        \(#{game_link})
+  - if game_link
+    .comment_game.mobile_hide
+      = game_link

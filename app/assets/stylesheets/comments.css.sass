@@ -5,7 +5,14 @@
 @import 'shared/helpers'
 
 #comments_set
-  margin: 30px 10px 0
+  margin: 30px auto 0
+  width: 520px
+  form.edit_comment
+    width: 520px
+  ul#comments
+    li.comment
+      width: 500px
+
 
 form.edit_comment
   width: 740px
@@ -41,6 +48,10 @@ ul#comments
       float: left
       line-height: 25px
       width: 440px
+    .comment_game
+      text-align: right
+      width: 220px
+      float: left
     @include atmospheric_background
     img.face
       float: left
