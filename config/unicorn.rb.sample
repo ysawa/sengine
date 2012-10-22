@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
 application = 'shogiengine'
+shared_path = "/var/lib/#{application}/shared"
 
-listen "/var/lib/#{application}/current/tmp/sockets/unicorn.sock"
-pid "/var/lib/#{application}/current/tmp/pids/unicorn.pid"
+listen "#{shared_path}/sockets/unicorn.sock"
+pid "#{shared_path}/pids/unicorn.pid"
 
 worker_processes 2
 
 working_directory "/var/lib/#{application}/current"
 
 if ENV['RAILS_ENV'] == 'production'
-  shared_path = "/var/lib/#{application}/share"
   stderr_path = "#{shared_path}/log/unicorn.stderr.log"
   stdout_path = "#{shared_path}/log/unicorn.stdout.log"
 end
