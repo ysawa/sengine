@@ -2,12 +2,11 @@ require 'capistrano_colors'
 
 require "bundler/capistrano"
 
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
-et :application, "minsho"
+set :application, "minsho"
 set :repository,  "git@github.com:ysawa/shogiengine.git"
 set :scm, :git
 set :branch, "master"
