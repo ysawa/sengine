@@ -22,6 +22,7 @@ en:
       game:
         author: 'Author'
         boards: 'Boards'
+        comments: 'comments'
         gote_user: 'White Player'
         lost_user: 'Lost Player'
         movements: 'Movements'

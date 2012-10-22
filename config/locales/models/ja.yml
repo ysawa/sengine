@@ -24,6 +24,7 @@ ja:
       game:
         author: '作成者'
         boards: '局面'
+        comments: 'コメント'
         created_at: '作成日時'
         gote_user: '後手'
         lost_user: '敗者'
