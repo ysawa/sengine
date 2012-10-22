@@ -7,12 +7,13 @@ set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
 set :application, "minsho"
-set :repository,  "git@github.com:ysawa/shogiengine.git"
+set :repository,  "git://github.com/ysawa/shogiengine.git"
 set :scm, :git
 set :branch, "master"
 set :deploy_via, :remote_cache
 set :deploy_to, "/var/lib/#{application}"
 set :rails_env, "production"
+set :use_sudo, false
 
 role :web, "localhost"                          # Your HTTP server, Apache/etc
 role :app, "localhost"                          # This may be the same as your `Web` server
