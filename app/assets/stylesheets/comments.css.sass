@@ -18,11 +18,15 @@ form.edit_comment
   section.field
     float: left
     margin: 10px 0
+    @include clearfix
+    width: 440px
     textarea#comment_content
       margin: 0
       width: 434px
     input[type="submit"]
+      float: right
       width: 100px
+      @include border-radius(5px)
 @media only screen and (max-width: 759px)
   form.edit_comment
     width: 520px

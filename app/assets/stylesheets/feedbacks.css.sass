@@ -19,7 +19,20 @@ article.feedback
     top: 10px
     right: 10px
 
-form#new_feedback
-  textarea#feedback_content
     width: 460px
     margin: 0 auto
+
+form.edit_feedback
+  width: 520px
+  section.field
+    margin: 10px 0
+    @include clearfix
+    textarea#feedback_content
+      margin: 0
+      width: 514px
+    input[type="submit"]
+      float: right
+      width: 100px
+      @include border-radius(5px)
+@media only screen and (max-width: 759px)
+  form.edit_feedback
