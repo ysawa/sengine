@@ -9,7 +9,23 @@ $ ->
             "/games/#{game_id}/check_update",
             number: game_number
           )
-      , 1000
+      , 1500
+    )
+    setInterval(
+      ->
+        if $('.board').present()
+          game_id = $('.board').attr('game_id')
+          after = $('.comment:first time').attr('datetime')
+          except_ids = []
+          $('.comment').each ->
+            except_ids.push($(this).attr('comment-id'))
+          if after
+            $.get(
+              "/games/#{game_id}/comments/check_update",
+              after: after
+              except_ids: except_ids
+            )
+      , 15000
     )
     $.initialize_audio('put')
 

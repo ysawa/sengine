@@ -1,0 +1,11 @@
+<%- buffer = [] %>
+<%- @comments.each do |comment| %>
+  <%- buffer << render('comments/comment', comment: comment) %>
+<%- end %>
+
+$('ul#comments').prepend('<%= escape_javascript buffer.join.html_safe %>');
+<%- notice_title = t('notices.information') %>
+<%- notice_text = t('notices.comment_appended') %>
+<%- if @comments.present? %>
+  $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript notice_text %>');
+<%- end %>
