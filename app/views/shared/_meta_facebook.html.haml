@@ -8,7 +8,14 @@
 %meta{ property: "og:url", content: root_url }
 %meta{ property: "og:description", content: t('site.meta.description') }
 %meta{ property: "og:image", content: "#{root_url}assets/favicon.png" }
-%meta{ property: "og:locale", content: I18n.locale }
+- if I18n.locale == :ja
+  - locale = 'ja_JP'
+- elsif I18n.locale == :en
+  - locale = 'en_US'
+- else
+  - locale = nil
+- if locale
+  %meta{ property: "og:locale", content: locale }
 - if controller_name == 'home' && action_name == 'index'
   %meta{ property: "og:type", content: 'website' }
 - else
