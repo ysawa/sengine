@@ -2,7 +2,7 @@
 
 class CommentsController < ApplicationController
   respond_to :html, :js
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_but_introduce_crawler!
   before_filter :find_comment, only: %w(destroy show)
   before_filter :find_game
 

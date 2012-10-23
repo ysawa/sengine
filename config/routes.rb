@@ -71,6 +71,8 @@ Shogiengine::Application.routes.draw do
   put "setting", to: "setting#update"
 
   root to: "home#index"
+  root to: "home#top"
+  root to: "home#mypage"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

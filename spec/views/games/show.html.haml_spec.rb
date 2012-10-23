@@ -4,7 +4,6 @@ require 'spec_helper'
 
 describe "games/show" do
   before(:each) do
-    user_sign_in
     @board = Board.hirate
     @board.game = @game
     @board.save
@@ -21,11 +20,27 @@ describe "games/show" do
     assign(:board, @board)
   end
 
-  it "renders a board with 81 cells" do
-    render
-    # board should have 81 cells
-    assert_select '.board' do
-      assert_select '.cell', 81
+  context 'if NOT signed in' do
+    it "renders a board with 81 cells" do
+      render
+      # board should have 81 cells
+      assert_select '.board' do
+        assert_select '.cell', 81
+      end
+    end
+  end
+
+  context 'if signed in' do
+    before :each do
+      user_sign_in
+    end
+
+    it "renders a board with 81 cells" do
+      render
+      # board should have 81 cells
+      assert_select '.board' do
+        assert_select '.cell', 81
+      end
     end
   end
 end

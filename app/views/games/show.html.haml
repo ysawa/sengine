@@ -1,22 +1,23 @@
 .common_container#game_page.broad
   = render 'games/game', game: @game, board: @board
 
-  #comments_set
-    %ul.tabs
-      %li
-        %span.active
-          = Comment.model_name.human
-    = render 'comments/form', comment: Comment.new(game: @game)
-    = render 'comments/comments', game: @game, with_pagination: true, pagination_params: { controller: :comments, action: :index, game_id: @game.id }
+  - if user_signed_in?
+    #comments_set
+      %ul.tabs
+        %li
+          %span.active
+            = Comment.model_name.human
+      = render 'comments/form', comment: Comment.new(game: @game)
+      = render 'comments/comments', game: @game, with_pagination: true, pagination_params: { controller: :comments, action: :index, game_id: @game.id }
 
-- your_turn = false
-- last_movement = @game.movements.last
-- if last_movement
-  - if current_user == @game.sente_user && last_movement.gote?
-    - your_turn = true
-  - elsif current_user == @game.gote_user && last_movement.sente?
-    - your_turn = true
+    - your_turn = false
+    - last_movement = @game.movements.last
+    - if last_movement
+      - if current_user == @game.sente_user && last_movement.gote?
+        - your_turn = true
+      - elsif current_user == @game.gote_user && last_movement.sente?
+        - your_turn = true
 
-- if your_turn
-  :javascript
-    #{render partial: 'notices/notice', formats: %w(js), locals: { notice_message: t('notices.its_your_turn') } }
+    - if your_turn
+      :javascript
+        #{render partial: 'notices/notice', formats: %w(js), locals: { notice_message: t('notices.its_your_turn') } }

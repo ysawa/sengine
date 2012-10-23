@@ -11,11 +11,13 @@ describe GamesController do
   end
 
   context 'if NOT signed in' do
-    describe "GET index" do
-      it "assigns all games as @games" do
-        game = Game.create! valid_attributes
-        get :index, {}
-        response.should be_redirect
+    %w(friends index mine playing).each do |action_name|
+      describe "GET #{action_name}" do
+        it "redirect to sign in" do
+          game = Game.create! valid_attributes
+          get action_name, {}
+          response.should be_redirect
+        end
       end
     end
   end

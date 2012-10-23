@@ -2,13 +2,14 @@
 
 class GamesController < ApplicationController
   respond_to :html, :js
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_but_introduce_crawler!, only: [:destroy, :edit, :friends, :give_up, :index, :mine, :playing, :update]
+  before_filter :authenticate_user_but_pass_crawler!, only: [:check_update, :show]
   before_filter :find_game, only: [:destroy, :edit, :give_up, :show, :update]
   before_filter :append_games_subtitle, only: [:friends, :mine, :playing]
 
   # GET /games/1/check_update
   def check_update
-    @game = Game.where(_id: params[:id]).first
+    @game = Game.where(_id: params[:id]).first # without error
     if @game
       number = @game.boards.count
       @game.check_and_save_if_playing

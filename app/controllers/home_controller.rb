@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   respond_to :html, :js
   protect_from_forgery except: %w(index)
 
-  before_filter :authenticate_user!, only: [:notices]
+  before_filter :authenticate_user_but_introduce_crawler!, only: [:notices]
 
   # GET /
   def index

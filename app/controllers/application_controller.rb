@@ -31,13 +31,19 @@ protected
     accepted.sort { |l1, l2| l2[1] <=> l1[1] }
   end
 
-  def authenticate_user!
-    if check_if_facebook_crawler
-      redirect_to root_path
-    elsif check_if_search_bot
+  def authenticate_user_but_pass_crawler!
+    if check_if_facebook_crawler || check_if_search_crawler
+      # pass crawler and do nothing
+    else
+      authenticate_user!
+    end
+  end
+
+  def authenticate_user_but_introduce_crawler!
+    if check_if_facebook_crawler || check_if_search_crawler
       redirect_to root_path
     else
-      super
+      authenticate_user!
     end
   end
 
@@ -47,7 +53,7 @@ protected
     false
   end
 
-  def check_if_search_bot
+  def check_if_search_crawler
     user_agent = request.env["HTTP_USER_AGENT"]
     return true if user_agent =~ /^(adsbot-google|baidu|bingbot|dotbot|hatena|googlebot|msnbot|yandex|yeti).*$/i
     return true if user_agent =~ /^.*(googlebot|http:\/\/help\.yahoo\.).*$/i

@@ -2,7 +2,7 @@
 
 class FeedbacksController < ApplicationController
   respond_to :html, :js
-  before_filter :authenticate_user!, only: [:create, :dislike, :like]
+  before_filter :authenticate_user_but_introduce_crawler!, only: [:create, :dislike, :like]
   before_filter :find_feedback, only: [:dislike, :like, :show]
 
   # POST /feedbacks

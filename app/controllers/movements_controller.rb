@@ -2,7 +2,7 @@
 
 class MovementsController < ApplicationController
   respond_to :html, :js, :json
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_but_introduce_crawler!
   before_filter :find_game
 
   # POST /games/1/movements

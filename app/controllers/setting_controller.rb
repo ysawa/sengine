@@ -2,7 +2,7 @@
 
 class SettingController < ApplicationController
   respond_to :html
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_but_introduce_crawler!
 
   # GET /setting/edit
   def edit
