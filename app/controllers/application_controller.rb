@@ -31,6 +31,19 @@ protected
     accepted.sort { |l1, l2| l2[1] <=> l1[1] }
   end
 
+  def authenticate_user!
+    if check_if_facebook_crawler
+      redirect_to root_path
+    else
+      super
+    end
+  end
+
+  def check_if_facebook_crawler
+    user_agent = request.env["HTTP_USER_AGENT"]
+    user_agent =~ /^(facebookexternalhit|facebookplatform).*$/i
+  end
+
   def load_facebook_token
     if session[:facebook_token].present?
       @facebook_token = session[:facebook_token]
