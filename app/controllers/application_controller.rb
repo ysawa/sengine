@@ -34,6 +34,8 @@ protected
   def authenticate_user!
     if check_if_facebook_crawler
       redirect_to root_path
+    elsif check_if_search_bot
+      redirect_to root_path
     else
       super
     end
@@ -41,7 +43,15 @@ protected
 
   def check_if_facebook_crawler
     user_agent = request.env["HTTP_USER_AGENT"]
-    user_agent =~ /^(facebookexternalhit|facebookplatform).*$/i
+    return true if user_agent =~ /^(facebookexternalhit|facebookplatform).*$/i
+    false
+  end
+
+  def check_if_search_bot
+    user_agent = request.env["HTTP_USER_AGENT"]
+    return true if user_agent =~ /^(adsbot-google|baidu|bingbot|dotbot|hatena|googlebot|msnbot|yandex|yeti).*$/i
+    return true if user_agent =~ /^.*(googlebot|http:\/\/help\.yahoo\.).*$/i
+    false
   end
 
   def load_facebook_token
