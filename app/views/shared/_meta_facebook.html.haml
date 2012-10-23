@@ -9,14 +9,14 @@
 %meta{ property: "og:description", content: t('site.meta.description') }
 %meta{ property: "og:image", content: "#{root_url}assets/favicon.png" }
 - if I18n.locale == :ja
-  - locale = 'ja_JP'
+  - page_locale = 'ja_JP'
 - elsif I18n.locale == :en
-  - locale = 'en_US'
+  - page_locale = 'en_US'
 - else
-  - locale = nil
-- if locale
-  %meta{ property: "og:locale", content: locale }
-- if controller_name == 'home' && action_name == 'index'
+  - page_locale = nil
+- if page_locale
+  %meta{ property: "og:locale", content: page_locale }
+- if %w(about help home).include? controller_name
   %meta{ property: "og:type", content: 'website' }
 - else
   %meta{ property: "og:type", content: 'article' }
