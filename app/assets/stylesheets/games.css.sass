@@ -208,6 +208,15 @@ form.edit_game
   section.field
     margin-bottom: 40px
 
+/* Smart Phone */
+@media only screen and (max-width: 759px)
+  form.edit_game
+    #order_field
+      a.game_order
+        font-size: $mobile_button_font_size
+        &.active
+          font-size: $mobile_button_font_size
+
 /* Layouts */
 
 section.board_container
@@ -242,3 +251,4 @@ section.board_container
       width: $cell_width * 9
       height: $cell_height
       padding: 0 $side_cell_width
+
