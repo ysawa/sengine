@@ -146,6 +146,27 @@ ul.tabs
         color: #000
         background: #fff
 
+nav.pagination
+  margin: 20px 0
+  .see_more
+    width: 480px
+    text-align: center
+    margin: 0 auto
+  a.see_more
+    @include pill_button(#aaa)
+    display: block
+    text-decoration: none
+  span.see_more
+    @include pill_button(#eee)
+    display: block
+    color: #fff
+  a.see_more, span.see_more
+    font-size: 100%
+@media only screen and (max-width: 759px)
+  nav.pagination
+    a.see_more, span.see_more
+      font-size: $mobile_button_font_size
+
 aside.actions
   margin: 10px 0
 

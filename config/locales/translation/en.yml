@@ -22,7 +22,9 @@ en:
     show: 'Show'
     sign_in_and_start: 'Sign In and Start'
     submitting: 'Submitting...'
+    success: 'Make successful'
     unpublish: 'Unpublish'
+    unsuccess: 'Make unsuccessful'
     unset_admin: 'Unset Admin'
     wait: 'Matta'
   helpers:

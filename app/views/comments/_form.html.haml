@@ -10,7 +10,7 @@
     - html_options[:placeholder] = t('please.make_your_comment')
     - html_options[:rows] =  4
     = f.text_area :content, html_options
-    = f.submit t('helpers.submit.save'), disabled: true, 'data-disable-with' => t('actions.now_loading')
+    = f.submit t('helpers.submit.send'), disabled: true, 'data-disable-with' => t('actions.submitting')
   :javascript
     $(function () {
       $('form.edit_comment').on('keyup', 'textarea', function () {
