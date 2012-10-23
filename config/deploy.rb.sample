@@ -69,3 +69,4 @@ namespace :assets do
   end
 end
 after 'deploy:update_code', "assets:precompile"
+after "deploy:update", "deploy:cleanup"
