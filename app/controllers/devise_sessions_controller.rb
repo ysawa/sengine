@@ -8,7 +8,7 @@ class DeviseSessionsController < Devise::SessionsController
   def new
     if Rails.env.production?
       # In production, forbid signing in by email and password.
-      redirect_to root_path
+      redirect_to user_omniauth_authorize_path(:facebook)
     else
       resource = build_resource(nil, :unsafe => true)
       clean_up_passwords(resource)
