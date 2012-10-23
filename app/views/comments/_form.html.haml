@@ -13,7 +13,7 @@
     = f.submit t('helpers.submit.send'), disabled: true, 'data-disable-with' => t('actions.submitting')
   :javascript
     $(function () {
-      $('form.edit_comment').on('keyup', 'textarea', function () {
+      $('form.edit_comment').on('keyup keypress change', 'textarea', function () {
         var value = $(this).val();
         var submit = $(this).siblings('input[type="submit"]');
         if (value.match(/^\s*$/)) {

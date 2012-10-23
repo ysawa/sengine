@@ -5,7 +5,7 @@
     = f.submit t('helpers.submit.submit'), 'data-disable-with' => t('actions.submitting'), disabled: true
   :javascript
     $(function () {
-      $('form.edit_feedback').on('keyup', 'textarea', function () {
+      $('form.edit_feedback').on('keyup keypress change', 'textarea', function () {
         var value = $(this).val();
         var submit = $(this).siblings('input[type="submit"]');
         if (value.match(/^\s*$/)) {
