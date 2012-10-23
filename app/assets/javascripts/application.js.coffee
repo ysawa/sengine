@@ -55,6 +55,17 @@ $ ->
     # smart phone
     true
 
+  change_viewport = ->
+    mobile_width = 540.0
+    width = $(window).width()
+    ratio = width / mobile_width
+    viewport = $('meta[name="viewport"]')
+    content = viewport.attr('content')
+    content = content.replace(/(\d|\.)+$/, '' + ratio)
+    viewport.attr('content', content)
+  $(window).resize change_viewport
+  change_viewport()
+
   ###
   # Features around Facebook
   ###
