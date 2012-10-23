@@ -1,0 +1,15 @@
+- app_id = escape_javascript Shogiengine.system.facebook[:app_id]
+- if app_id.present?
+  %meta{ property: "fb:app_id", content: app_id }
+- admin_id = escape_javascript Shogiengine.system.facebook[:admin_id]
+- if admin_id.present?
+  %meta{ property: "fb:admins", content: admin_id }
+%meta{ property: "og:site_name", content: t('site.title') }
+%meta{ property: "og:url", content: root_url }
+%meta{ property: "og:description", content: t('site.meta.description') }
+%meta{ property: "og:image", content: "#{root_url}assets/favicon.png" }
+%meta{ property: "og:locale", content: I18n.locale }
+- if controller_name == 'home' && action_name == 'index'
+  %meta{ property: "og:type", content: 'website' }
+- else
+  %meta{ property: "og:type", content: 'article' }
