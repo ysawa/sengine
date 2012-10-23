@@ -28,7 +28,7 @@ protected
     }
 
     # sort locales by quality
-    accepted.sort { |l1, l2| l1[1] <=> l2[1] }
+    accepted.sort { |l1, l2| l2[1] <=> l1[1] }
   end
 
   def load_facebook_token
