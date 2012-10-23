@@ -18,23 +18,6 @@
       .right.disabled
       .now_loading
         = t('actions.now_loading')
-    :javascript
-      $(function () {
-        $.get("/games/opponent_fields", function (data) {
-          var slider = $("#opponents_slider");
-          var slides = $("<ul>").addClass('slides');
-          slides.html(data);
-          slider.append(slides);
-          slider.children('.now_loading').remove();
-          var size = $("#opponents_slider a.face").size();
-          if (size == 0) {
-            $.invite_facebook();
-          } else {
-            $("#opponents_slider a.face:first").click();
-            $('#opponents_slider').form_slider();
-          }
-        });
-      });
   %section.field
     = f.label :theme, "3. #{Game.human_attribute_name :theme}"
     = f.hidden_field :theme
@@ -50,32 +33,5 @@
     = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
 :javascript
   $(function () {
-    $('form.edit_game').on('click', 'a.game_order', function () {
-      var game_order = $(this).attr('game-order');
-      $('a.game_order').removeClass('active');
-      $(this).addClass('active');
-      $('input#game_order').val(game_order);
-      return false;
-    });
-    $('form.edit_game').on('click', 'a.face', function () {
-      var user_id = $(this).find('img').attr('user-id');
-      $("input#game_opponent_id").val(user_id);
-      var sliders = $(this).parents('.slider');
-      sliders.find('.slide').removeClass('active');
-      $(this).parents('.slide').addClass('active');
-      return false;
-    });
-    $('form.edit_game').on('click', 'a.theme', function () {
-      var theme_id = $(this).children('img').attr('theme-id');
-      $("input#game_theme").val(theme_id);
-      var body_class = $('body').attr('class');
-      $('body').attr('class', body_class.replace(/theme_\w+/, 'theme_' + theme_id));
-      var sliders = $(this).parents('.slider');
-      sliders.find('.slide').removeClass('active');
-      $(this).parents('.slide').addClass('active');
-      return false;
-    });
-
-    $('a.theme:first').click();
-    $('#themes_slider').form_slider();
+    Shogi.edit_game_form($('form.edit_game'));
   });

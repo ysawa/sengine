@@ -47,7 +47,43 @@ class Shogi
           result = true
           break
     result
-
+  @edit_game_form: (form) ->
+    form.on "click", "a.game_order", ->
+      game_order = $(this).attr("game-order")
+      $("a.game_order").removeClass "active"
+      $(this).addClass "active"
+      $("input#game_order").val game_order
+      false
+    form.on "click", "a.face", ->
+      user_id = $(this).find("img").attr("user-id")
+      $("input#game_opponent_id").val user_id
+      sliders = $(this).parents(".slider")
+      sliders.find(".slide").removeClass "active"
+      $(this).parents(".slide").addClass "active"
+      false
+    form.on "click", "a.theme", ->
+      theme_id = $(this).children("img").attr("theme-id")
+      $("input#game_theme").val theme_id
+      body_class = $("body").attr("class")
+      $("body").attr "class", body_class.replace(/theme_\w+/, "theme_" + theme_id)
+      sliders = $(this).parents(".slider")
+      sliders.find(".slide").removeClass "active"
+      $(this).parents(".slide").addClass "active"
+      false
+    form.find("a.theme:first").click()
+    form.find("#themes_slider").form_slider()
+    $.get "/games/opponent_fields", (data) ->
+      slider = form.find("#opponents_slider")
+      slides = $("<ul>").addClass("slides")
+      slides.html data
+      slider.append slides
+      slider.children(".now_loading").remove()
+      size = form.find("#opponents_slider a.face").size()
+      if size is 0
+        $.invite_facebook()
+      else
+        form.find("#opponents_slider a.face:first").click()
+        form.find("#opponents_slider").form_slider()
   @execute_movement_on_board = (piece_selected, to_point, reverse) ->
     # take opponent piece into proponent hand
     if Shogi.cell_on_point_have_opponent_piece(to_point)

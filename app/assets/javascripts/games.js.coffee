@@ -102,4 +102,3 @@ $ ->
 
       Shogi.flip_turn()
   initialize_game()
-
