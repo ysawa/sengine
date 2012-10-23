@@ -24,3 +24,6 @@
 = render 'shared/meta_facebook'
 - if Rails.env.production?
   = render 'shared/google_analytics'
+- robots = escape_javascript Shogiengine.system.site[:robots]
+- if robots.present?
+  %meta{ name: "robots", content: robots }
