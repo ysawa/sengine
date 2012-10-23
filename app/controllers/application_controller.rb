@@ -20,10 +20,10 @@ protected
     accepted = accepted.map { |l|
       if (l.size == 2)
         # quality present
-        [ l[0].split("-")[0].downcase, l[1].sub(/^q=/, "").to_f ]
+        [l[0].split("-")[0].downcase, l[1].sub(/^q=/, "").to_f]
       else
         # no quality specified => quality == 1
-        [ l[0].split("-")[0].downcase, 1.0 ]
+        [l[0].split("-")[0].downcase, 1.0]
       end
     }
 
