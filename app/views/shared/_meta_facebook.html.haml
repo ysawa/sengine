@@ -16,7 +16,7 @@
   - locale = nil
 - if locale
   %meta{ property: "og:locale", content: locale }
-- if controller_name == 'home' && action_name == 'index'
+- if %w(about help home).include? controller_name
   %meta{ property: "og:type", content: 'website' }
 - else
   %meta{ property: "og:type", content: 'article' }
