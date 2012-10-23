@@ -4,6 +4,15 @@
 - admin_id = escape_javascript Shogiengine.system.facebook[:admin_id]
 - if admin_id.present?
   %meta{ property: "fb:admins", content: admin_id }
+- if @top_page
+  - title_elements = [t('pages.controllers.home.top')]
+- elsif @game
+  - title_elements = site_title_elements @game
+- elsif @user
+  - title_elements = site_title_elements @user
+- else
+  - title_elements = site_title_elements @subtitle
+%meta{ property: "og:title", content: title_elements.first }
 %meta{ property: "og:site_name", content: t('site.title') }
 %meta{ property: "og:url", content: root_url }
 %meta{ property: "og:description", content: t('site.meta.description') }

@@ -30,6 +30,11 @@ module ApplicationHelper
   end
 
   def site_title(subtitle = nil)
+    elements = site_title_elements(subtitle)
+    elements.join(' | ')
+  end
+
+  def site_title_elements(subtitle = nil)
     elements = []
     case subtitle
     when nil
@@ -63,6 +68,6 @@ module ApplicationHelper
       elements << subtitle.to_s
     end
     elements << I18n.t('site.title')
-    elements.join(' | ')
+    elements
   end
 end
