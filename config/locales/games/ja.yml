@@ -1,5 +1,22 @@
 ja:
   game:
+    handicaps:
+      hirate: '平手'
+      proponent_hi: 'あなたの飛車落ち'
+      proponent_ka: 'あなたの角落ち'
+      proponent_two: 'あなたの二枚落ち'
+      proponent_four: 'あなたの四枚落ち'
+      proponent_six: 'あなたの六枚落ち'
+      proponent_eight: 'あなたの八枚落ち'
+      proponent_ten: 'あなたの十枚落ち'
+      opponent_hi: '相手の飛車落ち'
+      opponent_ka: '相手の角落ち'
+      opponent_two: '相手の二枚落ち'
+      opponent_four: '相手の四枚落ち'
+      opponent_six: '相手の六枚落ち'
+      opponent_eight: '相手の八枚落ち'
+      opponent_ten: '相手の十枚落ち'
+
     themes:
       default: 'デフォルト'
       test: 'テスト'

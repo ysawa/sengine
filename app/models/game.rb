@@ -3,6 +3,7 @@
 class Game
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :handicap, type: String
   field :finished_at, type: Time
   field :given_up, type: Boolean
   field :number, type: Integer, default: 0
@@ -11,6 +12,8 @@ class Game
   field :user_noticed_ids, type: Array, default: []
 
   THEMES = %w(default test)
+  HANDICAPS = %w(hi ka two four six eight ten)
+
   has_many :boards
   has_many :comments
   has_many :movements
@@ -124,6 +127,10 @@ class Game
     end
   end
 
+  def handicapped?
+    HANDICAPS.include? self.handicap
+  end
+
   def make_board_from_movement(movement)
     number = self.boards.count
     board = self.boards.last.dup
@@ -140,19 +147,19 @@ class Game
     board.save && self.save
   end
 
-  def users
-    result = []
-    result << self.sente_user if self.sente_user
-    result << self.gote_user if self.gote_user
-    result
-  end
-
   def of_user?(user)
     if user
       self.sente_user_id == user.id || self.gote_user_id == user.id
     else
       false
     end
+  end
+
+  def users
+    result = []
+    result << self.sente_user if self.sente_user
+    result << self.gote_user if self.gote_user
+    result
   end
 
   class << self

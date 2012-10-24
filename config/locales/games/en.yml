@@ -1,5 +1,21 @@
 en:
   game:
+    handicaps:
+      hirate: 'Normal'
+      proponent_hi: 'Drop Your Hisha'
+      proponent_ka: 'Drop Your Kaku'
+      proponent_two: 'Drop Your Two Pieces'
+      proponent_four: 'Drop Your Four Pieces'
+      proponent_six: 'Drop Your Six Pieces'
+      proponent_eight: 'Drop Your Eight Pieces'
+      proponent_ten: 'Drop Your Ten Pieces'
+      opponent_hi: "Drop Opponent's Hisha"
+      opponent_ka: "Drop Opponent's Kaku"
+      opponent_two: "Drop Opponent's Two Pieces"
+      opponent_four: "Drop Opponent's Four Pieces"
+      opponent_six: "Drop Opponent's Six Pieces"
+      opponent_eight: "Drop Opponent's Eight Pieces"
+      opponent_ten: "Drop Opponent's Ten Pieces"
     themes:
       default: 'Default'
       test: 'Test'

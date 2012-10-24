@@ -79,4 +79,27 @@ describe Game do
       @game.boards.count.should == 2
     end
   end
+
+  describe '.handicap' do
+    before :each do
+      @sente_user = Fabricate(:user, name: 'sente')
+      @gote_user = Fabricate(:user, name: 'gote')
+      @game = Fabricate(:game, sente_user: @sente_user, gote_user: @gote_user)
+    end
+
+    it 'hirate is not a handicap' do
+      @game.handicap = nil
+      @game.handicapped?.should be_false
+    end
+
+    it "hi is sente's handicap" do
+      @game.handicap = 'hi'
+      @game.handicapped?.should be_true
+    end
+
+    it "four is sente's handicap" do
+      @game.handicap = 'four'
+      @game.handicapped?.should be_true
+    end
+  end
 end
