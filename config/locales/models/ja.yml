@@ -27,6 +27,7 @@ ja:
         boards: '局面'
         comments: 'コメント'
         created_at: '作成日時'
+        handicap: '手合い'
         gote_user: '後手'
         lost_user: '敗者'
         movements: '棋譜'

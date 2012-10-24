@@ -172,13 +172,26 @@ private
   def set_game_players
     begin
       opponent = User.find(params[:game_opponent_id])
-      case params[:game_order]
-      when 'sente'
+      handicap = params[:game_handicap]
+      if handicap =~ /(\w+)_(\w+)$/
+        handicap_side = $1
+        @game.handicap = $2
+      else
+        handicap_side = nil
+      end
+      if handicap_side == 'proponent'
         sente = true
-      when 'gote'
+      elsif handicap_side == 'opponent'
         sente = false
       else
-        sente = [true, false].sample
+        case params[:game_order]
+        when 'sente'
+          sente = true
+        when 'gote'
+          sente = false
+        else
+          sente = [true, false].sample
+        end
       end
       if sente
         @game.sente_user = current_user

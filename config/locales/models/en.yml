@@ -26,6 +26,7 @@ en:
         author: 'Author'
         boards: 'Boards'
         comments: 'comments'
+        handicap: 'Handicap'
         gote_user: 'White Player'
         lost_user: 'Lost Player'
         movements: 'Movements'

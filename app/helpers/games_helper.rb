@@ -2,6 +2,18 @@
 
 module GamesHelper
   KANSUJIS = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+  HANDICAPS = %w(hirate
+                 proponent_hi proponent_ka proponent_two proponent_four
+                 proponent_six proponent_eight proponent_ten
+                 opponent_hi opponent_ka opponent_two opponent_four
+                 opponent_six opponent_eight opponent_ten)
+
+  def game_handicaps_for_select
+    ::GamesHelper::HANDICAPS.collect do |handicap|
+      name = I18n.t("game.handicaps.#{handicap}")
+      [name, handicap]
+    end
+  end
 
   def make_theme_class_from_game(game)
     if game && game.theme
@@ -21,7 +33,7 @@ module GamesHelper
   end
 
   def convert_number_to_kanji(number)
-    KANSUJIS[number]
+    ::GamesHelper::KANSUJIS[number]
   end
 
   def human_theme_name(theme)

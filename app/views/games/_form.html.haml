@@ -29,6 +29,10 @@
           %li.slide
             %a{ class: :theme, href: '#' }
               = game_theme_icon theme, 'theme-id' => theme
+  %section.field
+    = f.label :handicap, "4. #{Game.human_attribute_name :handicap}"
+    #game_handicap_select
+      = select_tag :game_handicap, options_for_select(game_handicaps_for_select)
   %section.actions
     = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
 :javascript

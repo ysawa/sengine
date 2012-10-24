@@ -96,6 +96,32 @@ describe GamesController do
           assigns(:game).should be_persisted
         end
 
+        it "assigns a game as @game with the correct order of players" do
+          params = { game: valid_attributes, game_opponent_id: @opponent.id.to_s }
+          params[:game_order] = 'sente'
+          post :create, params
+          assigns(:game).sente_user.should == @user
+          assigns(:game).gote_user.should == @opponent
+          params[:game_order] = 'gote'
+          post :create, params
+          assigns(:game).sente_user.should == @opponent
+          assigns(:game).gote_user.should == @user
+        end
+
+        it "assigns a game as @game with the correct handicap" do
+          params = { game: valid_attributes, game_opponent_id: @opponent.id.to_s, game_order: 'sente' }
+          params[:game_handicap] = 'proponent_hi'
+          post :create, params
+          assigns(:game).handicap.should == 'hi'
+          assigns(:game).sente_user.should == @user
+          assigns(:game).gote_user.should == @opponent
+          params[:game_handicap] = 'opponent_four'
+          post :create, params
+          assigns(:game).handicap.should == 'four'
+          assigns(:game).sente_user.should == @opponent
+          assigns(:game).gote_user.should == @user
+        end
+
         it "redirects to the created game" do
           post :create, { game: valid_attributes, game_opponent_id: @opponent.id.to_s }
           response.should redirect_to(Game.last)
