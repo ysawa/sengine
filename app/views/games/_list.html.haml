@@ -11,7 +11,7 @@
     - if gote_decorator
       = gote_decorator.image
   .game_info
-    = link_to "#{decorator.created_at}〜".html_safe, game
+    = decorator.name(true)
     %br
     %span.mobile_hide
       = t('game.time_span')
