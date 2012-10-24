@@ -18,8 +18,5 @@
       %span.mobile_show
         \(#{game_link})
   - if game_link
-    - sente_decorator = UserDecorator.new(game.sente_user)
-    - gote_decorator = UserDecorator.new(game.gote_user)
     .comment_game.mobile_hide
-      - game_name = "#{sente_decorator.name} vs #{gote_decorator.name}"
-      = link_to game_name, game
+      = game_decorator.name(true, false)

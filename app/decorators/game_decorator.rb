@@ -13,6 +13,17 @@ class GameDecorator < ApplicationDecorator
     localize_time(time, options)
   end
 
+  def name(link = false, user_link = false)
+    sente_decorator = UserDecorator.new(game.sente_user)
+    gote_decorator = UserDecorator.new(game.gote_user)
+    game_name = "#{sente_decorator.name(user_link)} vs #{gote_decorator.name(user_link)}".html_safe
+    if link
+      h.link_to game_name, model
+    else
+      game_name
+    end
+  end
+
   def time_span
     if model.finished_at
       time = model.finished_at
