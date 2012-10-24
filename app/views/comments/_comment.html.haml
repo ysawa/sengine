@@ -1,8 +1,9 @@
 - decorator = CommentDecorator.new comment
-- if defined?(with_game) && with_game && comment.game
-  - game_decorator = GameDecorator.new comment.game
+- game = comment.game
+- if defined?(with_game) && with_game && game
+  - game_decorator = GameDecorator.new game
   - name = t('actions.see_model', model: Game.model_name.human)
-  - game_link = link_to name, comment.game
+  - game_link = link_to name, game
 - else
   - game_link = nil
 - unless defined?(insert_time)
@@ -17,5 +18,8 @@
       %span.mobile_show
         \(#{game_link})
   - if game_link
+    - sente_decorator = UserDecorator.new(game.sente_user)
+    - gote_decorator = UserDecorator.new(game.gote_user)
     .comment_game.mobile_hide
-      = game_link
+      - game_name = "#{sente_decorator.name} vs #{gote_decorator.name}"
+      = link_to game_name, game
