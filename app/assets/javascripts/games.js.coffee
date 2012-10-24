@@ -10,10 +10,11 @@ $ ->
           data:
             number: game_number
           dataType: 'script'
-          timeout: 4000
+          timeout: 10000
+          complete: (xhr, status) ->
+            setTimeout(reload_game_if_enabled, 2000)
         )
-
-    setInterval(reload_game_if_enabled, 2000)
+    setTimeout(reload_game_if_enabled, 2000)
     reload_comment_if_enabled = ->
       if $('.board').present()
         game_id = $('.board').attr('game_id')
@@ -29,9 +30,11 @@ $ ->
               after: after
               except_ids: except_ids
             dataType: 'script'
-            timeout: 4000
+            timeout: 10000
+            complete: (xhr, status) ->
+              setTimeout(reload_comment_if_enabled, 20000)
           )
-    setInterval(reload_comment_if_enabled, 20000)
+    setTimeout(reload_comment_if_enabled, 20000)
     $.initialize_audio('put')
 
     $('#play_buttons a').live 'ajax:beforeSend', ->
