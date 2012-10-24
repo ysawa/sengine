@@ -14,6 +14,8 @@ $ ->
           complete: (xhr, status) ->
             setTimeout(reload_game_if_enabled, 2000)
         )
+      else
+        setTimeout(reload_game_if_enabled, 10000)
     setTimeout(reload_game_if_enabled, 2000)
     reload_comment_if_enabled = ->
       if $('.board').present()
@@ -34,6 +36,8 @@ $ ->
             complete: (xhr, status) ->
               setTimeout(reload_comment_if_enabled, 20000)
           )
+      else
+        setTimeout(reload_comment_if_enabled, 20000)
     setTimeout(reload_comment_if_enabled, 20000)
     $.initialize_audio('put')
 
