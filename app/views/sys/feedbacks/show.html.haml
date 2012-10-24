@@ -5,7 +5,7 @@
     = render 'feedbacks/feedback', feedback: child
   .actions
     - if @feedback.success?
-      = link_to t('actions.unsuccess'), unsuccess_sys_feedback_path(@feedback), 'data-method' => :put
+      = link_to t('actions.unsuccess'), unsuccess_sys_feedback_path(@feedback), method: :put
     - else
-      = link_to t('actions.success'), success_sys_feedback_path(@feedback), 'data-method' => :put
+      = link_to t('actions.success'), success_sys_feedback_path(@feedback), method: :put
     = link_to t('actions.back'), sys_feedbacks_path
