@@ -35,3 +35,15 @@
     - if won_decorator
       %br
       = t('user.games.won', user: won_decorator.name(true)).html_safe
+    - else
+      - your_turn = false
+      - last_movement = game.movements.last
+      - if last_movement
+        - if current_user == game.sente_user && last_movement.gote?
+          - your_turn = true
+        - elsif current_user == game.gote_user && last_movement.sente?
+          - your_turn = true
+      - if your_turn
+        %br
+        %span.my_turn
+          = t('notices.its_your_turn')
