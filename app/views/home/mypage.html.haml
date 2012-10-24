@@ -10,9 +10,14 @@
   - if games.present?
     - comments = Comment.of_game(games).desc(:created_at).limit(3).to_a
     %ul.tabs#games_tab
-      %li
-        %span.active
-          = t("pages.controllers.games.playing")
+      - %w(playing).each do |page|
+        - name = t("pages.controllers.games.#{page}")
+        - href = { controller: 'games', action: page }
+        - html_classes = []
+        - if page == 'playing'
+          - html_classes << 'active'
+        %li
+          = link_to name, href, class: html_classes
   - else
     - games = Game.desc(:created_at).limit(3).to_a
     %ul.tabs#games_tab
