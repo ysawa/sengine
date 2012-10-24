@@ -85,9 +85,6 @@ $ ->
       if $.check_if_outside_url(href)
         $.google_analytics_track_pageview(href)
 
-  # check and fix facebook comments plugin height every second
-  setInterval($.fix_facebook_comments_height, 1000)
-
 $.extend
   check_if_inside_url: (url) ->
     host = location.host
