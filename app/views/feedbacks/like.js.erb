@@ -1,0 +1,4 @@
+<%= render partial: 'notices/notice', locals: { notice_message: t('notices.thanks_for_liking') }, formats: [:js] %>
+<%- content = render partial: 'feedbacks/list', locals: { feedback: @feedback } %>
+$('li.feedback[feedback-id=<%= @feedback.id %>]').replaceWith('<%= escape_javascript content %>');
+$('li.feedback[feedback-id=<%= @feedback.id %>]').effect('highlight', {}, 1500);

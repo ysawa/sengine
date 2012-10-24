@@ -1,7 +1,7 @@
 - decorator = FeedbackDecorator.new feedback
 - html_classes = %w(feedback)
 - disabled = feedback.success?
-%li{ class: html_classes }
+%li{ class: html_classes, 'feedback-id' => feedback.id }
   .status_buttons
     .status_button
       - href = like_feedback_path(feedback)
@@ -9,7 +9,7 @@
       - if disabled
         %span.like= name
       - else
-        = link_to name, href, class: %w(like), method: :put
+        = link_to name, href, class: %w(like), method: :put, remote: true
       .number
         = decorator.like_number
     .status_button
@@ -18,7 +18,7 @@
       - if disabled
         %span.dislike= name
       - else
-        = link_to name, href, class: %w(dislike), method: :put
+        = link_to name, href, class: %w(dislike), method: :put, remote: true
       .number
         = decorator.dislike_number
   .feedback_content

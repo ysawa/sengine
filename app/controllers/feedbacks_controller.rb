@@ -20,14 +20,14 @@ class FeedbacksController < ApplicationController
   # PUT /feedbacks/1/dislike
   def dislike
     @feedback.dislike!(current_user)
-    flash[:notice] = t('notices.thanks_for_disliking')
+    # flash[:notice] = t('notices.thanks_for_disliking')
     respond_with(@feedback, location: feedbacks_path)
   end
 
   # PUT /feedbacks/1/like
   def like
     @feedback.like!(current_user)
-    flash[:notice] = t('notices.thanks_for_liking')
+    # flash[:notice] = t('notices.thanks_for_liking')
     respond_with(@feedback, location: feedbacks_path)
   end
 
