@@ -1,9 +1,11 @@
+<%- time_now = Time.now.to_i.to_s %>
 <%- buffer = [] %>
 <%- @comments.each do |comment| %>
-  <%- buffer << render('comments/comment', comment: comment) %>
+  <%- buffer << render('comments/comment', comment: comment, insert_time: time_now) %>
 <%- end %>
 
 $('ul#comments').prepend('<%= escape_javascript buffer.join.html_safe %>');
+$("ul#comments li.comment[data-insert-time=<%= time_now %>]").effect('highlight', {}, 1500);
 <%- notice_title = t('notices.information') %>
 <%- notice_text = t('notices.comment_appended') %>
 <%- if @comments.present? %>

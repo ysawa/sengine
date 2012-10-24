@@ -1,8 +1,10 @@
 - if defined?(game)
   - comments = game.comments.desc(:created_at).page.per(5)
+- unless defined?(with_game)
+  - with_game = nil
 %ul#comments
   - comments.each do |comment|
-    = render 'comments/comment', comment: comment, with_game: (defined?(with_game) && with_game)
+    = render 'comments/comment', comment: comment, with_game: with_game
   - if defined?(show_not_found) && show_not_found && comments.blank?
     %li.no_comment
       = t('notices.model_was_not_found', model: Comment.model_name.human)

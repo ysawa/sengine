@@ -5,7 +5,9 @@
   - game_link = link_to name, comment.game
 - else
   - game_link = nil
-%li.comment{ 'comment-id' => comment.id }
+- unless defined?(insert_time)
+  - insert_time = nil
+%li.comment{ 'comment-id' => comment.id, 'data-insert-time' => insert_time }
   = decorator.author_image true
   .comment_content
     = decorator.content
