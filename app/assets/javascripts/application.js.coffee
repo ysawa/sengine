@@ -107,3 +107,4 @@ $.extend
       type: "GET"
       url: "/notices.js"
       dataType: "script"
+      timeout: 4000
