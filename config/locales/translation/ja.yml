@@ -87,6 +87,7 @@ ja:
     status:
       success: '[解決済み]'
   game:
+    battle_vs: '%{sente} 対 %{gote}'
     everyone: 'みんなの対局'
     orders:
       random: 'おまかせ'

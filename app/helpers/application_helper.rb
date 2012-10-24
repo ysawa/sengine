@@ -43,15 +43,11 @@ module ApplicationHelper
     when Game
       game = subtitle
       if game.persisted?
-        vs = []
-        if game.sente_user
-          vs << game.sente_user.name
+        if game.sente_user && game.gote_user
+          sente = game.sente_user.name
+          gote = game.gote_user.name
+          elements << I18n.t('game.battle_vs', sente: sente, gote: gote)
         end
-        vs << 'vs'
-        if game.gote_user
-          vs << game.gote_user.name
-        end
-        elements << vs.join(' ')
       else
         elements << I18n.t('pages.controllers.games.new')
       end

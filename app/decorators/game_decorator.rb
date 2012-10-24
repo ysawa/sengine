@@ -16,11 +16,13 @@ class GameDecorator < ApplicationDecorator
   def name(link = false, user_link = false)
     sente_decorator = UserDecorator.new(game.sente_user)
     gote_decorator = UserDecorator.new(game.gote_user)
-    game_name = "#{sente_decorator.name(user_link)} vs #{gote_decorator.name(user_link)}".html_safe
+    sente = sente_decorator.name(user_link)
+    gote = gote_decorator.name(user_link)
+    game_name = I18n.t('game.battle_vs', sente: sente, gote: gote)
     if link
-      h.link_to game_name, model
+      h.link_to game_name.html_safe, model
     else
-      game_name
+      game_name.html_safe
     end
   end
 

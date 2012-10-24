@@ -87,6 +87,7 @@ en:
     status:
       success: '[SUCCESS]'
   game:
+    battle_vs: '%{sente} 対 %{gote}'
     everyone: 'Games'
     orders:
       random: 'Random'
