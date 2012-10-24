@@ -1,4 +1,8 @@
 %article#game{ 'game-theme' => game.theme }
+  - unless game.playing?
+    #game_result
+      - won_decorator = UserDecorator.new game.won_user
+      = t('user.games.won', user: won_decorator.name(true)).html_safe
   = render 'boards/board', board: board, game: game
   - if game.playing? && (game.sente_user == current_user || game.gote_user == current_user)
     %aside.actions#game_buttons
@@ -6,7 +10,4 @@
       - html_options[:confirm] = t('confirms.are_you_sure_to_give_it_up')
       = link_to t('actions.give_up'), give_up_game_path(game), html_options
   - unless game.playing?
-    #game_result
-      - won_decorator = UserDecorator.new game.won_user
-      = t('user.games.won', user: won_decorator.name(true)).html_safe
     = render 'play_buttons', game: game, board: board
