@@ -1,32 +1,37 @@
 $ ->
   initialize_game = ->
-    setInterval(
-      ->
-        if $('.board[reload]').present()
-          game_number = $('.board').attr('number')
-          game_id = $('.board').attr('game_id')
-          $.get(
-            "/games/#{game_id}/check_update",
+    reload_game_if_enabled = ->
+      if $('.board[reload]').present()
+        game_number = $('.board').attr('number')
+        game_id = $('.board').attr('game_id')
+        $.ajax(
+          type: "GET"
+          url: "/games/#{game_id}/check_update"
+          data:
             number: game_number
-          )
-      , 2000
-    )
-    setInterval(
-      ->
-        if $('.board').present()
-          game_id = $('.board').attr('game_id')
-          after = $('.comment:first time').attr('datetime')
-          except_ids = []
-          $('.comment').each ->
-            except_ids.push($(this).attr('comment-id'))
-          if after
-            $.get(
-              "/games/#{game_id}/comments/check_update",
+          dataType: 'script'
+          timeout: 4000
+        )
+
+    setInterval(reload_game_if_enabled, 2000)
+    reload_comment_if_enabled = ->
+      if $('.board').present()
+        game_id = $('.board').attr('game_id')
+        after = $('.comment:first time').attr('datetime')
+        except_ids = []
+        $('.comment').each ->
+          except_ids.push($(this).attr('comment-id'))
+        if after
+          $.ajax(
+            type: "GET"
+            url: "/games/#{game_id}/comments/check_update"
+            data:
               after: after
               except_ids: except_ids
-            )
-      , 20000
-    )
+            dataType: 'script'
+            timeout: 4000
+          )
+    setInterval(reload_comment_if_enabled, 20000)
     $.initialize_audio('put')
 
     $('#play_buttons a').live 'ajax:beforeSend', ->
