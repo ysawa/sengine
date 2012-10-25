@@ -36,6 +36,8 @@ $ ->
             complete: (xhr, status) ->
               setTimeout(reload_comment_if_enabled, 20000)
           )
+        else
+          setTimeout(reload_comment_if_enabled, 20000)
       else
         setTimeout(reload_comment_if_enabled, 20000)
     setTimeout(reload_comment_if_enabled, 20000)
