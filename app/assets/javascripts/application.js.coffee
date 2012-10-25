@@ -16,6 +16,8 @@
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
+#= require underscore
+#= require backbone
 #= require_directory ./helpers/
 #= require audio
 #= require shogi

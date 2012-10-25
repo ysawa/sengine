@@ -112,7 +112,15 @@ class Shogi
         number.text(number_text.replace("#{integer}", integer - 1))
         piece_selected = piece_selected.clone()
     cell = Shogi.cell_on_point(to_point)
-    cell.append(piece_selected).addClass('moved')
+    from_position = piece_selected.position()
+    to_position = cell.position()
+    piece_selected.css(position: 'absolute', top: from_position.top, left: from_position.left)
+    piece_selected.animate(
+      { top: to_position.top, left: to_position.left }, "easeInQuad", ->
+        $.play_audio('put')
+        piece_selected.css(position: 'static')
+        cell.append(piece_selected).addClass('moved')
+    )
     if reverse
       @reverse_piece(piece_selected)
     $('.in_hand .cell').each ->
@@ -275,6 +283,14 @@ class Shogi
         return false
     )
 
+  @piece_in_hand_of_role: (role) ->
+    $(".in_hand.upward .piece[role=#{role}]")
+  @piece_on_point: (point) ->
+    cell = Shogi.cell_on_point(point)
+    if cell
+      cell.children('.piece')
+    else
+      null
   @select_reverse_or_not = (role, from_point, to_point, direction) ->
     in_opponent_first_line = (direction == 'sente' and to_point[1] == 1) or (direction == 'gote' and to_point[1] == 9)
     in_opponent_second_line = (direction == 'sente' and to_point[1] == 2) or (direction == 'gote' and to_point[1] == 8)

@@ -3,7 +3,7 @@ $ ->
     reload_game_if_enabled = ->
       if $('.board[reload]').present()
         game_number = $('.board').attr('number')
-        game_id = $('.board').attr('game_id')
+        game_id = $('.board').attr('game-id')
         $.ajax(
           type: "GET"
           url: "/games/#{game_id}/check_update"
@@ -19,7 +19,7 @@ $ ->
     setTimeout(reload_game_if_enabled, 2000)
     reload_comment_if_enabled = ->
       if $('.board').present()
-        game_id = $('.board').attr('game_id')
+        game_id = $('.board').attr('game-id')
         after = $('.comment:first time').attr('datetime')
         except_ids = []
         $('.comment').each ->
@@ -51,7 +51,7 @@ $ ->
         null
 
     # TODO check if the selector always works when requesting with pjax (this code is very stinky)
-    game_id = $('.board').attr('game_id')
+    game_id = $('.board').attr('game-id')
     $('.board, .in_hand').disableSelection()
 
     # user's selection of piece on the board
@@ -87,32 +87,35 @@ $ ->
 
     # move selected piece
     $('.cell.highlight').live 'click', ->
-      $.play_audio('put')
 
       # initialize movement
-      move = true
+      game_id = $('.board').attr('game-id')
+      movement = new Shogi.Movement(
+        game_id: game_id
+        number: parseInt($('.board').attr('number') + 1)
+        sente: ($('.board').attr('turn') == 'sente')
+      )
       piece_selected = $('.piece.selected')
-      role = piece_selected.attr('role')
+      movement.set('role', piece_selected.attr('role'))
       direction = piece_selected.attr('direction')
-      reverse = false
-      if piece_selected.parents('.in_hand').size() >= 1
-        move = false
+      movement.set('move', piece_selected.parents('.in_hand').size() == 0)
       piece_cell = piece_selected.parents('.cell')
-      from_point = null
-      if move
-        from_point = [Shogi.get_point_x(piece_cell), Shogi.get_point_y(piece_cell)]
-      to_point = [Shogi.get_point_x($(this)), Shogi.get_point_y($(this))]
-      if move
-        reverse = Shogi.select_reverse_or_not(role, from_point, to_point, direction)
+      movement.set('to_point', [Shogi.get_point_x($(this)), Shogi.get_point_y($(this))])
+      if movement.get('move')
+        movement.set('from_point', [Shogi.get_point_x(piece_cell), Shogi.get_point_y(piece_cell)])
+        movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), direction))
+      else
+        movement.set('from_point', null)
+        movement.set('reverse', false)
 
       # movement will be executed below
       $('.cell').removeClass('highlight')
       $('.cell').removeClass('selected')
       piece_selected.removeClass('selected')
-      game_id = $('.board').attr('game_id')
-      Shogi.send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
+      # Shogi.send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
 
-      Shogi.execute_movement_on_board(piece_selected, to_point, reverse)
+      movement.execute()
+      movement.save()
 
       Shogi.flip_turn()
   initialize_game()
