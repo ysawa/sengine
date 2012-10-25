@@ -184,13 +184,15 @@ form.edit_game
     margin: 0 auto
     text-align: center
     a.game_order
-      width: 93px
       @include pill_button(#ffdd44)
       @include inline-block
+      padding: 10px 0
+      width: 123px
       font-size: 100%
       text-decoration: none
       &.active
         @include pill_button($activated_color)
+        padding: 10px 0
         font-size: 100%
         text-decoration: none
   #game_handicap_select
