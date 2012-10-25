@@ -29,13 +29,14 @@ $.extend
             $.audio_schemes[audio] = data
         )
   play_audio: (audio) ->
-    if @audio_enabled and @audio_tag_support
-      if @audio_schemes[audio]
-        audio = new Audio(@audio_schemes[audio])
-        audio.volume = 1.0
-        audio.play()
-    else if @audio_enabled and $.browser.msie
-      $("bgsound").remove()
-      bgsound = $("<bgsound>")
-      bgsound.attr(src: "/assets/audio/#{audio}.wav", autostart: true)
-      $('body').append(bgsound)
+    if @audio_enabled
+      if @audio_tag_support
+        if @audio_schemes[audio]
+          audio = new Audio(@audio_schemes[audio])
+          audio.volume = 1.0
+          audio.play()
+      else if $.browser.msie
+        $("bgsound").remove()
+        bgsound = $("<bgsound>")
+        bgsound.attr(src: "/assets/audio/#{audio}.wav")
+        $('body').append(bgsound)
