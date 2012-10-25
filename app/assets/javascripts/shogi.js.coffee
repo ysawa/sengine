@@ -48,12 +48,6 @@ class Shogi
           break
     result
   @edit_game_form: (form) ->
-    form.on "click", "a.game_order", ->
-      game_order = $(this).attr("game-order")
-      $("a.game_order").removeClass "active"
-      $(this).addClass "active"
-      $("input#game_order").val game_order
-      false
     form.on "click", "a.face", ->
       user_id = $(this).find("img").attr("user-id")
       $("input#game_opponent_id").val user_id
@@ -84,6 +78,19 @@ class Shogi
       else
         form.find("#opponents_slider a.face:first").click()
         form.find("#opponents_slider").form_slider()
+    form.on "click", "a.game_order", ->
+      game_order = $(this).attr("game-order")
+      $("a.game_order").removeClass "active"
+      $(this).addClass "active"
+      $("input#game_order").val game_order
+      if game_order == 'handicap'
+        form.find("select#game_handicap").attr('disabled', false)
+        form.find("#game_handicap_select").show()
+      else
+        form.find("select#game_handicap").attr('disabled', true)
+        form.find("#game_handicap_select").hide()
+      false
+    form.find('a.game_order[game-order="random"]').click()
   @execute_movement_on_board = (piece_selected, to_point, reverse) ->
     # take opponent piece into proponent hand
     if Shogi.cell_on_point_have_opponent_piece(to_point)

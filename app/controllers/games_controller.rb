@@ -36,8 +36,7 @@ class GamesController < ApplicationController
     @game = Game.new(params[:game])
     @game.author = current_user
     if set_game_players && @game.save
-      @game.boards << Board.hirate
-      @game.save
+      @game.create_first_board
       make_game_notice
       @game.create_facebook_created_feed
       respond_with(@game)
@@ -173,34 +172,10 @@ private
     begin
       opponent = User.find(params[:game_opponent_id])
       handicap = params[:game_handicap]
-      if handicap =~ /(\w+)_(\w+)$/
-        handicap_side = $1
-        @game.handicap = $2
-      else
-        handicap_side = nil
-      end
-      if handicap_side == 'proponent'
-        sente = true
-      elsif handicap_side == 'opponent'
-        sente = false
-      else
-        case params[:game_order]
-        when 'sente'
-          sente = true
-        when 'gote'
-          sente = false
-        else
-          sente = [true, false].sample
-        end
-      end
-      if sente
-        @game.sente_user = current_user
-        @game.gote_user = opponent
-      else
-        @game.sente_user = opponent
-        @game.gote_user = current_user
-      end
-    rescue
+      order = params[:game_order]
+      @game.set_players_from_order_and_handicap(current_user, opponent, order, handicap)
+    rescue => error
+      Rails.logger.error error
       return false
     end
     true

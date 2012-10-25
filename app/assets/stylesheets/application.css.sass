@@ -303,6 +303,8 @@ aside.actions
 
   $common_width: $mobile_portrait_width
   $max_content_width: $common_width - 20px
+  select
+    max-width: $max_content_width
   table.resources
     width: $max_content_width
     th, td
@@ -310,8 +312,6 @@ aside.actions
         display: none
   #{$all-text-inputs}
     max-width: $max_content_width - 30px
-  select
-    max-width: $max_content_width
   a
     &.button
       font-size: $mobile_button_font_size

@@ -2,8 +2,7 @@
 
 module GamesHelper
   KANSUJIS = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
-  HANDICAPS = %w(hirate
-                 proponent_hi proponent_ka proponent_two proponent_four
+  HANDICAPS = %w(proponent_hi proponent_ka proponent_two proponent_four
                  proponent_six proponent_eight proponent_ten
                  opponent_hi opponent_ka opponent_two opponent_four
                  opponent_six opponent_eight opponent_ten)

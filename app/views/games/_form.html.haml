@@ -1,17 +1,6 @@
 = form_for @game, html: { class: %w(validated edit_game) } do |f|
   %section.field
-    = label_tag 'game_order', "1. #{t('actions.select_sente_or_gote')}"
-    = hidden_field_tag 'game_order', 'random'
-    #order_field
-      - %w(sente gote random).each do |order|
-        - html_options = { 'game-order' => order }
-        - if order == 'random'
-          - html_options[:class] = 'active game_order'
-        - else
-          - html_options[:class] = 'game_order'
-        = link_to t("game.orders.#{order}"), '#', html_options
-  %section.field
-    = label_tag 'game_opponent_id', "2. #{t('actions.select_opponent')}"
+    = label_tag 'game_opponent_id', "1. #{t('actions.select_opponent')}"
     = hidden_field_tag 'game_opponent_id', nil
     #opponents_slider.slider
       .left.disabled
@@ -19,7 +8,7 @@
       .now_loading
         = t('actions.now_loading')
   %section.field
-    = f.label :theme, "3. #{Game.human_attribute_name :theme}"
+    = f.label :theme, "2. #{Game.human_attribute_name :theme}"
     = f.hidden_field :theme
     #themes_slider.slider
       .left.disabled
@@ -30,7 +19,16 @@
             %a{ class: :theme, href: '#' }
               = game_theme_icon theme, 'theme-id' => theme
   %section.field
-    = f.label :handicap, "4. #{Game.human_attribute_name :handicap}"
+    = label_tag 'game_order', "3. #{t('actions.select_sente_or_gote')}"
+    = hidden_field_tag 'game_order', nil
+    #order_field
+      - %w(sente gote random handicap).each do |order|
+        - html_options = { 'game-order' => order }
+        - if order == 'random'
+          - html_options[:class] = 'active game_order'
+        - else
+          - html_options[:class] = 'game_order'
+        = link_to t("game.orders.#{order}"), '#', html_options
     #game_handicap_select
       = select_tag :game_handicap, options_for_select(game_handicaps_for_select)
   %section.actions

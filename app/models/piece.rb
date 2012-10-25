@@ -4,11 +4,13 @@ class Piece
   class UnexpectedNormalize < StandardError; end
   class UnexpectedReverse < StandardError; end
   class InvalidAttributes < StandardError; end
+  class NoneCannotBeTaken < InvalidAttributes; end
   # <tt>Piece</tt> generate more understandable instances from role value.
   # Role value is only an integer and we cannot find what the value means.
   # Convert role value into a Piece instance, and get some convenient methods.
 
   # role values
+  NONE = 0
   FU = 1; KY =  2; KE =  3; GI =  4; KI = 5; KA =  6; HI =  7; OU = 8;
   TO = 9; NY = 10; NK = 11; NG = 12;       ; UM = 14; RY = 15;
   ROLES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15]
@@ -30,8 +32,8 @@ class Piece
 
   def initialize(value)
     case value
-    when 0
-      raise InvalidAttributes.new(value)
+    when NONE
+      raise NoneCannotBeTaken.new(value)
     when Integer
       self.value = value
     else

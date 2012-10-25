@@ -90,6 +90,7 @@ ja:
     battle_vs: '%{sente} 対 %{gote}'
     everyone: 'みんなの対局'
     orders:
+      handicap: '駒落ち'
       random: 'おまかせ'
       sente: '先手'
       gote: '後手'

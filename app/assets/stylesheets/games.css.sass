@@ -172,12 +172,19 @@ ul#games
 form.edit_game
   label
     margin-bottom: 10px
+
+  .slide
+    a.face, a.theme
+      display: block
+      @include square(50px)
+  section.field
+    margin-bottom: 40px
   #order_field
     width: 520px
     margin: 0 auto
     text-align: center
     a.game_order
-      width: 120px
+      width: 93px
       @include pill_button(#ffdd44)
       @include inline-block
       font-size: 100%
@@ -186,17 +193,11 @@ form.edit_game
         @include pill_button($activated_color)
         font-size: 100%
         text-decoration: none
-
-  .slide
-    a.face, a.theme
-      display: block
-      @include square(50px)
-  section.field
-    margin-bottom: 40px
   #game_handicap_select
     text-align: center
     select#game_handicap
-      width: 500px
+      margin-top: 15px
+      width: 520px
       height: 36px
 
 /* Smart Phone */
@@ -207,6 +208,9 @@ form.edit_game
         font-size: $mobile_button_font_size
         &.active
           font-size: $mobile_button_font_size
+    #game_handicap_select
+      select#game_handicap
+        height: 44px
 
 /* Layouts */
 

@@ -127,6 +127,40 @@ class Game
     end
   end
 
+  def create_first_board
+    board = Board.hirate
+    if handicapped?
+      case self.handicap
+      when 'hi'
+        board.p_28 = Piece::NONE
+      when 'ka'
+        board.p_88 = Piece::NONE
+      when 'two'
+        board.p_28 = board.p_88 = Piece::NONE
+      when 'four'
+        board.p_28 = board.p_88 = Piece::NONE
+        board.p_19 = board.p_99 = Piece::NONE
+      when 'six'
+        board.p_28 = board.p_88 = Piece::NONE
+        board.p_19 = board.p_99 = Piece::NONE
+        board.p_29 = board.p_89 = Piece::NONE
+      when 'eight'
+        board.p_28 = board.p_88 = Piece::NONE
+        board.p_19 = board.p_99 = Piece::NONE
+        board.p_29 = board.p_89 = Piece::NONE
+        board.p_39 = board.p_79 = Piece::NONE
+      when 'ten'
+        board.p_28 = board.p_88 = Piece::NONE
+        board.p_19 = board.p_99 = Piece::NONE
+        board.p_29 = board.p_89 = Piece::NONE
+        board.p_39 = board.p_79 = Piece::NONE
+        board.p_49 = board.p_69 = Piece::NONE
+      end
+    end
+    self.boards << board
+    save
+  end
+
   def handicapped?
     HANDICAPS.include? self.handicap
   end
@@ -153,6 +187,37 @@ class Game
     else
       false
     end
+  end
+
+  def set_players_from_order_and_handicap(proponent, opponent, order, handicap)
+    if handicap =~ /(\w+)_(\w+)$/
+      handicap_side = $1
+      self.handicap = $2
+    else
+      handicap_side = nil
+    end
+    if handicap_side == 'proponent'
+      sente = true
+    elsif handicap_side == 'opponent'
+      sente = false
+    else
+      case order
+      when 'sente'
+        sente = true
+      when 'gote'
+        sente = false
+      else
+        sente = [true, false].sample
+      end
+    end
+    if sente
+      self.sente_user = proponent
+      self.gote_user = opponent
+    else
+      self.sente_user = opponent
+      self.gote_user = proponent
+    end
+    nil
   end
 
   def users
