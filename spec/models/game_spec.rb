@@ -92,16 +92,16 @@ describe Game do
       @game.handicapped?.should be_false
       @game.create_first_board
       board = @game.boards.first
-      board.p_28.should == Piece::HI
-      board.p_88.should == Piece::KA
-      board.p_19.should == Piece::KY
-      board.p_99.should == Piece::KY
-      board.p_29.should == Piece::KE
-      board.p_89.should == Piece::KE
-      board.p_39.should == Piece::GI
-      board.p_79.should == Piece::GI
-      board.p_49.should == Piece::KI
-      board.p_69.should == Piece::KI
+      board.p_82.should == -Piece::HI
+      board.p_22.should == -Piece::KA
+      board.p_11.should == -Piece::KY
+      board.p_91.should == -Piece::KY
+      board.p_21.should == -Piece::KE
+      board.p_81.should == -Piece::KE
+      board.p_31.should == -Piece::GI
+      board.p_71.should == -Piece::GI
+      board.p_41.should == -Piece::KI
+      board.p_61.should == -Piece::KI
     end
 
     it "hi is sente's handicap" do
@@ -109,16 +109,16 @@ describe Game do
       @game.handicapped?.should be_true
       @game.create_first_board
       board = @game.boards.first
-      board.p_28.should == 0
-      board.p_88.should == Piece::KA
-      board.p_19.should == Piece::KY
-      board.p_99.should == Piece::KY
-      board.p_29.should == Piece::KE
-      board.p_89.should == Piece::KE
-      board.p_39.should == Piece::GI
-      board.p_79.should == Piece::GI
-      board.p_49.should == Piece::KI
-      board.p_69.should == Piece::KI
+      board.p_82.should == -Piece::NONE
+      board.p_22.should == -Piece::KA
+      board.p_11.should == -Piece::KY
+      board.p_91.should == -Piece::KY
+      board.p_21.should == -Piece::KE
+      board.p_81.should == -Piece::KE
+      board.p_31.should == -Piece::GI
+      board.p_71.should == -Piece::GI
+      board.p_41.should == -Piece::KI
+      board.p_61.should == -Piece::KI
     end
 
     it "four is sente's handicap" do
@@ -126,16 +126,16 @@ describe Game do
       @game.handicapped?.should be_true
       @game.create_first_board
       board = @game.boards.first
-      board.p_28.should == 0
-      board.p_88.should == 0
-      board.p_19.should == 0
-      board.p_99.should == 0
-      board.p_29.should == Piece::KE
-      board.p_89.should == Piece::KE
-      board.p_39.should == Piece::GI
-      board.p_79.should == Piece::GI
-      board.p_49.should == Piece::KI
-      board.p_69.should == Piece::KI
+      board.p_82.should == -Piece::NONE
+      board.p_22.should == -Piece::NONE
+      board.p_11.should == -Piece::NONE
+      board.p_91.should == -Piece::NONE
+      board.p_21.should == -Piece::KE
+      board.p_81.should == -Piece::KE
+      board.p_31.should == -Piece::GI
+      board.p_71.should == -Piece::GI
+      board.p_41.should == -Piece::KI
+      board.p_61.should == -Piece::KI
     end
 
     it "six is sente's handicap" do
@@ -143,16 +143,16 @@ describe Game do
       @game.handicapped?.should be_true
       @game.create_first_board
       board = @game.boards.first
-      board.p_28.should == 0
-      board.p_88.should == 0
-      board.p_19.should == 0
-      board.p_99.should == 0
-      board.p_29.should == 0
-      board.p_89.should == 0
-      board.p_39.should == Piece::GI
-      board.p_79.should == Piece::GI
-      board.p_49.should == Piece::KI
-      board.p_69.should == Piece::KI
+      board.p_82.should == -Piece::NONE
+      board.p_22.should == -Piece::NONE
+      board.p_11.should == -Piece::NONE
+      board.p_91.should == -Piece::NONE
+      board.p_21.should == -Piece::NONE
+      board.p_81.should == -Piece::NONE
+      board.p_31.should == -Piece::GI
+      board.p_71.should == -Piece::GI
+      board.p_41.should == -Piece::KI
+      board.p_61.should == -Piece::KI
     end
 
     it "eight is sente's handicap" do
@@ -160,16 +160,16 @@ describe Game do
       @game.handicapped?.should be_true
       @game.create_first_board
       board = @game.boards.first
-      board.p_28.should == 0
-      board.p_88.should == 0
-      board.p_19.should == 0
-      board.p_99.should == 0
-      board.p_29.should == 0
-      board.p_89.should == 0
-      board.p_39.should == 0
-      board.p_79.should == 0
-      board.p_49.should == Piece::KI
-      board.p_69.should == Piece::KI
+      board.p_82.should == -Piece::NONE
+      board.p_22.should == -Piece::NONE
+      board.p_11.should == -Piece::NONE
+      board.p_91.should == -Piece::NONE
+      board.p_21.should == -Piece::NONE
+      board.p_81.should == -Piece::NONE
+      board.p_31.should == -Piece::NONE
+      board.p_71.should == -Piece::NONE
+      board.p_41.should == -Piece::KI
+      board.p_61.should == -Piece::KI
     end
 
     it "ten is sente's handicap" do
@@ -177,16 +177,16 @@ describe Game do
       @game.handicapped?.should be_true
       @game.create_first_board
       board = @game.boards.first
-      board.p_28.should == 0
-      board.p_88.should == 0
-      board.p_19.should == 0
-      board.p_99.should == 0
-      board.p_29.should == 0
-      board.p_89.should == 0
-      board.p_39.should == 0
-      board.p_79.should == 0
-      board.p_49.should == 0
-      board.p_69.should == 0
+      board.p_82.should == -Piece::NONE
+      board.p_22.should == -Piece::NONE
+      board.p_11.should == -Piece::NONE
+      board.p_91.should == -Piece::NONE
+      board.p_21.should == -Piece::NONE
+      board.p_81.should == -Piece::NONE
+      board.p_31.should == -Piece::NONE
+      board.p_71.should == -Piece::NONE
+      board.p_41.should == -Piece::NONE
+      board.p_61.should == -Piece::NONE
     end
   end
 end

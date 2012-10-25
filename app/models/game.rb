@@ -33,6 +33,7 @@ class Game
   end
 
   def apply_score_changes!
+    return false if handicapped?
     calculator = ScoreCalculator.new
     calculator.winner_score = self.won_user.score
     calculator.loser_score = self.lost_user.score
@@ -130,31 +131,32 @@ class Game
   def create_first_board
     board = Board.hirate
     if handicapped?
+      board.write_attributes({ sente: true, number: 0 })
       case self.handicap
       when 'hi'
-        board.p_28 = Piece::NONE
+        board.p_82 = Piece::NONE
       when 'ka'
-        board.p_88 = Piece::NONE
+        board.p_22 = Piece::NONE
       when 'two'
-        board.p_28 = board.p_88 = Piece::NONE
+        board.p_82 = board.p_22 = Piece::NONE
       when 'four'
-        board.p_28 = board.p_88 = Piece::NONE
-        board.p_19 = board.p_99 = Piece::NONE
+        board.p_82 = board.p_22 = Piece::NONE
+        board.p_11 = board.p_91 = Piece::NONE
       when 'six'
-        board.p_28 = board.p_88 = Piece::NONE
-        board.p_19 = board.p_99 = Piece::NONE
-        board.p_29 = board.p_89 = Piece::NONE
+        board.p_82 = board.p_22 = Piece::NONE
+        board.p_11 = board.p_91 = Piece::NONE
+        board.p_21 = board.p_81 = Piece::NONE
       when 'eight'
-        board.p_28 = board.p_88 = Piece::NONE
-        board.p_19 = board.p_99 = Piece::NONE
-        board.p_29 = board.p_89 = Piece::NONE
-        board.p_39 = board.p_79 = Piece::NONE
+        board.p_82 = board.p_22 = Piece::NONE
+        board.p_11 = board.p_91 = Piece::NONE
+        board.p_21 = board.p_81 = Piece::NONE
+        board.p_31 = board.p_71 = Piece::NONE
       when 'ten'
-        board.p_28 = board.p_88 = Piece::NONE
-        board.p_19 = board.p_99 = Piece::NONE
-        board.p_29 = board.p_89 = Piece::NONE
-        board.p_39 = board.p_79 = Piece::NONE
-        board.p_49 = board.p_69 = Piece::NONE
+        board.p_82 = board.p_22 = Piece::NONE
+        board.p_11 = board.p_91 = Piece::NONE
+        board.p_21 = board.p_81 = Piece::NONE
+        board.p_31 = board.p_71 = Piece::NONE
+        board.p_41 = board.p_61 = Piece::NONE
       end
     end
     self.boards << board
@@ -197,9 +199,9 @@ class Game
       handicap_side = nil
     end
     if handicap_side == 'proponent'
-      sente = true
-    elsif handicap_side == 'opponent'
       sente = false
+    elsif handicap_side == 'opponent'
+      sente = true
     else
       case order
       when 'sente'

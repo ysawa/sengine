@@ -10,7 +10,7 @@
         - user = game.gote_user
       - user_decorator = UserDecorator.new(user)
       - in_turn = false
-      - is_sente = (game.number % 2) == 0
+      - is_sente = !board.sente?
       - if is_sente && user == game.sente_user
         - in_turn = true
       - elsif !is_sente && user == game.gote_user

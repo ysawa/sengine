@@ -38,7 +38,7 @@ class GamesController < ApplicationController
     if set_game_players && @game.save
       @game.create_first_board
       make_game_notice
-      @game.create_facebook_created_feed
+      @game.create_facebook_created_feed # it takes long.
       respond_with(@game)
     else
       render :new

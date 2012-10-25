@@ -113,13 +113,13 @@ describe GamesController do
           params[:game_handicap] = 'proponent_hi'
           post :create, params
           assigns(:game).handicap.should == 'hi'
-          assigns(:game).sente_user.should == @user
-          assigns(:game).gote_user.should == @opponent
+          assigns(:game).sente_user.should == @opponent
+          assigns(:game).gote_user.should == @user
           params[:game_handicap] = 'opponent_four'
           post :create, params
           assigns(:game).handicap.should == 'four'
-          assigns(:game).sente_user.should == @opponent
-          assigns(:game).gote_user.should == @user
+          assigns(:game).sente_user.should == @user
+          assigns(:game).gote_user.should == @opponent
         end
 
         it "redirects to the created game" do
