@@ -1,13 +1,12 @@
-$('.board_container').html('<%= escape_javascript(render 'boards/board', game: @game, board: @game.boards.last) %>');
+<%- last_movement = @game.movements.last %>
+var movement = new Shogi.Movement(<%= last_movement.to_json.html_safe %>);
+movement.execute();
+Shogi.Board.flip_turn('<%= last_movement.sente? ? 'gote' : 'sente' %>');
 
 <%- notice_title = t('notices.information') %>
 <%- its_your_turn = t('notices.its_your_turn') %>
 <%- if current_user == @game.sente_user && @game.movements.last.gote? %>
-  $.play_audio('put');
   $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript its_your_turn %>');
 <%- elsif current_user == @game.gote_user && @game.movements.last.sente? %>
-  $.play_audio('put');
   $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript its_your_turn %>');
-<%- elsif !(current_user == @game.sente_user || current_user == @game.gote_user) %>
-  $.play_audio('put');
 <%- end %>

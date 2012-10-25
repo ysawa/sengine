@@ -1,20 +1,22 @@
 - piece_roles = {}
-.in_hand{ class: direction }
+- if reverse ^ (direction == 'upward')
+  - pieces = board.sente_hand
+  - user = game.sente_user
+  - sente_hand = true
+- else
+  - pieces = board.gote_hand
+  - user = game.gote_user
+  - sente_hand = false
+- user_decorator = UserDecorator.new(user)
+- in_turn = false
+- is_sente = !board.sente?
+- if is_sente && user == game.sente_user
+  - in_turn = true
+- elsif !is_sente && user == game.gote_user
+  - in_turn = true
+.in_hand{ class: direction, hand: (sente_hand ? 'sente' : 'gote') }
   .pieces
     .row
-      - if reverse ^ (direction == 'upward')
-        - pieces = board.sente_hand
-        - user = game.sente_user
-      - else
-        - pieces = board.gote_hand
-        - user = game.gote_user
-      - user_decorator = UserDecorator.new(user)
-      - in_turn = false
-      - is_sente = !board.sente?
-      - if is_sente && user == game.sente_user
-        - in_turn = true
-      - elsif !is_sente && user == game.gote_user
-        - in_turn = true
       .cell{ class: (in_turn ? :in_turn : nil) }
         - link = profile_path(user.id, from: game_path(game))
         = user_decorator.face(link)
