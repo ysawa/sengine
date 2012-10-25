@@ -18,7 +18,7 @@ ja:
         finished_at: '終了時刻'
         friends: '友達の対局'
         index: '対局をみる'
-        new: '対局を作成する'
+        new: '新しく対局する'
         mine: '自分の対局'
         playing: '対局中'
         show: '対局詳細'
