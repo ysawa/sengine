@@ -22,14 +22,20 @@ $.extend
     if @audio_tag_support
       format = @find_enabled_audio_format()
       @audio_schemes.put = null
-      $.get(
-        "/audio/encode/#{audio}#{format}",
-        (data) ->
-          $.audio_schemes[audio] = data
-      )
+      if format
+        $.get(
+          "/audio/encode/#{audio}#{format}",
+          (data) ->
+            $.audio_schemes[audio] = data
+        )
   play_audio: (audio) ->
     if @audio_enabled and @audio_tag_support
       if @audio_schemes[audio]
         audio = new Audio(@audio_schemes[audio])
         audio.volume = 1.0
         audio.play()
+    else if @audio_enabled and $.browser.msie
+      $("bgsound").remove()
+      bgsound = $("<bgsound>")
+      bgsound.attr(src: "/assets/audio/#{audio}.wav", autostart: true)
+      $('body').append(bgsound)
