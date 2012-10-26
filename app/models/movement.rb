@@ -28,4 +28,10 @@ class Movement
       write_attribute(:role_value, nil)
     end
   end
+
+  class << self
+    def after(number)
+      criteria.where(:number.gt => number.to_i)
+    end
+  end
 end

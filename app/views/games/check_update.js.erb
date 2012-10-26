@@ -1,12 +1,14 @@
-<%- last_movement = @game.movements.last %>
-var movement = new Shogi.Movement(<%= last_movement.to_json.html_safe %>);
-movement.execute();
-Shogi.Board.flip_turn('<%= last_movement.sente? ? 'gote' : 'sente' %>');
+<%- @game.movements.after(params[:number]).each do |movement| %>
+  var movement = new Shogi.Movement(<%= movement.to_json.html_safe %>);
+  movement.execute();
+  Shogi.Board.flip_turn('<%= movement.sente? ? 'gote' : 'sente' %>');
+<%- end %>
 
+<%- last_movement = @game.movements.last %>
 <%- notice_title = t('notices.information') %>
 <%- its_your_turn = t('notices.its_your_turn') %>
-<%- if current_user == @game.sente_user && @game.movements.last.gote? %>
+<%- if current_user == @game.sente_user && last_movement.gote? %>
   $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript its_your_turn %>');
-<%- elsif current_user == @game.gote_user && @game.movements.last.sente? %>
+<%- elsif current_user == @game.gote_user && last_movement.sente? %>
   $.notice_with_title('<%= escape_javascript notice_title %>', '<%= escape_javascript its_your_turn %>');
 <%- end %>
