@@ -16,10 +16,12 @@ class MovementsController < ApplicationController
         format.html { redirect_to game_path(@game) }
       end
     else
-      respond_to do |format|
-        format.js { render text: 'NG', content_type: Mime::TEXT }
-        format.html { redirect_to game_path(@game) }
-      end
+      raise Game::CannotTakeMovement.new 'game is not being played now'
+    end
+  rescue => error
+    respond_to do |format|
+      format.js { render text: 'NG', content_type: Mime::TEXT }
+      format.html { redirect_to game_path(@game) }
     end
   end
 

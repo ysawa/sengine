@@ -6,7 +6,7 @@ class Board
   field :sente, type: Boolean
   field :number, type: Integer
   belongs_to :game
-  has_one :movement
+  has_one :movement # movement from the past board to this board
 
   # Pieces on the board
   11.upto(99).each do |number|

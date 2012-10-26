@@ -12,7 +12,7 @@ class Movement
   field :role, type: String
   field :role_value, type: Integer
   field :to_point, type: Point
-  belongs_to :board
+  belongs_to :board # the board applied this movement to
   belongs_to :game
 
   def gote?

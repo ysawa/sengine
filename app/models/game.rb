@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Game
+  class CannotTakeMovement < StandardError; end
   include Mongoid::Document
   include Mongoid::Timestamps
   field :handicap, type: String
