@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Board
+  class InvalidMovement < StandardError; end
   include Mongoid::Document
   include Mongoid::Timestamps
   field :sente, type: Boolean
@@ -36,6 +37,9 @@ class Board
         proponent_piece = get_piece_in_gote_hand(movement.role_value)
         minus_piece_in_gote_hand(movement.role_value)
       end
+    end
+    unless proponent_piece
+      raise InvalidMovement.new 'no proponent piece'
     end
     # if an opponent piece is on the point where the proponent piece moves
     opponent_piece = get_piece(movement.to_point)
