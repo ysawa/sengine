@@ -10,14 +10,15 @@
       = render 'comments/form', comment: Comment.new(game: @game)
       = render 'comments/comments', game: @game, with_pagination: true, pagination_params: { controller: :comments, action: :index, game_id: @game.id }
 
-    - your_turn = false
-    - last_movement = @game.movements.last
-    - if last_movement
-      - if current_user == @game.sente_user && last_movement.gote?
-        - your_turn = true
-      - elsif current_user == @game.gote_user && last_movement.sente?
-        - your_turn = true
+    - if @game.playing?
+      - your_turn = false
+      - last_movement = @game.movements.last
+      - if last_movement
+        - if current_user == @game.sente_user && last_movement.gote?
+          - your_turn = true
+        - elsif current_user == @game.gote_user && last_movement.sente?
+          - your_turn = true
 
-    - if your_turn
-      :javascript
-        #{render partial: 'notices/notice', formats: %w(js), locals: { notice_message: t('notices.its_your_turn') } }
+      - if your_turn
+        :javascript
+          #{render partial: 'notices/notice', formats: %w(js), locals: { notice_message: t('notices.its_your_turn') } }
