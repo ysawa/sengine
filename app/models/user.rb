@@ -19,6 +19,7 @@ class User
   field :facebook_access_token, type: String
   field :facebook_id, type: Integer
   field :facebook_username, type: String
+  field :friend_ids, type: Array, default: []
   field :gender, type: String
   field :grade, type: Integer, default: 0
   field :grade_increased, type: Boolean, default: false
@@ -96,13 +97,6 @@ class User
     facebook_ids
   end
 
-  def friend_ids
-    return @friend_ids if @friend_ids
-    facebook_ids = find_facebook_friend_ids
-    users = User.where(:facebook_id.in => facebook_ids).only(:facebook_id)
-    @friend_ids = users.collect { |user| user.id }
-  end
-
   def games
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
   end
@@ -132,6 +126,13 @@ class User
     nil
   end
 
+  def update_friend_ids
+    facebook_ids = find_facebook_friend_ids
+    users = User.where(:facebook_id.in => facebook_ids).only(:facebook_id)
+    self.friend_ids = users.collect { |user| user.id }
+    save
+  end
+
   def write_grade_with_score(score)
     past_grade = self.grade
     self.score_differential = score - self.score
@@ -148,6 +149,13 @@ class User
       crit = criteria
       crit = crit.where(:_id.ne => member.id)
       crit = crit.where(:facebook_id.in => member.find_facebook_friend_ids)
+      crit
+    end
+
+    def friends(member)
+      crit = criteria
+      crit = crit.where(:_id.ne => member.id)
+      crit = crit.where(:_id.in => member.friend_ids)
       crit
     end
 

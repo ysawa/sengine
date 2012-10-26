@@ -65,6 +65,9 @@ class GamesController < ApplicationController
 
   # GET /games/friends
   def friends
+    if params[:page].blank? || params[:page].to_i == 1
+      current_user.update_friend_ids
+    end
     @games = Game.of_user_friends(current_user).of_not_user(current_user)
     @games = @games.desc(:created_at).page(params[:page]).per(5)
     respond_with(@games) do |format|
@@ -122,7 +125,8 @@ class GamesController < ApplicationController
 
   # GET /games/opponent_fields
   def opponent_fields
-    @friends = User.facebook_friends(current_user).desc(:used_at)
+    current_user.update_friend_ids
+    @friends = User.friends(current_user).desc(:used_at)
     render layout: false
   end
 
