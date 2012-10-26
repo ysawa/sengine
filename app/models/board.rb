@@ -24,6 +24,7 @@ class Board
 
   # TODO this method must have some exceptions
   def apply_movement(movement)
+    raise InvalidMovement.new unless movement.valid?
     self.movement = movement
     self.sente = movement.sente
     if movement.from_point?
