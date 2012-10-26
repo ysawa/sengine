@@ -25,6 +25,24 @@ describe Movement do
         movement.valid?.should be_false
       end
     end
+    describe '.from_point should be taken' do
+      it 'valid if moving and from_point exist' do
+        movement.from_point = [1, 2]
+        movement.valid?.should be_true
+      end
+
+      it 'invalid if moving and from_point not exist' do
+        movement.from_point = nil
+        movement.move = true
+        movement.valid?.should be_false
+      end
+
+      it 'invalid if not moving and from_point not exist' do
+        movement.from_point = [1, 2]
+        movement.move = false
+        movement.valid?.should be_false
+      end
+    end
     describe '.validate_reverse_can_be_taken' do
       it 'valid if not reverse' do
         movement.reverse = false
@@ -39,9 +57,11 @@ describe Movement do
     end
     describe '.validate_move_and_put_incompatibility' do
       it 'valid if move and put are the different values' do
+        movement.from_point = nil
         movement.put = true
         movement.move = false
         movement.valid?.should be_true
+        movement.from_point = [1, 2]
         movement.put = false
         movement.move = true
         movement.valid?.should be_true
