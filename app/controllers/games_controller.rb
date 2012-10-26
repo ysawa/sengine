@@ -2,7 +2,7 @@
 
 class GamesController < ApplicationController
   respond_to :html, :js
-  before_filter :authenticate_user_but_introduce_crawler!, only: [:destroy, :edit, :friends, :give_up, :index, :mine, :playing, :update]
+  before_filter :authenticate_user_but_introduce_crawler!, only: [:create, :destroy, :edit, :friends, :give_up, :index, :mine, :new, :playing, :update]
   before_filter :authenticate_user_but_pass_crawler!, only: [:check_update, :show]
   before_filter :find_game, only: [:destroy, :edit, :give_up, :show, :update]
   before_filter :append_games_subtitle, only: [:friends, :mine, :playing]
