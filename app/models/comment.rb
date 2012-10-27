@@ -15,6 +15,11 @@ class Comment
   end
 
   class << self
+    def of_author_friends(user)
+      ids = user.friend_ids
+      criteria.where(:author_id.in => ids)
+    end
+
     def of_game(game)
       case game
       when Array
@@ -31,6 +36,10 @@ class Comment
       else
         criteria.where(game_id: game.id)
       end
+    end
+
+    def of_not_author(user)
+      criteria.where(:author_id.ne => user.id)
     end
   end
 end
