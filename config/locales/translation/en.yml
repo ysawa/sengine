@@ -111,7 +111,7 @@ en:
       male: 'Male'
       female: 'Female'
     grades:
-      grade_0: 'Beginner'
+      grade_0: '16 Kyu'
       grade_1: '15 Kyu'
       grade_2: '14 Kyu'
       grade_3: '13 Kyu'

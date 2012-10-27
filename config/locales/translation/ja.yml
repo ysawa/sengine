@@ -108,7 +108,7 @@ ja:
       win_loss: '%{win}勝 / %{loss}敗'
       won: '%{user}さんの勝ち'
     grades:
-      grade_0: '初心者'
+      grade_0: '16級'
       grade_1: '15級'
       grade_2: '14級'
       grade_3: '13級'
