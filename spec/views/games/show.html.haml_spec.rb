@@ -42,5 +42,13 @@ describe "games/show" do
         assert_select '.cell', 81
       end
     end
+
+    it "renders a board number is 0" do
+      render
+      assert_select '.board[number=?]', '0'
+      @board.number = 2
+      render
+      assert_select '.board[number=?]', '2'
+    end
   end
 end
