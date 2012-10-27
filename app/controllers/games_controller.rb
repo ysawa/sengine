@@ -11,7 +11,7 @@ class GamesController < ApplicationController
   def check_update
     @game = Game.where(_id: params[:id]).first # without error
     if @game
-      number = @game.boards.count
+      number = @game.number
       @game.check_and_save_if_playing
       if @game.won_user_id == current_user.id
         # only redirect to @game
