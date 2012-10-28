@@ -6,7 +6,7 @@
     %nav#mypage_navi
       = render 'home/mypage/menu'
   - comments = []
-  - games = Game.of_user(current_user).playing.desc(:created_at).limit(3).to_a
+  - games = Game.of_user(current_user).playing.desc(:updated_at).limit(3).to_a
   - not_author_comments = Comment.of_not_author(current_user)
   - if games.present?
     - comments = not_author_comments.of_game(games).desc(:created_at).limit(3).to_a
@@ -20,7 +20,7 @@
         %li
           = link_to name, href, class: html_classes
   - else
-    - games = Game.desc(:created_at).limit(3).to_a
+    - games = Game.desc(:updated_at).limit(3).to_a
     %ul.tabs#games_tab
       %li
         %span.active
