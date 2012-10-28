@@ -106,9 +106,11 @@ $ ->
       if movement.get('move')
         movement.set('from_point', [Shogi.Board.get_point_x(piece_cell), Shogi.Board.get_point_y(piece_cell)])
         movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), direction))
+        movement.set('put', false)
       else
         movement.set('from_point', null)
         movement.set('reverse', false)
+        movement.set('put', true)
 
       # movement will be executed below
       $('.cell').removeClass('highlight')
