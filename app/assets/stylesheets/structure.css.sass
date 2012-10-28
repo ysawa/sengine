@@ -8,20 +8,23 @@
   & > .inner
     margin: 0 auto
     width: $common_width
+    @include atmospheric_background
 
 .whole_container
   margin: 0 auto
-  width: $common_width
-  @include atmospheric_background
 
 header#global_head
-  @include common_inner
+  background-color: #f7f7f7
+  @include box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.65))
+  z-index: 2
   & > .inner
+    margin: 0 auto
+    width: $common_width
     @include clearfix
+    background: none
     $logo_width: 200px
     $height: 44px
     $inner_height: 24px
-    background-color: #f7f7f7
     h1
       padding: 10px
       font-size: 20px
@@ -82,16 +85,16 @@ header#global_head
 section#global_body
   @include common_inner
   .inner
+    @include clearfix
     padding: 0
 footer#global_foot
-  @include common_inner
-  .inner
-    padding: 30px 0 60px
-    overflow: hidden
-    & > ins
-      @include atmospheric_background
-      display: block !important
-      margin: 10px auto !important
+  @include clearfix
+  padding: 30px 0 60px
+  overflow: hidden
+  & > ins
+    @include atmospheric_background
+    display: block !important
+    margin: 10px auto 30px !important
   p
     margin: 0
     a
@@ -113,7 +116,6 @@ footer#global_foot
   $common_width: $mobile_portrait_width
   $max_width: $common_width
   .whole_container
-    width: $max_width
   header#global_head
     @include common_inner
     & > .inner
@@ -125,7 +127,6 @@ footer#global_foot
   section#global_body
     @include common_inner
   footer#global_foot
-    @include common_inner
     p
       a
         padding-right: 10px
