@@ -51,11 +51,18 @@ class User
   before_create :set_admin_if_first_user
 
   def create_facebook_feed(message, options = {})
-    if facebook_access_token?
-      graph = Facebook::Graph.new('me/feed', self.facebook_access_token, options)
-      graph.params['message'] = message
-      graph.post
-    end
+    return false unless facebook_access_token?
+    graph = Facebook::Graph.new('me/feed', self.facebook_access_token, options)
+    graph.params['message'] = message
+    graph.post
+  end
+
+  def create_facebook_notification(target, template, options = {})
+    return false unless target.facebook_id?
+    path = "#{target.facebook_id}/notifications"
+    graph = Facebook::Graph.new(path, Facebook::Graph.get_app_access_token, options)
+    graph.params['template'] = template
+    graph.post
   end
 
   def find_facebook_friends(limit = 100, page = 0, recursive = true)

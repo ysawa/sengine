@@ -104,6 +104,21 @@ class Game
     self.author.create_facebook_feed(message, options)
   end
 
+  def create_facebook_created_notification(options = {})
+    notified = self.opponent
+    return false unless notified && notified.facebook_id
+    locale = notified.locale
+    options = options.stringify_keys
+    site_root = Shogiengine.system.site[:root_url]
+    game_path = "games/#{self.id}"
+    options['href'] = "#{game_path}"
+    message = I18n.t('feeds.game_created',
+      sente: self.sente_user.name,
+      gote: self.gote_user.name,
+      locale: locale)
+    self.author.create_facebook_notification(notified, message, options)
+  end
+
   def create_facebook_won_feed(options = {})
     locale = self.won_user.locale
     options = options.stringify_keys
@@ -190,6 +205,17 @@ class Game
     else
       false
     end
+  end
+
+  def opponent
+    if self.author
+      if self.sente_user_id == self.author_id
+        return self.gote_user
+      else
+        return self.sente_user
+      end
+    end
+    nil
   end
 
   def set_players_from_order_and_handicap(proponent, opponent, order, handicap)

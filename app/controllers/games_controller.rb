@@ -39,6 +39,7 @@ class GamesController < ApplicationController
       @game.create_first_board
       make_game_notice
       @game.create_facebook_created_feed # it takes long.
+      @game.create_facebook_created_notification # it takes long.
       respond_with(@game)
     else
       render :new

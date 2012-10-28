@@ -51,7 +51,24 @@ describe Game do
     end
   end
 
-  describe '.gote_user' do
+  describe '.opponent' do
+    before :each do
+      @sente_user = Fabricate(:user, name: 'sente')
+      @gote_user = Fabricate(:user, name: 'gote')
+      @game = Fabricate(:game)
+    end
+    it 'works!' do
+      @game.opponent.should == nil
+      @game.sente_user = @sente_user
+      @game.gote_user = @gote_user
+      @game.author = @sente_user
+      @game.opponent.should == @gote_user
+      @game.author = @gote_user
+      @game.opponent.should == @sente_user
+    end
+  end
+
+  describe '.users' do
     before :each do
       @sente_user = Fabricate(:user)
       @gote_user = Fabricate(:user)
