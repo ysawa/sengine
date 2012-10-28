@@ -11,10 +11,19 @@
     width: $common_width - 20px
     margin-bottom: 30px
     #top_image
-      width: $image_width
+      margin-top: 5px
+      width: $image_width - 2px
       float: left
+      border: 1px solid $border_color
+      position: relative
+      @include border-radius(5px)
+      span.site_message
+        color: #999
+        position: absolute
+        right: 10px
+        bottom: 10px
       img
-        width: $image_width
+        width: $image_width - 2px
     nav#top_navi
       margin-top: 45px
       width: $common_width - 20px - $image_width
@@ -34,6 +43,9 @@
         margin: 0 -10px
         width: 540px
         text-align: center
+        border: 0
+        span
+          display: none
         img
           width: 540px
       nav#top_navi
