@@ -111,7 +111,7 @@ class Game
     options = options.stringify_keys
     site_root = Shogiengine.system.site[:root_url]
     game_path = "?redirect=/games/#{self.id}"
-    options['href'] = "#{game_path}"
+    options['href'] = "#{URI.escape game_path}"
     message = I18n.t('feeds.game_created',
       sente: self.sente_user.name,
       gote: self.gote_user.name,
