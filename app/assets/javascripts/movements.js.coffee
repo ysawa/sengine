@@ -20,6 +20,7 @@ class Shogi.Movement extends Backbone.Model
 
   execute: ->
     return if parseInt($('.board').attr('number')) == @get('number')
+    $('.piece').stop(true, true) # stop all the past animations
     $('.board').attr('number', @get('number'))
     $('.cell.moved').removeClass('moved')
     if @get('move')
