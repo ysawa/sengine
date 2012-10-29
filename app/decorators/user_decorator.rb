@@ -101,6 +101,10 @@ class UserDecorator < ApplicationDecorator
     end
   end
 
+  def name_with_grade
+    "#{name} #{grade}"
+  end
+
   def online
     I18n.t("user.online")[model.online?]
   end

@@ -5,7 +5,8 @@
     - if user_signed_in?
       %li.pulldown
         %a{ href: '#' }
-          = current_user_decorator.image
+          - title = current_user_decorator.name_with_grade
+          = current_user_decorator.image(false, { title: title, alt: title })
           = current_user_decorator.name
         %ul
           %li

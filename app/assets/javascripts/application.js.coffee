@@ -51,7 +51,6 @@ $ ->
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
 
-
   $('a.see_more').live 'click', ->
     $(this).hide()
   if ($.check_if_smart_device())

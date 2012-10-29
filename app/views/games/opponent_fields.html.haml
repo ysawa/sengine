@@ -4,4 +4,5 @@
     - user_id = user.id.to_s
     %li.slide
       %a{ class: :face, href: '#' }
-        = user_decorator.face(false, { 'user-id' => user_id })
+        - title = user_decorator.name_with_grade
+        = user_decorator.face(false, { 'user-id' => user_id, title: title, alt: title })
