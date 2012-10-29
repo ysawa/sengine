@@ -10,10 +10,10 @@ class Shogi.Movement extends Backbone.Model
     role: null
     to_point: null
 
-  animate: (piece, position, callback = null) ->
+  animate: (piece, animation, callback = null) ->
     piece.css(position: 'absolute')
     $(piece).animate(
-      { top: position.top, left: position.left }, 700, 'easeInCirc', ->
+      animation, 700, 'easeInCirc', ->
         $(this).css(position: 'static')
         callback() if callback
     )
@@ -47,8 +47,9 @@ class Shogi.Movement extends Backbone.Model
     to_position = cell.position()
     piece_selected.css(top: from_position.top, left: from_position.left)
     $('#game_page').append(piece_selected)
+    animation = { top: to_position.top, left: to_position.left }
     @animate(
-      piece_selected, to_position, ->
+      piece_selected, animation, ->
         $.play_audio('put')
         cell.append(piece_selected).addClass('moved')
     )
@@ -89,12 +90,6 @@ class Shogi.Movement extends Backbone.Model
     piece = Shogi.Board.piece_on_point(to_point)
     direction = @piece_direction(@get('sente'))
     piece.attr('direction', direction)
-    if piece.hasClass('upward')
-      piece.removeClass('upward')
-      piece.addClass('downward')
-    else
-      piece.removeClass('downward')
-      piece.addClass('upward')
     Shogi.normalize_piece(piece)
     piece_in_hand = Shogi.Board.piece_in_hand_of_role(direction, piece.attr('role'))
     if piece_in_hand.present()
@@ -104,15 +99,28 @@ class Shogi.Movement extends Backbone.Model
       cell = $('<div>').addClass('cell')
       number = $('<div>').addClass('number').text('x 0')
       cell.append(number)
-    if piece.hasClass('upward')
+    if piece.hasClass('downward')
       $('.in_hand.upward .pieces .row').append(cell)
     else
       $('.in_hand.downward .pieces .row').append(cell)
     position = piece.position()
     piece.css(top: position.top, left: position.left)
     me = @
+    cell_position = cell.position()
+    animation = {
+      top: cell_position.top
+      left: cell_position.left
+      rotate: '180deg'
+    }
     @animate(
-      piece, cell.position(), ->
+      piece, animation, ->
+        piece.css('transform': 'none')
+        if piece.hasClass('upward')
+          piece.removeClass('upward')
+          piece.addClass('downward')
+        else
+          piece.removeClass('downward')
+          piece.addClass('upward')
         cell.prepend(piece)
         me.plus_number_in_hand(cell.children('.number'), 1)
         cell.children('.piece:gt(0)').remove()

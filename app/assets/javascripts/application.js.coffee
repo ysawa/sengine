@@ -16,6 +16,7 @@
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
+#= require jquery-animate-css-rotate-scale
 #= require underscore
 #= require backbone
 #= require_directory ./helpers/
