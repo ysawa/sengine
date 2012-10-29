@@ -186,8 +186,8 @@ class Game
   def make_board_from_movement(movement)
     number = self.boards.count
     board = self.boards.last.dup
-    board.apply_movement(movement)
     board.number = number
+    board.apply_movement(movement)
     self.boards << board
     self.movements << movement
     self.number = number

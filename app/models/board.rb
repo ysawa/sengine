@@ -27,6 +27,7 @@ class Board
     raise InvalidMovement.new unless movement.valid?
     self.movement = movement
     self.sente = movement.sente
+    raise InvalidMovement.new('invalid number') unless movement.number == self.number
     if movement.from_point?
       proponent_piece = get_piece(movement.from_point)
       set_piece_value(0, movement.from_point)
