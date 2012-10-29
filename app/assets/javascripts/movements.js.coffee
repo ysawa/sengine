@@ -18,6 +18,35 @@ class Shogi.Movement extends Backbone.Model
         callback() if callback
     )
 
+  append_cell_of_piece_role: (cell, piece) ->
+    piece_role = piece.attr('role')
+    console.log piece_role
+    if piece.hasClass('downward')
+      upward = true
+      in_hand = $('.in_hand.upward .pieces .row')
+    else
+      upward = false
+      in_hand = $('.in_hand.downward .pieces .row')
+    if upward
+      roles = []
+      $.each(Shogi.hand_roles, (i, role) ->
+        roles.unshift(role)
+      )
+    else
+      roles = Shogi.hand_roles
+    previous_cell = in_hand.find('.cell:first-child')
+    finished = false
+    $.each(roles, (i, role) ->
+      console.log role
+      if role == piece_role
+        finished = true
+        return false
+      target_piece = in_hand.find(".cell .piece[role=#{role}]")
+      if target_piece.present()
+        previous_cell = target_piece.parents('.cell')
+    )
+    previous_cell.after(cell)
+
   execute: ->
     return if parseInt($('.board').attr('number')) == @get('number')
     $('.piece').stop(true, true) # stop all the past animations
@@ -99,10 +128,7 @@ class Shogi.Movement extends Backbone.Model
       cell = $('<div>').addClass('cell')
       number = $('<div>').addClass('number').text('x 0')
       cell.append(number)
-    if piece.hasClass('downward')
-      $('.in_hand.upward .pieces .row').append(cell)
-    else
-      $('.in_hand.downward .pieces .row').append(cell)
+      @append_cell_of_piece_role(cell, piece)
     position = piece.position()
     piece.css(top: position.top, left: position.left)
     me = @

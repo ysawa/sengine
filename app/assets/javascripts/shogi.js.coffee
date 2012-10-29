@@ -4,11 +4,11 @@
 
 class Shogi
 
-  @roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi', 'ki', 'ou', 'to', 'ng', 'nk', 'ny', 'um', 'ry', 'ou', 'ki']
-  @normal_roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']
-  @reversed_roles: ['to', 'ng', 'nk', 'ny', 'um', 'ry']
+  @roles: ['fu', 'ky', 'ke', 'gi', 'ki', 'ka', 'hi', 'ou', 'to', 'ny', 'nk', 'ng', 'ki', 'um', 'ry', 'ou']
+  @normal_roles: ['fu', 'ky', 'ke', 'gi', 'ka', 'hi']
+  @reversed_roles: ['to', 'ny', 'nk', 'ng', 'um', 'ry']
   @special_roles: ['ou', 'ki']
-  @hand_roles: ['fu', 'gi', 'ke', 'ky', 'ka', 'hi', 'ki', 'ou']
+  @hand_roles: ['fu', 'ky', 'ke', 'gi', 'ki', 'ka', 'hi', 'ou']
 
   @edit_game_form: (form) ->
     form.on "click", "a.face", ->
@@ -59,9 +59,10 @@ class Shogi
     me = @
     $.each(@reversed_roles, (i, role) ->
       if piece.attr('role') == role
-        piece.attr('role', role)
+        normal_role = me.normal_roles[i]
         piece.removeClass("role_#{role}")
-        piece.addClass("role_#{me.normal_roles[i]}")
+        piece.attr('role', normal_role)
+        piece.addClass("role_#{normal_role}")
         return false
     )
 
