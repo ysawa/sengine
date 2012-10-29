@@ -2,7 +2,7 @@
 - game = comment.game
 - if defined?(with_game) && with_game && game
   - game_decorator = GameDecorator.new game
-  - name = t('actions.see_model', model: Game.model_name.human)
+  - name = t('actions.watch_model', model: Game.model_name.human)
   - game_link = link_to name, game
 - else
   - game_link = nil

@@ -27,6 +27,7 @@ en:
     unsuccess: 'Make unsuccessful'
     unset_admin: 'Unset Admin'
     wait: 'Matta'
+    watch_model: 'Watch %{model}'
   helpers:
     submit:
       next: 'Next'
