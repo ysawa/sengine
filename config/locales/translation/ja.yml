@@ -48,6 +48,7 @@ ja:
       truncate: '...'
   feeds:
     game_created: 'みんなの将棋で%{sente}さんと%{gote}さんが対局開始しました。'
+    game_moved: 'みんなの将棋で%{user}さんが新たな一手を指しました。'
     game_finished: 'みんなの将棋で%{winner}さんは%{loser}さんに勝ちました。'
     game_finished_and_upgrade: '%{winner}さんは%{loser}さんに勝ち、%{grade}になりました。'
   notices:

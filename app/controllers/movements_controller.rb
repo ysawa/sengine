@@ -11,6 +11,11 @@ class MovementsController < ApplicationController
       @movement = Movement.new(params[:movement])
       @movement.game = @game
       @game.make_board_from_movement!(@movement)
+      if @movement.sente? && @game.gote_user.offline?
+        @game.create_facebook_moved_notification(@game.gote_user)
+      elsif !@movement.sente? && @game.sente_user.offline?
+        @game.create_facebook_moved_notification(@game.sente_user)
+      end
       respond_to do |format|
         format.js { render text: 'OK', content_type: Mime::TEXT }
         format.html { redirect_to game_path(@game) }

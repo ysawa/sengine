@@ -104,8 +104,8 @@ class Game
     self.author.create_facebook_feed(message, options)
   end
 
-  def create_facebook_created_notification(options = {})
-    notified = self.opponent
+  def create_facebook_created_notification(notified = nil, options = {})
+    notified = self.opponent unless notified
     return false unless notified && notified.facebook_id
     locale = notified.locale
     options = options.stringify_keys
@@ -115,6 +115,28 @@ class Game
     message = I18n.t('feeds.game_created',
       sente: self.sente_user.name,
       gote: self.gote_user.name,
+      locale: locale)
+    self.author.create_facebook_notification(notified, message, options)
+  end
+
+  def create_facebook_moved_notification(notified = nil, options = {})
+    last_movement = self.movements.last
+    return false unless last_movement
+    if last_movement.sente?
+      user = self.sente_user
+      notified = self.gote_user unless notified
+    else
+      user = self.gote_user
+      notified = self.sente_user unless notified
+    end
+    return false unless notified && notified.facebook_id
+    locale = notified.locale
+    options = options.stringify_keys
+    site_root = Shogiengine.system.site[:root_url]
+    game_path = "?redirect=/games/#{self.id}"
+    options['href'] = "#{URI.escape game_path}"
+    message = I18n.t('feeds.game_moved',
+      user: user.name,
       locale: locale)
     self.author.create_facebook_notification(notified, message, options)
   end

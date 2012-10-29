@@ -48,6 +48,7 @@ en:
       truncate: '...'
   feeds:
     game_created: '%{sente} and %{gote} play Shogi on Minna no Shogi.'
+    game_moved: '%{user} moved a piece on Minna no Shogi.'
     game_finished: '%{winner} won %{loser} on Minna no Shogi.'
     game_finished_and_upgrade: '%{winner} won %{loser} to be %{grade}.'
   notices:
