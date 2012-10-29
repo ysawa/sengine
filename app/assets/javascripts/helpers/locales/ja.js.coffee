@@ -18,7 +18,7 @@ $.extend
       'Are you sure?': '本当に実行しますか?'
       'reverse?': '成りますか？'
       'invite_facebook_title': "友達を招待する"
-      'invite_facebook_message': "一緒に将棋しませんか。(Let's play shogi!)"
+      'invite_facebook_message': "みんなの将棋に招待します。(Let's play Shogi!)"
     $.i18n.setDictionary(dictionary)
 
     $.extend($.validator.messages,
