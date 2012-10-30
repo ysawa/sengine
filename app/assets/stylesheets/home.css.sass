@@ -73,17 +73,16 @@
     width: $common_width - 20px
     #mypage_profile
       float: left
-      width: $profile_width
       #user_profile
+        width: $profile_width - 20px
         margin: 0
-        width: $profile_width
-      dl
-        width: $profile_width - 120px
-        dt
-          width: 80px
-        dd
-          width: $profile_width
-          width: 200px
+        $list_width: $profile_width - 140px
+        dl
+          width: $list_width
+          dt
+            width: 80px
+          dd
+            width: $list_width - 80px
     nav#mypage_navi
       float: left
       width: $common_width - 20px - $profile_width
