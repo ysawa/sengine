@@ -24,20 +24,17 @@ $ ->
         except_ids = []
         $('.comment').each ->
           except_ids.push($(this).attr('comment-id'))
-        if after
-          $.ajax(
-            type: "GET"
-            url: "/games/#{game_id}/comments/check_update"
-            data:
-              after: after
-              except_ids: except_ids
-            dataType: 'script'
-            timeout: 10000
-            complete: (xhr, status) ->
-              setTimeout(reload_comment_if_enabled, 20000)
-          )
-        else
-          setTimeout(reload_comment_if_enabled, 20000)
+        $.ajax(
+          type: "GET"
+          url: "/games/#{game_id}/comments/check_update"
+          data:
+            after: after
+            except_ids: except_ids
+          dataType: 'script'
+          timeout: 10000
+          complete: (xhr, status) ->
+            setTimeout(reload_comment_if_enabled, 20000)
+        )
       else
         setTimeout(reload_comment_if_enabled, 20000)
     setTimeout(reload_comment_if_enabled, 20000)
