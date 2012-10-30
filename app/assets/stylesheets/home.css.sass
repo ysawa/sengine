@@ -16,6 +16,7 @@
       float: left
       border: 1px solid $border_color
       position: relative
+      @include atmospheric_background
       @include border-radius(5px)
       span.site_message
         color: #999
@@ -46,6 +47,7 @@
         width: 540px
         text-align: center
         border: 0
+        background: none
         span
           display: none
         img
