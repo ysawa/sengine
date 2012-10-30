@@ -9,6 +9,6 @@ describe "help/index" do
 
   it "renders help/index" do
     render
-    rendered.should match "<h3>\nはじめに\n</h3>"
+    rendered.should match "はじめに"
   end
 end
