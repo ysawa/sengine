@@ -50,12 +50,20 @@ $ ->
         $(this).addClass 'processing'
         null
 
+    $('.board .cell').live 'click', (event) ->
+      if Shogi.insert_place_into_editor($(this))
+        event.preventDefault()
+        return false
+
     # TODO check if the selector always works when requesting with pjax (this code is very stinky)
     game_id = $('.board').attr('game-id')
     $('.board, .in_hand').disableSelection()
 
     # user's selection of piece on the board
     $('.board .piece.upward.playable').live 'click', ->
+      if Shogi.insert_place_into_editor($(this))
+        event.preventDefault()
+        return false
       unless $(this).attr('direction') == Shogi.Board.board_turn()
         return
       $('.cell').removeClass('highlight')
@@ -88,7 +96,9 @@ $ ->
 
     # move selected piece
     $('.cell.highlight').live 'click', ->
-
+      if Shogi.insert_place_into_editor($(this))
+        event.preventDefault()
+        return false
       # initialize movement
       game_id = $('.board').attr('game-id')
       number = (parseInt($('.board').attr('number')) + 1)
@@ -120,6 +130,6 @@ $ ->
 
       movement.execute()
       movement.save()
-
       Shogi.Board.flip_turn()
+
   initialize_game()

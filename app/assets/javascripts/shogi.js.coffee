@@ -9,6 +9,8 @@ class Shogi
   @reversed_roles: ['to', 'ny', 'nk', 'ng', 'um', 'ry']
   @special_roles: ['ou', 'ki']
   @hand_roles: ['fu', 'ky', 'ke', 'gi', 'ki', 'ka', 'hi', 'ou']
+  @KANSUJIS = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+  @SUJIS = ['０', '１', '２', '３', '４', '５', '６', '７', '８', '９']
 
   @edit_game_form: (form) ->
     form.on "click", "a.face", ->
@@ -54,6 +56,15 @@ class Shogi
         form.find("#game_handicap_select").hide()
       false
     form.find('a.game_order[game-order="random"]').click()
+
+  @insert_place_into_editor = (element) ->
+    if event.ctrlKey or event.metaKey
+      x = Shogi.Board.get_point_x(element)
+      y = Shogi.Board.get_point_y(element)
+      place = "#{@SUJIS[x]}#{@KANSUJIS[y]}"
+      $('textarea[name="comment[content]"]').insertAtCaret(place)
+      return true
+    null
 
   @normalize_piece = (piece) ->
     me = @
