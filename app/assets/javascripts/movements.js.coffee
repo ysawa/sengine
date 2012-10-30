@@ -103,7 +103,7 @@ class Shogi.Movement extends Backbone.Model
     attributes.to_point = to_point
     @attributes = attributes
 
-  piece_direction: (sente) ->
+  piece_player: (sente) ->
     if sente
       'sente'
     else
@@ -117,10 +117,10 @@ class Shogi.Movement extends Backbone.Model
 
   take_piece_on_point: (to_point) ->
     piece = Shogi.Board.piece_on_point(to_point)
-    direction = @piece_direction(@get('sente'))
-    piece.attr('direction', direction)
+    player = @piece_player(@get('sente'))
+    piece.attr('player', player)
     Shogi.normalize_piece(piece)
-    piece_in_hand = Shogi.Board.piece_in_hand_of_role(direction, piece.attr('role'))
+    piece_in_hand = Shogi.Board.piece_in_hand_of_role(player, piece.attr('role'))
     if piece_in_hand.present()
       cell = piece_in_hand.parents('.cell')
       number = cell.children('.number')

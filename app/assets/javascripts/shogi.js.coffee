@@ -77,11 +77,11 @@ class Shogi
         return false
     )
 
-  @select_reverse_or_not = (role, from_point, to_point, direction) ->
-    in_opponent_first_line = (direction == 'sente' and to_point[1] == 1) or (direction == 'gote' and to_point[1] == 9)
-    in_opponent_second_line = (direction == 'sente' and to_point[1] == 2) or (direction == 'gote' and to_point[1] == 8)
-    in_opponent_area = (direction == 'sente' and to_point[1] <= 3) or (direction == 'gote' and to_point[1] >= 7)
-    out_opponent_area = (direction == 'sente' and from_point[1] <= 3) or (direction == 'gote' and from_point[1] >= 7)
+  @select_reverse_or_not = (role, from_point, to_point, player) ->
+    in_opponent_first_line = (player == 'sente' and to_point[1] == 1) or (player == 'gote' and to_point[1] == 9)
+    in_opponent_second_line = (player == 'sente' and to_point[1] == 2) or (player == 'gote' and to_point[1] == 8)
+    in_opponent_area = (player == 'sente' and to_point[1] <= 3) or (player == 'gote' and to_point[1] >= 7)
+    out_opponent_area = (player == 'sente' and from_point[1] <= 3) or (player == 'gote' and from_point[1] >= 7)
     not_reversed = $.inArray(role, ['fu', 'gi', 'ke', 'ky', 'ka', 'hi']) >= 0
     if in_opponent_first_line and $.inArray(role, ['fu', 'ke', 'ky']) >= 0
       reverse = true

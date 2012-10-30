@@ -5,10 +5,6 @@ class PieceDecorator < ApplicationDecorator
 
   attr_accessor :reverse
 
-  def direction
-    model.sente? ? 'sente' : 'gote'
-  end
-
   def html_class(options = {})
     options.stringify_keys!
     klasses = ['piece']
@@ -19,9 +15,13 @@ class PieceDecorator < ApplicationDecorator
     klasses
   end
 
+  def player
+    model.sente? ? 'sente' : 'gote'
+  end
+
   def tagify(play, moved = nil)
     name = h.convert_piece_role_to_kanji model.role
     title = h.translate_piece_role model.role
-    h.content_tag :div, name, role: model.stringify_role, direction: direction, class: html_class(play: play, moved: moved), title: title
+    h.content_tag :div, name, role: model.stringify_role, player: player, class: html_class(play: play, moved: moved), title: title
   end
 end

@@ -64,7 +64,7 @@ $ ->
       if Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
-      unless $(this).attr('direction') == Shogi.Board.board_turn()
+      unless $(this).attr('player') == Shogi.Board.board_turn()
         return
       $('.cell').removeClass('highlight')
       if $(this).hasClass('selected')
@@ -79,7 +79,7 @@ $ ->
 
     # user's selection of piece in his or her hand
     $('.in_hand .piece.upward.playable').live 'click', ->
-      unless $(this).attr('direction') == Shogi.Board.board_turn()
+      unless $(this).attr('player') == Shogi.Board.board_turn()
         return
       $('.cell').removeClass('highlight')
       if $(this).hasClass('selected')
@@ -91,8 +91,8 @@ $ ->
         $(this).addClass('selected')
         $(this).parents('.cell').addClass('selected')
         role = $(this).attr('role')
-        direction = $(this).attr('direction')
-        Shogi.Board.highlight_available_cells(role, direction)
+        player = $(this).attr('player')
+        Shogi.Board.highlight_available_cells(role, player)
 
     # move selected piece
     $('.cell.highlight').live 'click', ->
@@ -109,13 +109,13 @@ $ ->
       )
       piece_selected = $('.piece.selected')
       movement.set('role', piece_selected.attr('role'))
-      direction = piece_selected.attr('direction')
+      player = piece_selected.attr('player')
       movement.set('move', piece_selected.parents('.in_hand').size() == 0)
       piece_cell = piece_selected.parents('.cell')
       movement.set('to_point', [Shogi.Board.get_point_x($(this)), Shogi.Board.get_point_y($(this))])
       if movement.get('move')
         movement.set('from_point', [Shogi.Board.get_point_x(piece_cell), Shogi.Board.get_point_y(piece_cell)])
-        movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), direction))
+        movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), player))
         movement.set('put', false)
       else
         movement.set('from_point', null)
@@ -126,7 +126,6 @@ $ ->
       $('.cell').removeClass('highlight')
       $('.cell').removeClass('selected')
       piece_selected.removeClass('selected')
-      # Shogi.Board.send_movement_to_server(game_id, role, move, from_point, to_point, reverse, direction)
 
       movement.execute()
       movement.save()

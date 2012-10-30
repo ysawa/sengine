@@ -21,13 +21,13 @@ class Shogi.Board extends Backbone.Model
   @cell_on_point_have_opponent_piece: (point) ->
     cell = Shogi.Board.cell_on_point(point)
     if cell.find('.piece').size() >= 1
-      cell.find('.piece').attr('direction') != Shogi.Board.board_turn()
+      cell.find('.piece').attr('player') != Shogi.Board.board_turn()
     else
       false
   @cell_on_point_have_proponent_piece: (point) ->
     cell = Shogi.Board.cell_on_point(point)
     if cell.find('.piece').size() >= 1
-      cell.find('.piece').attr('direction') == Shogi.Board.board_turn()
+      cell.find('.piece').attr('player') == Shogi.Board.board_turn()
     else
       false
   @cell_on_column_have_proponent_fu: (column) ->
@@ -37,7 +37,7 @@ class Shogi.Board extends Backbone.Model
       cell = @cell_on_point([x, y])
       piece = cell.find('.piece')
       if piece.size() >= 1
-        if piece.attr('direction') == Shogi.Board.board_turn() and piece.attr('role') is 'fu'
+        if piece.attr('player') == Shogi.Board.board_turn() and piece.attr('role') is 'fu'
           result = true
           break
     result
@@ -59,16 +59,16 @@ class Shogi.Board extends Backbone.Model
       parseInt object.parents('.cell').attr('y')
     else if object.hasClass('cell')
       parseInt object.attr('y')
-  @highlight_available_cells = (role, direction) ->
+  @highlight_available_cells = (role, player) ->
     first_line = 1
     last_line = 9
     if $.inArray(role, ['fu', 'ky']) >= 0
-      if direction == 'gote'
+      if player == 'gote'
         last_line = 8
       else
         first_line = 2
     else if role == 'ke'
-      if direction == 'gote'
+      if player == 'gote'
         last_line = 7
       else
         first_line = 3
@@ -160,7 +160,7 @@ class Shogi.Board extends Backbone.Model
     x = Shogi.Board.get_point_x(piece)
     y = Shogi.Board.get_point_y(piece)
     role = piece.attr('role')
-    sente = piece.attr('direction') == 'sente'
+    sente = piece.attr('player') == 'sente'
     direction = +1
     unless sente
       direction = -1
@@ -187,8 +187,8 @@ class Shogi.Board extends Backbone.Model
       when 'um'
         Shogi.Board.highlight_for_role_ka(x, y, direction)
         Shogi.Board.highlight_for_orthogonal_walk(x, y)
-  @piece_in_hand_of_role: (hand, role) ->
-    $(".in_hand[hand=#{hand}] .piece[role=#{role}]")
+  @piece_in_hand_of_role: (player, role) ->
+    $(".in_hand[player=#{player}] .piece[role=#{role}]")
   @piece_on_point: (point) ->
     cell = Shogi.Board.cell_on_point(point)
     if cell

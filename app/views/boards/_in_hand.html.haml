@@ -14,7 +14,7 @@
   - in_turn = true
 - elsif !is_sente && user == game.gote_user
   - in_turn = true
-.in_hand{ class: direction, hand: (sente_hand ? 'sente' : 'gote') }
+.in_hand{ class: direction, player: (sente_hand ? 'sente' : 'gote') }
   .pieces
     .row
       .cell{ class: (in_turn ? :in_turn : nil) }
