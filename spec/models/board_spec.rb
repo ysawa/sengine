@@ -58,7 +58,8 @@ describe Board do
       attributes = {
         from_point: [7, 3],
         to_point: [7, 4],
-        role: Piece::FU
+        role: Piece::FU,
+        number: 1
       }
       Fabricate(:movement, attributes)
     end
@@ -68,6 +69,7 @@ describe Board do
       piece_to_point = board.get_piece(movement.to_point)
       piece_from_point.role.should == Piece::FU
       piece_to_point.should be_blank
+      board.number = 1
       board.apply_movement(movement)
 
       board.movement.should == movement
@@ -77,7 +79,13 @@ describe Board do
       piece_to_point.role.should == Piece::FU
     end
 
-    it 'can take opponent piece' do
+    it 'fail if movement have invalid number (number should be same)' do
+      piece_from_point = board.get_piece(movement.from_point)
+      piece_to_point = board.get_piece(movement.to_point)
+      piece_from_point.role.should == Piece::FU
+      piece_to_point.should be_blank
+      board.number = 2
+      lambda { board.apply_movement(movement) }.should raise_error
     end
   end
 

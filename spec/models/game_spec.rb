@@ -87,13 +87,20 @@ describe Game do
     before :each do
       @game = Fabricate(:game)
       @game.boards << Board.hirate
-      @movement = Fabricate.build(:movement)
+      @movement = Fabricate.build(:movement, number: 1)
     end
 
     it 'works!' do
       @game.boards.count.should == 1
       @game.make_board_from_movement(@movement)
       @game.boards.count.should == 2
+    end
+
+    it 'fail if movement do not have the valid number' do
+      @game.boards.count.should == 1
+      @movement.number = 2
+      lambda { @game.make_board_from_movement(@movement) }.should raise_error
+      @game.boards.count.should == 1
     end
   end
 
