@@ -110,8 +110,11 @@ form
 ul.menu
   li
     margin: 25px 0
-    a
+    a.normal_button
+      @include pill_button(#a0a0a0)
+    a.top_button
       @include pill_button
+    a.normal_button, a.top_button
       padding: 10px 15px
       font-size: 100%
       display: block
@@ -278,7 +281,7 @@ aside.actions
   ul.menu
     li
       margin: 25px 0
-      a
+      a.normal_button, a.top_button
         width: 480px
         padding: 20px 15px
         font-size: $mobile_button_font_size
