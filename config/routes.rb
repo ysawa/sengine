@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Shogiengine::Application.routes.draw do
 
   namespace :sys do
@@ -73,6 +75,8 @@ Shogiengine::Application.routes.draw do
   root to: "home#index"
   root to: "home#top"
   root to: "home#mypage"
+
+  mount Resque::Server.new, at: "/resque"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
