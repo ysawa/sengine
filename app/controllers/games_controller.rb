@@ -40,6 +40,10 @@ class GamesController < ApplicationController
       make_game_notice
       @game.create_facebook_created_feed # it takes long.
       @game.create_facebook_created_notification # it takes long.
+      opponent = @game.opponent(current_user)
+      if opponent.bot? && opponent.work? && @game.sente_user_id == opponent.id
+        opponent.async_process_next_movement(@game)
+      end
       respond_with(@game)
     else
       render :new
