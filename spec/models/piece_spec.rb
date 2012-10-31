@@ -31,4 +31,24 @@ describe Piece do
       piece.role.should == Piece::HI
     end
   end
+
+  describe '.moves' do
+    it 'generates a correct array of moves' do
+      piece.moves.should == [-10]
+      piece.sente = false
+      piece.moves.should == [10]
+      piece.role = Piece::HI
+      piece.moves.should == []
+    end
+  end
+
+  describe '.jumps' do
+    it 'generates a correct array of jumps' do
+      piece.jumps.should == []
+      piece.role = Piece::HI
+      piece.jumps.should == [-10, -1, 1, 10]
+      piece.sente = false
+      piece.jumps.should == [-10, -1, 1, 10]
+    end
+  end
 end

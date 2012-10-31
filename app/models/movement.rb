@@ -10,7 +10,7 @@ class Movement
   field :put, type: Boolean
   field :reverse, type: Boolean
   field :role, type: String
-  field :role_value, type: Integer
+  field :role_value, type: Integer # positive integer
   field :to_point, type: Point
   belongs_to :board # the board applied this movement to
   belongs_to :game

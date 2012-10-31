@@ -5,6 +5,7 @@ class Piece
   class UnexpectedReverse < StandardError; end
   class InvalidAttributes < StandardError; end
   class NoneCannotBeTaken < InvalidAttributes; end
+  include ActiveModel::AttributeMethods
   # <tt>Piece</tt> generate more understandable instances from role value.
   # Role value is only an integer and we cannot find what the value means.
   # Convert role value into a Piece instance, and get some convenient methods.
@@ -20,13 +21,44 @@ class Piece
   HAND_ROLES = [1, 2, 3, 4, 5, 6, 7, 8]
   ROLE_STRINGS = %w(* fu ky ke gi ki ka hi ou to ny nk ng * um ry *)
 
+  SENTE_MOVES = [
+    nil,
+    [-10], [], [-21, -19], [-11, -10, -9, 9, 11], # FU, KY, KE, GI
+    [-11, -10, -9, -1, 1, 10], [], [], [-11, -10, -9, -1, 1, 9, 10, 11], # KI, KA, HI, OU
+    [-11, -10, -9, -1, 1, 10], [-11, -10, -9, -1, 1, 10], # TO, NY
+    [-11, -10, -9, -1, 1, 10], [-11, -10, -9, -1, 1, 10], # KY, NG
+    nil, [-10, -1, 1, 10], [-11, -9, 9, 11] # nil, UM, RY
+  ]
+  GOTE_MOVES = [
+    nil,
+    [10], [], [21, 19], [11, 10, 9, -9, -11], # FU, KY, KE, GI
+    [11, 10, 9, 1, -1, -10], [], [], [11, 10, 9, 1, -1, -9, -10, -11], # KI, KA, HI, OU
+    [11, 10, 9, 1, -1, -10], [11, 10, 9, 1, -1, -10], # TO, NY
+    [11, 10, 9, 1, -1, -10], [11, 10, 9, 1, -1, -10], # TO, NY, KY, NG
+    nil, [10, 1, -1, -10], [11, 9, -9, -11], [], # nil, UM, RY
+  ]
+  SENTE_JUMPS = [
+    nil,
+    [], [-10], [], [], # FU, KY, KE, GI
+    [], [-11, -9, 9, 11], [-10, -1, 1, 10], [], # KI, KA, HI, OU
+    [], [], [], [], # TO, NY, KY, NG
+    nil, [-11, -9, 9, 11], [-10, -1, 1, 10], # nil, UM, RY
+  ]
+  GOTE_JUMPS = [
+    nil,
+    [], [10], [], [], # FU, KY, KE, GI
+    [], [-11, -9, 9, 11], [-10, -1, 1, 10], [], # KI, KA, HI, OU
+    [], [], [], [], # TO, NY, KY, NG
+    nil, [-11, -9, 9, 11], [-10, -1, 1, 10], # nil, UM, RY
+  ]
+
   # role value with sente flag
   # if sente this value is positive, else the value is negative
-  attr_accessor :value
+  attr_reader :value
   # pure role value (not consists sente flag)
-  attr_accessor :role
+  attr_reader :role
   # sente flag
-  attr_accessor :sente
+  attr_reader :sente
 
   alias :to_i :value
 
@@ -38,6 +70,22 @@ class Piece
       self.value = value
     else
       raise InvalidAttributes.new(value)
+    end
+  end
+
+  def jumps
+    if sente?
+      SENTE_JUMPS[self.role]
+    else
+      GOTE_JUMPS[self.role]
+    end
+  end
+
+  def moves
+    if sente?
+      SENTE_MOVES[self.role]
+    else
+      GOTE_MOVES[self.role]
     end
   end
 
@@ -91,6 +139,24 @@ class Piece
     REVERSED_ROLES.include? @role
   end
 
+  def role=(role)
+    if sente?
+      @value = role
+    else
+      @value = - role
+    end
+    @role = role
+  end
+
+  def sente=(sente)
+    if sente
+      @value = self.role
+    else
+      @value = - self.role
+    end
+    @sente = sente
+  end
+
   def sente?
     @sente
   end
@@ -99,10 +165,10 @@ class Piece
     Piece.stringify_role(@role)
   end
 
-  def value=(integer)
-    @value = integer
-    @sente = integer > 0
-    @role = integer.abs
+  def value=(value)
+    @sente = value > 0
+    @role = value.abs
+    @value = value
   end
 
   class << self
