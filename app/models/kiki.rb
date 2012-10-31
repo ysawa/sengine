@@ -6,15 +6,16 @@ class Kiki
   #
   # Think about the view of sente.
   #
-  #  19     -21
-  #  -9 -10 -11
-  #   1   P  -1
-  #  11  10   9
-  #  21      19
+  #   8     -12
+  #   9  -1 -11
+  #  10   P -10
+  #  11   1  -9
+  #  12      -8
+
   #
   # The kiki of the place in front of sente's fu is
   #
-  #  [10]
+  #  [1]
 
   class << self
   end

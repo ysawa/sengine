@@ -229,9 +229,10 @@ class Game
     end
   end
 
-  def opponent
-    if self.author
-      if self.sente_user_id == self.author_id
+  def opponent(user = nil)
+    user = self.author unless user
+    if user
+      if self.sente_user_id == user.id
         return self.gote_user
       else
         return self.sente_user

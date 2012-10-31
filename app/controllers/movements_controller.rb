@@ -16,6 +16,10 @@ class MovementsController < ApplicationController
       elsif !@movement.sente? && @game.sente_user.offline?
         @game.create_facebook_moved_notification(@game.sente_user)
       end
+      opponent = @game.opponent(current_user)
+      if opponent.bot? && opponent.work?
+        opponent.async_process_next_movement(@game)
+      end
       respond_to do |format|
         format.js { render text: 'OK', content_type: Mime::TEXT }
         format.html { redirect_to game_path(@game) }

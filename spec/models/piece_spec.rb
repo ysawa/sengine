@@ -34,9 +34,9 @@ describe Piece do
 
   describe '.moves' do
     it 'generates a correct array of moves' do
-      piece.moves.should == [-10]
+      piece.moves.should == [-1]
       piece.sente = false
-      piece.moves.should == [10]
+      piece.moves.should == [1]
       piece.role = Piece::HI
       piece.moves.should == []
     end

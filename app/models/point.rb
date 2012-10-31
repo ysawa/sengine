@@ -38,6 +38,9 @@ class Point
       when Point
         @x = object.x
         @y = object.y
+      when Integer
+        @x = object / 10
+        @y = object % 10
       end
     end
     @x = @x.to_i if @x

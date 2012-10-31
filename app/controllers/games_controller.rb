@@ -127,7 +127,9 @@ class GamesController < ApplicationController
   # GET /games/opponent_fields
   def opponent_fields
     current_user.update_friend_ids
-    @friends = User.friends(current_user).desc(:used_at)
+    @friends = User.friends(current_user).desc(:used_at).to_a
+    bot = MinnaBot.first
+    @friends.prepend bot if bot
     render layout: false
   end
 

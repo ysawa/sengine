@@ -100,7 +100,14 @@ class Board
   end
 
   def get_piece_value(point)
-    attr = "p_#{point[0]}#{point[1]}"
+    case point
+    when Point, Array
+      attr = "p_#{point[0]}#{point[1]}"
+    when Integer
+      attr = "p_#{point}"
+    else
+      raise
+    end
     read_attribute(attr)
   end
 
