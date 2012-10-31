@@ -81,7 +81,9 @@ class MinnaBot < Bot
               (!@bot_sente && to_point.y >= 8)
             attributes[:reverse] = true
             candidates << generate_movement(attributes)
-          elsif (@bot_sente && to_point.y <= 3) ||
+          elsif (@bot_sente && from_point.y <= 3) ||
+              (!@bot_sente && from_point.y >= 7) ||
+              (@bot_sente && to_point.y <= 3) ||
               (!@bot_sente && to_point.y >= 7)
             candidates << generate_movement(attributes)
             attributes[:reverse] = true
@@ -128,8 +130,10 @@ class MinnaBot < Bot
                 (!@bot_sente && to_point.y >= 8))
           attributes[:reverse] = true
           candidates << generate_movement(attributes)
-        elsif (@bot_sente && to_point.y <= 3) ||
-            (!@bot_sente && to_point.y >= 7)
+          elsif (@bot_sente && from_point.y <= 3) ||
+              (!@bot_sente && from_point.y >= 7) ||
+              (@bot_sente && to_point.y <= 3) ||
+              (!@bot_sente && to_point.y >= 7)
           candidates << generate_movement(attributes)
           attributes[:reverse] = true
           candidates << generate_movement(attributes)
