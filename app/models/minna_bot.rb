@@ -57,8 +57,9 @@ class MinnaBot < Bot
       jumps = Piece::GOTE_JUMPS[piece.role]
     end
     jumps.each do |jump|
+      to_value = from_value
       8.times do |i|
-        to_value = from_value + jump * (i + 1)
+        to_value += jump
         break if to_value <= 10 ||
             to_value >= 100 ||
             (to_value % 10 == 0)
