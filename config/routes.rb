@@ -21,6 +21,8 @@ Shogiengine::Application.routes.draw do
         put :set_admin
       end
     end
+
+    mount Resque::Server.new, at: "/resque"
   end
 
   %w(game privacy tos).each do |page|
@@ -75,8 +77,6 @@ Shogiengine::Application.routes.draw do
   root to: "home#index"
   root to: "home#top"
   root to: "home#mypage"
-
-  mount Resque::Server.new, at: "/resque"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
