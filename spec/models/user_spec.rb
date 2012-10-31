@@ -3,6 +3,13 @@
 require 'spec_helper'
 
 describe User do
+
+  describe '.bot?' do
+    it 'should be false' do
+      bot.should be_false
+    end
+  end
+
   describe '.save' do
     let(:user) { User.new }
 

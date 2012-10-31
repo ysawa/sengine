@@ -44,11 +44,15 @@ class User
   has_many :created_games, class_name: 'Game', inverse_of: :author
   has_many :comments, inverse_of: :author
 
-  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count
+  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count, :used_at
 
   after_validation :setup_name
   after_validation :setup_timezone
   before_create :set_admin_if_first_user
+
+  def bot?
+    false
+  end
 
   def create_facebook_feed(message, options = {})
     return false unless facebook_access_token?
