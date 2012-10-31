@@ -57,7 +57,7 @@ namespace :deploy do
 
     task :restart, roles: :app, except: { no_release: true } do
       pid_file = "#{shared_path}/pids/resque.pid"
-      run "kill `cat #{pid_file}`"
+      run "kill `cat #{pid_file}`; true"
       sleep(5)
       run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake environment resque:work &"
     end
