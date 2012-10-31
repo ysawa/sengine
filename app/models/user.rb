@@ -144,6 +144,10 @@ class User
     save
   end
 
+  def work?
+    false
+  end
+
   def write_grade_with_score(score)
     past_grade = self.grade
     self.score_differential = score - self.score
