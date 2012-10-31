@@ -21,6 +21,7 @@ class MinnaBot < Bot
       end
       push_valid_piece_move_candidates(piece, from_point, candidates)
       push_valid_piece_jump_candidates(piece, from_point, candidates)
+      push_valid_piece_put_candidates(candidates)
     end
     candidates
   end
@@ -70,9 +71,25 @@ class MinnaBot < Bot
           from_point: from_point,
           to_point: to_point,
           move: true,
-          put: false
+          put: false,
+          reverse: false
         }
-        candidates << generate_movement(attributes)
+        if piece.reversed?
+          candidates << generate_movement(attributes)
+        else
+          if (@bot_sente && to_point.y <= 2) ||
+              (!@bot_sente && to_point.y >= 8)
+            attributes[:reverse] = true
+            candidates << generate_movement(attributes)
+          elsif (@bot_sente && to_point.y <= 3) ||
+              (!@bot_sente && to_point.y >= 7)
+            candidates << generate_movement(attributes)
+            attributes[:reverse] = true
+            candidates << generate_movement(attributes)
+          else
+            candidates << generate_movement(attributes)
+          end
+        end
         break if to_piece && to_piece.sente? != @bot_sente
       end
     end
@@ -98,10 +115,33 @@ class MinnaBot < Bot
         from_point: from_point,
         to_point: to_point,
         move: true,
-        put: false
+        put: false,
+        reverse: false
       }
-      candidates << generate_movement(attributes)
+      if piece.reversed? ||
+          piece.role == Piece::KI ||
+          piece.role == Piece::OU
+        candidates << generate_movement(attributes)
+      else
+        if piece.role == Piece::KE &&
+            ((@bot_sente && to_point.y <= 2) ||
+                (!@bot_sente && to_point.y >= 8))
+          attributes[:reverse] = true
+          candidates << generate_movement(attributes)
+        elsif (@bot_sente && to_point.y <= 3) ||
+            (!@bot_sente && to_point.y >= 7)
+          candidates << generate_movement(attributes)
+          attributes[:reverse] = true
+          candidates << generate_movement(attributes)
+        else
+          candidates << generate_movement(attributes)
+        end
+      end
     end
+    candidates
+  end
+
+  def push_valid_piece_put_candidates(candidates)
     candidates
   end
 

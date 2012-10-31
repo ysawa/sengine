@@ -3,6 +3,8 @@
     <%- notice_message = t('notices.you_won') %>
   <%- elsif game.lost_user_id == current_user.id %>
     <%- notice_message = t('notices.you_lost') %>
+  <%- else %>
+    <%- notice_message = '' %>
   <%- end %>
   <%- decorator = GameDecorator.new game %>
   <%- notice_message += " (#{decorator.name(true)})" %>
