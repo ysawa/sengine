@@ -6,4 +6,7 @@ require File.expand_path('../config/application', __FILE__)
 
 Shogiengine::Application.load_tasks
 
-task "resque:setup" => :environment
+task "resque:setup" => :environment do
+  require 'resque'
+  Resque.redis.namespace = "resque:Shogiengine"
+end
