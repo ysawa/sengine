@@ -60,6 +60,9 @@ gem 'unicorn'
 
 gem 'jpmobile'
 
+# Resque to process delayed jobs
+gem 'resque'
+
 group :development do
   gem 'thin'
 end

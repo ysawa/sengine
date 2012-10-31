@@ -44,6 +44,25 @@ namespace :deploy do
     run "kill -KILL -s USR2 `cat #{pid_file}`"
   end
 
+  namespace :resque do
+    task :start, roles: :app, except: { no_release: true } do
+      pid_file = "#{shared_path}/pids/resque.pid"
+      run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake environment resque:work &"
+    end
+
+    task :stop, roles: :app, except: { no_release: true } do
+      pid_file = "#{shared_path}/pids/resque.pid"
+      run "kill `cat #{pid_file}`"
+    end
+
+    task :restart, roles: :app, except: { no_release: true } do
+      pid_file = "#{shared_path}/pids/resque.pid"
+      run "kill `cat #{pid_file}`"
+      sleep(5)
+      run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake environment resque:work &"
+    end
+  end
+
   task :setup_app_directories, roles: :app, except: { no_release: true } do
     directories = "#{shared_path}/sockets #{shared_path}/config"
     run "mkdir -p #{directories}; chmod g+w #{directories}"
@@ -59,6 +78,9 @@ namespace :deploy do
 end
 after 'deploy:setup', 'deploy:setup_app_directories'
 after 'deploy:update_code', 'deploy:symlink_config'
+after 'deploy:start', 'deploy:resque:start'
+after 'deploy:restart', 'deploy:resque:restart'
+after 'deploy:stop', 'deploy:resque:stop'
 
 namespace :assets do
   task :precompile, roles: :web do
