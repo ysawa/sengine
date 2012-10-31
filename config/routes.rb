@@ -21,9 +21,9 @@ Shogiengine::Application.routes.draw do
         put :set_admin
       end
     end
-
-    mount Resque::Server.new, at: "/resque"
   end
+
+  mount Resque::Server.new, at: "/sys/resque"
 
   %w(game privacy tos).each do |page|
     match "about/#{page}", as: "about_#{page}"
