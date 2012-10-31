@@ -20,6 +20,7 @@ class MinnaBot < Bot
         moves = Piece::GOTE_MOVES[piece.role]
       end
       push_valid_piece_move_candidates(piece, from_point, candidates)
+      push_valid_piece_jump_candidates(piece, from_point, candidates)
     end
     candidates
   end
@@ -46,6 +47,35 @@ class MinnaBot < Bot
     candidates = generate_valid_candidates
     new_movement = candidates.sample
     @game.make_board_from_movement!(new_movement)
+  end
+
+  def push_valid_piece_jump_candidates(piece, from_point, candidates)
+    from_value = from_point.x * 10 + from_point.y
+    if @bot_sente
+      jumps = Piece::SENTE_JUMPS[piece.role]
+    else
+      jumps = Piece::GOTE_JUMPS[piece.role]
+    end
+    jumps.each do |jump|
+      8.times do |i|
+        to_value = from_value + jump * (i + 1)
+        break if to_value <= 10 ||
+            to_value >= 100 ||
+            (to_value % 10 == 0)
+        to_point = Point.new(to_value)
+        to_piece = @last_board.get_piece(to_point)
+        break if to_piece && to_piece.sente? == @bot_sente
+        attributes = {
+          from_point: from_point,
+          to_point: to_point,
+          move: true,
+          put: false
+        }
+        candidates << generate_movement(attributes)
+        break if to_piece && to_piece.sente? != @bot_sente
+      end
+    end
+    candidates
   end
 
   def push_valid_piece_move_candidates(piece, from_point, candidates)
