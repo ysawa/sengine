@@ -11,6 +11,7 @@ namespace :resque do
     require 'resque/scheduler'
 
     # you probably already have this somewhere
+    Resque.redis.namespace = "resque:Shogiengine"
     Resque.redis = 'localhost:6379'
 
     # If you want to be able to dynamically change the schedule,
