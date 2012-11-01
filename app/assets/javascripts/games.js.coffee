@@ -48,7 +48,7 @@ $ ->
         null
 
     $('.board .cell').live 'click', (event) ->
-      if Shogi.insert_place_into_editor($(this))
+      if !$.check_if_smart_device() && Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
 
@@ -58,7 +58,7 @@ $ ->
 
     # user's selection of piece on the board
     $('.board .piece.upward.playable').live 'click', ->
-      if Shogi.insert_place_into_editor($(this))
+      if !$.check_if_smart_device() && Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
       unless $(this).attr('player') == Shogi.Board.board_turn()
@@ -93,7 +93,7 @@ $ ->
 
     # move selected piece
     $('.cell.highlight').live 'click', ->
-      if Shogi.insert_place_into_editor($(this))
+      if !$.check_if_smart_device() and Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
       # initialize movement
