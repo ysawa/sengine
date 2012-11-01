@@ -62,6 +62,7 @@ gem 'jpmobile'
 
 # Resque to process delayed jobs
 gem 'resque'
+gem 'resque-scheduler', require: 'resque_scheduler'
 
 group :development do
   gem 'thin'
