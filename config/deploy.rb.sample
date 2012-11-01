@@ -63,6 +63,25 @@ namespace :deploy do
     end
   end
 
+  namespace :resque_scheduler do
+    task :start, roles: :app, except: { no_release: true } do
+      pid_file = "#{shared_path}/pids/resque_scheduler.pid"
+      run "cd #{current_path} && PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake resque:scheduler &"
+    end
+
+    task :stop, roles: :app, except: { no_release: true } do
+      pid_file = "#{shared_path}/pids/resque_scheduler.pid"
+      run "kill `cat #{pid_file}`"
+    end
+
+    task :restart, roles: :app, except: { no_release: true } do
+      pid_file = "#{shared_path}/pids/resque_scheduler.pid"
+      run "kill `cat #{pid_file}`; true"
+      sleep(5)
+      run "cd #{current_path} && PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake resque:scheduler &"
+    end
+  end
+
   task :setup_app_directories, roles: :app, except: { no_release: true } do
     directories = "#{shared_path}/sockets #{shared_path}/config"
     run "mkdir -p #{directories}; chmod g+w #{directories}"
@@ -81,6 +100,9 @@ after 'deploy:update_code', 'deploy:symlink_config'
 after 'deploy:start', 'deploy:resque:start'
 after 'deploy:restart', 'deploy:resque:restart'
 after 'deploy:stop', 'deploy:resque:stop'
+after 'deploy:start', 'deploy:resque_scheduler:start'
+after 'deploy:restart', 'deploy:resque_scheduler:restart'
+after 'deploy:stop', 'deploy:resque_scheduler:stop'
 
 namespace :assets do
   task :precompile, roles: :web do
