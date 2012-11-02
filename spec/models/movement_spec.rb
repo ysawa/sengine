@@ -13,6 +13,22 @@ describe Movement do
     end
   end
 
+  describe '.move and .move?' do
+    it 'means not put' do
+      movement.put = false
+      movement.move.should be_true
+      movement.put = true
+      movement.move.should be_false
+    end
+
+    it 'means not put' do
+      movement.put = false
+      movement.move?.should be_true
+      movement.put = true
+      movement.move?.should be_false
+    end
+  end
+
   describe 'validtations' do
     describe '.to_point should be taken' do
       it 'valid if to_point exist' do
