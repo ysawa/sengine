@@ -56,6 +56,10 @@ class Point
     !!(@x || @y)
   end
 
+  def to_a
+    [@x, @y]
+  end
+
   def x=(x)
     @x = x
     @x = @x.to_i if @x

@@ -69,6 +69,10 @@ describe Movement do
         movement.reverse = true
         movement.put = true
         movement.valid?.should be_false
+        movement.errors.size.should == 2
+        movement.from_point = nil
+        movement.valid?.should be_false
+        movement.errors.size.should == 1
       end
     end
   end

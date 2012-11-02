@@ -49,7 +49,16 @@ class Movement
   end
 
   def to_json
-    attributes
+    attrs = attributes.dup
+    point = attrs['from_point']
+    if point
+      attrs['from_point'] = [point['x'], point['y']]
+    end
+    point = attrs['to_point']
+    if point
+      attrs['to_point'] = [point['x'], point['y']]
+    end
+    attrs.to_json
   end
 
   def validate_from_point_presence

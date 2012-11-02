@@ -3,7 +3,7 @@
 class Board
   class InvalidMovement < StandardError; end
   include Mongoid::Document
-  include Mongoid::Timestamps
+  include Mongoid::Timestamps::Created
   field :sente, type: Boolean
   field :number, type: Integer
   belongs_to :game
