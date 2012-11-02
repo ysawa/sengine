@@ -170,8 +170,8 @@ class Board
       hand = [nil]
       hand_name = "#{user}_hand"
       user_hand = attrs[hand_name]
-      Hand::KEY_NAMES.each do |piece|
-        hand << user_hand[piece]
+      Hand::KEY_NAMES.each do |key|
+        hand << user_hand[key]
       end
       attrs[hand_name] = hand
     end
