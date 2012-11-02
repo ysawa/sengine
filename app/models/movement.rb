@@ -53,7 +53,7 @@ class Movement
       errors.add(:from_point, 'should be taken')
       return false
     elsif put? && from_point?
-      errors.add(:move, 'should be taken')
+      errors.add(:from_point, 'should not be taken')
       return false
     end
     true
