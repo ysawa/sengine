@@ -33,13 +33,13 @@ describe Movement do
 
       it 'invalid if moving and from_point not exist' do
         movement.from_point = nil
-        movement.move = true
+        movement.put = false
         movement.valid?.should be_false
       end
 
       it 'invalid if not moving and from_point not exist' do
         movement.from_point = [1, 2]
-        movement.move = false
+        movement.put = true
         movement.valid?.should be_false
       end
     end
@@ -52,27 +52,6 @@ describe Movement do
       it 'invalid if reverse and put' do
         movement.reverse = true
         movement.put = true
-        movement.valid?.should be_false
-      end
-    end
-    describe '.validate_move_and_put_incompatibility' do
-      it 'valid if move and put are the different values' do
-        movement.from_point = nil
-        movement.put = true
-        movement.move = false
-        movement.valid?.should be_true
-        movement.from_point = [1, 2]
-        movement.put = false
-        movement.move = true
-        movement.valid?.should be_true
-      end
-
-      it 'valid if move and put are the different values' do
-        movement.put = true
-        movement.move = true
-        movement.valid?.should be_false
-        movement.put = false
-        movement.move = false
         movement.valid?.should be_false
       end
     end

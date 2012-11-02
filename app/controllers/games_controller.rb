@@ -38,8 +38,7 @@ class GamesController < ApplicationController
     if set_game_players && @game.save
       @game.create_first_board
       make_game_notice
-      @game.create_facebook_created_feed # it takes long.
-      @game.create_facebook_created_notification # it takes long.
+      @game.async_deliver_created_notices
       opponent = @game.opponent(current_user)
       if opponent.bot? && opponent.work? && @game.sente_user_id == opponent.id
         opponent.async_process_next_movement(@game)

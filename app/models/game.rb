@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class Game
+  @queue = :game_serve
+
   class CannotTakeMovement < StandardError; end
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -48,6 +50,10 @@ class Game
     else
       false
     end
+  end
+
+  def async_deliver_created_notices
+    Resque.enqueue(Game, id, :deliver_created_notices)
   end
 
   def check_if_playing
@@ -201,6 +207,11 @@ class Game
     save
   end
 
+  def deliver_created_notices
+    create_facebook_created_feed
+    create_facebook_created_notification
+  end
+
   def handicapped?
     HANDICAPS.include? self.handicap
   end
@@ -295,6 +306,11 @@ class Game
     def of_user_friends(user)
       ids = user.friend_ids
       criteria.any_of({ :sente_user_id.in => ids }, { :gote_user_id.in => ids })
+    end
+
+    def perform(game_id, method_name, *arguments)
+      game = find(game_id)
+      game.public_send(method_name, *arguments)
     end
 
     def playing

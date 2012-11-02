@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class User
+  @queue = :user_serve
+
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
@@ -188,11 +190,16 @@ class User
       user.facebook_access_token = access_token.credentials.token
       user.facebook_username = data.username
       user.name ||= data.name
-      user.locale ||= data.locale || 'en'
+      user.locale ||= data.locale || I18n.default_locale
       user.timezone ||= data.timezone
       user.gender ||= data.gender
       user.save
       user
+    end
+
+    def perform(user_id, method_name, *arguments)
+      user = find(user_id)
+      user.public_send(method_name, *arguments)
     end
   end
 private

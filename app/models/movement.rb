@@ -7,8 +7,8 @@ class Movement
   field :from_point, type: Point
   field :move, type: Boolean
   field :number, type: Integer
-  field :put, type: Boolean
-  field :reverse, type: Boolean
+  field :put, type: Boolean, default: false
+  field :reverse, type: Boolean, default: false
   field :role, type: String
   field :role_value, type: Integer # positive integer
   field :to_point, type: Point
@@ -18,10 +18,17 @@ class Movement
   validate :validate_from_point_presence
   validate :validate_to_point_presence
   validate :validate_reverse_can_be_taken
-  validate :validate_move_and_put_incompatibility
 
   def gote?
     !sente?
+  end
+
+  def move
+    !put
+  end
+
+  def move?
+    !put?
   end
 
   def role=(string)
@@ -30,6 +37,14 @@ class Movement
       write_attribute(:role_value, Piece::ROLE_STRINGS.index(string))
     else
       write_attribute(:role, nil)
+    end
+  end
+
+  def role_value=(integer)
+    if integer.present?
+      write_attribute(:role, Piece::ROLE_STRINGS[integer])
+      write_attribute(:role_value, integer)
+    else
       write_attribute(:role_value, nil)
     end
   end
@@ -40,14 +55,6 @@ class Movement
       return false
     elsif !move? && from_point?
       errors.add(:move, 'should be taken')
-      return false
-    end
-    true
-  end
-
-  def validate_move_and_put_incompatibility
-    if self.move == self.put
-      errors.add(:put, 'is incompatible with move')
       return false
     end
     true

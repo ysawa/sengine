@@ -22,13 +22,6 @@ class Bot < User
     false
   end
 
-  class << self
-    def perform(bot_id, method_name, *arguments)
-      bot = find(bot_id)
-      bot.public_send(method_name, *arguments)
-    end
-  end
-
 protected
 
   def find_game(game)
