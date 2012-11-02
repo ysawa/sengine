@@ -47,18 +47,19 @@ class Shogi.Movement extends Backbone.Model
     previous_cell.after(cell)
 
   execute: ->
-    return if parseInt($('.board').attr('number')) == @get('number')
+    now = @get_number()
+    return if parseInt($('.board').attr('number')) == now
     $('.piece').stop(true, true) # stop all the past animations
-    $('.board').attr('number', @get('number'))
+    $('.board').attr('number', now)
     $('.cell.moved').removeClass('moved')
-    if @get('put')
-      if @get('sente')
-        piece_selected = Shogi.Board.piece_in_hand_of_role('sente', @get('role'))
+    if @get_put()
+      if @get_sente()
+        piece_selected = Shogi.Board.piece_in_hand_of_role('sente', @get_role())
       else
-        piece_selected = Shogi.Board.piece_in_hand_of_role('gote', @get('role'))
+        piece_selected = Shogi.Board.piece_in_hand_of_role('gote', @get_role())
     else
-      piece_selected = Shogi.Board.piece_on_point(@get('from_point'))
-    to_point = @get('to_point')
+      piece_selected = Shogi.Board.piece_on_point(@get_from_point())
+    to_point = @get_to_point()
     if Shogi.Board.cell_on_point_have_opponent_piece(to_point)
       @take_piece_on_point(to_point)
     if piece_selected.parents('.in_hand').present()
@@ -81,11 +82,25 @@ class Shogi.Movement extends Backbone.Model
         $.play_audio('put')
         cell.append(piece_selected).addClass('moved')
     )
-    if @get('reverse')
+    if @get_reverse()
       Shogi.reverse_piece(piece_selected)
     $('.in_hand .cell').each ->
       if $(@).find('.piece, .face, .number').size() == 0
         $(@).remove()
+  get_from_point: ->
+    @get('from_point')
+  get_number: ->
+    @get('number')
+  get_put: ->
+    @get('put')
+  get_reverse: ->
+    @get('reverse')
+  get_role: ->
+    @get('role')
+  get_sente: ->
+    @get('sente')
+  get_to_point: ->
+    @get('to_point')
 
   idAttribute: "_id"
 
