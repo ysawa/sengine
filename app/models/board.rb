@@ -159,13 +159,22 @@ class Board
 
   def to_json
     attrs = attributes.dup
-    on_board = []
+    board = []
     11.upto(99).each do |i|
       attr = "p_#{'%02d' % i}"
       piece = attrs.delete(attr)
-      on_board << piece
+      board << piece
     end
-    attrs['on_board'] = on_board
+    attrs['board'] = board
+    %w(sente gote).each do |user|
+      hand = [nil]
+      hand_name = "#{user}_hand"
+      user_hand = attrs[hand_name]
+      Hand::KEY_NAMES.each do |piece|
+        hand << user_hand[piece]
+      end
+      attrs[hand_name] = hand
+    end
     attrs.to_json
   end
 
