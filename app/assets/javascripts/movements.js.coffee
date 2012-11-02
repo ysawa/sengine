@@ -89,6 +89,8 @@ class Shogi.Movement extends Backbone.Model
         $(@).remove()
   get_from_point: ->
     @get('from_point')
+  get_game_id: ->
+    @get('game_id')
   get_number: ->
     @get('number')
   get_put: ->
@@ -167,7 +169,7 @@ class Shogi.Movement extends Backbone.Model
     )
 
   urlRoot: ->
-    game_id = @get('game_id')
+    game_id = @get_game_id()
     if game_id
       "/games/#{game_id}/movements"
     else
