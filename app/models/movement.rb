@@ -2,7 +2,7 @@
 
 class Movement
   include Mongoid::Document
-  include Mongoid::Timestamps
+  include Mongoid::Timestamps::Created
   field :from_point, type: Point
   field :number, type: Integer
   field :put, type: Boolean, default: false
@@ -46,6 +46,10 @@ class Movement
     else
       write_attribute(:role_value, nil)
     end
+  end
+
+  def to_json
+    attributes
   end
 
   def validate_from_point_presence
