@@ -7,7 +7,6 @@ class Movement
   field :number, type: Integer
   field :put, type: Boolean, default: false
   field :reverse, type: Boolean, default: false
-  field :role, type: String
   field :role_value, type: Integer # positive integer
   field :sente, type: Boolean
   field :to_point, type: Point
@@ -30,18 +29,22 @@ class Movement
     !put?
   end
 
+  def role
+    if self.role_value
+      Piece::ROLE_STRINGS[self.role_value]
+    end
+  end
+
   def role=(string)
     if string.present?
-      write_attribute(:role, string)
       write_attribute(:role_value, Piece::ROLE_STRINGS.index(string))
     else
-      write_attribute(:role, nil)
+      write_attribute(:role_value, nil)
     end
   end
 
   def role_value=(integer)
     if integer.present?
-      write_attribute(:role, Piece::ROLE_STRINGS[integer])
       write_attribute(:role_value, integer)
     else
       write_attribute(:role_value, nil)
@@ -57,6 +60,11 @@ class Movement
     point = attrs['to_point']
     if point
       attrs['to_point'] = [point['x'], point['y']]
+    end
+    role_value = attrs['role_value']
+    if role_value
+      attrs.delete('role_value')
+      attrs['role'] = Piece::ROLE_STRINGS[role_value]
     end
     attrs.to_json
   end

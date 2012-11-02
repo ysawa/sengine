@@ -13,6 +13,13 @@ describe Movement do
     end
   end
 
+  describe '.role' do
+    it 'works!' do
+      movement.role_value = Piece::FU
+      movement.role.should == 'fu'
+    end
+  end
+
   describe '.move and .move?' do
     it 'means not put' do
       movement.put = false
