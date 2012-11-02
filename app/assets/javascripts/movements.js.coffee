@@ -3,7 +3,6 @@ class Shogi.Movement extends Backbone.Model
     game_id: null
     sente: null
     from_point: null
-    move: false
     number: null
     put: false
     reverse: false
@@ -52,13 +51,13 @@ class Shogi.Movement extends Backbone.Model
     $('.piece').stop(true, true) # stop all the past animations
     $('.board').attr('number', @get('number'))
     $('.cell.moved').removeClass('moved')
-    if @get('move')
-      piece_selected = Shogi.Board.piece_on_point(@get('from_point'))
-    else
+    if @get('put')
       if @get('sente')
         piece_selected = Shogi.Board.piece_in_hand_of_role('sente', @get('role'))
       else
         piece_selected = Shogi.Board.piece_in_hand_of_role('gote', @get('role'))
+    else
+      piece_selected = Shogi.Board.piece_on_point(@get('from_point'))
     to_point = @get('to_point')
     if Shogi.Board.cell_on_point_have_opponent_piece(to_point)
       @take_piece_on_point(to_point)

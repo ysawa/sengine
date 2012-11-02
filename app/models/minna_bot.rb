@@ -70,7 +70,6 @@ class MinnaBot < Bot
         attributes = {
           from_point: from_point,
           to_point: to_point,
-          move: true,
           put: false,
           reverse: false
         }
@@ -116,7 +115,6 @@ class MinnaBot < Bot
       attributes = {
         from_point: from_point,
         to_point: to_point,
-        move: true,
         put: false,
         reverse: false
       }

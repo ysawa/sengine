@@ -5,7 +5,6 @@ class Movement
   include Mongoid::Timestamps
   field :sente, type: Boolean
   field :from_point, type: Point
-  field :move, type: Boolean
   field :number, type: Integer
   field :put, type: Boolean, default: false
   field :reverse, type: Boolean, default: false
@@ -53,7 +52,7 @@ class Movement
     if move? && !from_point?
       errors.add(:from_point, 'should be taken')
       return false
-    elsif !move? && from_point?
+    elsif put? && from_point?
       errors.add(:move, 'should be taken')
       return false
     end

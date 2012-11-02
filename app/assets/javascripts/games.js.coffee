@@ -107,17 +107,15 @@ $ ->
       piece_selected = $('.piece.selected')
       movement.set('role', piece_selected.attr('role'))
       player = piece_selected.attr('player')
-      movement.set('move', piece_selected.parents('.in_hand').size() == 0)
+      movement.set('put', piece_selected.parents('.in_hand').size() != 0)
       piece_cell = piece_selected.parents('.cell')
       movement.set('to_point', [Shogi.Board.get_point_x($(this)), Shogi.Board.get_point_y($(this))])
-      if movement.get('move')
-        movement.set('from_point', [Shogi.Board.get_point_x(piece_cell), Shogi.Board.get_point_y(piece_cell)])
-        movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), player))
-        movement.set('put', false)
-      else
+      if movement.get('put')
         movement.set('from_point', null)
         movement.set('reverse', false)
-        movement.set('put', true)
+      else
+        movement.set('from_point', [Shogi.Board.get_point_x(piece_cell), Shogi.Board.get_point_y(piece_cell)])
+        movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), player))
 
       # movement will be executed below
       $('.cell').removeClass('highlight')
