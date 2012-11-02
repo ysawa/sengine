@@ -83,4 +83,10 @@ describe Movement do
       end
     end
   end
+
+  describe '.to_json' do
+    it 'generates JSON correctly parsed' do
+      pending
+    end
+  end
 end

@@ -157,6 +157,18 @@ class Board
   end
   alias :set_piece_value :set_piece
 
+  def to_json
+    attrs = attributes.dup
+    on_board = []
+    11.upto(99).each do |i|
+      attr = "p_#{'%02d' % i}"
+      piece = attrs.delete(attr)
+      on_board << piece
+    end
+    attrs['on_board'] = on_board
+    attrs.to_json
+  end
+
   class << self
     def hirate
       board = new
