@@ -1,12 +1,12 @@
 class Shogi.Movement extends Backbone.Model
   defaults:
     game_id: null
-    sente: null
     from_point: null
     number: null
     put: false
     reverse: false
     role: null
+    sente: null
     to_point: null
 
   animate: (piece, animation, callback = null) ->

@@ -21,7 +21,7 @@ describe Movement do
       movement.move.should be_false
     end
 
-    it 'means not put' do
+    it 'means not put?' do
       movement.put = false
       movement.move?.should be_true
       movement.put = true

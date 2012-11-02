@@ -3,13 +3,13 @@
 class Movement
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :sente, type: Boolean
   field :from_point, type: Point
   field :number, type: Integer
   field :put, type: Boolean, default: false
   field :reverse, type: Boolean, default: false
   field :role, type: String
   field :role_value, type: Integer # positive integer
+  field :sente, type: Boolean
   field :to_point, type: Point
   belongs_to :board # the board applied this movement to
   belongs_to :game
