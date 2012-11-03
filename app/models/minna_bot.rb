@@ -7,6 +7,47 @@ class MinnaBot < Bot
   attr_accessor :game
   attr_accessor :last_board
 
+  def generate_kikis(board)
+    sente_kikis = Kiki.new
+    gote_kikis = Kiki.new
+    11.upto(99).each do |from_value|
+      next if from_value % 10 == 0
+      from_point = Point.new(from_value)
+      piece = board.get_piece(from_point)
+      next unless piece
+      piece_sente = piece.sente?
+      piece.moves.each do |move|
+        to_value = from_value + move
+        next if to_value % 10 == 0 ||
+            to_value <= 10 ||
+            to_value >= 100
+        if piece_sente
+          sente_kikis.append_move(to_value, - move)
+        else
+          gote_kikis.append_move(to_value, - move)
+        end
+      end
+      piece.jumps.each do |jump|
+        to_value = from_value
+        1.upto(8).each do |i|
+          to_value += jump
+          next if to_value % 10 == 0 ||
+              to_value <= 10 ||
+              to_value >= 100
+          if piece_sente
+            sente_kikis.append_jump(to_value, - jump)
+          else
+            gote_kikis.append_jump(to_value, - jump)
+          end
+          to_point = Point.new(to_value)
+          piece = board.get_piece(to_point)
+          break if piece
+        end
+      end
+    end
+    [sente_kikis, gote_kikis]
+  end
+
   def generate_valid_candidates(player_sente, board)
     candidates = []
     11.upto(99).each do |from_value|

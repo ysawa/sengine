@@ -17,6 +17,38 @@ class Kiki
   #
   #  [1]
 
+  # Kikis on the board
+  attr_reader :move_kikis
+  attr_reader :jump_kikis
+
+  def append_jump(point, value)
+    @jump_kikis[point] ||= []
+    @jump_kikis[point] << value
+  end
+
+  def append_move(point, value)
+    @move_kikis[point] ||= []
+    @move_kikis[point] << value
+  end
+
+  def get_jump_kikis(point)
+    @jump_kikis[point]
+  end
+
+  def get_move_kikis(point)
+    @move_kikis[point]
+  end
+
+  def initialize
+    @move_kikis = []
+    @jump_kikis = []
+    11.upto(99) do |point|
+      next if point % 10 == 0
+      @move_kikis[point] = []
+      @jump_kikis[point] = []
+    end
+  end
+
   class << self
   end
 end

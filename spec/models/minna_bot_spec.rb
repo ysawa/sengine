@@ -18,6 +18,33 @@ describe MinnaBot do
     end
   end
 
+  describe '.generate_both_kikis' do
+    before :each do
+      @game.create_first_board
+      @game.sente_user = bot
+      @game.gote_user = @game.author = @user
+      @game.save
+    end
+    it 'successfully generates sente and gote kikis' do
+      bot.game = @game
+      kikis = bot.generate_kikis(@game.boards.last)
+      kikis.should be_a Array
+      sente_kikis = kikis.first
+      sente_kikis.should be_a Kiki
+      sente_kikis.get_move_kikis(16).should == [1] # FU
+      sente_kikis.get_jump_kikis(16).should == [] # NONE
+      sente_kikis.get_jump_kikis(17).should == [1] # KY
+      sente_kikis.get_jump_kikis(18).should == [1, 10] # KY, HI
+      gote_kikis = kikis.last
+      gote_kikis.should be_a Kiki
+      gote_kikis.get_move_kikis(14).should == [-1] # FU
+      gote_kikis.get_jump_kikis(14).should == [] # NONE
+      gote_kikis.get_jump_kikis(13).should == [-1, 9] # KY, KA
+      gote_kikis.get_jump_kikis(12).should == [-1] # KY
+      gote_kikis.get_jump_kikis(11).should == [11] # KA
+    end
+  end
+
   describe '.generate_valid_candidates' do
     before :each do
       @game.create_first_board
@@ -25,13 +52,13 @@ describe MinnaBot do
       @game.gote_user = @game.author = @user
       @game.save
     end
-    it 'successfully generate candidates of movements' do
+    it 'successfully generates candidates of movements' do
       bot.game = @game
       candidates = bot.generate_valid_candidates(true, @game.boards.last)
       candidates.should be_a Array
     end
 
-    it 'successfully generate candidates of movements with putting movements' do
+    it 'successfully generates candidates of movements with putting movements' do
       bot.game = @game
       last_board = @game.boards.last
       last_board.p_97 = 0
@@ -49,7 +76,7 @@ describe MinnaBot do
     before :each do
       @game.create_first_board
     end
-    it 'successfully create new movement' do
+    it 'successfully creates new movement' do
       @game.sente_user = bot
       @game.gote_user = @game.author = @user
       @game.save
