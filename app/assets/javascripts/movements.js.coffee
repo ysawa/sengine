@@ -5,7 +5,7 @@ class Shogi.Movement extends Backbone.Model
     number: null
     put: false
     reverse: false
-    role_value: null
+    role: null
     sente: null
     to_point: null
 
@@ -98,9 +98,10 @@ class Shogi.Movement extends Backbone.Model
   get_reverse: ->
     @get('reverse')
   get_role: ->
-    Shogi.hand_roles[@get_role_value() - 1]
+    @get('role')
   get_role_value: ->
-    @get('role_value')
+    role = @get('role')
+    Shogi.hand_roles.indexOf(role) + 1
   get_sente: ->
     @get('sente')
   get_to_point: ->
@@ -109,16 +110,17 @@ class Shogi.Movement extends Backbone.Model
   idAttribute: "_id"
 
   initialize: (attributes) ->
-    from_point = attributes.from_point
+    return unless attributes
+    from_point = attributes['from_point']
     switch $.type from_point
       when 'object'
         from_point = [from_point.x, from_point.y]
-    attributes.from_point = from_point
-    to_point = attributes.to_point
+    attributes['from_point'] = from_point
+    to_point = attributes['to_point']
     switch $.type to_point
       when 'object'
         to_point = [to_point.x, to_point.y]
-    attributes.to_point = to_point
+    attributes['to_point'] = to_point
     @attributes = attributes
 
   piece_player: (sente) ->
@@ -134,8 +136,7 @@ class Shogi.Movement extends Backbone.Model
     integer + diff
 
   set_role: (role) ->
-    role_value = Shogi.hand_roles.indexOf(role) + 1
-    @set('role_value', role_value)
+    @set('role', role)
 
   take_piece_on_point: (to_point) ->
     piece = Shogi.Board.piece_on_point(to_point)
@@ -173,6 +174,11 @@ class Shogi.Movement extends Backbone.Model
         me.plus_number_in_hand(cell.children('.number'), 1)
         cell.children('.piece:gt(0)').remove()
     )
+
+  toJSON: ->
+    {
+      movement: _.clone(@attributes)
+    }
 
   urlRoot: ->
     game_id = @get_game_id()
