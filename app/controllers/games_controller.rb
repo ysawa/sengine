@@ -40,7 +40,7 @@ class GamesController < ApplicationController
       make_game_notice
       @game.async_deliver_created_notices
       opponent = @game.opponent(current_user)
-      if opponent.bot? && opponent.work? && @game.sente_user_id == opponent.id
+      if opponent.bot? && @game.sente_user_id == opponent.id
         opponent.async_process_next_movement(@game)
       end
       respond_with(@game)
