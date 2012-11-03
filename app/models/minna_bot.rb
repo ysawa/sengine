@@ -21,8 +21,8 @@ class MinnaBot < Bot
       end
       candidates += generate_valid_piece_move_candidates(player_sente, board, piece, from_point)
       candidates += generate_valid_piece_jump_candidates(player_sente, board, piece, from_point)
-      candidates += generate_valid_piece_put_candidates(player_sente, board)
     end
+    candidates += generate_valid_piece_put_candidates(player_sente, board)
     candidates
   end
 
@@ -151,6 +151,51 @@ private
 
   def generate_valid_piece_put_candidates(player_sente, board)
     candidates = []
+    if player_sente
+      hand = board.sente_hand.to_a
+    else
+      hand = board.gote_hand.to_a
+    end
+    attributes = {
+      number: board.number + 1,
+      put: true,
+      reverse: false,
+      sente: player_sente
+    }
+    hand.each_with_index do |number, key|
+      next if !number || number == 0
+      case key
+      when Piece::FU, Piece::KY
+        if player_sente
+          y_start = 2
+          y_end = 9
+        else
+          y_start = 1
+          y_end = 8
+        end
+      when Piece::KE
+        if player_sente
+          y_start = 3
+          y_end = 9
+        else
+          y_start = 1
+          y_end = 7
+        end
+      else
+        y_start = 1
+        y_end = 9
+      end
+      attributes[:role_value] = key
+      y_start.upto(y_end).each do |y|
+        1.upto(9).each do |x|
+          to_point = Point.new(x, y)
+          piece = board.get_piece(to_point)
+          next if piece
+          attributes[:to_point] = to_point
+          candidates << Movement.new(attributes)
+        end
+      end
+    end
     candidates
   end
 end

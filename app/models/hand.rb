@@ -6,6 +6,10 @@ class Hand
   KEY_NAMES = %w(fu ky ke gi ki ka hi ou)
   attr_reader *KEY_NAMES
 
+  def to_a
+    [nil, @fu, @ky, @ke, @gi, @ki, @ka, @hi, @ou]
+  end
+
   def generate_name(key)
     case key
     when 0

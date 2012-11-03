@@ -30,6 +30,19 @@ describe MinnaBot do
       candidates = bot.generate_valid_candidates(true, @game.boards.last)
       candidates.should be_a Array
     end
+
+    it 'successfully generate candidates of movements with putting movements' do
+      bot.game = @game
+      last_board = @game.boards.last
+      last_board.p_79 = 0
+      sente_hand = last_board.sente_hand
+      sente_hand['fu'] = 1
+      last_board.sente_hand = sente_hand
+      last_board.save
+      candidates = bot.generate_valid_candidates(true, @game.boards.last)
+      candidates.should be_a Array
+      candidates.last.put.should be_true
+    end
   end
 
   describe '.process_next_movement' do
