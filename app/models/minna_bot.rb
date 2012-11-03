@@ -52,7 +52,7 @@ class MinnaBot < Bot
     candidates = []
     oute_judgement = get_oute_judgement(player_sente, board, kikis)
     if oute_judgement
-      candidates += generate_escape_oute_candidates(player_sente, board, kikis, oute_judgement)
+      candidates += generate_valid_escape_oute_candidates(player_sente, board, kikis, oute_judgement)
       return candidates
     end
     11.upto(99).each do |from_value|
@@ -132,7 +132,20 @@ class MinnaBot < Bot
 
 private
 
-  def generate_escape_oute_candidates(player_sente, board, kikis, oute_judgement)
+  def check_if_fu_exist(player_sente, board, x)
+    fu_exist = false
+    1.upto(9).each do |y|
+      to_point = Point.new(x, y)
+      piece = board.get_piece(to_point)
+      if piece && piece.value == role_value
+        fu_exist = true
+        break
+      end
+    end
+    fu_exist
+  end
+
+  def generate_valid_escape_oute_candidates(player_sente, board, kikis, oute_judgement)
     candidates = []
     ou_point = oute_judgement[0]
     move_kikis = oute_judgement[1]
@@ -140,6 +153,12 @@ private
     oute_length = move_kikis.size + jump_kikis.size
     if oute_length == 1
       candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, ou_point)
+      if jump_kikis.size == 1
+        candidates += generate_valid_piece_put_aigoma_candidates(player_sente, board, kikis, ou_point, jump_kikis)
+        candidates += generate_valid_piece_take_outeing_piece_candidates(player_sente, board, kikis, ou_point, jump_kikis)
+      else
+        candidates += generate_valid_piece_take_outeing_piece_candidates(player_sente, board, kikis, ou_point, move_kikis)
+      end
     else
       candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, ou_point)
     end
@@ -271,7 +290,7 @@ private
           to_value >= 100 ||
           (to_value % 10 == 0)
       next if opponent_jump_kikis.size > 0 &&
-          (opponent_jump_kikis.include?(move) || opponent_jump_kikis.include?(- move))
+          opponent_jump_kikis.include?(- move)
       to_point = Point.new(to_value)
       to_piece = board.get_piece(to_point)
       next if to_piece && to_piece.sente? == player_sente
@@ -296,9 +315,9 @@ private
       reverse: false,
       sente: player_sente
     }
-    hand.each_with_index do |number, key|
+    hand.each_with_index do |number, role_key|
       next if !number || number == 0
-      case key
+      case role_key
       when Piece::FU
         candidates += generate_valid_piece_put_fu_candidates(player_sente, board, kikis, attributes)
         next
@@ -322,7 +341,7 @@ private
         y_start = 1
         y_end = 9
       end
-      attributes[:role_value] = key
+      attributes[:role_value] = role_key
       y_start.upto(y_end).each do |y|
         1.upto(9).each do |x|
           to_point = Point.new(x, y)
@@ -371,6 +390,165 @@ private
         attributes[:to_point] = to_point
         candidates << Movement.new(attributes)
       end
+    end
+    candidates
+  end
+
+  # TODO also move and be aigoma
+  def generate_valid_piece_put_aigoma_candidates(player_sente, board, kikis, ou_point, jump_kikis)
+    candidates = []
+    ou_value = ou_point.x * 10 + ou_point.y
+    if player_sente
+      hand = board.sente_hand.to_a
+    else
+      hand = board.sente_hand.to_a
+    end
+    attributes = {
+      number: board.number + 1,
+      put: true,
+      reverse: false,
+      sente: player_sente
+    }
+    hand.each_with_index do |number, role_key|
+      next if !number || number == 0
+      attributes[:role_value] = role_key
+      case role_key
+      when Piece::FU
+        if player_sente
+          y_start = 2
+          y_end = 9
+        else
+          y_start = 1
+          y_end = 8
+        end
+      when Piece::KY
+        if player_sente
+          y_start = 2
+          y_end = 9
+        else
+          y_start = 1
+          y_end = 8
+        end
+      when Piece::KE
+        if player_sente
+          y_start = 3
+          y_end = 9
+        else
+          y_start = 1
+          y_end = 7
+        end
+      else
+        y_start = 1
+        y_end = 9
+      end
+      jump_kikis.each do |kiki|
+        to_value = ou_value
+        1.upto(8).each do
+          to_value += kiki
+          to_point = Point.new(to_value)
+          if role_key == Piece::FU && check_if_fu_exist(player_sente, board, to_point.x)
+            next
+          end
+          to_point_y = to_point.y
+          unless y_start <= to_point_y && to_point_y <= y_end
+            next
+          end
+          piece = board.get_piece(to_point)
+          if piece
+            break
+          end
+          attributes[:to_point] = to_point
+          candidates << Movement.new(attributes)
+        end
+      end
+    end
+    candidates
+  end
+
+  def generate_valid_piece_take_outeing_piece_candidates(player_sente, board, kikis, ou_point, jump_kikis)
+    candidates = []
+    ou_value = ou_point.x * 10 + ou_point.y
+    attributes = {
+      number: board.number + 1,
+      put: false,
+      reverse: false,
+      sente: player_sente
+    }
+    if player_sente
+      player_kiki = kikis[0]
+    else
+      player_kiki = kikis[1]
+    end
+    to_value = ou_value
+    jump_kikis.each do |kiki|
+      to_value += kiki
+      to_point = Point.new(to_value)
+      attributes[:to_point] = to_point
+      piece = board.get_piece(to_point)
+      next unless piece
+      # take this piece
+      move_kikis = player_kiki.get_move_kikis(to_value)
+      jump_kikis = player_kiki.get_jump_kikis(to_value)
+      move_kikis.each do |move|
+        from_value = to_value + move
+        from_point = Point.new(from_value)
+        from_piece = board.get_piece(from_point)
+        next if from_piece.role == Piece::OU
+        attributes[:role_value] = from_piece.role
+        attributes[:from_point] = from_point
+        if from_piece.reversed? ||
+            from_piece.role == Piece::KI
+          candidates << Movement.new(attributes)
+        else
+          if from_piece.role == Piece::KE &&
+              ((player_sente && to_point.y <= 2) ||
+                  (!player_sente && to_point.y >= 8))
+            attributes[:reverse] = true
+            candidates << Movement.new(attributes)
+            elsif (player_sente && from_point.y <= 3) ||
+                (!player_sente && from_point.y >= 7) ||
+                (player_sente && to_point.y <= 3) ||
+                (!player_sente && to_point.y >= 7)
+            candidates << Movement.new(attributes)
+            attributes[:reverse] = true
+            candidates << Movement.new(attributes)
+          else
+            candidates << Movement.new(attributes)
+          end
+        end
+      end
+      jump_kikis.each do |jump|
+        from_value = to_value
+        1.upto(8).each do
+          from_value += jump
+          from_point = Point.new(from_value)
+          from_piece = board.get_piece(from_point)
+          next unless from_piece
+          attributes[:role_value] = from_piece.role
+          attributes[:from_point] = from_point
+          candidates << Movement.new(attributes)
+          if from_piece.reversed?
+            candidates << Movement.new(attributes)
+          else
+            if (player_sente && to_point.y <= 2) ||
+                (!player_sente && to_point.y >= 8)
+              attributes[:reverse] = true
+              candidates << Movement.new(attributes)
+            elsif (player_sente && from_point.y <= 3) ||
+                (!player_sente && from_point.y >= 7) ||
+                (player_sente && to_point.y <= 3) ||
+                (!player_sente && to_point.y >= 7)
+              candidates << Movement.new(attributes)
+              attributes[:reverse] = true
+              candidates << Movement.new(attributes)
+            else
+              candidates << Movement.new(attributes)
+            end
+          end
+          break
+        end
+      end
+      break
     end
     candidates
   end
