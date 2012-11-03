@@ -34,7 +34,7 @@ describe MinnaBot do
     it 'successfully generate candidates of movements with putting movements' do
       bot.game = @game
       last_board = @game.boards.last
-      last_board.p_79 = 0
+      last_board.p_97 = 0
       sente_hand = last_board.sente_hand
       sente_hand['fu'] = 1
       last_board.sente_hand = sente_hand

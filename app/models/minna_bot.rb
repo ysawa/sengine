@@ -165,7 +165,10 @@ private
     hand.each_with_index do |number, key|
       next if !number || number == 0
       case key
-      when Piece::FU, Piece::KY
+      when Piece::FU
+        candidates += generate_valid_piece_put_fu_candidates(player_sente, board, attributes)
+        next
+      when Piece::KY
         if player_sente
           y_start = 2
           y_end = 9
@@ -194,6 +197,43 @@ private
           attributes[:to_point] = to_point
           candidates << Movement.new(attributes)
         end
+      end
+    end
+    candidates
+  end
+
+  def generate_valid_piece_put_fu_candidates(player_sente, board, attributes)
+    candidates = []
+    attributes[:role_value] = Piece::FU
+    if player_sente
+      y_start = 2
+      y_end = 9
+    else
+      y_start = 1
+      y_end = 8
+    end
+    if player_sente
+      role_value = Piece::FU
+    else
+      role_value = - Piece::FU
+    end
+    1.upto(9).each do |x|
+      fu_exist = false
+      points = []
+      1.upto(9).each do |y|
+        to_point = Point.new(x, y)
+        piece = board.get_piece(to_point)
+        if !piece
+          points << to_point
+        elsif piece.value == role_value
+          fu_exist = true
+          break
+        end
+      end
+      next if fu_exist
+      points.each do |to_point|
+        attributes[:to_point] = to_point
+        candidates << Movement.new(attributes)
       end
     end
     candidates
