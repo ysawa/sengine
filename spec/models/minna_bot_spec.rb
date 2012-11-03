@@ -18,7 +18,7 @@ describe MinnaBot do
     end
   end
 
-  describe '.generate_both_kikis' do
+  describe '.generate_kikis' do
     before :each do
       @game.create_first_board
       @game.sente_user = bot
@@ -45,6 +45,27 @@ describe MinnaBot do
     end
   end
 
+  describe '.oute?' do
+    before :each do
+      @game.create_first_board
+      @game.sente_user = bot
+      @game.gote_user = @game.author = @user
+      @game.save
+    end
+    it 'successfully checks if player is in oute?' do
+      bot.game = @game
+      last_board = @game.boards.last
+      kikis = bot.generate_kikis(last_board)
+      bot.oute?(true, last_board, kikis).should be_false
+      bot.oute?(false, last_board, kikis).should be_false
+      last_board.p_57 = Piece::NONE
+      last_board.p_52 = Piece::FU
+      kikis = bot.generate_kikis(last_board)
+      bot.oute?(true, last_board, kikis).should be_false
+      bot.oute?(false, last_board, kikis).should be_true
+    end
+  end
+
   describe '.generate_valid_candidates' do
     before :each do
       @game.create_first_board
@@ -54,19 +75,21 @@ describe MinnaBot do
     end
     it 'successfully generates candidates of movements' do
       bot.game = @game
-      candidates = bot.generate_valid_candidates(true, @game.boards.last)
+      kikis = bot.generate_kikis(@game.boards.last)
+      candidates = bot.generate_valid_candidates(true, @game.boards.last, kikis)
       candidates.should be_a Array
     end
 
     it 'successfully generates candidates of movements with putting movements' do
       bot.game = @game
       last_board = @game.boards.last
-      last_board.p_97 = 0
+      last_board.p_97 = Piece::NONE
       sente_hand = last_board.sente_hand
       sente_hand['fu'] = 1
       last_board.sente_hand = sente_hand
       last_board.save
-      candidates = bot.generate_valid_candidates(true, @game.boards.last)
+      kikis = bot.generate_kikis(last_board)
+      candidates = bot.generate_valid_candidates(true, @game.boards.last, kikis)
       candidates.should be_a Array
       candidates.last.put.should be_true
     end

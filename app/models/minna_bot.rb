@@ -48,7 +48,7 @@ class MinnaBot < Bot
     [sente_kikis, gote_kikis]
   end
 
-  def generate_valid_candidates(player_sente, board)
+  def generate_valid_candidates(player_sente, board, kikis)
     candidates = []
     11.upto(99).each do |from_value|
       next if from_value % 10 == 0
@@ -60,11 +60,34 @@ class MinnaBot < Bot
       else
         moves = Piece::GOTE_MOVES[piece.role]
       end
-      candidates += generate_valid_piece_move_candidates(player_sente, board, piece, from_point)
-      candidates += generate_valid_piece_jump_candidates(player_sente, board, piece, from_point)
+      candidates += generate_valid_piece_move_candidates(player_sente, board, kikis, piece, from_point)
+      candidates += generate_valid_piece_jump_candidates(player_sente, board, kikis, piece, from_point)
     end
-    candidates += generate_valid_piece_put_candidates(player_sente, board)
+    candidates += generate_valid_piece_put_candidates(player_sente, board, kikis)
     candidates
+  end
+
+  def oute?(player_sente, board, kikis)
+    if player_sente
+      role_value = Piece::OU
+      opponent_kikis = kikis[1]
+    else
+      role_value = - Piece::OU
+      opponent_kikis = kikis[0]
+    end
+    11.upto(99).each do |point_value|
+      next if point_value % 10 == 0
+      point = Point.new(point_value)
+      piece = board.get_piece(point)
+      next unless piece && piece.value == role_value
+      # this piece is ou
+      # check if oute?
+      if opponent_kikis.get_move_kikis(point_value).size > 0 ||
+          opponent_kikis.get_jump_kikis(point_value).size > 0
+        return true
+      end
+    end
+    false
   end
 
   def process_next_movement(game)
@@ -74,7 +97,8 @@ class MinnaBot < Bot
     if @last_board.sente? == @bot_sente
       raise Bot::InvalidConditions.new 'turn is invalid'
     end
-    candidates = generate_valid_candidates(@bot_sente, @last_board)
+    kikis = generate_kikis(@last_board)
+    candidates = generate_valid_candidates(@bot_sente, @last_board, kikis)
     new_movement = candidates.sample
     @game.make_board_from_movement!(new_movement)
   end
@@ -89,7 +113,7 @@ class MinnaBot < Bot
 
 private
 
-  def generate_valid_piece_jump_candidates(player_sente, board, piece, from_point)
+  def generate_valid_piece_jump_candidates(player_sente, board, kikis, piece, from_point)
     candidates = []
     from_value = from_point.x * 10 + from_point.y
     if player_sente
@@ -140,7 +164,7 @@ private
     candidates
   end
 
-  def generate_valid_piece_move_candidates(player_sente, board, piece, from_point)
+  def generate_valid_piece_move_candidates(player_sente, board, kikis, piece, from_point)
     candidates = []
     from_value = from_point.x * 10 + from_point.y
     if player_sente
@@ -190,7 +214,7 @@ private
     candidates
   end
 
-  def generate_valid_piece_put_candidates(player_sente, board)
+  def generate_valid_piece_put_candidates(player_sente, board, kikis)
     candidates = []
     if player_sente
       hand = board.sente_hand.to_a
@@ -207,7 +231,7 @@ private
       next if !number || number == 0
       case key
       when Piece::FU
-        candidates += generate_valid_piece_put_fu_candidates(player_sente, board, attributes)
+        candidates += generate_valid_piece_put_fu_candidates(player_sente, board, kikis, attributes)
         next
       when Piece::KY
         if player_sente
@@ -243,7 +267,7 @@ private
     candidates
   end
 
-  def generate_valid_piece_put_fu_candidates(player_sente, board, attributes)
+  def generate_valid_piece_put_fu_candidates(player_sente, board, kikis, attributes)
     candidates = []
     attributes[:role_value] = Piece::FU
     if player_sente
