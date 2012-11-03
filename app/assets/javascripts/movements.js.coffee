@@ -5,7 +5,7 @@ class Shogi.Movement extends Backbone.Model
     number: null
     put: false
     reverse: false
-    role: null
+    role_value: null
     sente: null
     to_point: null
 
@@ -98,7 +98,9 @@ class Shogi.Movement extends Backbone.Model
   get_reverse: ->
     @get('reverse')
   get_role: ->
-    @get('role')
+    Shogi.hand_roles[@get_role_value() - 1]
+  get_role_value: ->
+    @get('role_value')
   get_sente: ->
     @get('sente')
   get_to_point: ->
@@ -130,6 +132,10 @@ class Shogi.Movement extends Backbone.Model
     integer = parseInt(number_text.replace('x', ''))
     number.text(number_text.replace("#{integer}", integer + diff))
     integer + diff
+
+  set_role: (role) ->
+    role_value = Shogi.hand_roles.indexOf(role) + 1
+    @set('role_value', role_value)
 
   take_piece_on_point: (to_point) ->
     piece = Shogi.Board.piece_on_point(to_point)

@@ -105,17 +105,17 @@ $ ->
         sente: ($('.board').attr('turn') == 'sente')
       )
       piece_selected = $('.piece.selected')
-      movement.set('role', piece_selected.attr('role'))
+      movement.set_role(piece_selected.attr('role'))
       player = piece_selected.attr('player')
       movement.set('put', piece_selected.parents('.in_hand').size() != 0)
       piece_cell = piece_selected.parents('.cell')
       movement.set('to_point', [Shogi.Board.get_point_x($(this)), Shogi.Board.get_point_y($(this))])
-      if movement.get('put')
+      if movement.get_put()
         movement.set('from_point', null)
         movement.set('reverse', false)
       else
         movement.set('from_point', [Shogi.Board.get_point_x(piece_cell), Shogi.Board.get_point_y(piece_cell)])
-        movement.set('reverse', Shogi.select_reverse_or_not(movement.get('role'), movement.get('from_point'), movement.get('to_point'), player))
+        movement.set('reverse', Shogi.select_reverse_or_not(movement.get_role(), movement.get_from_point(), movement.get_to_point(), player))
 
       # movement will be executed below
       $('.cell').removeClass('highlight')
