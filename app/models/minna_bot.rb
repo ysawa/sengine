@@ -256,6 +256,7 @@ private
     else
       opponent_kiki = kikis[0]
     end
+    opponent_jump_kikis = opponent_kiki.get_jump_kikis(from_value)
     attributes = {
       from_point: from_point,
       number: board.number + 1,
@@ -269,6 +270,8 @@ private
       next if to_value <= 10 ||
           to_value >= 100 ||
           (to_value % 10 == 0)
+      next if opponent_jump_kikis.size > 0 &&
+          (opponent_jump_kikis.include?(move) || opponent_jump_kikis.include?(- move))
       to_point = Point.new(to_value)
       to_piece = board.get_piece(to_point)
       next if to_piece && to_piece.sente? == player_sente
