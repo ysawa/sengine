@@ -82,17 +82,7 @@ class GamesController < ApplicationController
 
   # PUT /games/1/give_up
   def give_up
-    if current_user == @game.sente_user
-      @game.won_user = @game.gote_user
-      @game.lost_user = @game.sente_user
-    else
-      @game.lost_user = @game.gote_user
-      @game.won_user = @game.sente_user
-    end
-    @game.finished_at = Time.now
-    @game.playing = false
-    @game.given_up = true
-    if @game.save
+    if @game.given_up!(current_user)
       @game.apply_score_changes!
       @game.create_facebook_won_feed
       redirect_to game_path(@game)

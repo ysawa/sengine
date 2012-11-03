@@ -216,6 +216,20 @@ class Game
     HANDICAPS.include? self.handicap
   end
 
+  def give_up!(user)
+    if user == self.sente_user
+      self.won_user = self.gote_user
+      self.lost_user = self.sente_user
+    else
+      self.lost_user = self.gote_user
+      self.won_user = self.sente_user
+    end
+    self.finished_at = Time.now
+    self.playing = false
+    self.given_up = true
+    save
+  end
+
   def make_board_from_movement(movement)
     number = self.boards.count
     board = self.boards.last.dup

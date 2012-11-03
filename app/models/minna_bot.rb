@@ -50,6 +50,11 @@ class MinnaBot < Bot
 
   def generate_valid_candidates(player_sente, board, kikis)
     candidates = []
+    oute_judgement = get_oute_judgement(player_sente, board, kikis)
+    if oute_judgement
+      candidates += generate_escape_oute_candidates(player_sente, board, kikis, oute_judgement)
+      return candidates
+    end
     11.upto(99).each do |from_value|
       next if from_value % 10 == 0
       from_point = Point.new(from_value)
@@ -60,20 +65,25 @@ class MinnaBot < Bot
       else
         moves = Piece::GOTE_MOVES[piece.role]
       end
-      candidates += generate_valid_piece_move_candidates(player_sente, board, kikis, piece, from_point)
+      if piece.role == Piece::OU
+        candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, from_point)
+      else
+        candidates += generate_valid_piece_move_candidates(player_sente, board, kikis, piece, from_point)
+      end
       candidates += generate_valid_piece_jump_candidates(player_sente, board, kikis, piece, from_point)
     end
     candidates += generate_valid_piece_put_candidates(player_sente, board, kikis)
     candidates
   end
 
-  def oute?(player_sente, board, kikis)
+  # return: [ou_point, move_kikis, jump_kikis] or nil
+  def get_oute_judgement(player_sente, board, kikis)
     if player_sente
       role_value = Piece::OU
-      opponent_kikis = kikis[1]
+      opponent_kiki = kikis[1]
     else
       role_value = - Piece::OU
-      opponent_kikis = kikis[0]
+      opponent_kiki = kikis[0]
     end
     11.upto(99).each do |point_value|
       next if point_value % 10 == 0
@@ -82,12 +92,17 @@ class MinnaBot < Bot
       next unless piece && piece.value == role_value
       # this piece is ou
       # check if oute?
-      if opponent_kikis.get_move_kikis(point_value).size > 0 ||
-          opponent_kikis.get_jump_kikis(point_value).size > 0
-        return true
+      move_kikis = opponent_kiki.get_move_kikis(point_value)
+      jump_kikis = opponent_kiki.get_jump_kikis(point_value)
+      if move_kikis.size > 0 || jump_kikis.size > 0
+        return [point, move_kikis, jump_kikis]
       end
     end
-    false
+    nil
+  end
+
+  def oute?(player_sente, board, kikis)
+    !!get_oute_judgement(player_sente, board, kikis)
   end
 
   def process_next_movement(game)
@@ -99,8 +114,12 @@ class MinnaBot < Bot
     end
     kikis = generate_kikis(@last_board)
     candidates = generate_valid_candidates(@bot_sente, @last_board, kikis)
-    new_movement = candidates.sample
-    @game.make_board_from_movement!(new_movement)
+    if candidates.size == 0
+      give_up!(@game)
+    else
+      new_movement = candidates.sample
+      @game.make_board_from_movement!(new_movement)
+    end
   end
 
   def score
@@ -112,6 +131,20 @@ class MinnaBot < Bot
   end
 
 private
+
+  def generate_escape_oute_candidates(player_sente, board, kikis, oute_judgement)
+    candidates = []
+    ou_point = oute_judgement[0]
+    move_kikis = oute_judgement[1]
+    jump_kikis = oute_judgement[2]
+    oute_length = move_kikis.size + jump_kikis.size
+    if oute_length == 1
+      candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, ou_point)
+    else
+      candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, ou_point)
+    end
+    candidates
+  end
 
   def generate_valid_piece_jump_candidates(player_sente, board, kikis, piece, from_point)
     candidates = []
@@ -210,6 +243,39 @@ private
           candidates << Movement.new(attributes)
         end
       end
+    end
+    candidates
+  end
+
+  def generate_valid_piece_move_ou_candidates(player_sente, board, kikis, from_point)
+    candidates = []
+    from_value = from_point.x * 10 + from_point.y
+    moves = Piece::SENTE_MOVES[Piece::OU]
+    if player_sente
+      opponent_kiki = kikis[1]
+    else
+      opponent_kiki = kikis[0]
+    end
+    attributes = {
+      from_point: from_point,
+      number: board.number + 1,
+      put: false,
+      reverse: false,
+      role_value: Piece::OU,
+      sente: player_sente,
+    }
+    moves.each do |move|
+      to_value = from_value + move
+      next if to_value <= 10 ||
+          to_value >= 100 ||
+          (to_value % 10 == 0)
+      to_point = Point.new(to_value)
+      to_piece = board.get_piece(to_point)
+      next if to_piece && to_piece.sente? == player_sente
+      next if opponent_kiki.get_move_kikis(to_value).size > 0 ||
+          opponent_kiki.get_jump_kikis(to_value).size > 0
+      attributes[:to_point] = to_point
+      candidates << Movement.new(attributes)
     end
     candidates
   end

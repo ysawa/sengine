@@ -13,6 +13,13 @@ class Bot < User
     true
   end
 
+  def give_up!(game)
+    game = find_game(game)
+    game.give_up!(self)
+    game.apply_score_changes!
+    game.create_facebook_won_feed
+  end
+
   def process_next_movement(game)
     game = find_game(game)
     false
