@@ -39,7 +39,7 @@ class MinnaBot < Bot
   end
 
   def score
-    2000
+    5000
   end
 
   def work?
