@@ -43,7 +43,7 @@ class MinnaBot < Bot
   end
 
   def work?
-    Shogiengine.system.resque_work?
+    true
   end
 
 private
@@ -232,6 +232,8 @@ private
       end
       next if fu_exist
       points.each do |to_point|
+        y = to_point.y
+        next unless y_start <= y && y <= y_end
         attributes[:to_point] = to_point
         candidates << Movement.new(attributes)
       end
