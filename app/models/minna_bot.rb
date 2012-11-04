@@ -396,32 +396,13 @@ private
     }
     hand.each_with_index do |number, role_key|
       next if !number || number == 0
-      case role_key
-      when Piece::FU
+      if role_key == Piece::FU
         candidates += generate_valid_piece_put_fu_candidates(player_sente, board, kikis, attributes)
         next
-      when Piece::KY
-        if player_sente
-          y_start = 2
-          y_end = 9
-        else
-          y_start = 1
-          y_end = 8
-        end
-      when Piece::KE
-        if player_sente
-          y_start = 3
-          y_end = 9
-        else
-          y_start = 1
-          y_end = 7
-        end
-      else
-        y_start = 1
-        y_end = 9
       end
+      y_range = get_y_range_of_role(player_sente, role_key)
       attributes[:role_value] = role_key
-      y_start.upto(y_end).each do |y|
+      y_range.each do |y|
         1.upto(9).each do |x|
           to_point = Point.new(x, y)
           piece = board.get_piece(to_point)
@@ -438,11 +419,9 @@ private
     candidates = []
     attributes[:role_value] = Piece::FU
     if player_sente
-      y_start = 2
-      y_end = 9
+      y_range = (2..9)
     else
-      y_start = 1
-      y_end = 8
+      y_range = (1..8)
     end
     if player_sente
       role_value = Piece::FU
@@ -464,8 +443,7 @@ private
       end
       next if fu_exist
       points.each do |to_point|
-        y = to_point.y
-        next unless y_start <= y && y <= y_end
+        next unless y_range.include?(to_point.y)
         attributes[:to_point] = to_point
         candidates << Movement.new(attributes)
       end
@@ -491,35 +469,7 @@ private
     hand.each_with_index do |number, role_key|
       next if !number || number == 0
       attributes[:role_value] = role_key
-      case role_key
-      when Piece::FU
-        if player_sente
-          y_start = 2
-          y_end = 9
-        else
-          y_start = 1
-          y_end = 8
-        end
-      when Piece::KY
-        if player_sente
-          y_start = 2
-          y_end = 9
-        else
-          y_start = 1
-          y_end = 8
-        end
-      when Piece::KE
-        if player_sente
-          y_start = 3
-          y_end = 9
-        else
-          y_start = 1
-          y_end = 7
-        end
-      else
-        y_start = 1
-        y_end = 9
-      end
+      y_range = get_y_range_of_role(player_sente, role_key)
       jump_kikis.each do |kiki|
         to_value = ou_value
         1.upto(8).each do
@@ -528,10 +478,7 @@ private
           if role_key == Piece::FU && check_if_fu_exist(player_sente, board, to_point.x)
             next
           end
-          to_point_y = to_point.y
-          unless y_start <= to_point_y && to_point_y <= y_end
-            next
-          end
+          next unless y_range.include?(to_point.y)
           piece = board.get_piece(to_point)
           if piece
             break
@@ -593,5 +540,24 @@ private
       break
     end
     candidates
+  end
+
+  def get_y_range_of_role(player_sente, role)
+    case role
+    when Piece::FU, Piece::KY
+      if player_sente
+        (2..9)
+      else
+        (1..8)
+      end
+    when Piece::KE
+      if player_sente
+        (3..9)
+      else
+        (1..7)
+      end
+    else
+      (1..9)
+    end
   end
 end
