@@ -214,6 +214,7 @@ module ShogiBot
             sente: player_sente,
             to_point: to_point
           }
+          attributes[:take_role_value] = to_piece.role if to_piece
           candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
           break if to_piece && to_piece.sente? != player_sente
         end
@@ -244,6 +245,7 @@ module ShogiBot
           sente: player_sente,
           to_point: to_point
         }
+        attributes[:take_role_value] = to_piece.role if to_piece
         candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       end
       candidates
@@ -278,6 +280,7 @@ module ShogiBot
         next if opponent_kiki.get_move_kikis(to_point).size > 0 ||
             opponent_kiki.get_jump_kikis(to_point).size > 0
         attributes[:to_point] = to_point
+        attributes[:take_role_value] = to_piece.role if to_piece
         candidates << Movement.new(attributes)
       end
       candidates
@@ -430,6 +433,7 @@ module ShogiBot
         attributes[:to_point] = to_point
         piece = board.get_piece(to_point)
         next unless piece
+        attributes[:take_role_value] = piece.role if piece && piece.sente? != player_sente
         # take this piece
         move_kikis = player_kiki.get_move_kikis(to_point)
         jump_kikis = player_kiki.get_jump_kikis(to_point)

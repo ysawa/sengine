@@ -4,6 +4,7 @@ module ShogiBot
   class Movement
     ATTRIBUTES = %w(from_point number put reverse role_value sente to_point)
     attr_accessor *ATTRIBUTES
+    attr_accessor :take_role_value
 
     def attributes
       attrs = {}
@@ -41,6 +42,10 @@ module ShogiBot
 
     def sente?
       @sente
+    end
+
+    def take_piece?
+      @take_role_value
     end
   end
 end

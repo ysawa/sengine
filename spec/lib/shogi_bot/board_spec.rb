@@ -21,7 +21,6 @@ describe ShogiBot::Board do
     end
     it 'successfully generates sente and gote kikis' do
       @board.generate_kikis
-      p @board
       @board.sente_kikis.should be_a ShogiBot::Kikis
       @board.sente_kikis.get_move_kikis(61).should == [10] # FU
       @board.sente_kikis.get_jump_kikis(61).should == [] # NONE
