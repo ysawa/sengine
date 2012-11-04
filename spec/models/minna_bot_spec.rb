@@ -93,6 +93,18 @@ describe MinnaBot do
       candidates.should be_a Array
       candidates.last.put.should be_true
     end
+
+    it 'successfully generates candidates to escape in oute' do
+      bot.game = @game
+      last_board = @game.boards.last
+      last_board.p_53 = Piece::NONE
+      last_board.p_58 = - Piece::FU
+      last_board.save
+      kikis = bot.generate_kikis(last_board)
+      bot.oute?(true, last_board, kikis).should be_true
+      candidates = bot.generate_valid_candidates(true, @game.boards.last, kikis)
+      candidates.size.should == 6
+    end
   end
 
   describe '.process_next_movement' do

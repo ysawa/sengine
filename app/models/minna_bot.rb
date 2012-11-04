@@ -154,6 +154,7 @@ private
     if oute_length == 1
       candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, ou_point)
       if jump_kikis.size == 1
+        candidates += generate_valid_piece_move_or_jump_to_be_aigoma_candidates(player_sente, board, kikis, ou_point, jump_kikis)
         candidates += generate_valid_piece_put_aigoma_candidates(player_sente, board, kikis, ou_point, jump_kikis)
         candidates += generate_valid_piece_take_outeing_piece_candidates(player_sente, board, kikis, ou_point, jump_kikis)
       else
@@ -162,6 +163,98 @@ private
     else
       candidates += generate_valid_piece_move_ou_candidates(player_sente, board, kikis, ou_point)
     end
+    candidates
+  end
+
+  def generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
+    candidates = []
+    if piece.reversed?
+      candidates << Movement.new(attributes)
+    else
+      if (player_sente && to_point.y <= 2) ||
+          (!player_sente && to_point.y >= 8)
+        attributes[:reverse] = true
+        candidates << Movement.new(attributes)
+      elsif (player_sente && from_point.y <= 3) ||
+          (!player_sente && from_point.y >= 7) ||
+          (player_sente && to_point.y <= 3) ||
+          (!player_sente && to_point.y >= 7)
+        candidates << Movement.new(attributes)
+        attributes[:reverse] = true
+        candidates << Movement.new(attributes)
+      else
+        candidates << Movement.new(attributes)
+      end
+    end
+    candidates
+  end
+
+  def generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
+    candidates = []
+    if piece.reversed? ||
+        piece.role == Piece::KI ||
+        piece.role == Piece::OU
+      candidates << Movement.new(attributes)
+    else
+      if piece.role == Piece::KE &&
+          ((player_sente && to_point.y <= 2) ||
+              (!player_sente && to_point.y >= 8))
+        attributes[:reverse] = true
+        candidates << Movement.new(attributes)
+        elsif (player_sente && from_point.y <= 3) ||
+            (!player_sente && from_point.y >= 7) ||
+            (player_sente && to_point.y <= 3) ||
+            (!player_sente && to_point.y >= 7)
+        candidates << Movement.new(attributes)
+        attributes[:reverse] = true
+        candidates << Movement.new(attributes)
+      else
+        candidates << Movement.new(attributes)
+      end
+    end
+    candidates
+  end
+
+  def generate_valid_move_or_jump_to_point_candidates(player_sente, board, kikis, to_point)
+    candidates = []
+    to_value = to_point.x * 10 + to_point.y
+    if player_sente
+      player_kiki = kikis[0]
+    else
+      player_kiki = kikis[1]
+    end
+    attributes = {
+      number: board.number + 1,
+      put: false,
+      reverse: false,
+      sente: player_sente,
+      to_point: to_point
+    }
+    player_move_kikis = player_kiki.get_move_kikis(to_value)
+    player_jump_kikis = player_kiki.get_jump_kikis(to_value)
+    player_move_kikis.each do |kiki|
+      from_value = to_value + kiki
+      from_point = Point.new(from_value)
+      from_piece = board.get_piece(from_point)
+      next if from_piece.role == Piece::OU
+      attributes[:from_point] = from_point
+      attributes[:role_value] = from_piece.role
+      candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, from_piece, from_point, to_point, attributes)
+    end
+    player_jump_kikis.each do |kiki|
+      from_value = to_value
+      1.upto(8).each do
+        from_value += kiki
+        from_point = Point.new(from_value)
+        from_piece = board.get_piece(from_point)
+        next unless from_piece
+        attributes[:from_point] = from_point
+        attributes[:role_value] = from_piece.role
+        candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, from_piece, from_point, to_point, attributes)
+        break
+      end
+    end
+
     candidates
   end
 
@@ -192,24 +285,7 @@ private
           sente: player_sente,
           to_point: to_point
         }
-        if piece.reversed?
-          candidates << Movement.new(attributes)
-        else
-          if (player_sente && to_point.y <= 2) ||
-              (!player_sente && to_point.y >= 8)
-            attributes[:reverse] = true
-            candidates << Movement.new(attributes)
-          elsif (player_sente && from_point.y <= 3) ||
-              (!player_sente && from_point.y >= 7) ||
-              (player_sente && to_point.y <= 3) ||
-              (!player_sente && to_point.y >= 7)
-            candidates << Movement.new(attributes)
-            attributes[:reverse] = true
-            candidates << Movement.new(attributes)
-          else
-            candidates << Movement.new(attributes)
-          end
-        end
+        candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
         break if to_piece && to_piece.sente? != player_sente
       end
     end
@@ -241,27 +317,7 @@ private
         sente: player_sente,
         to_point: to_point
       }
-      if piece.reversed? ||
-          piece.role == Piece::KI ||
-          piece.role == Piece::OU
-        candidates << Movement.new(attributes)
-      else
-        if piece.role == Piece::KE &&
-            ((player_sente && to_point.y <= 2) ||
-                (!player_sente && to_point.y >= 8))
-          attributes[:reverse] = true
-          candidates << Movement.new(attributes)
-          elsif (player_sente && from_point.y <= 3) ||
-              (!player_sente && from_point.y >= 7) ||
-              (player_sente && to_point.y <= 3) ||
-              (!player_sente && to_point.y >= 7)
-          candidates << Movement.new(attributes)
-          attributes[:reverse] = true
-          candidates << Movement.new(attributes)
-        else
-          candidates << Movement.new(attributes)
-        end
-      end
+      candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
     end
     candidates
   end
@@ -298,6 +354,29 @@ private
           opponent_kiki.get_jump_kikis(to_value).size > 0
       attributes[:to_point] = to_point
       candidates << Movement.new(attributes)
+    end
+    candidates
+  end
+
+  def generate_valid_piece_move_or_jump_to_be_aigoma_candidates(player_sente, board, kikis, ou_point, jump_kikis)
+    candidates = []
+    ou_value = ou_point.x * 10 + ou_point.y
+    attributes = {
+      number: board.number + 1,
+      put: false,
+      reverse: false,
+      sente: player_sente
+    }
+    jump_kikis.each do |kiki|
+      to_value = ou_value
+      1.upto(8).each do
+        to_value += kiki
+        to_point = Point.new(to_value)
+        piece = board.get_piece(to_point)
+        break if piece
+        attributes[:to_point] = to_point
+        candidates += generate_valid_move_or_jump_to_point_candidates(player_sente, board, kikis, to_point)
+      end
     end
     candidates
   end
@@ -496,26 +575,7 @@ private
         next if from_piece.role == Piece::OU
         attributes[:role_value] = from_piece.role
         attributes[:from_point] = from_point
-        if from_piece.reversed? ||
-            from_piece.role == Piece::KI
-          candidates << Movement.new(attributes)
-        else
-          if from_piece.role == Piece::KE &&
-              ((player_sente && to_point.y <= 2) ||
-                  (!player_sente && to_point.y >= 8))
-            attributes[:reverse] = true
-            candidates << Movement.new(attributes)
-            elsif (player_sente && from_point.y <= 3) ||
-                (!player_sente && from_point.y >= 7) ||
-                (player_sente && to_point.y <= 3) ||
-                (!player_sente && to_point.y >= 7)
-            candidates << Movement.new(attributes)
-            attributes[:reverse] = true
-            candidates << Movement.new(attributes)
-          else
-            candidates << Movement.new(attributes)
-          end
-        end
+        candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       end
       jump_kikis.each do |jump|
         from_value = to_value
@@ -526,25 +586,7 @@ private
           next unless from_piece
           attributes[:role_value] = from_piece.role
           attributes[:from_point] = from_point
-          candidates << Movement.new(attributes)
-          if from_piece.reversed?
-            candidates << Movement.new(attributes)
-          else
-            if (player_sente && to_point.y <= 2) ||
-                (!player_sente && to_point.y >= 8)
-              attributes[:reverse] = true
-              candidates << Movement.new(attributes)
-            elsif (player_sente && from_point.y <= 3) ||
-                (!player_sente && from_point.y >= 7) ||
-                (player_sente && to_point.y <= 3) ||
-                (!player_sente && to_point.y >= 7)
-              candidates << Movement.new(attributes)
-              attributes[:reverse] = true
-              candidates << Movement.new(attributes)
-            else
-              candidates << Movement.new(attributes)
-            end
-          end
+          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
           break
         end
       end
