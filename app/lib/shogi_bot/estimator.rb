@@ -148,21 +148,21 @@ module ShogiBot
     def generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       candidates = []
       if piece.reversed?
-        candidates << ::Movement.new(attributes)
+        candidates << Movement.new(attributes)
       else
         if (player_sente && to_point.y <= 2) ||
             (!player_sente && to_point.y >= 8)
           attributes[:reverse] = true
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
         elsif (player_sente && from_point.y <= 3) ||
             (!player_sente && from_point.y >= 7) ||
             (player_sente && to_point.y <= 3) ||
             (!player_sente && to_point.y >= 7)
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
           attributes[:reverse] = true
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
         else
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
         end
       end
       candidates
@@ -173,22 +173,22 @@ module ShogiBot
       if piece.reversed? ||
           piece.role == Piece::KI ||
           piece.role == Piece::OU
-        candidates << ::Movement.new(attributes)
+        candidates << Movement.new(attributes)
       else
         if piece.role == Piece::KE &&
             ((player_sente && to_point.y <= 2) ||
                 (!player_sente && to_point.y >= 8))
           attributes[:reverse] = true
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
           elsif (player_sente && from_point.y <= 3) ||
               (!player_sente && from_point.y >= 7) ||
               (player_sente && to_point.y <= 3) ||
               (!player_sente && to_point.y >= 7)
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
           attributes[:reverse] = true
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
         else
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
         end
       end
       candidates
@@ -332,7 +332,7 @@ module ShogiBot
         next if opponent_kiki.get_move_kikis(to_value).size > 0 ||
             opponent_kiki.get_jump_kikis(to_value).size > 0
         attributes[:to_point] = to_point
-        candidates << ::Movement.new(attributes)
+        candidates << Movement.new(attributes)
       end
       candidates
     end
@@ -387,7 +387,7 @@ module ShogiBot
             piece = board.get_piece(to_point)
             next if piece
             attributes[:to_point] = to_point
-            candidates << ::Movement.new(attributes)
+            candidates << Movement.new(attributes)
           end
         end
       end
@@ -424,7 +424,7 @@ module ShogiBot
         points.each do |to_point|
           next unless y_range.include?(to_point.y)
           attributes[:to_point] = to_point
-          candidates << ::Movement.new(attributes)
+          candidates << Movement.new(attributes)
         end
       end
       candidates
@@ -462,7 +462,7 @@ module ShogiBot
               break
             end
             attributes[:to_point] = to_point
-            candidates << ::Movement.new(attributes)
+            candidates << Movement.new(attributes)
           end
         end
       end

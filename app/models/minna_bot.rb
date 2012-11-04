@@ -21,7 +21,7 @@ class MinnaBot < Bot
       give_up!(@game)
     else
       new_movement = candidates.sample
-      @game.make_board_from_movement!(new_movement)
+      @game.make_board_from_movement!(Movement.new new_movement.attributes)
     end
   end
 

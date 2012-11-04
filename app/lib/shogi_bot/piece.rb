@@ -20,7 +20,6 @@ module ShogiBot
     REVERSED_ROLES = [9, 10, 11, 12, 14, 15]
     SPECIAL_ROLES = [5, 8]
     HAND_ROLES = [1, 2, 3, 4, 5, 6, 7, 8]
-    ROLE_STRINGS = %w(* fu ky ke gi ki ka hi ou to ny nk ng * um ry *)
 
     SENTE_MOVES = [
       nil,
