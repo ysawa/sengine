@@ -54,7 +54,6 @@ class MinnaBot < Bot
       new_bot_movement = candidates.sample
       new_movement = decode_movement(new_bot_movement)
       @game.make_board_from_movement!(new_movement)
-
     end
   end
 
