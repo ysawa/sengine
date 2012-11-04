@@ -134,6 +134,11 @@ private
 
   def check_if_fu_exist(player_sente, board, x)
     fu_exist = false
+    if player_sente
+      role_value = Piece::FU
+      role_value = - Piece::FU
+    else
+    end
     1.upto(9).each do |y|
       to_point = Point.new(x, y)
       piece = board.get_piece(to_point)
@@ -451,14 +456,13 @@ private
     candidates
   end
 
-  # TODO also move and be aigoma
   def generate_valid_piece_put_aigoma_candidates(player_sente, board, kikis, ou_point, jump_kikis)
     candidates = []
     ou_value = ou_point.x * 10 + ou_point.y
     if player_sente
       hand = board.sente_hand.to_a
     else
-      hand = board.sente_hand.to_a
+      hand = board.gote_hand.to_a
     end
     attributes = {
       number: board.number + 1,

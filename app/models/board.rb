@@ -24,10 +24,10 @@ class Board
 
   # TODO this method must have some exceptions
   def apply_movement(movement)
-    raise InvalidMovement.new unless movement.valid?
+    raise InvalidMovement.new("movement is invalid: #{movement.inspect}") unless movement.valid?
     self.movement = movement
     self.sente = movement.sente
-    raise InvalidMovement.new('invalid number') unless movement.number == self.number
+    raise InvalidMovement.new("invalid movement number: #{movement.inspect}") unless movement.number == self.number
     if movement.from_point?
       proponent_piece = get_piece(movement.from_point)
       set_piece_value(0, movement.from_point)
@@ -41,7 +41,7 @@ class Board
       end
     end
     unless proponent_piece
-      raise InvalidMovement.new 'no proponent piece'
+      raise InvalidMovement.new "no proponent piece: #{movement.inspect}"
     end
     # if an opponent piece is on the point where the proponent piece moves
     opponent_piece = get_piece(movement.to_point)
