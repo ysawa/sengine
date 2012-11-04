@@ -33,6 +33,8 @@ class MinnaBot < Bot
         bot_board.board[bot_point] = piece_value
       end
     end
+    bot_board.sente_hand = board.sente_hand.to_a
+    bot_board.gote_hand = board.gote_hand.to_a
     bot_board
   end
 
@@ -44,13 +46,15 @@ class MinnaBot < Bot
       raise Bot::InvalidConditions.new 'turn is invalid'
     end
     estimator = ShogiBot::Estimator.new
-    kikis = estimator.generate_kikis(@last_board)
-    candidates = estimator.generate_valid_candidates(@bot_sente, @last_board, kikis)
+    bot_board = encode_board(@last_board)
+    candidates = estimator.generate_valid_candidates(@bot_sente, bot_board)
     if candidates.size == 0
       give_up!(@game)
     else
-      new_movement = candidates.sample
-      @game.make_board_from_movement!(Movement.new new_movement.attributes)
+      new_bot_movement = candidates.sample
+      new_movement = decode_movement(new_bot_movement)
+      @game.make_board_from_movement!(new_movement)
+
     end
   end
 

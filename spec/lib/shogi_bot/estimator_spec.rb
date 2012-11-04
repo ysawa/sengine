@@ -17,35 +17,9 @@ describe ShogiBot::Estimator do
     ShogiBot::Estimator.new
   end
 
-  describe '.generate_kikis' do
-    before :each do
-      @game.create_first_board
-      @game.sente_user = bot
-      @game.gote_user = @game.author = @user
-      @game.save
-    end
-    it 'successfully generates sente and gote kikis' do
-      estimator.game = @game
-      kikis = estimator.generate_kikis(@game.boards.last)
-      kikis.should be_a Array
-      sente_kikis = kikis.first
-      sente_kikis.should be_a Kiki
-      sente_kikis.get_move_kikis(16).should == [1] # FU
-      sente_kikis.get_jump_kikis(16).should == [] # NONE
-      sente_kikis.get_jump_kikis(17).should == [1] # KY
-      sente_kikis.get_jump_kikis(18).should == [1, 10] # KY, HI
-      gote_kikis = kikis.last
-      gote_kikis.should be_a Kiki
-      gote_kikis.get_move_kikis(14).should == [-1] # FU
-      gote_kikis.get_jump_kikis(14).should == [] # NONE
-      gote_kikis.get_jump_kikis(13).should == [-1, 9] # KY, KA
-      gote_kikis.get_jump_kikis(12).should == [-1] # KY
-      gote_kikis.get_jump_kikis(11).should == [11] # KA
-    end
-  end
-
   describe '.oute?' do
     before :each do
+      pending
       @game.create_first_board
       @game.sente_user = bot
       @game.gote_user = @game.author = @user
@@ -67,6 +41,7 @@ describe ShogiBot::Estimator do
 
   describe '.generate_valid_candidates' do
     before :each do
+      pending
       @game.create_first_board
       @game.sente_user = bot
       @game.gote_user = @game.author = @user

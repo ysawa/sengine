@@ -19,48 +19,49 @@ module ShogiBot
     attr_accessor :sente_pins
     attr_accessor :gote_pins
 
-    def generate_kikis(board)
-      @sente_kikis = Array.new(SIZE)
-      @gote_kikis = Array.new(SIZE)
+    def generate_kikis
+      @sente_kikis = Kikis.new
+      @gote_kikis = Kikis.new
       11.upto(99).each do |from_point|
         next if from_point % 10 == 0
-        piece = board.get_piece(from_point)
+        piece = get_piece(from_point)
         next unless piece
         piece_sente = piece.sente?
         piece.moves.each do |move|
-          to_value = from_value + move
-          next if to_value % 10 == 0 ||
-              to_value <= 10 ||
-              to_value >= 100
+          to_point = from_point + move
+          next if to_point % 10 == 0 ||
+              to_point <= 10 ||
+              to_point >= 100
           if piece_sente
-            sente_kikis.append_move(to_value, - move)
+            @sente_kikis.append_move(to_point, - move)
           else
-            gote_kikis.append_move(to_value, - move)
+            @gote_kikis.append_move(to_point, - move)
           end
         end
         piece.jumps.each do |jump|
-          to_value = from_value
+          to_point = from_point
           1.upto(8).each do |i|
-            to_value += jump
-            next if to_value % 10 == 0 ||
-                to_value <= 10 ||
-                to_value >= 100
+            to_point += jump
+            break if to_point % 10 == 0 ||
+                to_point <= 10 ||
+                to_point >= 100
             if piece_sente
-              sente_kikis.append_jump(to_value, - jump)
+              @sente_kikis.append_jump(to_point, - jump)
             else
-              gote_kikis.append_jump(to_value, - jump)
+              @gote_kikis.append_jump(to_point, - jump)
             end
-            to_point = Point.new(to_value)
-            piece = board.get_piece(to_point)
+            piece = get_piece(to_point)
             break if piece
           end
         end
       end
-      [sente_kikis, gote_kikis]
     end
 
     def get_piece(point)
-      Piece.new(@board[point])
+      value = @board[point]
+      if value != 0
+        Piece.new(value)
+      end
     end
 
     def initialize(board = nil, number = 0)
