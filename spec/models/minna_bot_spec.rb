@@ -48,6 +48,7 @@ describe MinnaBot do
   describe '.process_next_movement' do
     before :each do
       @game.create_first_board
+      @another_bot = MinnaBot.new
     end
     it 'successfully creates new movement' do
       @game.sente_user = bot
@@ -56,6 +57,17 @@ describe MinnaBot do
       @game.number.should == 0
       bot.process_next_movement(@game)
       @game.number.should == 1
+    end
+
+    it 'successfully works as a player without errors' do
+      @game.sente_user = bot
+      @game.gote_user = @game.author = @another_bot
+      @game.save
+      10.times do
+        bot.process_next_movement(@game)
+        @another_bot.process_next_movement(@game)
+      end
+      @game.number.should == 20
     end
   end
 end
