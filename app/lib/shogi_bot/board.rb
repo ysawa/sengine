@@ -66,6 +66,8 @@ module ShogiBot
     def initialize(board = nil, number = 0)
       @number = number
       @board = Array.new(SIZE)
+      @sente_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
+      @gote_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
     end
   end
 end
