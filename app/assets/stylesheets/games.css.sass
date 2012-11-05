@@ -32,6 +32,7 @@ $moved_color: $highlight_color
 #game_page
 
 article#game
+  margin-top: 50px
   #game_result
     font-size: 130%
     text-align: center
@@ -48,6 +49,9 @@ article#game
     text-align: center
     a, span
       width: 60px
+@media only screen and (max-width: 759px)
+  article#game
+    margin-top: 0
 
 .board
   @include user-select(none)
