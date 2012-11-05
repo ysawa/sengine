@@ -99,10 +99,15 @@ module ShogiBot
     end
 
     def load_pins
+      @sente_pins = []
+      @gote_pins = []
       point = @sente_ou
       Piece::SENTE_MOVES[Piece::OU].each do |move|
         1.upto(8).each do
           point += move
+          break if point % 10 == 0 ||
+              point <= 10 ||
+              point >= 100
           piece = get_piece(point)
           next unless piece
           if piece.sente? && @sente_kikis.get_jump_kikis(point).include?(move)
@@ -115,6 +120,9 @@ module ShogiBot
       Piece::GOTE_MOVES[Piece::OU].each do |move|
         1.upto(8).each do
           point += move
+          break if point % 10 == 0 ||
+              point <= 10 ||
+              point >= 100
           piece = get_piece(point)
           next unless piece
           if piece.gote? && @gote_kikis.get_jump_kikis(point).include?(move)
