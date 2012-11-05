@@ -22,6 +22,16 @@ module ShogiBot
     attr_accessor :sente_ou
     attr_accessor :gote_ou
 
+    def clear_board
+      SIZE.times do |point|
+        if out_of_board?(point)
+          @board[point] = nil
+        else
+          @board[point] = 0
+        end
+      end
+    end
+
     def get_piece(point)
       value = @board[point]
       if value != 0
@@ -95,29 +105,29 @@ module ShogiBot
     end
 
     def load_pins
-      @sente_pins = []
-      @gote_pins = []
-      point = @sente_ou
+      @sente_pins = Array.new(SIZE)
+      @gote_pins = Array.new(SIZE)
       Piece::SENTE_MOVES[Piece::OU].each do |move|
+        point = @sente_ou
         1.upto(8).each do
           point += move
           break if out_of_board?(point)
           piece = get_piece(point)
           next unless piece
-          if piece.sente? && @sente_kikis.get_jump_kikis(point).include?(move)
+          if piece.sente? && @gote_kikis.get_jump_kikis(point).include?(move)
             @sente_pins[point] = move
           end
           break
         end
       end
-      point = @gote_ou
       Piece::GOTE_MOVES[Piece::OU].each do |move|
+        point = @gote_ou
         1.upto(8).each do
           point += move
           break if out_of_board?(point)
           piece = get_piece(point)
           next unless piece
-          if piece.gote? && @gote_kikis.get_jump_kikis(point).include?(move)
+          if piece.gote? && @sente_kikis.get_jump_kikis(point).include?(move)
             @gote_pins[point] = move
           end
           break

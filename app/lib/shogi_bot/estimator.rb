@@ -130,15 +130,20 @@ module ShogiBot
           piece.role == Piece::OU
         candidates << Movement.new(attributes)
       else
-        if piece.role == Piece::KE &&
+        if piece.role == Piece::FU &&
+            ((player_sente && to_point <= 39) ||
+                (!player_sente && to_point >= 71))
+          attributes[:reverse] = true
+          candidates << Movement.new(attributes)
+        elsif piece.role == Piece::KE &&
             ((player_sente && to_point <= 29) ||
                 (!player_sente && to_point >= 81))
           attributes[:reverse] = true
           candidates << Movement.new(attributes)
-          elsif (player_sente && from_point <= 39) ||
-              (!player_sente && from_point >= 71) ||
-              (player_sente && to_point <= 39) ||
-              (!player_sente && to_point >= 71)
+        elsif (player_sente && from_point <= 39) ||
+            (!player_sente && from_point >= 71) ||
+            (player_sente && to_point <= 39) ||
+            (!player_sente && to_point >= 71)
           candidates << Movement.new(attributes)
           attributes[:reverse] = true
           candidates << Movement.new(attributes)
@@ -169,6 +174,12 @@ module ShogiBot
         from_point = to_point + kiki
         from_piece = board.get_piece(from_point)
         next if from_piece.role == Piece::OU
+        if player_sente
+          pin = board.sente_pins[from_point]
+        else
+          pin = board.gote_pins[from_point]
+        end
+        next if pin && (pin != kiki && pin != - kiki)
         attributes[:from_point] = from_point
         attributes[:role_value] = from_piece.role
         candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, from_piece, from_point, to_point, attributes)
@@ -179,6 +190,12 @@ module ShogiBot
           from_point += kiki
           from_piece = board.get_piece(from_point)
           next unless from_piece
+          if player_sente
+            pin = board.sente_pins[from_point]
+          else
+            pin = board.gote_pins[from_point]
+          end
+          next if pin && (pin != kiki && pin != - kiki)
           attributes[:from_point] = from_point
           attributes[:role_value] = from_piece.role
           candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, from_piece, from_point, to_point, attributes)
@@ -193,10 +210,13 @@ module ShogiBot
       candidates = []
       if player_sente
         jumps = Piece::SENTE_JUMPS[piece.role]
+        pin = board.sente_pins[from_point]
       else
         jumps = Piece::GOTE_JUMPS[piece.role]
+        pin = board.gote_pins[from_point]
       end
       jumps.each do |jump|
+        next if pin && (pin != jump && pin != - jump)
         to_point = from_point
         8.times do |i|
           to_point += jump
@@ -226,10 +246,13 @@ module ShogiBot
       candidates = []
       if player_sente
         moves = Piece::SENTE_MOVES[piece.role]
+        pin = board.sente_pins[from_point]
       else
         moves = Piece::GOTE_MOVES[piece.role]
+        pin = board.gote_pins[from_point]
       end
       moves.each do |move|
+        next if pin && (pin != move && pin != - move)
         to_point = from_point + move
         next if to_point <= 10 ||
             to_point >= 100 ||
@@ -441,6 +464,12 @@ module ShogiBot
           from_point = to_point + move
           from_piece = board.get_piece(from_point)
           next if from_piece.role == Piece::OU
+          if player_sente
+            pin = board.sente_pins[from_point]
+          else
+            pin = board.gote_pins[from_point]
+          end
+          next if pin && (pin != move && pin != - move)
           attributes[:role_value] = from_piece.role
           attributes[:from_point] = from_point
           candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
@@ -451,6 +480,12 @@ module ShogiBot
             from_point += jump
             from_piece = board.get_piece(from_point)
             next unless from_piece
+            if player_sente
+              pin = board.sente_pins[from_point]
+            else
+              pin = board.gote_pins[from_point]
+            end
+            next if pin && (pin != jump && pin != - jump)
             attributes[:role_value] = from_piece.role
             attributes[:from_point] = from_point
             candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)

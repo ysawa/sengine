@@ -46,13 +46,28 @@ describe ShogiBot::Board do
     end
   end
   describe '.load_pins' do
-    before :each do
-      @board = @bot.encode_board(Board.hirate)
-    end
     it 'successfully generates sente and gote pins' do
+      @board = @bot.encode_board(Board.hirate)
       @board.load_kikis
       @board.load_ous
       @board.load_pins
+      @board.sente_pins[71].should be_nil
+      @board.gote_pins[11].should be_nil
+    end
+
+    it 'successfully generates sente and gote pins' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[25] = - ShogiBot::Piece::KI
+      @board.board[85] = ShogiBot::Piece::HI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_kikis
+      @board.load_ous
+      @board.load_pins
+      @board.sente_pins[85].should be_nil
+      @board.gote_pins[15].should be_nil
+      @board.gote_pins[25].should == 10
     end
   end
 end
