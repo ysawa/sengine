@@ -78,6 +78,20 @@ describe ShogiBot::Estimator do
       candidates.length.should == 81 - 9 - 1 + 5
     end
 
+    it 'successfully put fu to be aigoma' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[25] = - ShogiBot::Piece::HI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.sente_hand[ShogiBot::Piece::FU] = 1
+      @board.load_all
+      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::FU && candidate.put? }
+          .size.should == 6
+      candidates.length.should == 6 + 4
+    end
+
     it 'successfully reverse fu if necessary' do
       @board = ShogiBot::Board.new
       @board.clear_board
