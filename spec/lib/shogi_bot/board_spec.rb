@@ -41,6 +41,8 @@ describe ShogiBot::Board do
     it 'successfully generates sente and gote ous' do
       @board.load_kikis
       @board.load_ous
+      @board.sente_ou.should == 95
+      @board.gote_ou.should == 15
     end
   end
   describe '.load_pins' do
