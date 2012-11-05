@@ -45,6 +45,24 @@ describe ShogiBot::Estimator do
       @board.load_all
       candidates = estimator.generate_valid_candidates(true, @board)
       candidates.length.should == 4
+      candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::OU && candidate.to_point == 85 }
+          .size.should == 0
+    end
+
+    it 'successfully consider pins' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[25] = - ShogiBot::Piece::HI
+      @board.board[75] = ShogiBot::Piece::KI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_all
+      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates.length.should == 7
+      candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::KI && candidate.to_point == 76 }
+          .size.should == 0
+      candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::KI && candidate.to_point == 65 }
+          .size.should == 1
     end
 
     it 'successfully put fu' do
