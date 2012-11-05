@@ -5,7 +5,7 @@ module ShogiBot
 
     def generate_valid_candidates(player_sente, board)
       candidates = []
-      board.generate_kikis
+      board.load_all
       oute_judgement = get_oute_judgement(player_sente, board)
       if oute_judgement
         candidates += generate_valid_escape_oute_candidates(player_sente, board, oute_judgement)

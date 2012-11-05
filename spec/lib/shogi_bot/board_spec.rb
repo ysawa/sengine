@@ -15,12 +15,12 @@ describe ShogiBot::Board do
     end
   end
 
-  describe '.generate_kikis' do
+  describe '.load_kikis' do
     before :each do
       @board = @bot.encode_board(Board.hirate)
     end
     it 'successfully generates sente and gote kikis' do
-      @board.generate_kikis
+      @board.load_kikis
       @board.sente_kikis.should be_a ShogiBot::Kikis
       @board.sente_kikis.get_move_kikis(61).should == [10] # FU
       @board.sente_kikis.get_jump_kikis(61).should == [] # NONE
@@ -32,6 +32,25 @@ describe ShogiBot::Board do
       @board.gote_kikis.get_jump_kikis(31).should == [-10, -9] # KY, KA
       @board.gote_kikis.get_jump_kikis(21).should == [-10] # KY
       @board.gote_kikis.get_jump_kikis(11).should == [11] # KA
+    end
+  end
+  describe '.load_ous' do
+    before :each do
+      @board = @bot.encode_board(Board.hirate)
+    end
+    it 'successfully generates sente and gote ous' do
+      @board.load_kikis
+      @board.load_ous
+    end
+  end
+  describe '.load_pins' do
+    before :each do
+      @board = @bot.encode_board(Board.hirate)
+    end
+    it 'successfully generates sente and gote pins' do
+      @board.load_kikis
+      @board.load_ous
+      @board.load_pins
     end
   end
 end

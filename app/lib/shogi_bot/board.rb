@@ -19,7 +19,30 @@ module ShogiBot
     attr_accessor :sente_pins
     attr_accessor :gote_pins
 
-    def generate_kikis
+    attr_accessor :sente_ou
+    attr_accessor :gote_ou
+
+    def get_piece(point)
+      value = @board[point]
+      if value != 0
+        Piece.new(value)
+      end
+    end
+
+    def initialize(board = nil, number = 0)
+      @number = number
+      @board = Array.new(SIZE)
+      @sente_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
+      @gote_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
+    end
+
+    def load_all
+      load_ous
+      load_kikis
+      load_pins
+    end
+
+    def load_kikis
       @sente_kikis = Kikis.new
       @gote_kikis = Kikis.new
       11.upto(99).each do |from_point|
@@ -57,18 +80,50 @@ module ShogiBot
       end
     end
 
-    def get_piece(point)
-      value = @board[point]
-      if value != 0
-        Piece.new(value)
+    def load_ous
+      @sente_ou = @gote_ou = nil
+      11.upto(99).each do |point|
+        next if point % 10 == 0
+        piece = get_piece(point)
+        next unless piece
+        if piece.role == Piece::OU
+          if piece.sente?
+            @sente_ou = point
+          else
+            @gote_ou = point
+          end
+        end
+        break if @sente_ou && @gote_ou
       end
+      nil
     end
 
-    def initialize(board = nil, number = 0)
-      @number = number
-      @board = Array.new(SIZE)
-      @sente_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
-      @gote_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
+    def load_pins
+      point = @sente_ou
+      Piece::SENTE_MOVES[Piece::OU].each do |move|
+        1.upto(8).each do
+          point += move
+          piece = get_piece(point)
+          next unless piece
+          if piece.sente? && @sente_kikis.get_jump_kikis(point).include?(move)
+            @sente_pins[point] = move
+          end
+          break
+        end
+      end
+      point = @gote_ou
+      Piece::GOTE_MOVES[Piece::OU].each do |move|
+        1.upto(8).each do
+          point += move
+          piece = get_piece(point)
+          next unless piece
+          if piece.gote? && @gote_kikis.get_jump_kikis(point).include?(move)
+            @gote_pins[point] = move
+          end
+          break
+        end
+      end
+      nil
     end
   end
 end
