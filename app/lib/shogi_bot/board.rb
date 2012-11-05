@@ -52,9 +52,7 @@ module ShogiBot
         piece_sente = piece.sente?
         piece.moves.each do |move|
           to_point = from_point + move
-          next if to_point % 10 == 0 ||
-              to_point <= 10 ||
-              to_point >= 100
+          next if out_of_board?(to_point)
           if piece_sente
             @sente_kikis.append_move(to_point, - move)
           else
@@ -65,9 +63,7 @@ module ShogiBot
           to_point = from_point
           1.upto(8).each do |i|
             to_point += jump
-            break if to_point % 10 == 0 ||
-                to_point <= 10 ||
-                to_point >= 100
+            break if out_of_board?(to_point)
             if piece_sente
               @sente_kikis.append_jump(to_point, - jump)
             else
@@ -105,9 +101,7 @@ module ShogiBot
       Piece::SENTE_MOVES[Piece::OU].each do |move|
         1.upto(8).each do
           point += move
-          break if point % 10 == 0 ||
-              point <= 10 ||
-              point >= 100
+          break if out_of_board?(point)
           piece = get_piece(point)
           next unless piece
           if piece.sente? && @sente_kikis.get_jump_kikis(point).include?(move)
@@ -120,9 +114,7 @@ module ShogiBot
       Piece::GOTE_MOVES[Piece::OU].each do |move|
         1.upto(8).each do
           point += move
-          break if point % 10 == 0 ||
-              point <= 10 ||
-              point >= 100
+          break if out_of_board?(point)
           piece = get_piece(point)
           next unless piece
           if piece.gote? && @gote_kikis.get_jump_kikis(point).include?(move)
@@ -132,6 +124,16 @@ module ShogiBot
         end
       end
       nil
+    end
+
+    def out_of_board?(point)
+      self.class.out_of_board?(point)
+    end
+
+    class << self
+      def out_of_board?(point)
+        point % 10 == 0 || point <= 10 || point >= 100
+      end
     end
   end
 end
