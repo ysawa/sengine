@@ -1,0 +1,28 @@
+@charset "utf-8"
+
+/* Themes */
+body
+<% %w(default test).each do |theme| %>
+  &.theme_<%= theme %>
+    background-image: url(<%= asset_path "bg/#{theme}.jpg" %>)
+    $piece_image: url(<%= asset_path "pieces/#{theme}.png" %>)
+    .piece
+      background-image: $piece_image
+    .board
+      background-image: url(<%= asset_path "boards/#{theme}.jpg" %>)
+      .row
+        .cell
+          &.moved,
+          &.selected
+            background-image: $piece_image
+          &.highlight
+            background-image: $piece_image
+    .in_hand
+      .pieces
+        .row
+          .cell
+            &.moved,
+            &.selected,
+            &.in_turn
+              background-image: $piece_image
+<% end %>
