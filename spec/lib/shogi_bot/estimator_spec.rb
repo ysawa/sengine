@@ -105,4 +105,81 @@ describe ShogiBot::Estimator do
       candidates.size.should == 1 + 5
     end
   end
+
+  describe 'test estimator as a simple estimator' do
+    before :each do
+      class DemoEstimator < ShogiBot::Estimator
+
+        attr_accessor :estimate_count
+
+        def estimate(board)
+          @estimate_count += 1
+          board[:board]
+        end
+
+        def generate_valid_candidates(ps, board)
+          Array.new(board[:board].size) { |i| i }
+        end
+
+        def execute_movement(board, movement)
+          board[:stack].push(board[:board])
+          board[:board] = board[:board][movement]
+        end
+
+        def initialize
+          super
+          @estimate_count = 0
+          @@depth = 2
+          @@alpha = -20
+          @@beta = 20
+        end
+
+        def sort_candidates(ps, board)
+          board
+        end
+
+        def unexecute_movement(board, movement)
+          board[:board] = board[:stack].pop
+        end
+      end
+    end
+    it '.choose_best_candidate in depth 2' do
+      class DemoEstimator
+        def initialize
+          super
+          @estimate_count = 0
+          @@depth = 2
+          @@alpha = -20
+          @@beta = 20
+        end
+      end
+
+      tree = [[15, -3], [-7, -1]]
+      demo = DemoEstimator.new
+      result = demo.choose_best_candidate(true, { board: tree, stack: [] })
+      result.should == 0
+      demo.estimate_count.should == 3
+    end
+
+    it '.choose_best_candidate in depth 3' do
+      class DemoEstimator
+        def initialize
+          super
+          @estimate_count = 0
+          @@depth = 3
+          @@alpha = -20
+          @@beta = 20
+        end
+      end
+
+      tree = [[[15, -3], [-7, -1]], [[-8, -4], [-9, -7]]]
+      demo = DemoEstimator.new
+      result = demo.choose_best_candidate(true, { board: tree, stack: [] })
+      result.should == 0
+      demo.estimate_count.should == 6
+    end
+  end
+
+  describe '.choose_best_candidate' do
+  end
 end

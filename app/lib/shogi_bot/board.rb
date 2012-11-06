@@ -32,6 +32,10 @@ module ShogiBot
       end
     end
 
+    def execute_movement(movement)
+      raise 'unimplemented'
+    end
+
     def get_piece(point)
       value = @board[point]
       if value != 0
@@ -138,6 +142,10 @@ module ShogiBot
 
     def out_of_board?(point)
       self.class.out_of_board?(point)
+    end
+
+    def unexecute_movement(movement)
+      raise 'unimplemented'
     end
 
     class << self

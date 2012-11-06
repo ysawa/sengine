@@ -2,6 +2,27 @@
 
 module ShogiBot
   class Estimator
+    ALPHA = -10000
+    BETA = 10000
+    DEPTH = 3
+
+    def choose_best_candidate(player_sente, board)
+      if player_sente ^ (@@depth % 2 != 0)
+        sign = 1
+      else
+        sign = -1
+      end
+      best_candidate, estimation = negamax(player_sente, board, @@alpha, @@beta, @@depth, sign)
+      best_candidate
+    end
+
+    def estimate(board)
+      0
+    end
+
+    def execute_movement(board, movement)
+      board.execute_movement(movement)
+    end
 
     def generate_valid_candidates(player_sente, board)
       candidates = []
@@ -55,8 +76,44 @@ module ShogiBot
       nil
     end
 
+    def initialize
+      @@depth = DEPTH
+      @@alpha = ALPHA
+      @@beta = BETA
+    end
+
+    def negamax(player_sente, board, alpha, beta, depth, sign)
+      if depth <= 0
+        return [nil, sign * estimate(board)]
+      end
+      candidates = generate_valid_candidates(player_sente, board)
+      candidates = sort_candidates(player_sente, candidates)
+      next_candidate = candidates.first
+      candidates.each do |candidate|
+        execute_movement(board, candidate)
+        estimation = - negamax(!player_sente, board, - beta, - alpha, depth - 1, sign)[1]
+        unexecute_movement(board, candidate)
+        if beta <= estimation
+          return [candidate, estimation]
+        end
+        if alpha < estimation
+          next_candidate = candidate
+          alpha = estimation
+        end
+      end
+      return [next_candidate, alpha]
+    end
+
     def oute?(player_sente, board)
       !!get_oute_judgement(player_sente, board)
+    end
+
+    def sort_candidates(player_sente, candidates)
+      candidates.sort_by { |candidate| candidate.priority }
+    end
+
+    def unexecute_movement(board, movement)
+      board.unexecute_movement(movement)
     end
 
   private

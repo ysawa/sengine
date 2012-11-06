@@ -32,6 +32,14 @@ module ShogiBot
       !put?
     end
 
+    def priority
+      if @take_role_value
+        10
+      else
+        0
+      end
+    end
+
     def put?
       @put
     end
