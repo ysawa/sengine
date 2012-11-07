@@ -34,6 +34,7 @@ describe ShogiBot::Board do
       @board.gote_kikis.get_jump_kikis(11).should == [11] # KA
     end
   end
+
   describe '.load_ous' do
     before :each do
       @board = @bot.encode_board(Board.hirate)
@@ -45,6 +46,7 @@ describe ShogiBot::Board do
       @board.gote_ou.should == 15
     end
   end
+
   describe '.load_pins' do
     it 'successfully generates sente and gote pins' do
       @board = @bot.encode_board(Board.hirate)
@@ -68,6 +70,25 @@ describe ShogiBot::Board do
       @board.sente_pins[85].should be_nil
       @board.gote_pins[15].should be_nil
       @board.gote_pins[25].should == 10
+    end
+  end
+
+  describe '.execute_movement and .cancel_movement' do
+    it 'both are reversible' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[25] = - ShogiBot::Piece::KI
+      @board.board[43] = ShogiBot::Piece::HI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_all
+      @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
+      board = @board.dup
+      board.execute_movement(@movement)
+      board.cancel_movement(@movement)
+      11.upto(99).each do |point|
+        board.board[point].should == @board.board[point]
+      end
     end
   end
 end

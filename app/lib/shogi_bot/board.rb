@@ -23,7 +23,34 @@ module ShogiBot
     attr_accessor :gote_ou
 
     def cancel_movement(movement)
-      raise 'unimplemented'
+      if movement.put?
+        if movement.sente?
+          @sente_hand[movement.role_value] += 1
+        else
+          @gote_hand[movement.role_value] += 1
+        end
+        @board[movement.to_point] = Piece::NONE
+      else
+        to_piece = movement.take_role_value
+        if to_piece && to_piece != 0
+          if to_piece >= 9
+            to_piece -= 8
+          end
+          if movement.sente?
+            @board[movement.to_point] = - movement.take_role_value
+            @sente_hand[to_piece] -= 1
+          else
+            @board[movement.to_point] = movement.take_role_value
+            @gote_hand[to_piece] -= 1
+          end
+        end
+        if movement.sente?
+          @board[movement.from_point] = movement.role_value
+        else
+          @board[movement.from_point] = - movement.role_value
+        end
+      end
+      load_all
     end
 
     def clear_board
@@ -37,7 +64,42 @@ module ShogiBot
     end
 
     def execute_movement(movement)
-      raise 'unimplemented'
+      if movement.put?
+        @board[movement.to_point] = movement.role_value
+        if movement.sente?
+          @sente_hand[movement.role_value] -= 1
+        else
+          @gote_hand[movement.role_value] -= 1
+        end
+      else
+        # take piece on to_point
+        to_piece = @board[movement.to_point].abs
+        if to_piece && to_piece != 0
+          if to_piece >= 9
+            to_piece -= 8
+          end
+          if movement.sente?
+            @sente_hand[to_piece] += 1
+          else
+            @gote_hand[to_piece] += 1
+          end
+        end
+        @board[movement.from_point] = Piece::NONE
+        if movement.reverse?
+          if movement.sente?
+            @board[movement.to_point] = movement.role_value + 8
+          else
+            @board[movement.to_point] = - movement.role_value - 8
+          end
+        else
+          if movement.sente?
+            @board[movement.to_point] = movement.role_value
+          else
+            @board[movement.to_point] = - movement.role_value
+          end
+        end
+      end
+      load_all
     end
 
     def get_piece(point)
