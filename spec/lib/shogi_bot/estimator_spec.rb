@@ -35,6 +35,19 @@ describe ShogiBot::Estimator do
     end
   end
 
+  describe '.estimate' do
+    it 'generate score differential as Integer' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[85] = ShogiBot::Piece::HI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_all
+      estimator.estimate(@board).should be_a Integer
+      estimator.estimate(@board).should > 0
+    end
+  end
+
   describe '.generate_valid_candidates' do
     it 'successfully escape from oute' do
       @board = ShogiBot::Board.new
@@ -129,6 +142,10 @@ describe ShogiBot::Estimator do
 
         attr_accessor :estimate_count
 
+        def cancel_movement(board, movement)
+          board[:board] = board[:stack].pop
+        end
+
         def estimate(board)
           @estimate_count += 1
           board[:board]
@@ -153,10 +170,6 @@ describe ShogiBot::Estimator do
 
         def sort_candidates(ps, board)
           board
-        end
-
-        def unexecute_movement(board, movement)
-          board[:board] = board[:stack].pop
         end
       end
     end

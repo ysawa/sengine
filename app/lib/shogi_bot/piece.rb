@@ -21,6 +21,8 @@ module ShogiBot
     SPECIAL_ROLES = [5, 8]
     HAND_ROLES = [1, 2, 3, 4, 5, 6, 7, 8]
 
+    SCORES = [nil, 10, 50, 55, 70, 80, 100, 120, 20000, 90, 80, 80, 80, nil, 150, 180]
+
     SENTE_MOVES = [
       nil,
       [-10], [], [-21, -19], [11, 9, -9, -10, -11], # FU, KY, KE, GI
@@ -146,6 +148,10 @@ module ShogiBot
         @value = - role
       end
       @role = role
+    end
+
+    def score
+      SCORES[@role]
     end
 
     def sente=(sente)

@@ -22,6 +22,10 @@ module ShogiBot
     attr_accessor :sente_ou
     attr_accessor :gote_ou
 
+    def cancel_movement(movement)
+      raise 'unimplemented'
+    end
+
     def clear_board
       SIZE.times do |point|
         if out_of_board?(point)
@@ -142,10 +146,6 @@ module ShogiBot
 
     def out_of_board?(point)
       self.class.out_of_board?(point)
-    end
-
-    def unexecute_movement(movement)
-      raise 'unimplemented'
     end
 
     class << self

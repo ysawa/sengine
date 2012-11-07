@@ -6,6 +6,10 @@ module ShogiBot
     BETA = 10000
     DEPTH = 3
 
+    def cancel_movement(board, movement)
+      board.cancel_movement(movement)
+    end
+
     def choose_best_candidate(player_sente, board)
       if player_sente ^ (@@depth % 2 != 0)
         sign = 1
@@ -17,7 +21,28 @@ module ShogiBot
     end
 
     def estimate(board)
-      0
+      sente_score = gote_score = 0
+      11.upto(99).each do |point|
+        next if point % 10 == 0
+        piece = board.get_piece(point)
+        sente_score += board.sente_kikis.get_jump_kikis(point).size
+        gote_score += board.gote_kikis.get_jump_kikis(point).size
+        board.sente_hand.each_with_index do |number, role_key|
+          next if !number || number == 0
+          sente_score += (Piece::SCORES[role_key] * number * 1.2).to_i
+        end
+        board.gote_hand.each_with_index do |number, role_key|
+          next if !number || number == 0
+          gote_score += (Piece::SCORES[role_key] * number * 1.2).to_i
+        end
+        next unless piece
+        if piece.sente?
+          sente_score += piece.score
+        else
+          gote_score += piece.score
+        end
+      end
+      sente_score - gote_score
     end
 
     def execute_movement(board, movement)
@@ -92,7 +117,7 @@ module ShogiBot
       candidates.each do |candidate|
         execute_movement(board, candidate)
         estimation = - negamax(!player_sente, board, - beta, - alpha, depth - 1, sign)[1]
-        unexecute_movement(board, candidate)
+        cancel_movement(board, candidate)
         if beta <= estimation
           return [candidate, estimation]
         end
@@ -110,10 +135,6 @@ module ShogiBot
 
     def sort_candidates(player_sente, candidates)
       candidates.sort_by { |candidate| candidate.priority }
-    end
-
-    def unexecute_movement(board, movement)
-      board.unexecute_movement(movement)
     end
 
   private
