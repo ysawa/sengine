@@ -499,6 +499,7 @@ module ShogiBot
           to_point = ou_point
           1.upto(8).each do
             to_point += kiki
+            break if out_of_board?(to_point)
             if role_key == Piece::FU && check_if_fu_exist(player_sente, board, to_point % 10)
               next
             end
