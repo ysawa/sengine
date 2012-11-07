@@ -122,8 +122,8 @@ module ShogiBot
       fu_exist = false
       if player_sente
         role_value = Piece::FU
-        role_value = - Piece::FU
       else
+        role_value = - Piece::FU
       end
       1.upto(9).each do |y|
         to_point = y * 10 + x

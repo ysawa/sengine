@@ -104,6 +104,23 @@ describe ShogiBot::Estimator do
           .size.should == 0
       candidates.size.should == 1 + 5
     end
+
+    it 'successfully put fu but not to be nifu' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[82] = ShogiBot::Piece::FU
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.sente_hand[ShogiBot::Piece::FU] = 1
+      @board.load_all
+      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::FU &&
+          candidate.put? &&
+          (candidate.to_point % 10 == 2)
+      }
+          .size.should == 0
+      candidates.length.should == 81 - 9 - 7 - 1 + 5
+    end
   end
 
   describe 'test estimator as a simple estimator' do
