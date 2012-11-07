@@ -47,13 +47,13 @@ class MinnaBot < Bot
     end
     estimator = ShogiBot::Estimator.new
     bot_board = encode_board(@last_board)
-    candidates = estimator.generate_valid_candidates(@bot_sente, bot_board)
-    if candidates.size == 0
-      give_up!(@game)
-    else
-      new_bot_movement = candidates.sample
+    candidate = estimator.choose_best_candidate(@bot_sente, bot_board)
+    if candidate
+      new_bot_movement = candidate
       new_movement = decode_movement(new_bot_movement)
       @game.make_board_from_movement!(new_movement)
+    else
+      give_up!(@game)
     end
   end
 
