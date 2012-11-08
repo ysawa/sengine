@@ -11,7 +11,7 @@ module ShogiBot
     end
 
     def choose_best_candidate(player_sente, board)
-      if player_sente ^ (@@depth.odd?)
+      if player_sente ^ (@@depth.even?)
         sign = 1
       else
         sign = -1
