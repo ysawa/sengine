@@ -25,8 +25,8 @@ module ShogiBot
       11.upto(99).each do |point|
         next if point % 10 == 0
         piece = board.get_piece(point)
-        sente_score += board.sente_kikis.get_jump_kikis(point).size
-        gote_score += board.gote_kikis.get_jump_kikis(point).size
+        sente_score += board.sente_kikis.get_jump_kikis(point).size * 10
+        gote_score += board.gote_kikis.get_jump_kikis(point).size * 10
         board.sente_hand.each_with_index do |number, role_key|
           next if !number || number == 0
           sente_score += (Piece::SCORES[role_key] * number * 1.2).to_i
