@@ -11,12 +11,12 @@ module ShogiBot
     end
 
     def choose_best_candidate(player_sente, board)
-      if player_sente ^ (@@depth.even?)
+      if player_sente ^ (@depth.even?)
         sign = -1
       else
         sign = 1
       end
-      best_candidate, estimation = negamax(player_sente, board, @@alpha, @@beta, @@depth, sign)
+      best_candidate, estimation = negamax(player_sente, board, @alpha, @beta, @depth, sign)
       best_candidate
     end
 
@@ -102,9 +102,9 @@ module ShogiBot
     end
 
     def initialize
-      @@depth = DEPTH
-      @@alpha = ALPHA
-      @@beta = BETA
+      @depth = DEPTH
+      @alpha = ALPHA
+      @beta = BETA
     end
 
     def negamax(player_sente, board, alpha, beta, depth, sign)

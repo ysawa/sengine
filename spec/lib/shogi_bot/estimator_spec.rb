@@ -199,9 +199,9 @@ describe ShogiBot::Estimator do
         def initialize
           super
           @estimate_count = 0
-          @@depth = 2
-          @@alpha = -20
-          @@beta = 20
+          @depth = 2
+          @alpha = -20
+          @beta = 20
         end
 
         def sort_candidates(ps, board)
@@ -214,9 +214,9 @@ describe ShogiBot::Estimator do
         def initialize
           super
           @estimate_count = 0
-          @@depth = 2
-          @@alpha = -20
-          @@beta = 20
+          @depth = 2
+          @alpha = -20
+          @beta = 20
         end
       end
 
@@ -232,9 +232,9 @@ describe ShogiBot::Estimator do
         def initialize
           super
           @estimate_count = 0
-          @@depth = 3
-          @@alpha = -20
-          @@beta = 20
+          @depth = 3
+          @alpha = -20
+          @beta = 20
         end
       end
 
