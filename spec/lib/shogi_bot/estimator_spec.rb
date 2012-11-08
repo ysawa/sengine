@@ -158,6 +158,18 @@ describe ShogiBot::Estimator do
       candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::KI && candidate.reverse? }
           .size.should == 0
     end
+
+    it 'successfully ki cannot be reversed' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[75] = - ShogiBot::Piece::KI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_all
+      candidates = estimator.generate_valid_candidates(false, @board)
+      candidates.select { |candidate| candidate.role_value == ShogiBot::Piece::KI && candidate.reverse? }
+          .size.should == 0
+    end
   end
 
   describe 'test estimator as a simple estimator' do
