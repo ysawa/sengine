@@ -209,6 +209,25 @@ describe ShogiBot::Estimator do
         end
       end
     end
+
+    it '.choose_best_candidate in depth 1' do
+      class DemoEstimator
+        def initialize
+          super
+          @estimate_count = 0
+          @depth = 1
+          @alpha = -20
+          @beta = 20
+        end
+      end
+
+      tree = [-7, -1]
+      demo = DemoEstimator.new
+      result = demo.choose_best_candidate(true, { board: tree, stack: [] })
+      result.should == 1
+      demo.estimate_count.should == 2
+    end
+
     it '.choose_best_candidate in depth 2' do
       class DemoEstimator
         def initialize
