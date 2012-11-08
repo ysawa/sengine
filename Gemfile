@@ -39,6 +39,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'haml-rails'
 gem 'sass'
+gem 'coffee-filter'
 
 # Borbon Sass Plugin
 gem 'bourbon'
