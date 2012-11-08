@@ -285,15 +285,17 @@ describe ShogiBot::Estimator do
 
   describe '.choose_best_candidate' do
     it 'works' do
-      pending
       @board = ShogiBot::Board.new
       @board.clear_board
       @board.board[15] = - ShogiBot::Piece::OU
-      @board.board[25] = - ShogiBot::Piece::KI
+      @board.board[35] = - ShogiBot::Piece::KI
       @board.board[85] = ShogiBot::Piece::HI
       @board.board[95] = ShogiBot::Piece::OU
       @board.load_all
-      estimator.choose_best_candidate(true, @board)
+      movement = estimator.choose_best_candidate(true, @board)
+      movement.role_value.should == ShogiBot::Piece::HI
+      movement.to_point.should == 35
+      movement.take_role_value.should_not be_nil
     end
   end
 end
