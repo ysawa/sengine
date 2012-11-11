@@ -2,8 +2,8 @@
 
 module ShogiBot
   class Estimator
-    ALPHA = -10000
-    BETA = 10000
+    ALPHA = -40000000
+    BETA = 40000000
     DEPTH = 3
 
     def cancel_move(board, move)
@@ -112,8 +112,15 @@ module ShogiBot
         return [nil, sign * estimate(board)]
       end
       candidates = generate_valid_candidates(player_sente, board)
-      candidates = sort_candidates(player_sente, candidates)
+      candidates = sort_moves(player_sente, candidates)
       next_candidate = candidates.first
+      unless next_candidate
+        if player_sente
+          return [nil, @beta]
+        else
+          return [nil, @alpha]
+        end
+      end
       candidates.each do |candidate|
         execute_move(board, candidate)
         estimation = - negamax(!player_sente, board, - beta, - alpha, depth - 1, sign)[1]
@@ -133,8 +140,8 @@ module ShogiBot
       !!get_oute_judgement(player_sente, board)
     end
 
-    def sort_candidates(player_sente, candidates)
-      candidates.sort_by { |candidate| candidate.priority }
+    def sort_moves(player_sente, moves)
+      moves.sort_by { |move| move.priority }
     end
 
   private
@@ -509,7 +516,7 @@ module ShogiBot
               break
             end
             attributes[:to_point] = to_point
-            candidates << Movement.new(attributes)
+            candidates << Move.new(attributes)
           end
         end
       end

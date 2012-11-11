@@ -88,9 +88,8 @@ describe ShogiBot::Board do
       board.board[33].should == ShogiBot::Piece::RY
       board.board[43].should == ShogiBot::Piece::NONE
       board.cancel(@movement)
-      11.upto(99).each do |point|
-        board.board[point].should == @board.board[point]
-      end
+      board.board[33].should == ShogiBot::Piece::NONE
+      board.board[43].should == ShogiBot::Piece::HI
     end
 
     it 'put a piece and bring it back' do
@@ -106,9 +105,6 @@ describe ShogiBot::Board do
       board.execute(@movement)
       board.board[33].should == ShogiBot::Piece::HI
       board.cancel(@movement)
-      11.upto(99).each do |point|
-        board.board[point].should == @board.board[point]
-      end
       board.board[33].should == ShogiBot::Piece::NONE
       @board.sente_hand[ShogiBot::Piece::HI].should == 1
     end
@@ -128,9 +124,6 @@ describe ShogiBot::Board do
       board.board[43].should == ShogiBot::Piece::NONE
       board.sente_hand[ShogiBot::Piece::KI].should == 1
       board.cancel(@movement)
-      11.upto(99).each do |point|
-        board.board[point].should == @board.board[point]
-      end
       board.sente_hand[ShogiBot::Piece::KI].should == 0
       board.board[25].should == - ShogiBot::Piece::KI
       board.board[43].should == ShogiBot::Piece::HI

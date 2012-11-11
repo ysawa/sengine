@@ -236,7 +236,7 @@ describe ShogiBot::Estimator do
           @beta = 20
         end
 
-        def sort_candidates(ps, board)
+        def sort_moves(ps, board)
           board
         end
       end
@@ -327,7 +327,7 @@ describe ShogiBot::Estimator do
       move = estimator.choose_best_candidate(true, @board)
       move.role_value.should == ShogiBot::Piece::HI
       move.to_point.should == 35
-      move.take_role_value.should_not be_nil
+      move.take_role_value.should == ShogiBot::Piece::KI
     end
   end
 end

@@ -43,6 +43,8 @@ module ShogiBot
             @board[move.to_point] = move.take_role_value
             @gote_hand[to_piece] -= 1
           end
+        else
+          @board[move.to_point] = Piece::NONE
         end
         if move.sente?
           @board[move.from_point] = move.role_value
@@ -50,6 +52,7 @@ module ShogiBot
           @board[move.from_point] = - move.role_value
         end
       end
+      @number -= 1
       load_all
     end
 
@@ -99,6 +102,7 @@ module ShogiBot
           end
         end
       end
+      @number += 1
       load_all
     end
 
