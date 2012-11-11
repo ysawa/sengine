@@ -110,5 +110,25 @@ describe ShogiBot::Board do
         board.board[point].should == @board.board[point]
       end
     end
+
+    it 'take a piece and bring it back' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[25] = - ShogiBot::Piece::KI
+      @board.board[43] = ShogiBot::Piece::HI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_all
+      @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 25, role_value: ShogiBot::Piece::HI, take_role_value: ShogiBot::Piece::KI)
+      board = @board.dup
+      board.execute(@movement)
+      board.board[25] = ShogiBot::Piece::HI
+      board.board[43] = ShogiBot::Piece::NONE
+      board.sente_hand[ShogiBot::Piece::KI] = 1
+      board.cancel(@movement)
+      11.upto(99).each do |point|
+        board.board[point].should == @board.board[point]
+      end
+    end
   end
 end
