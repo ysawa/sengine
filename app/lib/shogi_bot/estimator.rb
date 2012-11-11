@@ -535,7 +535,7 @@ module ShogiBot
         attributes[:to_point] = to_point
         piece = board.get_piece(to_point)
         next unless piece
-        attributes[:take_role_value] = piece.role if piece && piece.sente? != player_sente
+        attributes[:take_role_value] = piece.role if piece.sente? != player_sente
         # take this piece
         move_kikis = player_kiki.get_move_kikis(to_point)
         jump_kikis = player_kiki.get_jump_kikis(to_point)
