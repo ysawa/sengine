@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module ShogiBot
-  class Movement
+  class Move
     ATTRIBUTES = %w(from_point number put reverse role_value sente to_point)
     attr_accessor *ATTRIBUTES
     attr_accessor :take_role_value

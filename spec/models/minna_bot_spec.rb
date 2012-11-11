@@ -34,12 +34,12 @@ describe MinnaBot do
 
   describe '.encode_board' do
     before :each do
-      @bot_movement = ShogiBot::Movement.new(from_point: 75, to_point: 65, put: false, reverse: false)
+      @bot_move = ShogiBot::Move.new(from_point: 75, to_point: 65, put: false, reverse: false)
     end
     it 'successfully creates a new board for ShogiBot' do
-      @movement = bot.decode_movement(@bot_movement)
-      @movement.reverse.should == @bot_movement.reverse
-      @movement.put.should == @bot_movement.put
+      @movement = bot.decode_movement(@bot_move)
+      @movement.reverse.should == @bot_move.reverse
+      @movement.put.should == @bot_move.put
       @movement.from_point.should == Point.new(5, 7)
       @movement.to_point.should == Point.new(5, 6)
     end

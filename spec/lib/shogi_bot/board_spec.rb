@@ -82,7 +82,7 @@ describe ShogiBot::Board do
       @board.board[43] = ShogiBot::Piece::HI
       @board.board[95] = ShogiBot::Piece::OU
       @board.load_all
-      @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
+      @movement = ShogiBot::Move.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
       board = @board.dup
       board.execute(@movement)
       board.board[33].should == ShogiBot::Piece::RY
@@ -101,7 +101,7 @@ describe ShogiBot::Board do
       @board.board[95] = ShogiBot::Piece::OU
       @board.sente_hand[ShogiBot::Piece::HI] = 1
       @board.load_all
-      @movement = ShogiBot::Movement.new(from_point: nil, put: true, reverse: false, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
+      @movement = ShogiBot::Move.new(from_point: nil, put: true, reverse: false, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
       board = @board.dup
       board.execute(@movement)
       board.board[33].should == ShogiBot::Piece::HI
@@ -121,7 +121,7 @@ describe ShogiBot::Board do
       @board.board[43] = ShogiBot::Piece::HI
       @board.board[95] = ShogiBot::Piece::OU
       @board.load_all
-      @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 25, role_value: ShogiBot::Piece::HI, take_role_value: ShogiBot::Piece::KI)
+      @movement = ShogiBot::Move.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 25, role_value: ShogiBot::Piece::HI, take_role_value: ShogiBot::Piece::KI)
       board = @board.dup
       board.execute(@movement)
       board.board[25].should == ShogiBot::Piece::RY

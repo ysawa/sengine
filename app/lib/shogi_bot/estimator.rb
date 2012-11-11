@@ -6,8 +6,8 @@ module ShogiBot
     BETA = 10000
     DEPTH = 3
 
-    def cancel_movement(board, movement)
-      board.cancel(movement)
+    def cancel_move(board, move)
+      board.cancel(move)
     end
 
     def choose_best_candidate(player_sente, board)
@@ -45,8 +45,8 @@ module ShogiBot
       sente_score - gote_score
     end
 
-    def execute_movement(board, movement)
-      board.execute(movement)
+    def execute_move(board, move)
+      board.execute(move)
     end
 
     def generate_valid_candidates(player_sente, board)
@@ -115,9 +115,9 @@ module ShogiBot
       candidates = sort_candidates(player_sente, candidates)
       next_candidate = candidates.first
       candidates.each do |candidate|
-        execute_movement(board, candidate)
+        execute_move(board, candidate)
         estimation = - negamax(!player_sente, board, - beta, - alpha, depth - 1, sign)[1]
-        cancel_movement(board, candidate)
+        cancel_move(board, candidate)
         if beta <= estimation
           return [candidate, estimation]
         end
@@ -181,21 +181,21 @@ module ShogiBot
     def generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       candidates = []
       if piece.reversed?
-        candidates << Movement.new(attributes)
+        candidates << Move.new(attributes)
       else
         if (player_sente && to_point <= 29) ||
             (!player_sente && to_point >= 81)
           attributes[:reverse] = true
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         elsif (player_sente && from_point <= 39) ||
             (!player_sente && from_point >= 71) ||
             (player_sente && to_point <= 39) ||
             (!player_sente && to_point >= 71)
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
           attributes[:reverse] = true
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         else
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         end
       end
       candidates
@@ -206,27 +206,27 @@ module ShogiBot
       if piece.reversed? ||
           piece.role == Piece::KI ||
           piece.role == Piece::OU
-        candidates << Movement.new(attributes)
+        candidates << Move.new(attributes)
       else
         if piece.role == Piece::FU &&
             ((player_sente && to_point <= 39) ||
                 (!player_sente && to_point >= 71))
           attributes[:reverse] = true
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         elsif piece.role == Piece::KE &&
             ((player_sente && to_point <= 29) ||
                 (!player_sente && to_point >= 81))
           attributes[:reverse] = true
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         elsif (player_sente && from_point <= 39) ||
             (!player_sente && from_point >= 71) ||
             (player_sente && to_point <= 39) ||
             (!player_sente && to_point >= 71)
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
           attributes[:reverse] = true
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         else
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         end
       end
       candidates
@@ -382,7 +382,7 @@ module ShogiBot
             opponent_kiki.get_jump_kikis(to_point).size > 0
         attributes[:to_point] = to_point
         attributes[:take_role_value] = to_piece.role if to_piece
-        candidates << Movement.new(attributes)
+        candidates << Move.new(attributes)
       end
       candidates
     end
@@ -435,7 +435,7 @@ module ShogiBot
             piece = board.get_piece(to_point)
             next if piece
             attributes[:to_point] = to_point
-            candidates << Movement.new(attributes)
+            candidates << Move.new(attributes)
           end
         end
       end
@@ -472,7 +472,7 @@ module ShogiBot
         points.each do |to_point|
           next unless y_range.include?(to_point / 10)
           attributes[:to_point] = to_point
-          candidates << Movement.new(attributes)
+          candidates << Move.new(attributes)
         end
       end
       candidates

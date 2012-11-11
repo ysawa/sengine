@@ -210,7 +210,7 @@ describe ShogiBot::Estimator do
 
         attr_accessor :estimate_count
 
-        def cancel_movement(board, movement)
+        def cancel_move(board, move)
           board[:board] = board[:stack].pop
         end
 
@@ -223,9 +223,9 @@ describe ShogiBot::Estimator do
           Array.new(board[:board].size) { |i| i }
         end
 
-        def execute_movement(board, movement)
+        def execute_move(board, move)
           board[:stack].push(board[:board])
-          board[:board] = board[:board][movement]
+          board[:board] = board[:board][move]
         end
 
         def initialize
@@ -324,10 +324,10 @@ describe ShogiBot::Estimator do
       @board.board[85] = ShogiBot::Piece::HI
       @board.board[95] = ShogiBot::Piece::OU
       @board.load_all
-      movement = estimator.choose_best_candidate(true, @board)
-      movement.role_value.should == ShogiBot::Piece::HI
-      movement.to_point.should == 35
-      movement.take_role_value.should_not be_nil
+      move = estimator.choose_best_candidate(true, @board)
+      move.role_value.should == ShogiBot::Piece::HI
+      move.to_point.should == 35
+      move.take_role_value.should_not be_nil
     end
   end
 end
