@@ -63,11 +63,11 @@ describe MinnaBot do
       @game.sente_user = bot
       @game.gote_user = @game.author = @another_bot
       @game.save
-      10.times do
+      5.times do
         bot.process_next_movement(@game)
         @another_bot.process_next_movement(@game)
       end
-      @game.number.should == 20
+      @game.number.should == 10
     end
   end
 end
