@@ -46,6 +46,38 @@ describe ShogiBot::Estimator do
       estimator.estimate(@board).should be_a Integer
       estimator.estimate(@board).should > 0
     end
+
+    it 'generate score from hand' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.sente_hand[ShogiBot::Piece::HI] = 1
+      @board.load_all
+      estimator.estimate(@board).should > 0
+    end
+
+    it 'generate score for gote' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.gote_hand[ShogiBot::Piece::HI] = 1
+      @board.load_all
+      estimator.estimate(@board).should < 0
+    end
+
+    it 'generate score for kikis' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[14] = - ShogiBot::Piece::HI
+      @board.board[54] = ShogiBot::Piece::HI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.load_all
+      estimator.estimate(@board).should be_a Integer
+      estimator.estimate(@board).should > 0
+    end
   end
 
   describe '.generate_valid_candidates' do
