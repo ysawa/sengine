@@ -85,8 +85,8 @@ describe ShogiBot::Board do
       @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
       board = @board.dup
       board.execute(@movement)
-      board.board[33] = ShogiBot::Piece::HI
-      board.board[43] = ShogiBot::Piece::NONE
+      board.board[33].should == ShogiBot::Piece::RY
+      board.board[43].should == ShogiBot::Piece::NONE
       board.cancel(@movement)
       11.upto(99).each do |point|
         board.board[point].should == @board.board[point]
@@ -101,14 +101,16 @@ describe ShogiBot::Board do
       @board.board[95] = ShogiBot::Piece::OU
       @board.sente_hand[ShogiBot::Piece::HI] = 1
       @board.load_all
-      @movement = ShogiBot::Movement.new(from_point: nil, put: true, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
+      @movement = ShogiBot::Movement.new(from_point: nil, put: true, reverse: false, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
       board = @board.dup
       board.execute(@movement)
-      board.board[33] = ShogiBot::Piece::HI
+      board.board[33].should == ShogiBot::Piece::HI
       board.cancel(@movement)
       11.upto(99).each do |point|
         board.board[point].should == @board.board[point]
       end
+      board.board[33].should == ShogiBot::Piece::NONE
+      @board.sente_hand[ShogiBot::Piece::HI].should == 1
     end
 
     it 'take a piece and bring it back' do
@@ -122,13 +124,16 @@ describe ShogiBot::Board do
       @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 25, role_value: ShogiBot::Piece::HI, take_role_value: ShogiBot::Piece::KI)
       board = @board.dup
       board.execute(@movement)
-      board.board[25] = ShogiBot::Piece::HI
-      board.board[43] = ShogiBot::Piece::NONE
-      board.sente_hand[ShogiBot::Piece::KI] = 1
+      board.board[25].should == ShogiBot::Piece::RY
+      board.board[43].should == ShogiBot::Piece::NONE
+      board.sente_hand[ShogiBot::Piece::KI].should == 1
       board.cancel(@movement)
       11.upto(99).each do |point|
         board.board[point].should == @board.board[point]
       end
+      board.sente_hand[ShogiBot::Piece::KI].should == 0
+      board.board[25].should == - ShogiBot::Piece::KI
+      board.board[43].should == ShogiBot::Piece::HI
     end
   end
 end
