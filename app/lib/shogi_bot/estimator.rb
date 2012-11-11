@@ -2,9 +2,9 @@
 
 module ShogiBot
   class Estimator
-    ALPHA = -40000000
-    BETA = 40000000
-    DEPTH = 3
+    ALPHA = -400000
+    BETA = 400000
+    DEPTH = 2
 
     def cancel_move(board, move)
       board.cancel(move)
