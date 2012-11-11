@@ -121,6 +121,12 @@ module ShogiBot
           return [nil, @alpha]
         end
       end
+      unless board.sente_ou
+        return [nil, @beta]
+      end
+      unless board.gote_ou
+        return [nil, @alpha]
+      end
       candidates.each do |candidate|
         execute_move(board, candidate)
         estimation = - negamax(!player_sente, board, - beta, - alpha, depth - 1, sign)[1]

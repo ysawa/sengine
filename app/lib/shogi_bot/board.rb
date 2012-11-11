@@ -122,8 +122,10 @@ module ShogiBot
 
     def load_all
       load_ous
-      load_kikis
-      load_pins
+      if @sente_ou && @gote_ou
+        load_kikis
+        load_pins
+      end
     end
 
     def load_kikis
