@@ -22,7 +22,7 @@ module ShogiBot
     attr_accessor :sente_ou
     attr_accessor :gote_ou
 
-    def cancel_movement(movement)
+    def cancel(movement)
       if movement.put?
         if movement.sente?
           @sente_hand[movement.role_value] += 1
@@ -63,7 +63,7 @@ module ShogiBot
       end
     end
 
-    def execute_movement(movement)
+    def execute(movement)
       if movement.put?
         @board[movement.to_point] = movement.role_value
         if movement.sente?
@@ -208,6 +208,23 @@ module ShogiBot
 
     def out_of_board?(point)
       self.class.out_of_board?(point)
+    end
+
+    def to_str
+      lines = []
+      lines << 'G: ' + @gote_hand.join(' ')
+      1.upto(9).each do |y|
+        pieces = []
+        9.downto(1).each do |x|
+          point = y * 10 + x
+          value = @board[point]
+          pieces << ("%3d" % value)
+          pieces.join(' ')
+        end
+        lines << pieces.join
+      end
+      lines << 'S: ' + @sente_hand.join(' ')
+      lines.join("\n")
     end
 
     class << self

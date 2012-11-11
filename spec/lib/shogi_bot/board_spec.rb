@@ -73,8 +73,8 @@ describe ShogiBot::Board do
     end
   end
 
-  describe '.execute_movement and .cancel_movement' do
-    it 'both are reversible' do
+  describe '.execute and .cancel' do
+    it 'move a piece and bring it back' do
       @board = ShogiBot::Board.new
       @board.clear_board
       @board.board[15] = - ShogiBot::Piece::OU
@@ -84,8 +84,28 @@ describe ShogiBot::Board do
       @board.load_all
       @movement = ShogiBot::Movement.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
       board = @board.dup
-      board.execute_movement(@movement)
-      board.cancel_movement(@movement)
+      board.execute(@movement)
+      board.board[33] = ShogiBot::Piece::HI
+      board.board[43] = ShogiBot::Piece::NONE
+      board.cancel(@movement)
+      11.upto(99).each do |point|
+        board.board[point].should == @board.board[point]
+      end
+    end
+
+    it 'put a piece and bring it back' do
+      @board = ShogiBot::Board.new
+      @board.clear_board
+      @board.board[15] = - ShogiBot::Piece::OU
+      @board.board[25] = - ShogiBot::Piece::KI
+      @board.board[95] = ShogiBot::Piece::OU
+      @board.sente_hand[ShogiBot::Piece::HI] = 1
+      @board.load_all
+      @movement = ShogiBot::Movement.new(from_point: nil, put: true, reverse: true, sente: true, to_point: 33, role_value: ShogiBot::Piece::HI)
+      board = @board.dup
+      board.execute(@movement)
+      board.board[33] = ShogiBot::Piece::HI
+      board.cancel(@movement)
       11.upto(99).each do |point|
         board.board[point].should == @board.board[point]
       end

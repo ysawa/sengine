@@ -7,7 +7,7 @@ module ShogiBot
     DEPTH = 3
 
     def cancel_movement(board, movement)
-      board.cancel_movement(movement)
+      board.cancel(movement)
     end
 
     def choose_best_candidate(player_sente, board)
@@ -46,7 +46,7 @@ module ShogiBot
     end
 
     def execute_movement(board, movement)
-      board.execute_movement(movement)
+      board.execute(movement)
     end
 
     def generate_valid_candidates(player_sente, board)
