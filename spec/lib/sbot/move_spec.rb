@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
 require 'spec_helper'
+require 'sbot'
 
-describe Sbot::Move do
+describe SBot::Move do
   before :each do
   end
 
   let :move do
-    Sbot::Move.new
+    SBot::Move.new
   end
 
   describe '.initialize' do
     it 'works.' do
-      @move = Sbot::Move.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33)
+      @move = SBot::Move.new(from_point: 43, put: false, reverse: true, sente: true, to_point: 33)
       @move.from_point.should == 43
       @move.to_point.should == 33
       @move.put?.should == false

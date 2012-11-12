@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+require 'sbot'
 class MinnaBot < Bot
   @queue = :bot_serve
 

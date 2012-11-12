@@ -23,20 +23,20 @@ describe MinnaBot do
       @game.create_first_board
       @board = @game.boards.last
     end
-    it 'successfully creates a new board for ShogiBot' do
+    it 'successfully creates a new board for SBot' do
       bot_board = bot.encode_board(@board)
       bot_board.number.should == @board.number
-      bot_board.board[75].should == ShogiBot::Piece::FU
-      bot_board.board[95].should == ShogiBot::Piece::OU
-      bot_board.board[35].should == - ShogiBot::Piece::FU
+      bot_board.board[75].should == SBot::Piece::FU
+      bot_board.board[95].should == SBot::Piece::OU
+      bot_board.board[35].should == - SBot::Piece::FU
     end
   end
 
   describe '.encode_board' do
     before :each do
-      @bot_move = ShogiBot::Move.new(from_point: 75, to_point: 65, put: false, reverse: false)
+      @bot_move = SBot::Move.new(from_point: 75, to_point: 65, put: false, reverse: false)
     end
-    it 'successfully creates a new board for ShogiBot' do
+    it 'successfully creates a new board for SBot' do
       @movement = bot.decode_movement(@bot_move)
       @movement.reverse.should == @bot_move.reverse
       @movement.put.should == @bot_move.put
