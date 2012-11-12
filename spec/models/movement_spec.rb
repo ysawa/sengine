@@ -85,8 +85,8 @@ describe Movement do
   end
 
   describe '.to_json' do
-    it 'generates JSON correctly parsed' do
-      pending
+    it 'generates JSON successfully' do
+      movement.to_json
     end
   end
 end

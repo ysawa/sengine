@@ -109,8 +109,8 @@ describe Board do
   end
 
   describe '.to_json' do
-    it 'generates JSON correctly parsed' do
-      pending
+    it 'generates JSON successfully' do
+      board.to_json
     end
   end
 end
