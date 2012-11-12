@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module ShogiBot
+module SBot
   class Board
     SIZE = 111
     # board sized with 111 pieces

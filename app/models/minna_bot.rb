@@ -25,7 +25,7 @@ class MinnaBot < Bot
 
   # convert Board into ShogiBot::Board
   def encode_board(board)
-    bot_board = ShogiBot::Board.new(nil, board.number)
+    bot_board = SBot::Board.new(nil, board.number)
     1.upto(9).each do |x|
       1.upto(9).each do |y|
         piece_value = board.get_piece_value([x, y])
@@ -45,7 +45,7 @@ class MinnaBot < Bot
     if @last_board.sente? == @bot_sente
       raise Bot::InvalidConditions.new 'turn is invalid'
     end
-    estimator = ShogiBot::Estimator.new
+    estimator = SBot::Estimator.new
     bot_board = encode_board(@last_board)
     candidate = estimator.choose_best_candidate(@bot_sente, bot_board)
     if candidate

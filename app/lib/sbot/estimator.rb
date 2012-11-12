@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module ShogiBot
+module SBot
   class Estimator
     ALPHA = -400000
     BETA = 400000

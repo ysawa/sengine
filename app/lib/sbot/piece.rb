@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module ShogiBot
+module SBot
   class Piece
     class UnexpectedNormalize < StandardError; end
     class UnexpectedReverse < StandardError; end

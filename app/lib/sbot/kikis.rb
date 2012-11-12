@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module ShogiBot
+module SBot
   class Kikis
     # kiki is represented with Array of Integer
     # and shows where the place can be attached from.
