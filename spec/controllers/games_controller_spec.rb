@@ -152,13 +152,6 @@ describe GamesController do
           delete :destroy, { id: game.to_param }
         }.to change(Game, :count).by(-1)
       end
-
-      it "redirects to the games list" do
-        pending 'test not correct'
-        game = Game.create! valid_attributes
-        delete :destroy, { id: game.to_param, format: 'html' }
-        response.should redirect_to(games_path)
-      end
     end
   end
 end
