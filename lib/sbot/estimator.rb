@@ -194,21 +194,31 @@ module SBot
     def generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       candidates = []
       if piece.reversed?
-        candidates << Move.new(attributes)
+        move = Move.new
+        move.attributes = attributes
+        candidates << move
       else
         if (player_sente && to_point <= 29) ||
             (!player_sente && to_point >= 81)
           attributes[:reverse] = true
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         elsif (player_sente && from_point <= 39) ||
             (!player_sente && from_point >= 71) ||
             (player_sente && to_point <= 39) ||
             (!player_sente && to_point >= 71)
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
           attributes[:reverse] = true
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         else
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         end
       end
       candidates
@@ -219,27 +229,39 @@ module SBot
       if piece.reversed? ||
           piece.role == Piece::KI ||
           piece.role == Piece::OU
-        candidates << Move.new(attributes)
+        move = Move.new
+        move.attributes = attributes
+        candidates << move
       else
         if piece.role == Piece::FU &&
             ((player_sente && to_point <= 39) ||
                 (!player_sente && to_point >= 71))
           attributes[:reverse] = true
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         elsif piece.role == Piece::KE &&
             ((player_sente && to_point <= 29) ||
                 (!player_sente && to_point >= 81))
           attributes[:reverse] = true
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         elsif (player_sente && from_point <= 39) ||
             (!player_sente && from_point >= 71) ||
             (player_sente && to_point <= 39) ||
             (!player_sente && to_point >= 71)
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
           attributes[:reverse] = true
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         else
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         end
       end
       candidates
@@ -395,7 +417,9 @@ module SBot
             opponent_kiki.get_jump_kikis(to_point).size > 0
         attributes[:to_point] = to_point
         attributes[:take_role_value] = to_piece.role if to_piece
-        candidates << Move.new(attributes)
+        move = Move.new
+        move.attributes = attributes
+        candidates << move
       end
       candidates
     end
@@ -448,7 +472,9 @@ module SBot
             piece = board.get_piece(to_point)
             next if piece
             attributes[:to_point] = to_point
-            candidates << Move.new(attributes)
+            move = Move.new
+            move.attributes = attributes
+            candidates << move
           end
         end
       end
@@ -485,7 +511,9 @@ module SBot
         points.each do |to_point|
           next unless y_range.include?(to_point / 10)
           attributes[:to_point] = to_point
-          candidates << Move.new(attributes)
+          move = Move.new
+          move.attributes = attributes
+          candidates << move
         end
       end
       candidates
@@ -522,7 +550,9 @@ module SBot
               break
             end
             attributes[:to_point] = to_point
-            candidates << Move.new(attributes)
+            move = Move.new
+            move.attributes = attributes
+            candidates << move
           end
         end
       end

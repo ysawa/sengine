@@ -34,7 +34,8 @@ describe MinnaBot do
 
   describe '.encode_board' do
     before :each do
-      @bot_move = SBot::Move.new(from_point: 75, to_point: 65, put: false, reverse: false)
+      @bot_move = SBot::Move.new
+      @bot_move.attributes = { from_point: 75, to_point: 65, put: false, reverse: false }
     end
     it 'successfully creates a new board for SBot' do
       @movement = bot.decode_movement(@bot_move)

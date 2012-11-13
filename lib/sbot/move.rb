@@ -24,8 +24,14 @@ module SBot
       !sente?
     end
 
-    def initialize(attrs = {})
-      self.attributes = attrs
+    def initialize_move(sente, role, from_point, to_point, reverse, take_role_value)
+      @sente, @role, @from_point, @to_point, @reverse, @take_role_value, @put =
+          sente, role, from_point, to_point, reverse, take_role_value, false
+    end
+
+    def initialize_put(sente, role, to_point)
+      @sente, @role, @to_point, @put =
+          sente, role, to_point, true
     end
 
     def move?
@@ -54,6 +60,18 @@ module SBot
 
     def take_piece?
       @take_role_value
+    end
+
+    class << self
+      def new_move(sente, role, from_point, to_point, reverse, take_role_value)
+        move = new
+        move.initialize_move(sente, role, from_point, to_point, reverse, take_role_value)
+      end
+
+      def new_put(sente, role, to_point)
+        move = new
+        move.initialize_put(sente, role, to_point)
+      end
     end
   end
 end
