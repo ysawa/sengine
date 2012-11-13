@@ -25,31 +25,31 @@ module SBot
     def cancel(move)
       if move.put?
         if move.sente?
-          @sente_hand[move.role_value] += 1
+          @sente_hand[move.role] += 1
         else
-          @gote_hand[move.role_value] += 1
+          @gote_hand[move.role] += 1
         end
         @board[move.to_point] = Piece::NONE
       else
-        to_piece = move.take_role_value
+        to_piece = move.take_role
         if to_piece && to_piece != 0
           if to_piece >= 9
             to_piece -= 8
           end
           if move.sente?
-            @board[move.to_point] = - move.take_role_value
+            @board[move.to_point] = - move.take_role
             @sente_hand[to_piece] -= 1
           else
-            @board[move.to_point] = move.take_role_value
+            @board[move.to_point] = move.take_role
             @gote_hand[to_piece] -= 1
           end
         else
           @board[move.to_point] = Piece::NONE
         end
         if move.sente?
-          @board[move.from_point] = move.role_value
+          @board[move.from_point] = move.role
         else
-          @board[move.from_point] = - move.role_value
+          @board[move.from_point] = - move.role
         end
       end
       @number -= 1
@@ -68,11 +68,11 @@ module SBot
 
     def execute(move)
       if move.put?
-        @board[move.to_point] = move.role_value
+        @board[move.to_point] = move.role
         if move.sente?
-          @sente_hand[move.role_value] -= 1
+          @sente_hand[move.role] -= 1
         else
-          @gote_hand[move.role_value] -= 1
+          @gote_hand[move.role] -= 1
         end
       else
         # take piece on to_point
@@ -90,15 +90,15 @@ module SBot
         @board[move.from_point] = Piece::NONE
         if move.reverse?
           if move.sente?
-            @board[move.to_point] = move.role_value + 8
+            @board[move.to_point] = move.role + 8
           else
-            @board[move.to_point] = - move.role_value - 8
+            @board[move.to_point] = - move.role - 8
           end
         else
           if move.sente?
-            @board[move.to_point] = move.role_value
+            @board[move.to_point] = move.role
           else
-            @board[move.to_point] = - move.role_value
+            @board[move.to_point] = - move.role
           end
         end
       end

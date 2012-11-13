@@ -10,6 +10,7 @@ class MinnaBot < Bot
 
   def decode_movement(bot_movement)
     bot_attrs = bot_movement.attributes
+    bot_attrs[:role_value] = bot_attrs.delete(:role)
     movement = Movement.new(bot_attrs)
     %w(from_point to_point).each do |attr_name|
       point = bot_attrs[attr_name]

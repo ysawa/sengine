@@ -83,7 +83,7 @@ describe SBot::Board do
       @board.board[95] = SBot::Piece::OU
       @board.load_all
       @movement = SBot::Move.new
-      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role_value: SBot::Piece::HI }
+      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: true, to_point: 33, role: SBot::Piece::HI }
       board = @board.dup
       board.execute(@movement)
       board.board[33].should == SBot::Piece::RY
@@ -102,7 +102,7 @@ describe SBot::Board do
       @board.sente_hand[SBot::Piece::HI] = 1
       @board.load_all
       @movement = SBot::Move.new
-      @movement.attributes = { from_point: nil, put: true, reverse: false, sente: true, to_point: 33, role_value: SBot::Piece::HI }
+      @movement.attributes = { from_point: nil, put: true, reverse: false, sente: true, to_point: 33, role: SBot::Piece::HI }
       board = @board.dup
       board.execute(@movement)
       board.board[33].should == SBot::Piece::HI
@@ -120,7 +120,7 @@ describe SBot::Board do
       @board.board[95] = SBot::Piece::OU
       @board.load_all
       @movement = SBot::Move.new
-      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: true, to_point: 25, role_value: SBot::Piece::HI, take_role_value: SBot::Piece::KI }
+      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: true, to_point: 25, role: SBot::Piece::HI, take_role: SBot::Piece::KI }
       board = @board.dup
       board.execute(@movement)
       board.board[25].should == SBot::Piece::RY

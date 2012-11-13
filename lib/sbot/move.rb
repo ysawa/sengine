@@ -2,9 +2,9 @@
 
 module SBot
   class Move
-    ATTRIBUTES = %w(from_point number put reverse role_value sente to_point)
+    ATTRIBUTES = %w(from_point number put reverse role sente to_point)
     attr_accessor *ATTRIBUTES
-    attr_accessor :take_role_value
+    attr_accessor :take_role
 
     def attributes
       attrs = {}
@@ -24,9 +24,9 @@ module SBot
       !sente?
     end
 
-    def initialize_move(sente, role, from_point, to_point, reverse, take_role_value)
-      @sente, @role, @from_point, @to_point, @reverse, @take_role_value, @put =
-          sente, role, from_point, to_point, reverse, take_role_value, false
+    def initialize_move(sente, role, from_point, to_point, reverse, take_role)
+      @sente, @role, @from_point, @to_point, @reverse, @take_role, @put =
+          sente, role, from_point, to_point, reverse, take_role, false
     end
 
     def initialize_put(sente, role, to_point)
@@ -39,7 +39,7 @@ module SBot
     end
 
     def priority
-      if @take_role_value
+      if @take_role
         10
       else
         0
@@ -59,13 +59,13 @@ module SBot
     end
 
     def take_piece?
-      @take_role_value
+      @take_role
     end
 
     class << self
-      def new_move(sente, role, from_point, to_point, reverse, take_role_value)
+      def new_move(sente, role, from_point, to_point, reverse, take_role)
         move = new
-        move.initialize_move(sente, role, from_point, to_point, reverse, take_role_value)
+        move.initialize_move(sente, role, from_point, to_point, reverse, take_role)
       end
 
       def new_put(sente, role, to_point)
