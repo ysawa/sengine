@@ -193,32 +193,25 @@ module SBot
 
     def generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       candidates = []
+      pattern = Move.new
+      pattern.attributes = attributes
       if piece.reversed?
-        move = Move.new
-        move.attributes = attributes
-        candidates << move
+        candidates << pattern
       else
         if (player_sente && to_point <= 29) ||
             (!player_sente && to_point >= 81)
-          attributes[:reverse] = true
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
+          pattern.reverse = true
+          candidates << pattern
         elsif (player_sente && from_point <= 39) ||
             (!player_sente && from_point >= 71) ||
             (player_sente && to_point <= 39) ||
             (!player_sente && to_point >= 71)
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
-          attributes[:reverse] = true
-          move = Move.new
-          move.attributes = attributes
+          candidates << pattern
+          move = pattern.dup
+          move.reverse = true
           candidates << move
         else
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
+          candidates << pattern
         end
       end
       candidates
@@ -226,42 +219,33 @@ module SBot
 
     def generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, attributes)
       candidates = []
+      pattern = Move.new
+      pattern.attributes = attributes
       if piece.reversed? ||
           piece.role == Piece::KI ||
           piece.role == Piece::OU
-        move = Move.new
-        move.attributes = attributes
-        candidates << move
+        candidates << pattern
       else
         if piece.role == Piece::FU &&
             ((player_sente && to_point <= 39) ||
                 (!player_sente && to_point >= 71))
-          attributes[:reverse] = true
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
+          pattern.reverse = true
+          candidates << pattern
         elsif piece.role == Piece::KE &&
             ((player_sente && to_point <= 29) ||
                 (!player_sente && to_point >= 81))
-          attributes[:reverse] = true
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
+          pattern.reverse = true
+          candidates << pattern
         elsif (player_sente && from_point <= 39) ||
             (!player_sente && from_point >= 71) ||
             (player_sente && to_point <= 39) ||
             (!player_sente && to_point >= 71)
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
-          attributes[:reverse] = true
-          move = Move.new
-          move.attributes = attributes
+          candidates << pattern
+          move = pattern.dup
+          move.reverse = true
           candidates << move
         else
-          move = Move.new
-          move.attributes = attributes
-          candidates << move
+          candidates << pattern
         end
       end
       candidates
@@ -458,6 +442,8 @@ module SBot
         reverse: false,
         sente: player_sente
       }
+      pattern = Move.new
+      pattern.attributes = attributes
       hand.each_with_index do |number, role_key|
         next if !number || number == 0
         if role_key == Piece::FU
@@ -465,15 +451,14 @@ module SBot
           next
         end
         y_range = get_y_range_of_role(player_sente, role_key)
-        attributes[:role_value] = role_key
+        pattern.role_value = role_key
         y_range.each do |y|
           1.upto(9).each do |x|
             to_point = y * 10 + x
             piece = board.get_piece(to_point)
             next if piece
-            attributes[:to_point] = to_point
-            move = Move.new
-            move.attributes = attributes
+            move = pattern.dup
+            move.to_point = to_point
             candidates << move
           end
         end
@@ -494,6 +479,8 @@ module SBot
       else
         role_value = - Piece::FU
       end
+      pattern = Move.new
+      pattern.attributes = attributes
       1.upto(9).each do |x|
         fu_exist = false
         points = []
@@ -510,9 +497,8 @@ module SBot
         next if fu_exist
         points.each do |to_point|
           next unless y_range.include?(to_point / 10)
-          attributes[:to_point] = to_point
-          move = Move.new
-          move.attributes = attributes
+          move = pattern.dup
+          move.to_point = to_point
           candidates << move
         end
       end
@@ -532,9 +518,11 @@ module SBot
         reverse: false,
         sente: player_sente
       }
+      pattern = Move.new
+      pattern.attributes = attributes
       hand.each_with_index do |number, role_key|
         next if !number || number == 0
-        attributes[:role_value] = role_key
+        pattern.role_value = role_key
         y_range = get_y_range_of_role(player_sente, role_key)
         jump_kikis.each do |kiki|
           to_point = ou_point
@@ -549,9 +537,8 @@ module SBot
             if piece
               break
             end
-            attributes[:to_point] = to_point
-            move = Move.new
-            move.attributes = attributes
+            move = pattern.dup
+            move.to_point = to_point
             candidates << move
           end
         end
