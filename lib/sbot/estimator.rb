@@ -10,13 +10,13 @@ module SBot
       board.cancel(move)
     end
 
-    def choose_best_candidate(player_sente, board)
-      if player_sente ^ (@depth.even?)
+    def choose_best_candidate(sente, board)
+      if sente ^ (@depth.even?)
         sign = -1
       else
         sign = 1
       end
-      best_candidate, estimation = negamax(player_sente, board, @alpha, @beta, @depth, sign)
+      best_candidate, estimation = negamax(sente, board, @alpha, @beta, @depth, sign)
       best_candidate
     end
 
@@ -49,37 +49,37 @@ module SBot
       board.execute(move)
     end
 
-    def generate_valid_candidates(player_sente, board)
+    def generate_valid_candidates(sente, board)
       candidates = []
       board.load_all
-      oute_judgement = get_oute_judgement(player_sente, board)
+      oute_judgement = get_oute_judgement(sente, board)
       if oute_judgement
-        candidates += generate_valid_escape_oute_candidates(player_sente, board, oute_judgement)
+        candidates += generate_valid_escape_oute_candidates(sente, board, oute_judgement)
         return candidates
       end
       11.upto(99).each do |from_point|
         next if from_point % 10 == 0
         piece = board.get_piece(from_point)
-        next unless piece && player_sente == piece.sente?
-        if player_sente
+        next unless piece && sente == piece.sente?
+        if sente
           moves = Piece::SENTE_MOVES[piece.role]
         else
           moves = Piece::GOTE_MOVES[piece.role]
         end
         if piece.role == Piece::OU
-          candidates += generate_valid_piece_move_ou_candidates(player_sente, board, from_point)
+          candidates += generate_valid_piece_move_ou_candidates(sente, board, from_point)
         else
-          candidates += generate_valid_piece_move_candidates(player_sente, board, piece, from_point)
+          candidates += generate_valid_piece_move_candidates(sente, board, piece, from_point)
         end
-        candidates += generate_valid_piece_jump_candidates(player_sente, board, piece, from_point)
+        candidates += generate_valid_piece_jump_candidates(sente, board, piece, from_point)
       end
-      candidates += generate_valid_piece_put_candidates(player_sente, board)
+      candidates += generate_valid_piece_put_candidates(sente, board)
       candidates
     end
 
     # return: [ou_point, move_kikis, jump_kikis] or nil
-    def get_oute_judgement(player_sente, board)
-      if player_sente
+    def get_oute_judgement(sente, board)
+      if sente
         role = Piece::OU
         opponent_kiki = board.gote_kikis
       else
@@ -107,15 +107,15 @@ module SBot
       @beta = BETA
     end
 
-    def negamax(player_sente, board, alpha, beta, depth, sign)
+    def negamax(sente, board, alpha, beta, depth, sign)
       if depth <= 0
         return [nil, sign * estimate(board)]
       end
-      candidates = generate_valid_candidates(player_sente, board)
-      candidates = sort_moves(player_sente, candidates)
+      candidates = generate_valid_candidates(sente, board)
+      candidates = sort_moves(sente, candidates)
       next_candidate = candidates.first
       unless next_candidate
-        if player_sente
+        if sente
           return [nil, @beta]
         else
           return [nil, @alpha]
@@ -129,7 +129,7 @@ module SBot
       end
       candidates.each do |candidate|
         execute_move(board, candidate)
-        estimation = - negamax(!player_sente, board, - beta, - alpha, depth - 1, sign)[1]
+        estimation = - negamax(!sente, board, - beta, - alpha, depth - 1, sign)[1]
         cancel_move(board, candidate)
         if beta <= estimation
           return [candidate, estimation]
@@ -142,19 +142,19 @@ module SBot
       return [next_candidate, alpha]
     end
 
-    def oute?(player_sente, board)
-      !!get_oute_judgement(player_sente, board)
+    def oute?(sente, board)
+      !!get_oute_judgement(sente, board)
     end
 
-    def sort_moves(player_sente, moves)
+    def sort_moves(sente, moves)
       moves.sort_by { |move| move.priority }
     end
 
   private
 
-    def check_if_fu_exist(player_sente, board, x)
+    def check_if_fu_exist(sente, board, x)
       fu_exist = false
-      if player_sente
+      if sente
         role = Piece::FU
       else
         role = - Piece::FU
@@ -170,42 +170,42 @@ module SBot
       fu_exist
     end
 
-    def generate_valid_escape_oute_candidates(player_sente, board, oute_judgement)
+    def generate_valid_escape_oute_candidates(sente, board, oute_judgement)
       candidates = []
       ou_point = oute_judgement[0]
       move_kikis = oute_judgement[1]
       jump_kikis = oute_judgement[2]
       oute_length = move_kikis.size + jump_kikis.size
       if oute_length == 1
-        candidates += generate_valid_piece_move_ou_candidates(player_sente, board, ou_point)
+        candidates += generate_valid_piece_move_ou_candidates(sente, board, ou_point)
         if jump_kikis.size == 1
-          candidates += generate_valid_piece_move_or_jump_to_be_aigoma_candidates(player_sente, board, ou_point, jump_kikis)
-          candidates += generate_valid_piece_put_aigoma_candidates(player_sente, board, ou_point, jump_kikis)
-          candidates += generate_valid_piece_take_outeing_piece_candidates(player_sente, board, ou_point, jump_kikis)
+          candidates += generate_valid_piece_move_or_jump_to_be_aigoma_candidates(sente, board, ou_point, jump_kikis)
+          candidates += generate_valid_piece_put_aigoma_candidates(sente, board, ou_point, jump_kikis)
+          candidates += generate_valid_piece_take_outeing_piece_candidates(sente, board, ou_point, jump_kikis)
         else
-          candidates += generate_valid_piece_take_outeing_piece_candidates(player_sente, board, ou_point, move_kikis)
+          candidates += generate_valid_piece_take_outeing_piece_candidates(sente, board, ou_point, move_kikis)
         end
       else
-        candidates += generate_valid_piece_move_ou_candidates(player_sente, board, ou_point)
+        candidates += generate_valid_piece_move_ou_candidates(sente, board, ou_point)
       end
       candidates
     end
 
-    def generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
+    def generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
       candidates = []
       if piece.reversed?
         move = pattern.dup
         candidates << move
       else
-        if (player_sente && to_point <= 29) ||
-            (!player_sente && to_point >= 81)
+        if (sente && to_point <= 29) ||
+            (!sente && to_point >= 81)
           move = pattern.dup
           move.reverse = true
           candidates << move
-        elsif (player_sente && from_point <= 39) ||
-            (!player_sente && from_point >= 71) ||
-            (player_sente && to_point <= 39) ||
-            (!player_sente && to_point >= 71)
+        elsif (sente && from_point <= 39) ||
+            (!sente && from_point >= 71) ||
+            (sente && to_point <= 39) ||
+            (!sente && to_point >= 71)
           move = pattern.dup
           candidates << move
           move = pattern.dup
@@ -219,7 +219,7 @@ module SBot
       candidates
     end
 
-    def generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
+    def generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
       candidates = []
       if piece.reversed? ||
           piece.role == Piece::KI ||
@@ -228,21 +228,21 @@ module SBot
         candidates << move
       else
         if piece.role == Piece::FU &&
-            ((player_sente && to_point <= 39) ||
-                (!player_sente && to_point >= 71))
+            ((sente && to_point <= 39) ||
+                (!sente && to_point >= 71))
           move = pattern.dup
           move.reverse = true
           candidates << move
         elsif piece.role == Piece::KE &&
-            ((player_sente && to_point <= 29) ||
-                (!player_sente && to_point >= 81))
+            ((sente && to_point <= 29) ||
+                (!sente && to_point >= 81))
           move = pattern.dup
           move.reverse = true
           candidates << move
-        elsif (player_sente && from_point <= 39) ||
-            (!player_sente && from_point >= 71) ||
-            (player_sente && to_point <= 39) ||
-            (!player_sente && to_point >= 71)
+        elsif (sente && from_point <= 39) ||
+            (!sente && from_point >= 71) ||
+            (sente && to_point <= 39) ||
+            (!sente && to_point >= 71)
           move = pattern.dup
           candidates << move
           move = pattern.dup
@@ -256,9 +256,9 @@ module SBot
       candidates
     end
 
-    def generate_valid_move_or_jump_to_point_candidates(player_sente, board, to_point)
+    def generate_valid_move_or_jump_to_point_candidates(sente, board, to_point)
       candidates = []
-      if player_sente
+      if sente
         player_kiki = board.sente_kikis
       else
         player_kiki = board.gote_kikis
@@ -267,7 +267,7 @@ module SBot
       pattern.number = board.number + 1
       pattern.put = false
       pattern.reverse = false
-      pattern.sente = player_sente
+      pattern.sente = sente
       pattern.to_point = to_point
       player_move_kikis = player_kiki.get_move_kikis(to_point)
       player_jump_kikis = player_kiki.get_jump_kikis(to_point)
@@ -275,7 +275,7 @@ module SBot
         from_point = to_point + kiki
         from_piece = board.get_piece(from_point)
         next if from_piece.role == Piece::OU
-        if player_sente
+        if sente
           pin = board.sente_pins[from_point]
         else
           pin = board.gote_pins[from_point]
@@ -283,7 +283,7 @@ module SBot
         next if pin && (pin != kiki && pin != - kiki)
         pattern.from_point = from_point
         pattern.role = from_piece.role
-        candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, from_piece, from_point, to_point, pattern)
+        candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, from_piece, from_point, to_point, pattern)
       end
       player_jump_kikis.each do |kiki|
         from_point = to_point
@@ -291,7 +291,7 @@ module SBot
           from_point += kiki
           from_piece = board.get_piece(from_point)
           next unless from_piece
-          if player_sente
+          if sente
             pin = board.sente_pins[from_point]
           else
             pin = board.gote_pins[from_point]
@@ -299,7 +299,7 @@ module SBot
           next if pin && (pin != kiki && pin != - kiki)
           pattern.from_point = from_point
           pattern.role = from_piece.role
-          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, from_piece, from_point, to_point, pattern)
+          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, from_piece, from_point, to_point, pattern)
           break
         end
       end
@@ -307,9 +307,9 @@ module SBot
       candidates
     end
 
-    def generate_valid_piece_jump_candidates(player_sente, board, piece, from_point)
+    def generate_valid_piece_jump_candidates(sente, board, piece, from_point)
       candidates = []
-      if player_sente
+      if sente
         jumps = Piece::SENTE_JUMPS[piece.role]
         pin = board.sente_pins[from_point]
       else
@@ -326,29 +326,29 @@ module SBot
               to_point >= 100 ||
               (to_point % 10 == 0)
           to_piece = board.get_piece(to_point)
-          break if to_piece && to_piece.sente? == player_sente
+          break if to_piece && to_piece.sente? == sente
           pattern.from_point = from_point
           pattern.number = board.number + 1
           pattern.put = false
           pattern.reverse = false
           pattern.role = piece.role
-          pattern.sente = player_sente
+          pattern.sente = sente
           pattern.to_point = to_point
           if to_piece
             pattern.take_role = to_piece.role
           else
             pattern.take_role = nil
           end
-          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
-          break if to_piece && to_piece.sente? != player_sente
+          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
+          break if to_piece && to_piece.sente? != sente
         end
       end
       candidates
     end
 
-    def generate_valid_piece_move_candidates(player_sente, board, piece, from_point)
+    def generate_valid_piece_move_candidates(sente, board, piece, from_point)
       candidates = []
-      if player_sente
+      if sente
         moves = Piece::SENTE_MOVES[piece.role]
         pin = board.sente_pins[from_point]
       else
@@ -363,28 +363,28 @@ module SBot
             to_point >= 100 ||
             (to_point % 10 == 0)
         to_piece = board.get_piece(to_point)
-        next if to_piece && to_piece.sente? == player_sente
+        next if to_piece && to_piece.sente? == sente
         pattern.from_point = from_point
         pattern.number = board.number + 1
         pattern.put = false
         pattern.reverse = false
         pattern.role = piece.role
-        pattern.sente = player_sente
+        pattern.sente = sente
         pattern.to_point = to_point
         if to_piece
           pattern.take_role = to_piece.role
         else
           pattern.take_role = nil
         end
-        candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
+        candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
       end
       candidates
     end
 
-    def generate_valid_piece_move_ou_candidates(player_sente, board, from_point)
+    def generate_valid_piece_move_ou_candidates(sente, board, from_point)
       candidates = []
       moves = Piece::SENTE_MOVES[Piece::OU]
-      if player_sente
+      if sente
         opponent_kiki = board.gote_kikis
       else
         opponent_kiki = board.sente_kikis
@@ -396,7 +396,7 @@ module SBot
       pattern.put = false
       pattern.reverse = false
       pattern.role = Piece::OU
-      pattern.sente = player_sente
+      pattern.sente = sente
       moves.each do |move|
         to_point = from_point + move
         next if to_point <= 10 ||
@@ -405,7 +405,7 @@ module SBot
         next if opponent_jump_kikis.size > 0 &&
             opponent_jump_kikis.include?(- move)
         to_piece = board.get_piece(to_point)
-        next if to_piece && to_piece.sente? == player_sente
+        next if to_piece && to_piece.sente? == sente
         next if opponent_kiki.get_move_kikis(to_point).size > 0 ||
             opponent_kiki.get_jump_kikis(to_point).size > 0
         pattern.to_point = to_point
@@ -420,7 +420,7 @@ module SBot
       candidates
     end
 
-    def generate_valid_piece_move_or_jump_to_be_aigoma_candidates(player_sente, board, ou_point, jump_kikis)
+    def generate_valid_piece_move_or_jump_to_be_aigoma_candidates(sente, board, ou_point, jump_kikis)
       candidates = []
       jump_kikis.each do |kiki|
         to_point = ou_point
@@ -428,15 +428,15 @@ module SBot
           to_point += kiki
           piece = board.get_piece(to_point)
           break if piece
-          candidates += generate_valid_move_or_jump_to_point_candidates(player_sente, board, to_point)
+          candidates += generate_valid_move_or_jump_to_point_candidates(sente, board, to_point)
         end
       end
       candidates
     end
 
-    def generate_valid_piece_put_candidates(player_sente, board)
+    def generate_valid_piece_put_candidates(sente, board)
       candidates = []
-      if player_sente
+      if sente
         hand = board.sente_hand
       else
         hand = board.gote_hand
@@ -445,14 +445,14 @@ module SBot
       pattern.number = board.number + 1
       pattern.put = true
       pattern.reverse = false
-      pattern.sente = player_sente
+      pattern.sente = sente
       hand.each_with_index do |number, role_key|
         next if !number || number == 0
         if role_key == Piece::FU
-          candidates += generate_valid_piece_put_fu_candidates(player_sente, board, pattern)
+          candidates += generate_valid_piece_put_fu_candidates(sente, board, pattern)
           next
         end
-        y_range = get_y_range_of_role(player_sente, role_key)
+        y_range = get_y_range_of_role(sente, role_key)
         pattern.role = role_key
         y_range.each do |y|
           1.upto(9).each do |x|
@@ -468,15 +468,15 @@ module SBot
       candidates
     end
 
-    def generate_valid_piece_put_fu_candidates(player_sente, board, pattern)
+    def generate_valid_piece_put_fu_candidates(sente, board, pattern)
       candidates = []
       pattern.role = Piece::FU
-      if player_sente
+      if sente
         y_range = (2..9)
       else
         y_range = (1..8)
       end
-      if player_sente
+      if sente
         role = Piece::FU
       else
         role = - Piece::FU
@@ -505,9 +505,9 @@ module SBot
       candidates
     end
 
-    def generate_valid_piece_put_aigoma_candidates(player_sente, board, ou_point, jump_kikis)
+    def generate_valid_piece_put_aigoma_candidates(sente, board, ou_point, jump_kikis)
       candidates = []
-      if player_sente
+      if sente
         hand = board.sente_hand.to_a
       else
         hand = board.gote_hand.to_a
@@ -516,17 +516,17 @@ module SBot
       pattern.number = board.number + 1
       pattern.put = true
       pattern.reverse = false
-      pattern.sente = player_sente
+      pattern.sente = sente
       hand.each_with_index do |number, role_key|
         next if !number || number == 0
         pattern.role = role_key
-        y_range = get_y_range_of_role(player_sente, role_key)
+        y_range = get_y_range_of_role(sente, role_key)
         jump_kikis.each do |kiki|
           to_point = ou_point
           1.upto(8).each do
             to_point += kiki
             break if Board.out_of_board?(to_point)
-            if role_key == Piece::FU && check_if_fu_exist(player_sente, board, to_point % 10)
+            if role_key == Piece::FU && check_if_fu_exist(sente, board, to_point % 10)
               next
             end
             next unless y_range.include?(to_point / 10)
@@ -543,14 +543,14 @@ module SBot
       candidates
     end
 
-    def generate_valid_piece_take_outeing_piece_candidates(player_sente, board, ou_point, jump_kikis)
+    def generate_valid_piece_take_outeing_piece_candidates(sente, board, ou_point, jump_kikis)
       candidates = []
       pattern = Move.new
       pattern.number = board.number + 1
       pattern.put = false
       pattern.reverse = false
-      pattern.sente = player_sente
-      if player_sente
+      pattern.sente = sente
+      if sente
         player_kiki = board.sente_kikis
       else
         player_kiki = board.gote_kikis
@@ -561,7 +561,7 @@ module SBot
         pattern.to_point = to_point
         piece = board.get_piece(to_point)
         next unless piece
-        if piece.sente? != player_sente
+        if piece.sente? != sente
           pattern.take_role = piece.role
         else
           pattern.take_role = nil
@@ -573,7 +573,7 @@ module SBot
           from_point = to_point + move
           from_piece = board.get_piece(from_point)
           next if from_piece.role == Piece::OU
-          if player_sente
+          if sente
             pin = board.sente_pins[from_point]
           else
             pin = board.gote_pins[from_point]
@@ -581,7 +581,7 @@ module SBot
           next if pin && (pin != move && pin != - move)
           pattern.role = from_piece.role
           pattern.from_point = from_point
-          candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
+          candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
         end
         jump_kikis.each do |jump|
           from_point = to_point
@@ -589,7 +589,7 @@ module SBot
             from_point += jump
             from_piece = board.get_piece(from_point)
             next unless from_piece
-            if player_sente
+            if sente
               pin = board.sente_pins[from_point]
             else
               pin = board.gote_pins[from_point]
@@ -597,7 +597,7 @@ module SBot
             next if pin && (pin != jump && pin != - jump)
             pattern.role = from_piece.role
             pattern.from_point = from_point
-            candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
+            candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
             break
           end
         end
@@ -606,16 +606,16 @@ module SBot
       candidates
     end
 
-    def get_y_range_of_role(player_sente, role)
+    def get_y_range_of_role(sente, role)
       case role
       when Piece::FU, Piece::KY
-        if player_sente
+        if sente
           (2..9)
         else
           (1..8)
         end
       when Piece::KE
-        if player_sente
+        if sente
           (3..9)
         else
           (1..7)
