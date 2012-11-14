@@ -4,7 +4,7 @@ module SBot
   class Estimator
     ALPHA = -400000
     BETA = 400000
-    DEPTH = 2
+    DEPTH = 3
 
     def cancel_move(board, move)
       board.cancel(move)
