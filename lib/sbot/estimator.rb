@@ -10,7 +10,7 @@ module SBot
       board.cancel(move)
     end
 
-    def choose_best_candidate(sente, board)
+    def choose_best_move(sente, board)
       if (sente > 0) ^ (@depth.even?)
         sign = -1
       else

@@ -56,11 +56,10 @@ class MinnaBot < Bot
     else
       sente = -1
     end
-    candidate = estimator.choose_best_candidate(sente, bot_board)
-    if candidate
-      new_bot_movement = candidate
-      new_movement = decode_movement(new_bot_movement)
-      @game.make_board_from_movement!(new_movement)
+    move = estimator.choose_best_move(sente, bot_board)
+    if move
+      movement = decode_movement(move)
+      @game.make_board_from_movement!(movement)
     else
       give_up!(@game)
     end

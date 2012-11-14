@@ -204,7 +204,7 @@ describe SBot::Estimator do
     end
   end
 
-  describe '.choose_best_candidate' do
+  describe '.choose_best_move' do
     it 'works' do
       @board = SBot::Board.new
       @board.clear_board
@@ -213,7 +213,7 @@ describe SBot::Estimator do
       @board.board[85] = SBot::Piece::HI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      move = estimator.choose_best_candidate(1, @board)
+      move = estimator.choose_best_move(1, @board)
       move.role.should == SBot::Piece::HI
       move.take_role.should == SBot::Piece::KI
       move.to_point.should == 35
