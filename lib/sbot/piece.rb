@@ -76,7 +76,7 @@ module SBot
     end
 
     def jumps
-      if sente?
+      if @sente > 0
         SENTE_JUMPS[self.role]
       else
         GOTE_JUMPS[self.role]
@@ -84,7 +84,7 @@ module SBot
     end
 
     def moves
-      if sente?
+      if @sente > 0
         SENTE_MOVES[self.role]
       else
         GOTE_MOVES[self.role]
@@ -111,11 +111,11 @@ module SBot
     end
 
     def gote?
-      !sente?
+      @sente < 0
     end
 
     def reload_value
-      if sente?
+      if @sente > 0
         @value = @role
       else
         @value = - @role
@@ -142,7 +142,7 @@ module SBot
     end
 
     def role=(role)
-      if sente?
+      if @sente > 0
         @value = role
       else
         @value = - role
@@ -155,7 +155,7 @@ module SBot
     end
 
     def sente=(sente)
-      if sente
+      if sente > 0
         @value = self.role
       else
         @value = - self.role
@@ -164,11 +164,11 @@ module SBot
     end
 
     def sente?
-      @sente
+      @sente > 0
     end
 
     def value=(value)
-      @sente = value > 0
+      @sente = value
       @role = value.abs
       @value = value
     end
