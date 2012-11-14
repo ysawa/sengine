@@ -159,8 +159,10 @@ module SBot
       else
         role = - Piece::FU
       end
+      y_offset = 0
       1.upto(9).each do |y|
-        to_point = y * 10 + x
+        y_offset += 10
+        to_point = y_offset + x
         piece = board.get_piece(to_point)
         if piece && piece.value == role
           fu_exist = true
@@ -449,8 +451,9 @@ module SBot
         y_range = get_y_range_of_role(sente, role_key)
         pattern.role = role_key
         y_range.each do |y|
+          y_offset = y * 10
           1.upto(9).each do |x|
-            to_point = y * 10 + x
+            to_point = y_offset + x
             piece = board.get_piece(to_point)
             next if piece
             move = pattern.dup
@@ -475,8 +478,10 @@ module SBot
       1.upto(9).each do |x|
         fu_exist = false
         points = []
+        y_offset = 0
         1.upto(9).each do |y|
-          to_point = y * 10 + x
+          y_offset += 10
+          to_point = y_offset + x
           piece = board.get_piece(to_point)
           if !piece
             points << to_point
