@@ -64,11 +64,16 @@ describe MinnaBot do
       @game.sente_user = bot
       @game.gote_user = @game.author = @another_bot
       @game.save
+      require 'benchmark'
+      result = Benchmark.measure {
       3.times do
         bot.process_next_movement(@game)
         @another_bot.process_next_movement(@game)
       end
+      }
       @game.number.should == 6
+      result = result.to_s.sub(/\s+$/, '').sub(/^\s+/, '').sub(/\(\s+/, '(').gsub(/\s+/, " ").gsub(/0+ /, '0 ')
+      Guard::Notifier.notify("#{result}", :title => "RSpec results", :image => :success, :priority => 0)
     end
   end
 end
