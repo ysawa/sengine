@@ -40,9 +40,9 @@ module SBot
 
     def priority
       if @take_role
-        10
+        1
       else
-        0
+        10
       end
     end
 
@@ -68,9 +68,17 @@ module SBot
       else
         first_point = @from_point
       end
-      result = "%02d%02d%02d" % [first_point, @to_point, @role]
+      if sente?
+        result =  'S'
+      else
+        result =  'G'
+      end
+      result += "%02d%02d%02d" % [first_point, @to_point, @role]
       if @reverse
         result += "*"
+      end
+      if @take_role
+        result += " (#{@take_role})"
       end
       result
     end

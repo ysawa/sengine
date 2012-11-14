@@ -215,8 +215,8 @@ describe SBot::Estimator do
       @board.load_all
       move = estimator.choose_best_candidate(true, @board)
       move.role.should == SBot::Piece::HI
-      move.to_point.should == 35
       move.take_role.should == SBot::Piece::KI
+      move.to_point.should == 35
     end
   end
 end

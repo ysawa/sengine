@@ -334,7 +334,11 @@ module SBot
           pattern.role = piece.role
           pattern.sente = player_sente
           pattern.to_point = to_point
-          pattern.take_role = to_piece.role if to_piece
+          if to_piece
+            pattern.take_role = to_piece.role
+          else
+            pattern.take_role = nil
+          end
           candidates += generate_valid_jumping_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
           break if to_piece && to_piece.sente? != player_sente
         end
@@ -367,7 +371,11 @@ module SBot
         pattern.role = piece.role
         pattern.sente = player_sente
         pattern.to_point = to_point
-        pattern.take_role = to_piece.role if to_piece
+        if to_piece
+          pattern.take_role = to_piece.role
+        else
+          pattern.take_role = nil
+        end
         candidates += generate_valid_moving_piece_reverse_or_not_candidates(player_sente, piece, from_point, to_point, pattern)
       end
       candidates
@@ -401,7 +409,11 @@ module SBot
         next if opponent_kiki.get_move_kikis(to_point).size > 0 ||
             opponent_kiki.get_jump_kikis(to_point).size > 0
         pattern.to_point = to_point
-        pattern.take_role = to_piece.role if to_piece
+        if to_piece
+          pattern.take_role = to_piece.role
+        else
+          pattern.take_role = nil
+        end
         move = pattern.dup
         candidates << move
       end
@@ -549,7 +561,11 @@ module SBot
         pattern.to_point = to_point
         piece = board.get_piece(to_point)
         next unless piece
-        pattern.take_role = piece.role if piece.sente? != player_sente
+        if piece.sente? != player_sente
+          pattern.take_role = piece.role
+        else
+          pattern.take_role = nil
+        end
         # take this piece
         move_kikis = player_kiki.get_move_kikis(to_point)
         jump_kikis = player_kiki.get_jump_kikis(to_point)
