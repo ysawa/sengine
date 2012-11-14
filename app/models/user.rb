@@ -114,6 +114,14 @@ class User
     @games ||= Game.any_of({ 'sente_user_id' => id, 'gote_user_id' => id })
   end
 
+  def locale=(locale)
+    locale = locale.sub(/_\w+$/, '')
+    unless Shogiengine::LOCALES.include? locale.to_sym
+      locale = I18n.default_locale
+    end
+    write_attribute(:locale, locale)
+  end
+
   def offline?
     !(self.used_at && self.used_at >= Time.now - 1.minute)
   end
