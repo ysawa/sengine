@@ -16,8 +16,8 @@ module SBot
       else
         sign = 1
       end
-      best_candidate, estimation = negamax(sente, board, @alpha, @beta, @depth, sign)
-      best_candidate
+      best_move, estimation = negamax(sente, board, @alpha, @beta, @depth, sign)
+      best_move
     end
 
     def estimate(board)
