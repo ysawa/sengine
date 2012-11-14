@@ -340,7 +340,7 @@ module SBot
             pattern.take_role = nil
           end
           candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
-          break if to_piece && to_piece.sente? != sente
+          break if to_piece && to_piece.sente != sente
         end
       end
       candidates
