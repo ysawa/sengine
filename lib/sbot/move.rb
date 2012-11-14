@@ -62,6 +62,19 @@ module SBot
       @take_role
     end
 
+    def to_s
+      if @put
+        first_point = 0
+      else
+        first_point = @from_point
+      end
+      result = "%02d%02d%02d" % [first_point, @to_point, @role]
+      if @reverse
+        result += "*"
+      end
+      result
+    end
+
     class << self
       def new_move(sente, role, from_point, to_point, reverse, take_role)
         move = new
