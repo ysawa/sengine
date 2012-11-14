@@ -217,19 +217,20 @@ module SBot
 
     def generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
       candidates = []
+      piece_role = piece.role
       if piece.reversed? ||
-          piece.role == Piece::KI ||
-          piece.role == Piece::OU
+          piece_role == Piece::KI ||
+          piece_role == Piece::OU
         move = pattern.dup
         candidates << move
       else
-        if piece.role == Piece::FU &&
+        if piece_role == Piece::FU &&
             ((sente > 0 && to_point <= 39) ||
                 (sente < 0 && to_point >= 71))
           move = pattern.dup
           move.reverse = true
           candidates << move
-        elsif piece.role == Piece::KE &&
+        elsif piece_role == Piece::KE &&
             ((sente > 0 && to_point <= 29) ||
                 (sente < 0 && to_point >= 81))
           move = pattern.dup
@@ -305,11 +306,12 @@ module SBot
 
     def generate_valid_piece_jump_candidates(sente, board, piece, from_point)
       candidates = []
+      piece_role = piece.role
       if sente > 0
-        jumps = Piece::SENTE_JUMPS[piece.role]
+        jumps = Piece::SENTE_JUMPS[piece_role]
         pin = board.sente_pins[from_point]
       else
-        jumps = Piece::GOTE_JUMPS[piece.role]
+        jumps = Piece::GOTE_JUMPS[piece_role]
         pin = board.gote_pins[from_point]
       end
       pattern = Move.new
@@ -327,7 +329,7 @@ module SBot
           pattern.number = board.number + 1
           pattern.put = false
           pattern.reverse = false
-          pattern.role = piece.role
+          pattern.role = piece_role
           pattern.sente = sente
           pattern.to_point = to_point
           if to_piece
@@ -344,11 +346,12 @@ module SBot
 
     def generate_valid_piece_move_candidates(sente, board, piece, from_point)
       candidates = []
+      piece_role = piece.role
       if sente > 0
-        moves = Piece::SENTE_MOVES[piece.role]
+        moves = Piece::SENTE_MOVES[piece_role]
         pin = board.sente_pins[from_point]
       else
-        moves = Piece::GOTE_MOVES[piece.role]
+        moves = Piece::GOTE_MOVES[piece_role]
         pin = board.gote_pins[from_point]
       end
       pattern = Move.new
@@ -364,7 +367,7 @@ module SBot
         pattern.number = board.number + 1
         pattern.put = false
         pattern.reverse = false
-        pattern.role = piece.role
+        pattern.role = piece_role
         pattern.sente = sente
         pattern.to_point = to_point
         if to_piece
