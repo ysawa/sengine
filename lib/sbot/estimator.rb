@@ -326,7 +326,7 @@ module SBot
               to_point >= 100 ||
               (to_point % 10 == 0)
           to_piece = board.get_piece(to_point)
-          break if to_piece && to_piece.sente? == sente
+          break if to_piece && to_piece.sente == sente
           pattern.from_point = from_point
           pattern.number = board.number + 1
           pattern.put = false
