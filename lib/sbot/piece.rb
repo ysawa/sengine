@@ -143,9 +143,9 @@ module SBot
 
     def role=(role)
       if @sente > 0
-        @value = role
+        @value = @role
       else
-        @value = - role
+        @value = - @role
       end
       @role = role
     end
@@ -156,9 +156,9 @@ module SBot
 
     def sente=(sente)
       if sente > 0
-        @value = self.role
+        @value = @role
       else
-        @value = - self.role
+        @value = - @role
       end
       @sente = sente
     end
@@ -170,10 +170,11 @@ module SBot
     def value=(value)
       if value > 0
         @sente = 1
+        @role = value
       else
         @sente = -1
+        @role = - value
       end
-      @role = value.abs
       @value = value
     end
   end

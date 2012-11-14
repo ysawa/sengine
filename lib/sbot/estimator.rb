@@ -555,14 +555,10 @@ module SBot
       to_point = ou_point
       jump_kikis.each do |kiki|
         to_point += kiki
-        pattern.to_point = to_point
         piece = board.get_piece(to_point)
         next unless piece
-        if piece.sente != sente
-          pattern.take_role = piece.role
-        else
-          pattern.take_role = nil
-        end
+        pattern.to_point = to_point
+        pattern.take_role = piece.role
         # take this piece
         move_kikis = player_kiki.get_move_kikis(to_point)
         jump_kikis = player_kiki.get_jump_kikis(to_point)
