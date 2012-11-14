@@ -197,17 +197,11 @@ module SBot
         move = pattern.dup
         candidates << move
       else
-        if (sente > 0 && to_point <= 29) ||
-            (sente < 0 && to_point >= 81)
-          move = pattern.dup
-          move.reverse = true
-          candidates << move
-        elsif (sente > 0 && from_point <= 39) ||
+        # always reverse in the enemy space
+        if (sente > 0 && from_point <= 39) ||
             (sente < 0 && from_point >= 71) ||
             (sente > 0 && to_point <= 39) ||
             (sente < 0 && to_point >= 71)
-          move = pattern.dup
-          candidates << move
           move = pattern.dup
           move.reverse = true
           candidates << move
