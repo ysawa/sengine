@@ -21,7 +21,7 @@ module SBot
     end
 
     def gote?
-      !sente?
+      @sente < 0
     end
 
     def initialize_move(sente, role, from_point, to_point, reverse, take_role)
@@ -55,7 +55,7 @@ module SBot
     end
 
     def sente?
-      @sente
+      @sente > 0
     end
 
     def take_piece?

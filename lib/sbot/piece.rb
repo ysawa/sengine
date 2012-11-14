@@ -168,7 +168,11 @@ module SBot
     end
 
     def value=(value)
-      @sente = value
+      if value > 0
+        @sente = 1
+      else
+        @sente = -1
+      end
       @role = value.abs
       @value = value
     end

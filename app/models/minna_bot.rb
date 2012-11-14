@@ -10,7 +10,9 @@ class MinnaBot < Bot
 
   def decode_movement(bot_movement)
     bot_attrs = bot_movement.attributes
-    bot_attrs[:role_value] = bot_attrs.delete(:role)
+    bot_attrs[:role_value] = bot_attrs.delete('role')
+    sente = bot_attrs.delete('sente')
+    bot_attrs[:sente] = sente > 0
     movement = Movement.new(bot_attrs)
     %w(from_point to_point).each do |attr_name|
       point = bot_attrs[attr_name]
@@ -49,7 +51,12 @@ class MinnaBot < Bot
     end
     estimator = SBot::Estimator.new
     bot_board = encode_board(@last_board)
-    candidate = estimator.choose_best_candidate(@bot_sente, bot_board)
+    if @bot_sente
+      sente = 1
+    else
+      sente = -1
+    end
+    candidate = estimator.choose_best_candidate(sente, bot_board)
     if candidate
       new_bot_movement = candidate
       new_movement = decode_movement(new_bot_movement)

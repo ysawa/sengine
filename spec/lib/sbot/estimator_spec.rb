@@ -26,12 +26,12 @@ describe SBot::Estimator do
       @board.board[85] = SBot::Piece::HI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      estimator.oute?(true, @board).should be_false
-      estimator.oute?(false, @board).should be_false
+      estimator.oute?(1, @board).should be_false
+      estimator.oute?(-1, @board).should be_false
       @board.board[25] = SBot::Piece::NONE
       @board.load_all
-      estimator.oute?(true, @board).should be_false
-      estimator.oute?(false, @board).should be_true
+      estimator.oute?(1, @board).should be_false
+      estimator.oute?(-1, @board).should be_true
     end
   end
 
@@ -88,7 +88,7 @@ describe SBot::Estimator do
       @board.board[25] = - SBot::Piece::HI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.length.should == 4
       candidates.select { |candidate| candidate.role == SBot::Piece::OU && candidate.to_point == 85 }
           .size.should == 0
@@ -102,7 +102,7 @@ describe SBot::Estimator do
       @board.board[75] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.length.should == 7
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.to_point == 76 }
           .size.should == 0
@@ -117,7 +117,7 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.sente_hand[SBot::Piece::FU] = 1
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU && candidate.put? }
           .size.should == 81 - 9 - 1
       candidates.length.should == 81 - 9 - 1 + 5
@@ -131,7 +131,7 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.sente_hand[SBot::Piece::FU] = 1
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU && candidate.put? }
           .size.should == 6
       candidates.length.should == 6 + 4
@@ -144,7 +144,7 @@ describe SBot::Estimator do
       @board.board[24] = SBot::Piece::FU
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU && !candidate.reverse? }
           .size.should == 0
       candidates.size.should == 1 + 5
@@ -158,7 +158,7 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.sente_hand[SBot::Piece::FU] = 1
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU &&
           candidate.put? &&
           (candidate.to_point % 10 == 2)
@@ -174,7 +174,7 @@ describe SBot::Estimator do
       @board.board[35] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.reverse? }
           .size.should == 0
     end
@@ -186,7 +186,7 @@ describe SBot::Estimator do
       @board.board[45] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(true, @board)
+      candidates = estimator.generate_valid_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.reverse? }
           .size.should == 0
     end
@@ -198,7 +198,7 @@ describe SBot::Estimator do
       @board.board[75] = - SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(false, @board)
+      candidates = estimator.generate_valid_candidates(-1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.reverse? }
           .size.should == 0
     end
@@ -213,7 +213,7 @@ describe SBot::Estimator do
       @board.board[85] = SBot::Piece::HI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      move = estimator.choose_best_candidate(true, @board)
+      move = estimator.choose_best_candidate(1, @board)
       move.role.should == SBot::Piece::HI
       move.take_role.should == SBot::Piece::KI
       move.to_point.should == 35

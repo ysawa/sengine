@@ -24,7 +24,7 @@ module SBot
 
     def cancel(move)
       if move.put?
-        if move.sente?
+        if move.sente > 0
           @sente_hand[move.role] += 1
         else
           @gote_hand[move.role] += 1
@@ -36,7 +36,7 @@ module SBot
           if to_piece >= 9
             to_piece -= 8
           end
-          if move.sente?
+          if move.sente > 0
             @board[move.to_point] = - move.take_role
             @sente_hand[to_piece] -= 1
           else
@@ -46,7 +46,7 @@ module SBot
         else
           @board[move.to_point] = Piece::NONE
         end
-        if move.sente?
+        if move.sente > 0
           @board[move.from_point] = move.role
         else
           @board[move.from_point] = - move.role
@@ -81,7 +81,7 @@ module SBot
           if to_piece >= 9
             to_piece -= 8
           end
-          if move.sente?
+          if move.sente > 0
             @sente_hand[to_piece] += 1
           else
             @gote_hand[to_piece] += 1
@@ -89,13 +89,13 @@ module SBot
         end
         @board[move.from_point] = Piece::NONE
         if move.reverse?
-          if move.sente?
+          if move.sente > 0
             @board[move.to_point] = move.role + 8
           else
             @board[move.to_point] = - move.role - 8
           end
         else
-          if move.sente?
+          if move.sente > 0
             @board[move.to_point] = move.role
           else
             @board[move.to_point] = - move.role
@@ -135,11 +135,11 @@ module SBot
         next if from_point % 10 == 0
         piece = get_piece(from_point)
         next unless piece
-        piece_sente = piece.sente?
+        piece_sente = piece.sente
         piece.moves.each do |move|
           to_point = from_point + move
           next if out_of_board?(to_point)
-          if piece_sente
+          if piece_sente > 0
             @sente_kikis.append_move(to_point, - move)
           else
             @gote_kikis.append_move(to_point, - move)
@@ -150,7 +150,7 @@ module SBot
           1.upto(8).each do |i|
             to_point += jump
             break if out_of_board?(to_point)
-            if piece_sente
+            if piece_sente > 0
               @sente_kikis.append_jump(to_point, - jump)
             else
               @gote_kikis.append_jump(to_point, - jump)
@@ -169,7 +169,7 @@ module SBot
         piece = get_piece(point)
         next unless piece
         if piece.role == Piece::OU
-          if piece.sente?
+          if piece.sente > 0
             @sente_ou = point
           else
             @gote_ou = point
@@ -190,7 +190,7 @@ module SBot
           break if out_of_board?(point)
           piece = get_piece(point)
           next unless piece
-          if piece.sente? && @gote_kikis.get_jump_kikis(point).include?(move)
+          if piece.sente > 0 && @gote_kikis.get_jump_kikis(point).include?(move)
             @sente_pins[point] = move
           end
           break

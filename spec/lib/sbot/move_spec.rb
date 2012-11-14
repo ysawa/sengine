@@ -14,7 +14,7 @@ describe SBot::Move do
   describe '.initialize' do
     it 'works.' do
       @move = SBot::Move.new
-      @move.initialize_move(true, 1, 43, 33, true, nil)
+      @move.initialize_move(1, 1, 43, 33, true, nil)
       @move.from_point.should == 43
       @move.to_point.should == 33
       @move.put?.should == false
