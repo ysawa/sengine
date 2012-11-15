@@ -56,10 +56,11 @@ describe Board do
 
     let :movement do
       attributes = {
-        from_point: [7, 3],
-        to_point: [7, 4],
+        from_point: [7, 7],
+        to_point: [7, 6],
         role: Piece::FU,
-        number: 1
+        number: 1,
+        sente: true
       }
       Fabricate(:movement, attributes)
     end
@@ -67,6 +68,7 @@ describe Board do
     it 'works!' do
       piece_from_point = board.get_piece(movement.from_point)
       piece_to_point = board.get_piece(movement.to_point)
+      piece_from_point.sente?.should be_true
       piece_from_point.role.should == Piece::FU
       piece_to_point.should be_blank
       board.number = 1
@@ -86,6 +88,21 @@ describe Board do
       piece_to_point.should be_blank
       board.number = 2
       lambda { board.apply_movement(movement) }.should raise_error
+    end
+
+    it 'fail if movement have invalid taking (cannot be taken)' do
+      @movement = movement.dup
+      @movement.attributes = {
+        from_point: [1, 9],
+        role_value: Piece::KY,
+        to_point: [1, 7]
+      }
+      piece_from_point = board.get_piece(@movement.from_point)
+      piece_to_point = board.get_piece(@movement.to_point)
+      piece_from_point.role.should == Piece::KY
+      piece_to_point.role.should == Piece::FU
+      board.number = 1
+      lambda { board.apply_movement(@movement) }.should raise_error
     end
   end
 

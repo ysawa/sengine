@@ -31,6 +31,7 @@ class Board
     if movement.from_point?
       proponent_piece = get_piece(movement.from_point)
       set_piece_value(0, movement.from_point)
+      raise InvalidMovement.new("invalid movement turn: #{movement.inspect}") unless proponent_piece.sente? == movement.sente?
     else
       if self.sente
         proponent_piece = get_piece_in_sente_hand(movement.role_value)
