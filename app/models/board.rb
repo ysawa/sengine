@@ -47,6 +47,7 @@ class Board
     opponent_piece = get_piece(movement.to_point)
     if opponent_piece
       opponent_piece.normalize
+      raise InvalidMovement.new("invalid movement taking piece: #{movement.inspect}") unless opponent_piece.sente? ^ movement.sente?
       if self.sente
         plus_piece_in_sente_hand(opponent_piece.role)
       else
