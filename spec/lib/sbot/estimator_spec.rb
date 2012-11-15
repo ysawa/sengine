@@ -234,5 +234,20 @@ describe SBot::Estimator do
       move.take_role.should == SBot::Piece::UM
       move.to_point.should == 33
     end
+
+    it 'tries to take both pieces if able to do so' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[13] = - SBot::Piece::UM
+      @board.board[95] = SBot::Piece::OU
+      @board.sente_hand[SBot::Piece::KE] = 1
+      @board.load_all
+      move = estimator.choose_best_move(1, @board)
+      move.sente.should == 1
+      move.put.should == true
+      move.role.should == SBot::Piece::KE
+      move.to_point.should == 34
+    end
   end
 end

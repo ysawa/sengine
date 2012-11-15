@@ -24,12 +24,10 @@ module SBot
     attr_reader :jump_kikis
 
     def append_jump(point, value)
-      @jump_kikis[point] ||= []
       @jump_kikis[point] << value
     end
 
     def append_move(point, value)
-      @move_kikis[point] ||= []
       @move_kikis[point] << value
     end
 
