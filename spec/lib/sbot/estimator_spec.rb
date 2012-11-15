@@ -205,7 +205,7 @@ describe SBot::Estimator do
   end
 
   describe '.choose_best_move' do
-    it 'works' do
+    it 'can take a piece and advantage' do
       @board = SBot::Board.new
       @board.clear_board
       @board.board[15] = - SBot::Piece::OU
@@ -217,6 +217,22 @@ describe SBot::Estimator do
       move.role.should == SBot::Piece::HI
       move.take_role.should == SBot::Piece::KI
       move.to_point.should == 35
+    end
+
+    it 'can take a piece and escape from oute' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[12] = - SBot::Piece::KE
+      @board.board[11] = - SBot::Piece::KY
+      @board.board[33] = SBot::Piece::UM
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      move = estimator.choose_best_move(-1, @board)
+      move.sente.should == -1
+      move.role.should == SBot::Piece::KE
+      move.take_role.should == SBot::Piece::UM
+      move.to_point.should == 33
     end
   end
 end
