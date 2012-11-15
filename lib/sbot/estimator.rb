@@ -594,7 +594,6 @@ module SBot
             next if pin && (pin != move && pin != - move)
             pattern.role = from_piece_role
             pattern.from_point = from_point
-            p candidates.size
             candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
           end
           jump_kikis.each do |jump|
@@ -612,7 +611,6 @@ module SBot
               end
               next if pin && (pin != jump && pin != - jump)
               pattern.from_point = from_point
-              p candidates.size
               candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
             break
             end
