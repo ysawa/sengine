@@ -145,8 +145,8 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.load_all
       candidates = estimator.generate_valid_candidates(1, @board)
-      candidates.select { |candidate| candidate.role == SBot::Piece::FU && !candidate.reverse? }
-          .size.should == 0
+      candidates.select { |candidate| candidate.role == SBot::Piece::FU && candidate.reverse? }
+          .size.should == 1
       candidates.size.should == 1 + 5
     end
 

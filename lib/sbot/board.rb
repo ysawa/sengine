@@ -61,7 +61,7 @@ module SBot
         if out_of_board?(point)
           @board[point] = Piece::WALL
         else
-          @board[point] = 0
+          @board[point] = Piece::NONE
         end
       end
     end
@@ -120,7 +120,7 @@ module SBot
       10.times do |i|
         point = i
         @board[point] = Piece::WALL
-        point = 99 + i
+        point = 101 + i
         @board[point] = Piece::WALL
         y_offset += 10
         point = y_offset
