@@ -569,48 +569,53 @@ module SBot
       end
       to_point = ou_point
       jump_kikis.each do |kiki|
-        to_point += kiki
-        piece = board.board[to_point]
-        next if piece == Piece::NONE
-        pattern.to_point = to_point
-        pattern.take_role = piece.abs
-        # take this piece
-        move_kikis = player_kiki.get_move_kikis(to_point)
-        jump_kikis = player_kiki.get_jump_kikis(to_point)
-        move_kikis.each do |move|
-          from_point = to_point + move
-          from_piece = board.board[from_point]
-          if sente > 0
-            from_piece_role = from_piece
-            next if from_piece_role == Piece::OU
-            pin = board.sente_pins[from_point]
-          else
-            from_piece_role = - from_piece
-            next if from_piece_role == Piece::OU
-            pin = board.gote_pins[from_point]
-          end
-          next if pin && (pin != move && pin != - move)
-          pattern.role = from_piece_role
-          pattern.from_point = from_point
-          candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
-        end
-        jump_kikis.each do |jump|
-          from_point = to_point
-          1.upto(8).each do
-            from_point += jump
+        8.times do
+          to_point += kiki
+          piece = board.board[to_point]
+          next if piece == Piece::NONE
+          break if piece == Piece::WALL
+          # take this piece
+          pattern.to_point = to_point
+          pattern.take_role = piece.abs
+          move_kikis = player_kiki.get_move_kikis(to_point)
+          jump_kikis = player_kiki.get_jump_kikis(to_point)
+          move_kikis.each do |move|
+            from_point = to_point + move
             from_piece = board.board[from_point]
-            next if from_piece == Piece::NONE
             if sente > 0
+              from_piece_role = from_piece
+              next if from_piece_role == Piece::OU
               pin = board.sente_pins[from_point]
-              pattern.role = from_piece
             else
+              from_piece_role = - from_piece
+              next if from_piece_role == Piece::OU
               pin = board.gote_pins[from_point]
-              pattern.role = - from_piece
             end
-            next if pin && (pin != jump && pin != - jump)
+            next if pin && (pin != move && pin != - move)
+            pattern.role = from_piece_role
             pattern.from_point = from_point
-            candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
+            p candidates.size
+            candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
+          end
+          jump_kikis.each do |jump|
+            from_point = to_point
+            1.upto(8).each do
+              from_point += jump
+              from_piece = board.board[from_point]
+              next if from_piece == Piece::NONE
+              if sente > 0
+                pin = board.sente_pins[from_point]
+                pattern.role = from_piece
+              else
+                pin = board.gote_pins[from_point]
+                pattern.role = - from_piece
+              end
+              next if pin && (pin != jump && pin != - jump)
+              pattern.from_point = from_point
+              p candidates.size
+              candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
             break
+            end
           end
         end
         break
