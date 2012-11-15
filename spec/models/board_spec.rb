@@ -90,6 +90,20 @@ describe Board do
       lambda { board.apply_movement(movement) }.should raise_error
     end
 
+    it 'fail if movement have invalid moving' do
+      movement.attributes = {
+        from_point: [5, 5],
+        role_value: Piece::FU,
+        to_point: [5, 5]
+      }
+      piece_from_point = board.get_piece(movement.from_point)
+      piece_from_point.should be_blank
+      piece_to_point = board.get_piece(movement.to_point)
+      piece_to_point.should be_blank
+      board.number = 1
+      lambda { board.apply_movement(movement) }.should raise_error
+    end
+
     it 'fail if movement have invalid putting' do
       movement.attributes = {
         from_point: nil,
