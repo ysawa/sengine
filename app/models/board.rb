@@ -118,7 +118,7 @@ class Board
     if hand[role_value] >= 1
       hand[role_value] -= 1
     else
-      hand[role_value] = 0
+      raise InvalidMovement.new("invalid put: #{movement.inspect}")
     end
     self.gote_hand = hand
   end
