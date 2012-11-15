@@ -23,8 +23,8 @@ module SBot
     def estimate(board)
       sente_score = gote_score = 0
       11.upto(99).each do |point|
-        next if point % 10 == 0
-        piece = board.get_piece(point)
+        piece = board.board[point]
+        next if piece == Piece::WALL
         sente_score += board.sente_kikis.get_jump_kikis(point).size * 10
         gote_score += board.gote_kikis.get_jump_kikis(point).size * 10
         board.sente_hand.each_with_index do |number, role_key|
@@ -35,11 +35,11 @@ module SBot
           next if !number || number == 0
           gote_score += (Piece::SCORES[role_key] * number * 1.2).to_i
         end
-        next unless piece
-        if piece.sente > 0
-          sente_score += piece.score
+        next if piece == Piece::NONE
+        if piece > 0
+          sente_score += Piece::SCORES[piece]
         else
-          gote_score += piece.score
+          gote_score += Piece::SCORES[- piece]
         end
       end
       sente_score - gote_score

@@ -59,7 +59,7 @@ module SBot
     def clear_board
       SIZE.times do |point|
         if out_of_board?(point)
-          @board[point] = nil
+          @board[point] = Piece::WALL
         else
           @board[point] = 0
         end
@@ -116,6 +116,16 @@ module SBot
     def initialize(board = nil, number = 0)
       @number = number
       @board = Array.new(SIZE)
+      y_offset = 0
+      10.times do |i|
+        point = i
+        @board[point] = Piece::WALL
+        point = 99 + i
+        @board[point] = Piece::WALL
+        y_offset += 10
+        point = y_offset
+        @board[point] = Piece::WALL
+      end
       @sente_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
       @gote_hand = [nil, 0, 0, 0, 0, 0, 0, 0, 0]
     end
