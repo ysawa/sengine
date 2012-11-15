@@ -21,8 +21,6 @@ class Board
   field :sente_hand, type: Hand, default: [nil, 0, 0, 0, 0, 0, 0, 0, 0]
   before_destroy :destroy_movement
 
-
-  # TODO this method must have some exceptions
   def apply_movement(movement)
     raise InvalidMovement.new("movement is invalid: #{movement.inspect}") unless movement.valid?
     self.movement = movement
