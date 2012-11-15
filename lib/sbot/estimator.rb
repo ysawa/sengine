@@ -165,8 +165,8 @@ module SBot
       1.upto(9).each do |y|
         y_offset += 10
         to_point = y_offset + x
-        piece = board.get_piece(to_point)
-        if piece && piece.value == role
+        piece = board.board[to_point]
+        if piece == role
           fu_exist = true
           break
         end
@@ -405,18 +405,24 @@ module SBot
       pattern.sente = sente
       moves.each do |move|
         to_point = from_point + move
-        next if to_point <= 10 ||
-            to_point >= 100 ||
-            (to_point % 10 == 0)
+        to_piece = board.board[to_point]
+        next if to_piece == Piece::WALL
         next if opponent_jump_kikis.size > 0 &&
             opponent_jump_kikis.include?(- move)
-        to_piece = board.get_piece(to_point)
-        next if to_piece && to_piece.sente == sente
+        if to_piece != Piece::NONE
+          if sente > 0
+            next if to_piece > 0
+            to_piece_role = - to_piece
+          else
+            next if to_piece < 0
+            to_piece_role = to_piece
+          end
+        end
         next if opponent_kiki.get_move_kikis(to_point).size > 0 ||
             opponent_kiki.get_jump_kikis(to_point).size > 0
         pattern.to_point = to_point
-        if to_piece
-          pattern.take_role = to_piece.role
+        if to_piece != Piece::NONE
+          pattern.take_role = to_piece_role
         else
           pattern.take_role = nil
         end
@@ -432,8 +438,8 @@ module SBot
         to_point = ou_point
         1.upto(8).each do
           to_point += kiki
-          piece = board.get_piece(to_point)
-          break if piece
+          piece = board.board[to_point]
+          break if piece != Piece::NONE
           candidates += generate_valid_move_or_jump_to_point_candidates(sente, board, to_point)
         end
       end
@@ -464,8 +470,8 @@ module SBot
           y_offset = y * 10
           1.upto(9).each do |x|
             to_point = y_offset + x
-            piece = board.get_piece(to_point)
-            next if piece
+            piece = board.board[to_point]
+            break if piece != Piece::NONE
             move = pattern.dup
             move.to_point = to_point
             candidates << move
@@ -536,8 +542,8 @@ module SBot
               next
             end
             next unless y_range.include?(to_point / 10)
-            piece = board.get_piece(to_point)
-            if piece
+            piece = board.board[to_point]
+            if piece != Piece::NONE
               break
             end
             move = pattern.dup
