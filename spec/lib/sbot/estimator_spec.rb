@@ -273,7 +273,7 @@ describe SBot::Estimator do
       @board.board[14] = - SBot::Piece::KI
       @board.board[15] = - SBot::Piece::OU
       @board.board[16] = - SBot::Piece::KI
-      @board.board[35] = SBot::Piece::UM
+      @board.board[35] = SBot::Piece::KI
       @board.board[77] = - SBot::Piece::KE
       @board.board[98] = SBot::Piece::KI
       @board.board[96] = SBot::Piece::KI
