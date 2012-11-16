@@ -118,6 +118,7 @@ describe SBot::Board do
       @board.sente_kikis.get_jump_kikis(25).should == [-10] #
       @board.sente_kikis.get_jump_kikis(15).should == []
       @board.gote_kikis.get_move_kikis(25).should == []
+      @board.sente_hand[SBot::Piece::OU].should == 1
       @board.gote_ou.should be_nil
       @board.cancel(move)
       @board.sente_kikis.get_jump_kikis(15).should == [10]
