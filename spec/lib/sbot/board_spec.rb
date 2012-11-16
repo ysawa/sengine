@@ -73,6 +73,66 @@ describe SBot::Board do
     end
   end
 
+  describe '.execute and .cancel' do
+    it 'move a piece and bring it back' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[25] = - SBot::Piece::KI
+      @board.board[43] = SBot::Piece::HI
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      @movement = SBot::Move.new
+      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: 1, to_point: 33, role: SBot::Piece::HI }
+      board = @board.dup
+      board.execute(@movement)
+      board.board[33].should == SBot::Piece::RY
+      board.board[43].should == SBot::Piece::NONE
+      board.cancel(@movement)
+      board.board[33].should == SBot::Piece::NONE
+      board.board[43].should == SBot::Piece::HI
+    end
+
+    it 'put a piece and bring it back' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[25] = - SBot::Piece::KI
+      @board.board[95] = SBot::Piece::OU
+      @board.sente_hand[SBot::Piece::HI] = 1
+      @board.load_all
+      @movement = SBot::Move.new
+      @movement.attributes = { from_point: nil, put: true, reverse: false, sente: 1, to_point: 33, role: SBot::Piece::HI }
+      board = @board.dup
+      board.execute(@movement)
+      board.board[33].should == SBot::Piece::HI
+      board.cancel(@movement)
+      board.board[33].should == SBot::Piece::NONE
+      @board.sente_hand[SBot::Piece::HI].should == 1
+    end
+
+    it 'take a piece and bring it back' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[25] = - SBot::Piece::KI
+      @board.board[43] = SBot::Piece::HI
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      @movement = SBot::Move.new
+      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: 1, to_point: 25, role: SBot::Piece::HI, take_role: SBot::Piece::KI }
+      board = @board.dup
+      board.execute(@movement)
+      board.board[25].should == SBot::Piece::RY
+      board.board[43].should == SBot::Piece::NONE
+      board.sente_hand[SBot::Piece::KI].should == 1
+      board.cancel(@movement)
+      board.sente_hand[SBot::Piece::KI].should == 0
+      board.board[25].should == - SBot::Piece::KI
+      board.board[43].should == SBot::Piece::HI
+    end
+  end
+
   describe '.replace_kikis_of_existent_piece and .replace_kikis_of_inexistent_piece' do
     before :each do
       @estimator = SBot::Estimator.new
@@ -145,66 +205,6 @@ describe SBot::Board do
       @board.cancel(move)
       @board.sente_kikis.get_jump_kikis(15).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
-    end
-  end
-
-  describe '.execute and .cancel' do
-    it 'move a piece and bring it back' do
-      @board = SBot::Board.new
-      @board.clear_board
-      @board.board[15] = - SBot::Piece::OU
-      @board.board[25] = - SBot::Piece::KI
-      @board.board[43] = SBot::Piece::HI
-      @board.board[95] = SBot::Piece::OU
-      @board.load_all
-      @movement = SBot::Move.new
-      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: 1, to_point: 33, role: SBot::Piece::HI }
-      board = @board.dup
-      board.execute(@movement)
-      board.board[33].should == SBot::Piece::RY
-      board.board[43].should == SBot::Piece::NONE
-      board.cancel(@movement)
-      board.board[33].should == SBot::Piece::NONE
-      board.board[43].should == SBot::Piece::HI
-    end
-
-    it 'put a piece and bring it back' do
-      @board = SBot::Board.new
-      @board.clear_board
-      @board.board[15] = - SBot::Piece::OU
-      @board.board[25] = - SBot::Piece::KI
-      @board.board[95] = SBot::Piece::OU
-      @board.sente_hand[SBot::Piece::HI] = 1
-      @board.load_all
-      @movement = SBot::Move.new
-      @movement.attributes = { from_point: nil, put: true, reverse: false, sente: 1, to_point: 33, role: SBot::Piece::HI }
-      board = @board.dup
-      board.execute(@movement)
-      board.board[33].should == SBot::Piece::HI
-      board.cancel(@movement)
-      board.board[33].should == SBot::Piece::NONE
-      @board.sente_hand[SBot::Piece::HI].should == 1
-    end
-
-    it 'take a piece and bring it back' do
-      @board = SBot::Board.new
-      @board.clear_board
-      @board.board[15] = - SBot::Piece::OU
-      @board.board[25] = - SBot::Piece::KI
-      @board.board[43] = SBot::Piece::HI
-      @board.board[95] = SBot::Piece::OU
-      @board.load_all
-      @movement = SBot::Move.new
-      @movement.attributes = { from_point: 43, put: false, reverse: true, sente: 1, to_point: 25, role: SBot::Piece::HI, take_role: SBot::Piece::KI }
-      board = @board.dup
-      board.execute(@movement)
-      board.board[25].should == SBot::Piece::RY
-      board.board[43].should == SBot::Piece::NONE
-      board.sente_hand[SBot::Piece::KI].should == 1
-      board.cancel(@movement)
-      board.sente_hand[SBot::Piece::KI].should == 0
-      board.board[25].should == - SBot::Piece::KI
-      board.board[43].should == SBot::Piece::HI
     end
   end
 end
