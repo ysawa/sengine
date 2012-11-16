@@ -23,37 +23,46 @@ module SBot
     attr_accessor :gote_ou
 
     def cancel(move)
+      to_point = move.to_point
+      role = move.role
+      sente = move.sente
       if move.put?
-        if move.sente > 0
-          @sente_hand[move.role] += 1
+        if sente > 0
+          @sente_hand[role] += 1
         else
-          @gote_hand[move.role] += 1
+          @gote_hand[role] += 1
         end
-        @board[move.to_point] = Piece::NONE
+        @board[to_point] = Piece::NONE
       else
+        from_point = move.from_point
         to_piece = move.take_role
         if to_piece && to_piece != 0
           if to_piece >= 9
             to_piece -= 8
           end
-          if move.sente > 0
-            @board[move.to_point] = - move.take_role
+          if sente > 0
+            @board[to_point] = - move.take_role
             @sente_hand[to_piece] -= 1
           else
-            @board[move.to_point] = move.take_role
+            @board[to_point] = move.take_role
             @gote_hand[to_piece] -= 1
           end
         else
-          @board[move.to_point] = Piece::NONE
+          @board[to_point] = Piece::NONE
         end
         if move.sente > 0
-          @board[move.from_point] = move.role
+          @board[from_point] = role
+          @sente_ou = from_point if role == Piece::OU
         else
-          @board[move.from_point] = - move.role
+          @board[from_point] = - role
+          @gote_ou = from_point if role == Piece::OU
         end
       end
       @number -= 1
-      load_all
+      if @sente_ou && @gote_ou
+        load_kikis
+        load_pins
+      end
     end
 
     def clear_board
@@ -67,21 +76,24 @@ module SBot
     end
 
     def execute(move)
+      to_point = move.to_point
+      role = move.role
+      sente = move.sente
       if move.put?
-        @board[move.to_point] = move.role
-        if move.sente?
-          @sente_hand[move.role] -= 1
+        @board[to_point] = move.role
+        if sente > 0
+          @sente_hand[role] -= 1
         else
-          @gote_hand[move.role] -= 1
+          @gote_hand[role] -= 1
         end
       else
         # take piece on to_point
-        to_piece = @board[move.to_point].abs
+        to_piece = @board[to_point].abs
         if to_piece && to_piece != 0
           if to_piece >= 9
             to_piece -= 8
           end
-          if move.sente > 0
+          if sente > 0
             @sente_hand[to_piece] += 1
           else
             @gote_hand[to_piece] += 1
@@ -89,21 +101,26 @@ module SBot
         end
         @board[move.from_point] = Piece::NONE
         if move.reverse?
-          if move.sente > 0
-            @board[move.to_point] = move.role + 8
+          if sente > 0
+            @board[move.to_point] = role + 8
           else
-            @board[move.to_point] = - move.role - 8
+            @board[move.to_point] = - role - 8
           end
         else
-          if move.sente > 0
-            @board[move.to_point] = move.role
+          if sente > 0
+            @board[to_point] = role
+            @sente_ou = to_point if role == Piece::OU
           else
-            @board[move.to_point] = - move.role
+            @board[move.to_point] = - role
+            @gote_ou = to_point if role == Piece::OU
           end
         end
       end
       @number += 1
-      load_all
+      if @sente_ou && @gote_ou
+        load_kikis
+        load_pins
+      end
     end
 
     def get_piece(point)
@@ -230,6 +247,9 @@ module SBot
       self.class.out_of_board?(point)
     end
 
+    def remove_kiki(point, kiki)
+    end
+
     def to_str
       lines = []
       lines << 'G: ' + @gote_hand.join(' ')
@@ -245,6 +265,9 @@ module SBot
       end
       lines << 'S: ' + @sente_hand.join(' ')
       lines.join("\n")
+    end
+
+    def write_kiki(point, kiki)
     end
 
     class << self
