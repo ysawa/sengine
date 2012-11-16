@@ -73,7 +73,7 @@ describe SBot::Board do
     end
   end
 
-  describe '.replace_kikis_after_moving_piece and .replace_kikis_after_removing_piece' do
+  describe '.replace_kikis_of_existent_piece and .replace_kikis_of_inexistent_piece' do
     before :each do
       @estimator = SBot::Estimator.new
       @board = SBot::Board.new

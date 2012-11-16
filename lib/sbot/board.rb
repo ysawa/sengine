@@ -33,7 +33,7 @@ module SBot
           @gote_hand[role] += 1
         end
         @board[to_point] = Piece::NONE
-        replace_kikis_after_removing_piece(sente, role, to_point)
+        replace_kikis_of_inexistent_piece(sente, role, to_point)
       else
         from_point = move.from_point
         if move.sente > 0
@@ -55,10 +55,10 @@ module SBot
           end
           to_role_abs = - to_role
         end
-        replace_kikis_after_removing_piece(sente, to_role_abs, to_point)
+        replace_kikis_of_inexistent_piece(sente, to_role_abs, to_point)
         to_piece = take_role = move.take_role
         if to_piece && to_piece != 0
-          replace_kikis_after_moving_piece(- sente, take_role, to_point)
+          replace_kikis_of_existent_piece(- sente, take_role, to_point)
           if to_piece >= 9
             to_piece -= 8
           end
@@ -74,7 +74,7 @@ module SBot
         else
           @board[to_point] = Piece::NONE
         end
-        replace_kikis_after_moving_piece(sente, role, from_point)
+        replace_kikis_of_existent_piece(sente, role, from_point)
       end
       @number -= 1
       if @sente_ou && @gote_ou
@@ -103,13 +103,13 @@ module SBot
         else
           @gote_hand[role] -= 1
         end
-        replace_kikis_after_moving_piece(sente, role, to_point)
+        replace_kikis_of_existent_piece(sente, role, to_point)
       else
         from_point = move.from_point
         # take piece on to_point
         to_piece = @board[to_point].abs
         if to_piece && to_piece != 0
-          replace_kikis_after_removing_piece(- sente, to_piece, to_point)
+          replace_kikis_of_inexistent_piece(- sente, to_piece, to_point)
           if to_piece >= 9
             to_piece -= 8
           end
@@ -123,7 +123,7 @@ module SBot
         end
         @board[to_point] = 0
         @board[from_point] = Piece::NONE
-        replace_kikis_after_removing_piece(sente, role, from_point)
+        replace_kikis_of_inexistent_piece(sente, role, from_point)
         if sente > 0
           if move.reverse
             to_role = role + 8
@@ -142,7 +142,7 @@ module SBot
           @gote_ou = to_point if role == Piece::OU
         end
         @board[to_point] = to_role
-        replace_kikis_after_moving_piece(sente, to_role_abs, to_point)
+        replace_kikis_of_existent_piece(sente, to_role_abs, to_point)
       end
       @number += 1
       if @sente_ou && @gote_ou
@@ -274,7 +274,7 @@ module SBot
       self.class.out_of_board?(point)
     end
 
-    def replace_kikis_after_moving_piece(sente, role, point)
+    def replace_kikis_of_existent_piece(sente, role, point)
       if sente > 0
         proponent_kikis = @sente_kikis
         opponent_kikis = @gote_kikis
@@ -316,7 +316,7 @@ module SBot
       end
     end
 
-    def replace_kikis_after_removing_piece(sente, role, point)
+    def replace_kikis_of_inexistent_piece(sente, role, point)
       if sente > 0
         proponent_kikis = @sente_kikis
         opponent_kikis = @gote_kikis
