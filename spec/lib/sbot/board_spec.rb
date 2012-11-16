@@ -115,7 +115,7 @@ describe SBot::Board do
       move = SBot::Move.new
       move.initialize_move(1, SBot::Piece::HI, 85, 15, true, SBot::Piece::OU)
       @board.execute(move)
-      @board.sente_kikis.get_jump_kikis(25).should == [-10] #
+      @board.sente_kikis.get_jump_kikis(25).should == [-10]
       @board.sente_kikis.get_jump_kikis(15).should == []
       @board.gote_kikis.get_move_kikis(25).should == []
       @board.sente_hand[SBot::Piece::OU].should == 1
@@ -134,18 +134,15 @@ describe SBot::Board do
       @board.load_all
       @board.sente_kikis.get_jump_kikis(15).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
-      @board.gote_ou.should == 15
       move = SBot::Move.new
       move.initialize_put(-1, SBot::Piece::KE, 55)
       @board.execute(move)
-      @board.sente_kikis.get_jump_kikis(25).should == [] #
+      @board.sente_kikis.get_jump_kikis(25).should == []
       @board.sente_kikis.get_jump_kikis(15).should == []
       @board.gote_kikis.get_move_kikis(25).should == [-10]
-      @board.gote_ou.should == 15
       @board.cancel(move)
       @board.sente_kikis.get_jump_kikis(15).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
-      @board.gote_ou.should == 15
     end
   end
 
