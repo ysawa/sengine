@@ -193,18 +193,22 @@ describe SBot::Board do
       @board.gote_hand[SBot::Piece::KE] = 1
       @board.load_all
       @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.sente_kikis.get_jump_kikis(25).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
       move = SBot::Move.new
       move.initialize_put(-1, SBot::Piece::KE, 55)
       @board.execute(move)
-      @board.sente_kikis.get_jump_kikis(25).should == []
       @board.sente_kikis.get_jump_kikis(15).should == []
+      @board.sente_kikis.get_jump_kikis(25).should == []
       @board.gote_kikis.get_move_kikis(25).should == [-10]
       @board.gote_kikis.get_move_kikis(74).should == [-19]
       @board.gote_kikis.get_move_kikis(76).should == [-21]
       @board.cancel(move)
       @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.sente_kikis.get_jump_kikis(25).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_kikis.get_move_kikis(74).should == []
+      @board.gote_kikis.get_move_kikis(76).should == []
     end
   end
 end
