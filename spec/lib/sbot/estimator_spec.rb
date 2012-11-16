@@ -274,15 +274,17 @@ describe SBot::Estimator do
       @board.board[15] = - SBot::Piece::OU
       @board.board[16] = - SBot::Piece::KI
       @board.board[35] = SBot::Piece::UM
+      @board.board[77] = - SBot::Piece::KE
+      @board.board[98] = SBot::Piece::KI
+      @board.board[96] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
-      @board.board[55] = - SBot::Piece::KE
       @board.sente_hand[SBot::Piece::KE] = 1
       @board.load_all
       move = estimator.choose_best_move(-1, @board)
       move.sente.should == -1
-      move.role.should_not == - SBot::Piece::OU
-      move.role.should_not == - SBot::Piece::KE
-      move.role.should == - SBot::Piece::KI
+      move.role.should_not == SBot::Piece::OU
+      move.role.should_not == SBot::Piece::KE
+      move.role.should == SBot::Piece::KI
     end
   end
 end
