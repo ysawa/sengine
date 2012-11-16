@@ -73,6 +73,81 @@ describe SBot::Board do
     end
   end
 
+  describe '.replace_kikis_after_moving_piece and .replace_kikis_after_removing_piece' do
+    before :each do
+      @estimator = SBot::Estimator.new
+      @board = SBot::Board.new
+      @board.clear_board
+    end
+
+    it 'successfully replaces sente and gote kikis' do
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[35] = - SBot::Piece::KI
+      @board.board[85] = SBot::Piece::HI
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      @board.sente_kikis.get_jump_kikis(15).should == []
+      @board.sente_kikis.get_jump_kikis(25).should == []
+      @board.sente_kikis.get_move_kikis(24).should == []
+      @board.gote_kikis.get_move_kikis(25).should include 10
+      move = SBot::Move.new
+      move.initialize_move(1, SBot::Piece::HI, 85, 35, true, SBot::Piece::KI)
+      @board.execute(move)
+      @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.sente_kikis.get_jump_kikis(25).should == [10]
+      @board.sente_kikis.get_move_kikis(24).should == [11]
+      @board.gote_kikis.get_move_kikis(25).should_not include 10
+      @board.cancel(move)
+      @board.sente_kikis.get_jump_kikis(15).should == []
+      @board.sente_kikis.get_jump_kikis(25).should == []
+      @board.sente_kikis.get_move_kikis(24).should == []
+      @board.gote_kikis.get_move_kikis(25).should include 10
+    end
+
+    it 'successfully takes ou and replaces information' do
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[85] = SBot::Piece::HI
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_ou.should == 15
+      move = SBot::Move.new
+      move.initialize_move(1, SBot::Piece::HI, 85, 15, true, SBot::Piece::OU)
+      @board.execute(move)
+      @board.sente_kikis.get_jump_kikis(25).should == [-10] #
+      @board.sente_kikis.get_jump_kikis(15).should == []
+      @board.gote_kikis.get_move_kikis(25).should == []
+      @board.gote_ou.should be_nil
+      @board.cancel(move)
+      @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_ou.should == 15
+    end
+
+    it 'successfully puts piece and replaces information' do
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[85] = SBot::Piece::HI
+      @board.board[95] = SBot::Piece::OU
+      @board.gote_hand[SBot::Piece::KE] = 1
+      @board.load_all
+      @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_ou.should == 15
+      move = SBot::Move.new
+      move.initialize_put(-1, SBot::Piece::KE, 55)
+      @board.execute(move)
+      @board.sente_kikis.get_jump_kikis(25).should == [] #
+      @board.sente_kikis.get_jump_kikis(15).should == []
+      @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_ou.should == 15
+      @board.cancel(move)
+      @board.sente_kikis.get_jump_kikis(15).should == [10]
+      @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_ou.should == 15
+    end
+  end
+
   describe '.execute and .cancel' do
     it 'move a piece and bring it back' do
       @board = SBot::Board.new

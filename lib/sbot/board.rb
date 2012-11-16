@@ -33,34 +33,51 @@ module SBot
           @gote_hand[role] += 1
         end
         @board[to_point] = Piece::NONE
+        replace_kikis_after_removing_piece(sente, role, to_point)
       else
         from_point = move.from_point
-        to_piece = move.take_role
+        if move.sente > 0
+          @board[from_point] = role
+          @sente_ou = from_point if role == Piece::OU
+          if move.reverse
+            to_role = role + 8
+          else
+            to_role = role
+          end
+          to_role_abs = to_role
+        else
+          @board[from_point] = - role
+          @gote_ou = from_point if role == Piece::OU
+          if move.reverse
+            to_role = - role - 8
+          else
+            to_role = - role
+          end
+          to_role_abs = - to_role
+        end
+        replace_kikis_after_removing_piece(sente, to_role_abs, to_point)
+        to_piece = take_role = move.take_role
         if to_piece && to_piece != 0
+          replace_kikis_after_moving_piece(- sente, take_role, to_point)
           if to_piece >= 9
             to_piece -= 8
           end
           if sente > 0
-            @board[to_point] = - move.take_role
+            @board[to_point] = - take_role
             @sente_hand[to_piece] -= 1
+            @gote_ou = to_point if to_piece == Piece::OU
           else
-            @board[to_point] = move.take_role
+            @board[to_point] = take_role
             @gote_hand[to_piece] -= 1
+            @sente_ou = to_point if to_piece == Piece::OU
           end
         else
           @board[to_point] = Piece::NONE
         end
-        if move.sente > 0
-          @board[from_point] = role
-          @sente_ou = from_point if role == Piece::OU
-        else
-          @board[from_point] = - role
-          @gote_ou = from_point if role == Piece::OU
-        end
+        replace_kikis_after_moving_piece(sente, role, from_point)
       end
       @number -= 1
       if @sente_ou && @gote_ou
-        load_kikis
         load_pins
       end
     end
@@ -86,40 +103,49 @@ module SBot
         else
           @gote_hand[role] -= 1
         end
+        replace_kikis_after_moving_piece(sente, role, to_point)
       else
         from_point = move.from_point
         # take piece on to_point
         to_piece = @board[to_point].abs
         if to_piece && to_piece != 0
+          replace_kikis_after_removing_piece(- sente, to_piece, to_point)
           if to_piece >= 9
             to_piece -= 8
           end
           if sente > 0
             @sente_hand[to_piece] += 1
+            @gote_ou = nil if to_piece == Piece::OU
           else
             @gote_hand[to_piece] += 1
+            @sente_ou = nil if to_piece == Piece::OU
           end
         end
+        @board[to_point] = 0
         @board[from_point] = Piece::NONE
-        if move.reverse?
-          if sente > 0
-            @board[to_point] = role + 8
+        replace_kikis_after_removing_piece(sente, role, from_point)
+        if sente > 0
+          if move.reverse
+            to_role = role + 8
           else
-            @board[to_point] = - role - 8
+            to_role = role
           end
+          @sente_ou = to_point if role == Piece::OU
+          to_role_abs = to_role
         else
-          if sente > 0
-            @board[to_point] = role
-            @sente_ou = to_point if role == Piece::OU
+          if move.reverse
+            to_role = - role - 8
           else
-            @board[to_point] = - role
-            @gote_ou = to_point if role == Piece::OU
+            to_role = - role
           end
+          to_role_abs = - to_role
+          @gote_ou = to_point if role == Piece::OU
         end
+        @board[to_point] = to_role
+        replace_kikis_after_moving_piece(sente, to_role_abs, to_point)
       end
       @number += 1
       if @sente_ou && @gote_ou
-        load_kikis
         load_pins
       end
     end
@@ -248,7 +274,88 @@ module SBot
       self.class.out_of_board?(point)
     end
 
-    def remove_kiki(point, kiki)
+    def replace_kikis_after_moving_piece(sente, role, point)
+      if sente > 0
+        proponent_kikis = @sente_kikis
+        opponent_kikis = @gote_kikis
+        moves = Piece::SENTE_MOVES[role]
+        jumps = Piece::SENTE_JUMPS[role]
+      else
+        proponent_kikis = @gote_kikis
+        opponent_kikis = @sente_kikis
+        moves = Piece::GOTE_MOVES[role]
+        jumps = Piece::GOTE_JUMPS[role]
+      end
+      # remove opponent kikis
+      opponent_kikis.get_jump_kikis(point).each do |kiki|
+        to_point = point
+        8.times do
+          to_point -= kiki
+          piece = @board[to_point]
+          break if piece == Piece::WALL
+          opponent_kikis.remove_jump(to_point, kiki)
+          break if piece != Piece::NONE
+        end
+      end
+      # append proponent kikis
+      moves.each do |move|
+        to_point = point + move
+        piece = @board[to_point]
+        next if piece == Piece::WALL
+        proponent_kikis.append_move(to_point, - move)
+      end
+      jumps.each do |jump|
+        to_point = point
+        8.times do
+          to_point += jump
+          piece = @board[to_point]
+          break if piece == Piece::WALL
+          proponent_kikis.append_jump(to_point, - jump)
+          break if piece != Piece::NONE
+        end
+      end
+    end
+
+    def replace_kikis_after_removing_piece(sente, role, point)
+      if sente > 0
+        proponent_kikis = @sente_kikis
+        opponent_kikis = @gote_kikis
+        moves = Piece::SENTE_MOVES[role]
+        jumps = Piece::SENTE_JUMPS[role]
+      else
+        proponent_kikis = @gote_kikis
+        opponent_kikis = @sente_kikis
+        moves = Piece::GOTE_MOVES[role]
+        jumps = Piece::GOTE_JUMPS[role]
+      end
+      # erase proponent kikis
+      moves.each do |move|
+        to_point = point + move
+        piece = @board[to_point]
+        next if piece == Piece::WALL
+        proponent_kikis.remove_move(to_point, - move)
+      end
+      jumps.each do |jump|
+        to_point = point
+        8.times do
+          to_point += jump
+          piece = @board[to_point]
+          break if piece == Piece::WALL
+          proponent_kikis.remove_jump(to_point, - jump)
+          break if piece != Piece::NONE
+        end
+      end
+      # append opponent kikis
+      opponent_kikis.get_jump_kikis(point).each do |kiki|
+        to_point = point
+        8.times do
+          to_point -= kiki
+          piece = @board[to_point]
+          break if piece == Piece::WALL
+          opponent_kikis.append_jump(to_point, kiki)
+          break if piece != Piece::NONE
+        end
+      end
     end
 
     def to_str
@@ -266,9 +373,6 @@ module SBot
       end
       lines << 'S: ' + @sente_hand.join(' ')
       lines.join("\n")
-    end
-
-    def write_kiki(point, kiki)
     end
 
     class << self

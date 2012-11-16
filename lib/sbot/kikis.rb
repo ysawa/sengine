@@ -48,5 +48,21 @@ module SBot
         @jump_kikis[point] = []
       end
     end
+
+    def set_jump_kikis(point, kikis)
+      @jump_kikis[point] = kikis
+    end
+
+    def set_move_kikis(point, kikis)
+      @move_kikis[point] = kikis
+    end
+
+    def remove_jump(point, value)
+      @jump_kikis[point].delete value
+    end
+
+    def remove_move(point, value)
+      @move_kikis[point].delete value
+    end
   end
 end
