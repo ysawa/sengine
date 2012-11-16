@@ -140,6 +140,8 @@ describe SBot::Board do
       @board.sente_kikis.get_jump_kikis(25).should == []
       @board.sente_kikis.get_jump_kikis(15).should == []
       @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.gote_kikis.get_move_kikis(74).should == [-19]
+      @board.gote_kikis.get_move_kikis(76).should == [-21]
       @board.cancel(move)
       @board.sente_kikis.get_jump_kikis(15).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
