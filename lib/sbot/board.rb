@@ -142,11 +142,18 @@ module SBot
       @sente_kikis = Kikis.new
       @gote_kikis = Kikis.new
       11.upto(99).each do |from_point|
-        next if from_point % 10 == 0
-        piece = get_piece(from_point)
-        next unless piece
-        piece_sente = piece.sente
-        piece.moves.each do |move|
+        piece = @board[from_point]
+        next if piece == Piece::WALL || piece == Piece::NONE
+        if piece > 0
+          piece_sente = 1
+          moves = Piece::SENTE_MOVES[piece]
+          jumps = Piece::SENTE_JUMPS[piece]
+        else
+          piece_sente = -1
+          moves = Piece::GOTE_MOVES[- piece]
+          jumps = Piece::GOTE_JUMPS[- piece]
+        end
+        moves.each do |move|
           to_point = from_point + move
           next if out_of_board?(to_point)
           if piece_sente > 0
@@ -155,7 +162,7 @@ module SBot
             @gote_kikis.append_move(to_point, - move)
           end
         end
-        piece.jumps.each do |jump|
+        jumps.each do |jump|
           to_point = from_point
           1.upto(8).each do |i|
             to_point += jump
@@ -165,8 +172,8 @@ module SBot
             else
               @gote_kikis.append_jump(to_point, - jump)
             end
-            piece = get_piece(to_point)
-            break if piece
+            piece = @board[to_point]
+            break if piece != Piece::NONE
           end
         end
       end
@@ -175,15 +182,12 @@ module SBot
     def load_ous
       @sente_ou = @gote_ou = nil
       11.upto(99).each do |point|
-        next if point % 10 == 0
-        piece = get_piece(point)
-        next unless piece
-        if piece.role == Piece::OU
-          if piece.sente > 0
-            @sente_ou = point
-          else
-            @gote_ou = point
-          end
+        piece = @board[point]
+        next if piece == Piece::WALL || piece == Piece::NONE
+        if piece == Piece::OU
+          @sente_ou = point
+        elsif piece == - Piece::OU
+          @gote_ou = point
         end
         break if @sente_ou && @gote_ou
       end
@@ -197,10 +201,10 @@ module SBot
         point = @sente_ou
         1.upto(8).each do
           point += move
-          break if out_of_board?(point)
-          piece = get_piece(point)
-          next unless piece
-          if piece.sente > 0 && @gote_kikis.get_jump_kikis(point).include?(move)
+          piece = @board[point]
+          break if piece == Piece::WALL
+          next if piece == Piece::NONE
+          if piece > 0 && @gote_kikis.get_jump_kikis(point).include?(move)
             @sente_pins[point] = move
           end
           break
@@ -210,10 +214,10 @@ module SBot
         point = @gote_ou
         1.upto(8).each do
           point += move
-          break if out_of_board?(point)
-          piece = get_piece(point)
-          next unless piece
-          if piece.gote? && @sente_kikis.get_jump_kikis(point).include?(move)
+          piece = @board[point]
+          break if piece == Piece::WALL
+          next if piece == Piece::NONE
+          if piece < 0 && @sente_kikis.get_jump_kikis(point).include?(move)
             @gote_pins[point] = move
           end
           break
