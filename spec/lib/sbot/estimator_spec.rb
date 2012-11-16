@@ -266,5 +266,23 @@ describe SBot::Estimator do
       move.from_point.should == 22
       move.to_point.should == 13
     end
+
+    it 'should escape from tsumero' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[14] = - SBot::Piece::KI
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[16] = - SBot::Piece::KI
+      @board.board[35] = SBot::Piece::UM
+      @board.board[95] = SBot::Piece::OU
+      @board.board[55] = - SBot::Piece::KE
+      @board.sente_hand[SBot::Piece::KE] = 1
+      @board.load_all
+      move = estimator.choose_best_move(-1, @board)
+      move.sente.should == -1
+      move.role.should_not == - SBot::Piece::OU
+      move.role.should_not == - SBot::Piece::KE
+      move.role.should == - SBot::Piece::KI
+    end
   end
 end
