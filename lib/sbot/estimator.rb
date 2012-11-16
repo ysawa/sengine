@@ -5,6 +5,7 @@ module SBot
     ALPHA = -400000
     BETA = 400000
     DEPTH = 3
+    attr_accessor :depth
 
     def cancel_move(board, move)
       board.cancel(move)
