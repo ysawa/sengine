@@ -249,5 +249,22 @@ describe SBot::Estimator do
       move.role.should == SBot::Piece::KE
       move.to_point.should == 34
     end
+
+    it 'takes more valuable piece if able to do so' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[11] = - SBot::Piece::KY
+      @board.board[13] = - SBot::Piece::GI
+      @board.board[22] = SBot::Piece::KA
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      move = estimator.choose_best_move(1, @board)
+      move.sente.should == 1
+      move.put.should == false
+      move.role.should == SBot::Piece::KA
+      move.from_point.should == 22
+      move.to_point.should == 13
+    end
   end
 end
