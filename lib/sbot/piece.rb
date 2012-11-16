@@ -49,5 +49,6 @@ module SBot
       [], [], [], [], # TO, NY, KY, NG
       nil, [-11, -9, 9, 11], [-10, -1, 1, 10], # nil, UM, RY
     ]
+    JUMP_DIRECTIONS = [-11, -10, -9, -1, 1, 9, 10, 11]
   end
 end

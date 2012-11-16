@@ -390,7 +390,7 @@ module SBot
 
     def generate_valid_piece_move_ou_candidates(sente, board, from_point)
       candidates = []
-      moves = Piece::SENTE_MOVES[Piece::OU]
+      moves = Piece::JUMP_DIRECTIONS
       if sente > 0
         opponent_kiki = board.gote_kikis
       else

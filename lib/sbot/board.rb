@@ -241,7 +241,7 @@ module SBot
     def load_pins
       @sente_pins = Array.new(SIZE)
       @gote_pins = Array.new(SIZE)
-      Piece::SENTE_MOVES[Piece::OU].each do |move|
+      Piece::JUMP_DIRECTIONS.each do |move|
         point = @sente_ou
         1.upto(8).each do
           point += move
@@ -254,7 +254,7 @@ module SBot
           break
         end
       end
-      Piece::GOTE_MOVES[Piece::OU].each do |move|
+      Piece::JUMP_DIRECTIONS.each do |move|
         point = @gote_ou
         1.upto(8).each do
           point += move
