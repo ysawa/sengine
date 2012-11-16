@@ -87,6 +87,7 @@ module SBot
           @gote_hand[role] -= 1
         end
       else
+        from_point = move.from_point
         # take piece on to_point
         to_piece = @board[to_point].abs
         if to_piece && to_piece != 0
@@ -99,19 +100,19 @@ module SBot
             @gote_hand[to_piece] += 1
           end
         end
-        @board[move.from_point] = Piece::NONE
+        @board[from_point] = Piece::NONE
         if move.reverse?
           if sente > 0
-            @board[move.to_point] = role + 8
+            @board[to_point] = role + 8
           else
-            @board[move.to_point] = - role - 8
+            @board[to_point] = - role - 8
           end
         else
           if sente > 0
             @board[to_point] = role
             @sente_ou = to_point if role == Piece::OU
           else
-            @board[move.to_point] = - role
+            @board[to_point] = - role
             @gote_ou = to_point if role == Piece::OU
           end
         end
