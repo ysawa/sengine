@@ -227,6 +227,19 @@ describe SBot::Estimator do
           .size.should == 0
     end
 
+    it 'successfully ry cannot be reversed if sente and outed' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[42] = - SBot::Piece::KA
+      @board.board[32] = SBot::Piece::RY
+      @board.board[86] = SBot::Piece::OU
+      @board.load_all
+      candidates = estimator.generate_candidates(1, @board)
+      candidates.select { |candidate| candidate.role == SBot::Piece::RY && candidate.reverse? }
+          .size.should == 0
+    end
+
     it 'successfully ry cannot be reversed if gote and outed' do
       @board = SBot::Board.new
       @board.clear_board
