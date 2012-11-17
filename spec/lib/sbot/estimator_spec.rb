@@ -80,7 +80,7 @@ describe SBot::Estimator do
     end
   end
 
-  describe '.generate_valid_candidates' do
+  describe '.generate_candidates' do
     it 'successfully escape from oute' do
       @board = SBot::Board.new
       @board.clear_board
@@ -88,7 +88,7 @@ describe SBot::Estimator do
       @board.board[25] = - SBot::Piece::HI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.length.should == 4
       candidates.select { |candidate| candidate.role == SBot::Piece::OU && candidate.to_point == 85 }
           .size.should == 0
@@ -102,7 +102,7 @@ describe SBot::Estimator do
       @board.board[75] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.length.should == 7
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.to_point == 76 }
           .size.should == 0
@@ -117,7 +117,7 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.sente_hand[SBot::Piece::FU] = 1
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU && candidate.put? }
           .size.should == 81 - 9 - 1
       candidates.length.should == 81 - 9 - 1 + 5
@@ -131,7 +131,7 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.sente_hand[SBot::Piece::FU] = 1
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU && candidate.put? }
           .size.should == 6
       candidates.length.should == 6 + 4
@@ -144,7 +144,7 @@ describe SBot::Estimator do
       @board.board[24] = SBot::Piece::FU
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU && candidate.reverse? }
           .size.should == 1
       candidates.size.should == 1 + 5
@@ -158,7 +158,7 @@ describe SBot::Estimator do
       @board.board[95] = SBot::Piece::OU
       @board.sente_hand[SBot::Piece::FU] = 1
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::FU &&
           candidate.put? &&
           (candidate.to_point % 10 == 2)
@@ -174,7 +174,7 @@ describe SBot::Estimator do
       @board.board[35] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.reverse? }
           .size.should == 0
     end
@@ -186,7 +186,7 @@ describe SBot::Estimator do
       @board.board[45] = SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(1, @board)
+      candidates = estimator.generate_candidates(1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.reverse? }
           .size.should == 0
     end
@@ -198,8 +198,45 @@ describe SBot::Estimator do
       @board.board[75] = - SBot::Piece::KI
       @board.board[95] = SBot::Piece::OU
       @board.load_all
-      candidates = estimator.generate_valid_candidates(-1, @board)
+      candidates = estimator.generate_candidates(-1, @board)
       candidates.select { |candidate| candidate.role == SBot::Piece::KI && candidate.reverse? }
+          .size.should == 0
+    end
+
+    it 'successfully ry cannot be reversed if sente' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[35] = SBot::Piece::RY
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      candidates = estimator.generate_candidates(1, @board)
+      candidates.select { |candidate| candidate.role == SBot::Piece::RY && candidate.reverse? }
+          .size.should == 0
+    end
+
+    it 'successfully ry cannot be reversed if gote' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[78] = - SBot::Piece::RY
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      candidates = estimator.generate_candidates(-1, @board)
+      candidates.select { |candidate| candidate.role == SBot::Piece::RY && candidate.reverse? }
+          .size.should == 0
+    end
+
+    it 'successfully ry cannot be reversed if gote and outed' do
+      @board = SBot::Board.new
+      @board.clear_board
+      @board.board[24] = - SBot::Piece::OU
+      @board.board[78] = - SBot::Piece::RY
+      @board.board[68] = SBot::Piece::KA
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      candidates = estimator.generate_candidates(-1, @board)
+      candidates.select { |candidate| candidate.role == SBot::Piece::RY && candidate.reverse? }
           .size.should == 0
     end
   end

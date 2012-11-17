@@ -68,12 +68,14 @@ module SBot
       else
         first_point = @from_point
       end
-      if sente?
+      if sente == 1
         result =  'S'
-      else
+      elsif sente == -1
         result =  'G'
+      else
+        result = 'N'
       end
-      result += "%02d%02d%02d" % [first_point, @to_point, @role]
+      result += "%02d%02d%02d" % [first_point, @to_point, @role] if @to_point && @role
       if @reverse
         result += "*"
       end

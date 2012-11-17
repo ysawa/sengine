@@ -4,5 +4,6 @@
   = link_to User.model_name.human, sys_users_path
   = link_to Game.model_name.human, sys_games_path
   = link_to Feedback.model_name.human, sys_feedbacks_path
+  = link_to 'Resque', '/sys/resque', target: :_blank
   - if user_signed_in?
     = link_to t('helpers.submit.sign_out'), destroy_user_session_path, method: :delete, class: :right

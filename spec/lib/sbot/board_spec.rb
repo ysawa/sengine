@@ -164,7 +164,7 @@ describe SBot::Board do
       @board.gote_kikis.get_move_kikis(25).should include 10
     end
 
-    it 'successfully takes ou and replaces information' do
+    it 'successfully takes gote ou and replaces information' do
       @board.board[15] = - SBot::Piece::OU
       @board.board[85] = SBot::Piece::HI
       @board.board[95] = SBot::Piece::OU
@@ -178,12 +178,38 @@ describe SBot::Board do
       @board.sente_kikis.get_jump_kikis(25).should == [-10]
       @board.sente_kikis.get_jump_kikis(15).should == []
       @board.gote_kikis.get_move_kikis(25).should == []
+      @board.board[15].should == SBot::Piece::RY
       @board.sente_hand[SBot::Piece::OU].should == 1
       @board.gote_ou.should be_nil
       @board.cancel(move)
       @board.sente_kikis.get_jump_kikis(15).should == [10]
       @board.gote_kikis.get_move_kikis(25).should == [-10]
+      @board.board[85].should == SBot::Piece::HI
       @board.gote_ou.should == 15
+    end
+
+    it 'successfully takes sente ou and replaces information' do
+      @board.board[15] = - SBot::Piece::OU
+      @board.board[25] = - SBot::Piece::HI
+      @board.board[95] = SBot::Piece::OU
+      @board.load_all
+      @board.gote_kikis.get_jump_kikis(95).should == [-10]
+      @board.sente_kikis.get_move_kikis(85).should == [10]
+      @board.sente_ou.should == 95
+      move = SBot::Move.new
+      move.initialize_move(-1, SBot::Piece::HI, 25, 95, true, SBot::Piece::OU)
+      @board.execute(move)
+      @board.gote_kikis.get_jump_kikis(85).should == [10]
+      @board.gote_kikis.get_jump_kikis(95).should == []
+      @board.sente_kikis.get_move_kikis(25).should == []
+      @board.board[95].should == - SBot::Piece::RY
+      @board.gote_hand[SBot::Piece::OU].should == 1
+      @board.sente_ou.should be_nil
+      @board.cancel(move)
+      @board.gote_kikis.get_jump_kikis(95).should == [-10]
+      @board.sente_kikis.get_move_kikis(85).should == [10]
+      @board.board[25].should == - SBot::Piece::HI
+      @board.sente_ou.should == 95
     end
 
     it 'successfully puts piece and replaces information' do

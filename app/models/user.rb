@@ -31,7 +31,7 @@ class User
   field :name, type: String
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
-  field :score, type: Integer, default: 0
+  field :score, type: Integer, default: 1000
   field :score_differential, type: Integer
   field :sign_in_count, type: Integer
   field :themes, type: Array, default: %w(default)

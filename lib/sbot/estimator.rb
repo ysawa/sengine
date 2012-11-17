@@ -50,7 +50,7 @@ module SBot
       board.execute(move)
     end
 
-    def generate_valid_candidates(sente, board)
+    def generate_candidates(sente, board)
       candidates = []
       board.load_all
       oute_judgement = get_oute_judgement(sente, board)
@@ -114,7 +114,7 @@ module SBot
       if depth <= 0
         return [nil, sign * estimate(board)]
       end
-      candidates = generate_valid_candidates(sente, board)
+      candidates = generate_candidates(sente, board)
       candidates = sort_moves(sente, candidates)
       next_candidate = candidates.first
       unless next_candidate
@@ -630,7 +630,7 @@ module SBot
         next if pin && (pin != move && pin != - move)
         pattern.role = from_piece_role
         pattern.from_point = from_point
-        candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
+        candidates += generate_valid_moving_piece_reverse_or_not_candidates(sente, from_piece, from_point, to_point, pattern)
       end
       to_jump_kikis.each do |jump|
         from_point = to_point
@@ -647,7 +647,7 @@ module SBot
           end
           next if pin && (pin != jump && pin != - jump)
           pattern.from_point = from_point
-          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, piece, from_point, to_point, pattern)
+          candidates += generate_valid_jumping_piece_reverse_or_not_candidates(sente, from_piece, from_point, to_point, pattern)
           break
         end
       end
