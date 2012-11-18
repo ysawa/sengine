@@ -7,19 +7,20 @@
     - if facebook_enabled?
       = render 'shared/facebook_javascript_sdk'
     .whole_container
-      %header#global_head
-        .inner
-          = render 'shared/global_head'
-      %section#global_body
-        .inner{ 'data-pjax-container' => true }
-          = yield
-          - if facebook_enabled?
-            = render 'shared/reparse_xfbml'
-          = render 'shared/notices'
-          = render 'shared/audio'
-          = render 'shared/locale'
-      %footer#global_foot
-        .inner
+      %header#global_head.navbar.navbar-inverse.navbar-static-top
+        .navbar-inner
+          .container
+            = render 'shared/global_head'
+      %section.container
+        %section#global_body
+          .inner{ 'data-pjax-container' => true }
+            = yield
+            - if facebook_enabled?
+              = render 'shared/reparse_xfbml'
+            = render 'shared/notices'
+            = render 'shared/audio'
+            = render 'shared/locale'
+        %footer#global_foot
           = render 'shared/google_adsense'
           = render 'shared/global_foot'
           = render 'shared/notice_reloader'

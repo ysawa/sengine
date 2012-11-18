@@ -4,141 +4,24 @@
 @import 'bourbon'
 @import 'shared/helpers'
 
-@mixin common_inner
-  & > .inner
-    margin: 0 auto
-    width: $common_width
-
-.whole_container
-  margin: 0 auto
-
-header#global_head
-  background-color: #f7f7f7
-  @include box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.30))
-  z-index: 2
-  & > .inner
-    margin: 0 auto
-    width: $common_width
-    @include clearfix
-    background: none
-    $logo_width: 200px
-    $height: 44px
-    $inner_height: 24px
-    h1
-      padding: 10px
-      font-size: 20px
-      height: $inner_height
-      line-height: $inner_height
-      color: #000
-      width: $logo_width - 20px
-      float: left
-      a
-        color: #000
-        text-decoration: none
-    nav#global_navi
-      text-align: right
-      width: $max_width - $logo_width
-      line-height: $inner_height
-      height: $inner_height
-      float: left
-      @include clearfix
-      a
-        font-size: 14px
-      img.face
-        @include square($inner_height)
-      ul
-        line-height: $inner_height
-        li
-          line-height: $inner_height
-          display: block
-          float: right
-          a
-            display: block
-            padding: 10px
-        li.pulldown
-          position: relative
-          min-width: 104px
-          & > a
-            text-decoration: none
-          ul
-            background: #fff
-            position: absolute
-            z-index: 3
-            display: none
-            width: 100%
-            li
-              width: 100%
-              float: none
-              text-align: center
-              display: block
-              a
-                line-height: 20px
-                text-decoration: none
-                &:hover
-                  background-color: #f7f7f7
-          &:hover
-            background: #fff
-            ul
-              display: block
-
-section#global_body
-  @include common_inner
-  background: url(/assets/inner.png) center 0px repeat-y
-  .inner
-    @include clearfix
-    padding: 0
-footer#global_foot
-  @include common_inner
-  background: url(/assets/inner.png) center 0px repeat-y
-  overflow: hidden
-  .inner
-    @include clearfix
-    padding: 30px 0 60px
-    & > ins
-      @include atmospheric_background
-      display: block !important
-      margin: 0px auto 30px !important
-  p
+#global_head
+  h1.brand
+    padding: 10px 0
     margin: 0
-    a
-      padding-right: 10px
-    text-align: center
-
-/* Smart Phone */
-@media only screen and (max-width: 759px)
-  header#global_head
-    & > .inner
-      h1
-      nav#global_navi
-        a
-  section#global_body
-    background-image: none
-  footer#global_foot
-    background-image: none
-    p
-      span#credit
-        display: block
-
-  $common_width: $mobile_portrait_width
-  $max_width: $common_width
-  .whole_container
-  header#global_head
-    @include common_inner
-    & > .inner
-      $logo_width: 200px
-      h1
-        width: $logo_width - 20px
-      nav#global_navi
-        width: $max_width - $logo_width
-  section#global_body
-    @include common_inner
-  footer#global_foot
-    @include common_inner
-    & > .inner
-      overflow: hidden
-    p
-      a
-        padding-right: 10px
-      text-align: center
-  #{$document_tags}
     font-size: 18px
+    line-height: 20px
+    a
+      color: #fff
+  #global_navi
+    img.face
+      +square(20px)
+
+#global_foot
+  padding: 10px 0 30px
+  #google_adsense
+    width: 100%
+    overflow: hidden
+    text-align: center
+  p
+    margin-top: 10px
+    text-align: center

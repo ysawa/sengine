@@ -5,7 +5,7 @@
   - else
     = link_to page_name('home', 'top'), root_path
   = link_to Feedback.model_name.human, feedbacks_path
-  %br.mobile_show
+  %br.hidden-desktop
   = link_to page_name('about', 'tos'), about_tos_path
   = link_to page_name('about', 'privacy'), about_privacy_path
   - about_us_url = Shogiengine.system.site[:about_us_url]

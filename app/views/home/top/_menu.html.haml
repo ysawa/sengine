@@ -2,10 +2,10 @@
   %li.top_item
     - name = t('actions.sign_in_and_start')
     - if facebook_enabled?
-      = link_to name, user_omniauth_authorize_path(:facebook), 'data-disable-with' => t('actions.now_loading'), class: :top_button
+      = link_to name, user_omniauth_authorize_path(:facebook), 'data-disable-with' => t('actions.now_loading'), class: 'btn btn-large btn-block btn-primary'
     - else
       = link_to name, new_user_session_path, 'data-disable-with' => t('actions.now_loading'), class: :top_button
   %li
     - name = t('actions.about_app')
-    = link_to name, about_game_path, 'data-disable-with' => t('actions.now_loading'), class: :normal_button
+    = link_to name, about_game_path, 'data-disable-with' => t('actions.now_loading'), class: 'btn btn-large btn-block'
 

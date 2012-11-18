@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery-ui
 #= require jquery_ujs
+#= require twitter/bootstrap
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
@@ -31,6 +32,9 @@ $ ->
   ###
 
   $('.whole_container').css('min-height', $(window).height())
+  $('body').on('touchstart.dropdown', '.dropdown-menu', (e) ->
+    e.stopPropagation()
+  )
 
   # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')

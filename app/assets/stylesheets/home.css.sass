@@ -6,15 +6,9 @@
 
 #top_page
   article#top_main
-    @include clearfix
-    $image_width: 400px
-    width: $common_width - 20px
     margin-bottom: 30px
     #top_image
-      margin-top: 5px
-      width: $image_width - 2px
-      height: 280px
-      float: left
+      margin-top: 15px
       border: 1px solid $border_color
       position: relative
       @include atmospheric_background
@@ -25,88 +19,25 @@
         right: 10px
         bottom: 10px
       img
-        width: $image_width - 2px
+        width: 100%
     nav#top_navi
       margin-top: 20px
-      width: $common_width - 20px - $image_width
-      float: left
-      a
-        padding: 20px 15px
-        width: 240px
       p
         margin: 30px 30px 0
-
-/* Smart Phone */
-@media only screen and (max-width: 759px)
-  #top_page
-    article#top_main
-      width: 100%
-      @include clearfix
-      #top_image
-        float: none
-        margin: 0 -10px
-        width: 540px
-        height: auto
-        text-align: center
-        border: 0
-        background: none
-        span
-          display: none
-        img
-          width: 540px
+    @media (min-width: 768px)
       nav#top_navi
-        float: none
-        margin-top: 30px
-        width: 100%
-        a
-          width: 480px
-        p
-          margin: 0 20px
-    .fb-like
-      width: 100%
-      overflow: hidden
+        margin-top: 80px
+  .fb_iframe_widget
+    display: block
+    max-width: 100%
+    overflow: hidden
 
 #mypage
   article#mypage_main
     @include clearfix
-    $profile_width: 400px
-    width: $common_width - 20px
-    #mypage_profile
-      float: left
-      #user_profile
-        width: $profile_width - 20px
-        margin: 0
-        $list_width: $profile_width - 140px
-        dl
-          width: $list_width
-          dt
-            width: 80px
-          dd
-            width: $list_width - 80px
+    #user_profile
+      margin: 0
     nav#mypage_navi
-      float: left
-      width: $common_width - 20px - $profile_width
-      ul.menu
-        li
-          margin-top: 15px
-        li:last-child
-          margin: 0
-      a
-        width: 240px
   #games_tab,
   #comments_tab
     margin-top: 30px
-
-@media only screen and (max-width: 759px)
-  #mypage
-    article#mypage_main
-      width: 100%
-      @include clearfix
-      #mypage_profile
-        display: none
-      nav#mypage_navi
-        float: none
-        width: 100%
-        a
-          width: 480px
-

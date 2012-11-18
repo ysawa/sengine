@@ -1,9 +1,11 @@
 .common_container#top_page
-  %article#top_main
-    #top_image
-      = image_tag 'home/keyvisual.png'
-      %span.site_message= t('site.title')
-    %nav#top_navi
-      = render 'home/top/menu'
-      = render 'home/top/about'
+  %article#top_main.row
+    .span7
+      #top_image
+        = image_tag 'home/keyvisual.png'
+        %span.site_message= t('site.title')
+    .span5
+      %nav#top_navi
+        = render 'home/top/menu'
+        = render 'home/top/about'
   = render 'shared/facebook_like_top'

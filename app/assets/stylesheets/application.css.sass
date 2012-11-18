@@ -8,8 +8,7 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require ./initializer
- *= require ./base
+ *= require bootstrap_and_overrides
  *= require ./structure
  *= require ./themes
  *= require jquery-ui
@@ -25,162 +24,18 @@
 @import 'bourbon'
 @import 'shared/helpers'
 
+body
+  -webkit-text-size-adjust: none
+
 /* Common Parts */
-h2
-  margin-bottom: 10px
-  font-weight: bold
-  font-size: 120%
-h3
-  margin: 20px 0 10px
-  font-size: 110%
-  font-weight: bold
-  border-bottom: 1px solid $border_color
-h4
-  margin: 20px 0 0px
-  font-size: 110%
-  font-weight: bold
-p
-  margin: 10px 0
-label
-  display: block
-  &.must:after
-    content: '*'
-    color: #f00
-  &.error
-    color: #f00
-    display: none
-    white-space: none
-    font-weight: normal
-    img
-      vertical-align: middle
-  &.inline
-    display: inline
-    font-weight: normal
-
-.mobile_show
-  display: none
-
-a
-  &.button
-    @include pill_button
-    @include inline-block
-    font-size: 100%
-    text-decoration: none
-    &.active
-      @include pill_button($activated_color)
-      font-size: 100%
-      text-decoration: none
-span
-  &.button
-    @include pill_button(#eee)
-    @include inline-block
-    font-size: 100%
-    text-decoration: none
-
-.common_container
-  padding: 10px
-  &.broad
-    padding: 0
-table.resources
-  width: $common_width - 20px
-  margin-bottom: 10px
-  th, td
-    text-align: center
-    vertical-align: middle
-  thead tr
-    th, td
-      font-weight: bold
-      color: #000
-      padding: 3px 10px
-      border-bottom: 1px solid $border_color
-  tbody tr
-    th, td
-      padding: 3px 10px
-      border-bottom: 1px dotted $border_color
-
-form
-  section.field
-    margin: 15px 0
-  section.actions
-    margin: 30px 0
-    text-align: center
-    input[type="submit"]
-      width: 512px
 
 ul.menu
+  margin: 0
   li
-    margin: 25px 0
-    a.normal_button
-      @include pill_button(#aaaaaa)
-    a.top_button
-      @include pill_button
-    a.normal_button, a.top_button
-      padding: 10px 15px
-      font-size: 100%
-      display: block
-      margin: 0 auto
-      width: 180px
-      text-align: center
-      text-decoration: none
-
-ul.tabs
-  @include clearfix
-  border-bottom: 1px solid $border_color
-  li
-    display: block
-    float: left
-    width: 120px
-    height: 30px
-    margin-right: 10px
-    a, span
-      text-align: center
-      font-size: 14px
-      font-weight: bold
-      display: block
-      width: 120px
-      line-height: 30px
-      color: #333
-      @include border-top-left-radius(5px)
-      @include border-top-right-radius(5px)
-      border: 1px solid $border_color
-      border-bottom: 0
-      text-decoration: none
-      text-overflow: ellipsis
-      @include background-image(linear-gradient(white 0, $border_color 50%))
-      &:hover, &.active
-        color: #000
-        background: #fff
-@media only screen and (max-width: 759px)
-  ul.tabs
-    li
-      height: 42px
-      a, span
-        line-height: 42px
-
-nav.pagination
-  margin: 20px 0
-  .see_more
-    width: 460px
-    text-align: center
-    margin: 0 auto
-  a.see_more
-    @include pill_button(#aaa)
-    display: block
-    text-decoration: none
-  span.see_more
-    @include pill_button(#eee)
-    display: block
-    color: #fff
-  a.see_more, span.see_more
-    font-size: 100%
-@media only screen and (max-width: 759px)
-  nav.pagination
-    a.see_more, span.see_more
-      font-size: $mobile_button_font_size
-      padding: 20px 15px
-
-aside.actions
-  margin: 10px 0
+    margin: 10px 0 0
+    list-style: none
+    &:first-child
+      margin-top: 0
 
 .slider
   @include user-select
@@ -267,61 +122,3 @@ aside.actions
   @include user-select(none)
   margin: 0 auto
   width: 540px
-
-/* Smart Phone */
-@media only screen and (max-width: 759px)
-  .mobile_hide
-    display: none
-  .mobile_show
-    display: inline
-  div.mobile_show,
-  section.mobile_show
-    display: block
-
-  ul.menu
-    li
-      margin: 25px 0
-      a.normal_button, a.top_button
-        width: 480px
-        padding: 20px 15px
-        font-size: $mobile_button_font_size
-  $font_size: 20px
-  $line_height: 24px
-  #{$all-text-inputs}
-    font-size: $font_size
-    line-height: $line_height
-    height: 36px
-  textarea
-    font-size: $font_size
-    line-height: $line_height
-  select
-    font-size: $font_size
-    line-height: $line_height
-    height: 44px
-  input[type="radio"]
-    font-size: x-large
-    height: 30px
-    width: 30px
-  input[type="submit"], button
-    &.send
-      font-size: $mobile_button_font_size
-
-  $common_width: $mobile_portrait_width
-  $max_content_width: $common_width - 20px
-  select
-    max-width: $max_content_width
-  table.resources
-    width: $max_content_width
-    th, td
-      &.spec
-        display: none
-  #{$all-text-inputs}
-    max-width: $max_content_width - 30px
-  a
-    &.button
-      font-size: $mobile_button_font_size
-      &.active
-        font-size: $mobile_button_font_size
-  span
-    &.button
-      font-size: $mobile_button_font_size
