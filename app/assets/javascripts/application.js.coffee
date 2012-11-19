@@ -36,6 +36,10 @@ $ ->
     e.stopPropagation()
   )
 
+  $('body').on('click', '.nav-collapse a', ->
+    $(this).parents('.nav-collapse').collapse('hide')
+  )
+
   # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
 
