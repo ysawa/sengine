@@ -16,7 +16,7 @@
   - in_turn = true
 .in_hand{ class: direction, player: (sente_hand ? 'sente' : 'gote') }
   .pieces
-    .row
+    .board_row
       .cell{ class: (in_turn ? :in_turn : nil) }
         - link = profile_path(user.id, from: game_path(game))
         = user_decorator.face(link)

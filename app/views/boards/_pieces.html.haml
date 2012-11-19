@@ -1,6 +1,6 @@
 .pieces
   -# the row of top edge cells
-  .row
+  .board_row
     .corner_cell.left.top
     - x_range.each do |x|
       - if reverse
@@ -11,7 +11,7 @@
     .corner_cell.right.top
   -# the 81 cells and side cells of the center on the board
   - y_range.each do |y|
-    .row
+    .board_row
       - if reverse
         .side_cell.reverse
           = convert_number_to_kanji(y)
@@ -32,7 +32,7 @@
         - unless reverse
           = convert_number_to_kanji(y)
   -# the row of bottom edge cells
-  .row
+  .board_row
     .corner_cell.left.bottom
     - x_range.each do |x|
       - if reverse

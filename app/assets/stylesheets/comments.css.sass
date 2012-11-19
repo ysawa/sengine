@@ -5,41 +5,43 @@
 @import 'shared/helpers'
 
 #comments_set
-  margin: 30px auto 0
-  width: 520px
-  form.edit_comment
-    width: 520px
-  ul#comments
-    li.comment
-      width: 500px
-
 
 form.edit_comment
-  width: 740px
-  border-bottom: 1px solid $border_color
-  @include atmospheric_background
-  @include clearfix
-  img.face
-    margin: 10px
+  background: #fff
+  padding: 10px
+  margin-bottom: 10px
+  +clearfix
+  +border-radius(5px)
+  .comment_user
     float: left
+    width: 10%
+    margin-right: 5%
+    img.face
+      +square(40px)
+      @media (max-width: 767px)
+        +square(25px)
   section.field
     float: left
-    margin: 10px 0
+    margin: 0
+    width: 85%
     @include clearfix
-    width: 440px
     textarea#comment_content
+      display: block
       margin: 0
-      width: 434px
     input[type="submit"]
       float: right
-      @include border-radius(5px)
-@media only screen and (max-width: 759px)
-  form.edit_comment
-    width: 520px
-    section.field
-      input[type="submit"]
-        float: none
-        width: 440px
+    @media (min-width: 768px)
+      width: 440px
+      textarea#comment_content
+        width: 426px
+    @media (max-width: 767px)
+      width: 260px
+      textarea#comment_content
+        width: 246px
+    @media (max-width: 480px)
+      width: 220px
+      textarea#comment_content
+        width: 206px
 
 ul#comments
   margin: 0

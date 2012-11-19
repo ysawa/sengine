@@ -1,2 +1,9 @@
-$('nav.next_comment').before('<%= escape_javascript(render 'comments/comments', comments: @comments, with_pagination: true, pagination_params: { controller: :comments, action: :index, game_id: @game.id }) %>');
-$('nav.next_comment:last').remove();
+<%- comment_contents = '' %>
+<%- @comments.each do |comment| %>
+  <%- comment_contents += render 'comments/comment', comment: comment %>
+<%- end %>
+
+$('#comments').append('<%= escape_javascript(comment_contents.html_safe) %>');
+
+<%- comments_pagination = render 'comments/pagination', comments: @comments %>
+$('nav.next_comment').replaceWith('<%= escape_javascript(comments_pagination) %>');

@@ -4,13 +4,14 @@
 - else
   - resource = comment
 = form_for resource, html: html_options do |f|
-  = current_user_decorator.image
+  .comment_user
+    = current_user_decorator.image
   %section.field
     - html_options = {}
     - html_options[:placeholder] = t('please.make_your_comment')
     - html_options[:rows] =  4
     = f.text_area :content, html_options
-    = f.submit t('helpers.submit.send'), disabled: true, 'data-disable-with' => t('actions.submitting')
+    = f.submit t('helpers.submit.send'), disabled: true, 'data-disable-with' => t('actions.submitting'), class: 'btn btn-primary'
   :javascript
     $(function () {
       $('form.edit_comment').on('keyup keypress change', 'textarea', function () {

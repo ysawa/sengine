@@ -91,6 +91,7 @@ ja:
   game:
     battle_vs: '%{sente} 対 %{gote}'
     everyone: 'みんなの対局'
+    kifu: '棋譜'
     orders:
       handicap: '駒落ち'
       random: 'おまかせ'

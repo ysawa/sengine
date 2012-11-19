@@ -4,12 +4,12 @@
 @import 'bourbon'
 @import 'shared/helpers'
 
-$cell_size: 51px
-$cell_width: 56px
-$cell_height: 60px
-$edge_cell_height: 20px
-$side_cell_width: 18px
+$cell_width: 50px
+$cell_height: 55px
+$edge_cell_height: 15px
+$side_cell_width: 15px
 $board_width: $cell_width * 9 + $side_cell_width * 2
+$board_height: $cell_height * 9 + $edge_cell_height * 2
 $piece_size: 45px
 $line_color: #b37100
 $highlight_color: #77c0ff
@@ -30,6 +30,9 @@ $moved_color: $highlight_color
   background-position: (- $cell_width * 7) (- $cell_height)
 
 #game_page
+  #tab_comments, #tab_kifu
+    h3
+      margin-top: 0
 
 article#game
   margin-top: 50px
@@ -58,7 +61,7 @@ article#game
   width: $board_width
   height: $board_height
   background-repeat: no-repeat
-  .row
+  .board_row
     @include clearfix
     .cell
       @include user-select(none)
@@ -94,7 +97,7 @@ article#game
   @include user-select(none)
   @include atmospheric_background
   .pieces
-    .row
+    .board_row
       @include clearfix
       .cell
         @include user-select(none)

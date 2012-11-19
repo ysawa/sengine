@@ -37,13 +37,6 @@ $ ->
   ###
 
   $('.whole_container').css('min-height', $(window).height())
-  $('body').on('touchstart.dropdown', '.dropdown-menu', (e) ->
-    e.stopPropagation()
-  )
-  $('body').on('click', 'a.dropdown-toggle', (e) ->
-    $(this).dropdown()
-    false
-  )
 
   $('body').on('click', '.nav-collapse a', ->
     $(this).parents('.nav-collapse').collapse('hide')

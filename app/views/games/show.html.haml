@@ -1,14 +1,25 @@
 .common_container#game_page.broad
   = render 'games/game', game: @game, board: @board
 
-  - if user_signed_in?
-    #comments_set
-      %h3
-        %i.icon-comment
-        = Comment.model_name.human
-      = render 'comments/form', comment: Comment.new(game: @game)
-      = render 'comments/comments', game: @game, with_pagination: true, pagination_params: { controller: :comments, action: :index, game_id: @game.id }
+  .row
+    .span3
+      %ul.nav.nav-tabs.nav-stacked
+        %li.active
+          %a{ 'data-toggle' => 'tab', href: '#tab_comments' }
+            = Comment.model_name.human
+        %li
+          %a{ 'data-toggle' => 'tab', href: '#tab_kifu' }
+            = t('game.kifu')
+    .span9
+      .tab-content
+        .tab-pane.fade.in.active#tab_comments
+          = render 'games/comments', game: @game
+        .tab-pane.fade#tab_kifu
+          %h3
+            %i.icon-film
+            = t('game.kifu')
 
+  - if user_signed_in?
     - if @game.playing?
       - your_turn = false
       - last_movement = @game.movements.last
