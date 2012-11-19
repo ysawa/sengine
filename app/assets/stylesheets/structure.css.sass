@@ -19,8 +19,21 @@
       +square(20px)
 
   .navbar-inner
-    background: #fff
-    +background-image(linear-gradient(#333 0, #777 100%))
+    background: #777
+    border-bottom: 1px solid #777
+    +background-image(linear-gradient(#666 0, #999 100%))
+    a
+      color: #fff
+    .dropdown
+      .dropdown-toggle
+        color: #fff
+      &.active, &.open
+        .dropdown-toggle
+          color: #fff
+          background: none
+
+      a
+        color: $color
 
 .common_container
   margin-bottom: 30px
