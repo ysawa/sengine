@@ -13,7 +13,10 @@
 #= require jquery
 #= require jquery-ui
 #= require jquery_ujs
-#= require twitter/bootstrap
+#= require twitter/bootstrap/bootstrap-button
+#= require twitter/bootstrap/bootstrap-collapse
+#= require twitter/bootstrap/bootstrap-dropdown
+#= require twitter/bootstrap/bootstrap-tab
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
@@ -34,6 +37,10 @@ $ ->
   $('.whole_container').css('min-height', $(window).height())
   $('body').on('touchstart.dropdown', '.dropdown-menu', (e) ->
     e.stopPropagation()
+  )
+  $('body').on('click', 'a.dropdown-toggle', (e) ->
+    $(this).dropdown()
+    false
   )
 
   $('body').on('click', '.nav-collapse a', ->
@@ -64,17 +71,6 @@ $ ->
   if ($.check_if_smart_device())
     # smart phone
     true
-
-  change_viewport = ->
-    mobile_width = 540.0
-    width = $(window).width()
-    ratio = width / mobile_width
-    viewport = $('meta[name="viewport"]')
-    content = viewport.attr('content')
-    content = content.replace(/(\d|\.)+$/, '' + ratio)
-    viewport.attr('content', content)
-  $(window).resize change_viewport
-  change_viewport()
 
   ###
   # Features around Facebook
