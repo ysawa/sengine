@@ -125,29 +125,32 @@ article#game
 
 ul#games
   margin: 0
+  padding: 0 10px
+  background: #fff
+  +border-radius(5px)
   li.game
-    @include clearfix
+    +clearfix
     list-style: none
     border-bottom: 1px solid $border_color
-    padding: 10px
-    width: 720px
-    @include atmospheric_background
-    h3
-      border: 0
+    &:last-child
+      border-bottom: 0
+    padding: 10px 0
+    h3.game_users
       margin: 0
-    .game_users,
-    .game_info,
+      width: 30%
+      float: left
+      font-size: 14px
+      img.face
+        +square(40px)
+        @media (max-width: 767px)
+          +square(25px)
+    .game_info
+      float: left
+      width: 45%
     .game_status
       float: left
-      line-height: 25px
-    .game_users
-      width: 150px
-      line-height: 50px
-    .game_info
-      width: 320px
-    .game_status
+      width: 25%
       text-align: right
-      width: 250px
       .playing
         color: #c00
         font-weight: bold
@@ -158,22 +161,10 @@ ul#games
         color: #00c
         font-weight: bold
   li.no_game
+    list-style: none
     color: #f33
     font-weight: bold
     padding: 20px 10px
-    border-bottom: 1px solid $border_color
-@media only screen and (max-width: 759px)
-  ul#games
-    li.game
-      width: 500px
-      div, span
-        font-size: 14px
-      .game_users
-        width: 150px
-      .game_info
-        width: 180px
-      .game_status
-        width: 170px
 
 form.edit_game
   label

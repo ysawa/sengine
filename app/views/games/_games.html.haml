@@ -1,16 +1,14 @@
+- game_is_blank = defined?(show_not_found) && show_not_found && games.blank?
 %ul#games
   - games.each do |game|
     = render 'games/list', game: game
-  - if defined?(show_not_found) && show_not_found && games.blank?
+  - if game_is_blank
     %li.no_game
       = t('notices.model_was_not_found', model: Game.model_name.human)
-- if defined?(with_pagination) && with_pagination
-  %nav.pagination.next_game
-    - name = t('actions.see_more')
-    - unless defined?(pagination_params)
-      - pagination_params = {}
-    = link_to_next_page games, name, remote: true, params: pagination_params, class: :see_more do
-      %span.see_more= name
+- if defined?(with_pagination) && with_pagination && !game_is_blank
+  - unless defined?(pagination_params)
+    - pagination_params = {}
+  = render 'games/pagination', pagination_params: pagination_params, games: games
 :javascript
   $(function () {
     $('li.game a.delete').live('ajax:success', function () {

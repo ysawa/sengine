@@ -4,10 +4,13 @@
       = @subtitle[1]
     - else
       = @subtitle
-  %ul.nav.nav-tabs
-    - %w(playing mine friends).each do |page|
-      %li{ class: (page == action_name ? 'active' : nil) }
-        - name = t("pages.controllers.games.#{page}")
-        - href = { controller: 'games', action: page }
-        = link_to name, href
-  = render 'games/games', games: @games, show_not_found: true, with_pagination: true
+  .row
+    .span3
+      %ul.nav.nav-tabs.nav-stacked
+        - %w(playing mine friends).each do |page|
+          %li{ class: (page == action_name ? 'active' : nil) }
+            - name = t("pages.controllers.games.#{page}")
+            - href = { controller: 'games', action: page }
+            = link_to name, href
+    .span9
+      = render 'games/games', games: @games, show_not_found: true, with_pagination: true

@@ -3,8 +3,7 @@
   - sente_decorator = game.sente_user ? UserDecorator.new(game.sente_user) : nil
   - gote_decorator = game.gote_user ? UserDecorator.new(game.gote_user) : nil
   - won_decorator = game.won_user ? UserDecorator.new(game.won_user) : nil
-  %h3
-  .game_users
+  %h3.game_users
     - if sente_decorator
       = sente_decorator.image
     vs

@@ -1,2 +1,9 @@
-$('nav.next_game').before('<%= escape_javascript(render 'games/games', games: @games, with_pagination: true) %>');
-$('nav.next_game:last').remove();
+<%- game_contents = '' %>
+<%- @games.each do |game| %>
+  <%- game_contents += render 'games/list', game: game %>
+<%- end %>
+
+$('#games').append('<%= escape_javascript(game_contents.html_safe) %>');
+
+<%- games_pagination = render 'games/pagination', games: @games %>
+$('nav.next_game').replaceWith('<%= escape_javascript(games_pagination) %>');
