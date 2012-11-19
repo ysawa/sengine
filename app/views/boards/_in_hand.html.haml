@@ -21,8 +21,7 @@
         - link = profile_path(user.id, from: game_path(game))
         = user_decorator.face(link)
       - all_roles = Piece::HAND_ROLES
-      - if direction == 'upward'
-        - all_roles = all_roles.reverse
+      - all_roles = all_roles.reverse
       - all_roles.each do |role|
         - number = pieces[role]
         - if user == game.sente_user

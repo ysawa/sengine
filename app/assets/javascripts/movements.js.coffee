@@ -20,18 +20,13 @@ class Shogi.Movement extends Backbone.Model
   append_cell_of_piece_role: (cell, piece) ->
     piece_role = piece.attr('role')
     if piece.hasClass('downward')
-      upward = true
       in_hand = $('.in_hand.upward .pieces .board_row')
     else
-      upward = false
       in_hand = $('.in_hand.downward .pieces .board_row')
-    if upward
-      roles = []
-      $.each(Shogi.hand_roles, (i, role) ->
-        roles.unshift(role)
-      )
-    else
-      roles = Shogi.hand_roles
+    roles = []
+    $.each(Shogi.hand_roles, (i, role) ->
+      roles.unshift(role)
+    )
     previous_cell = in_hand.find('.cell:first-child')
     finished = false
     $.each(roles, (i, role) ->
