@@ -45,6 +45,7 @@ class GamesController < ApplicationController
       end
       respond_with(@game)
     else
+      make_subtitle :new
       render :new
     end
   end
