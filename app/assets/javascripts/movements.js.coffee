@@ -21,10 +21,10 @@ class Shogi.Movement extends Backbone.Model
     piece_role = piece.attr('role')
     if piece.hasClass('downward')
       upward = true
-      in_hand = $('.in_hand.upward .pieces .row')
+      in_hand = $('.in_hand.upward .pieces .board_row')
     else
       upward = false
-      in_hand = $('.in_hand.downward .pieces .row')
+      in_hand = $('.in_hand.downward .pieces .board_row')
     if upward
       roles = []
       $.each(Shogi.hand_roles, (i, role) ->
