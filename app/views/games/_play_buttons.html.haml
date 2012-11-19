@@ -1,15 +1,16 @@
 %aside.actions#play_buttons
-  - if board.number > 0
-    = link_to '<<', game_path(game, number: 0), remote: true, class: :button
-    = link_to '<', game_path(game, number: board.number - 1), remote: true, class: :button
-  - else
-    %span{ class: :button } &lt;&lt;
-    %span{ class: :button } &lt;
-  %span{ class: :button }
-    = board.number
-  - if board.number < game.number
-    = link_to '>', game_path(game, number: board.number + 1), remote: true, class: :button
-    = link_to '>>', game_path(game, number: game.number), remote: true, class: :button
-  - else
-    %span{ class: :button } &gt;
-    %span{ class: :button } &gt;&gt;
+  .btn-group
+    - if board.number > 0
+      = link_to '<<', game_path(game, number: 0), remote: true, class: 'btn btn-primary'
+      = link_to '<', game_path(game, number: board.number - 1), remote: true, class: 'btn btn-primary'
+    - else
+      %span{ class: 'btn' } &lt;&lt;
+      %span{ class: 'btn' } &lt;
+    %span{ class: 'btn' }
+      = board.number
+    - if board.number < game.number
+      = link_to '>', game_path(game, number: board.number + 1), remote: true, class: 'btn btn-primary'
+      = link_to '>>', game_path(game, number: game.number), remote: true, class: 'btn btn-primary'
+    - else
+      %span{ class: 'btn' } &gt;
+      %span{ class: 'btn' } &gt;&gt;
