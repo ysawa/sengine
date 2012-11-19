@@ -129,10 +129,16 @@ section.board_container
     width: $cell_width
     height: $cell_height * 9
     padding: $edge_cell_height 0
+  @media (min-width: 768px)
+    .in_hand
+      &.upward
+        +border-bottom-right-radius(5px)
+        +border-top-right-radius(5px)
+      &.downward
+        +border-top-left-radius(5px)
+        +border-bottom-left-radius(5px)
 
-/* Smart Phone */
-@media only screen and (max-width: 767px)
-  section.board_container
+  @media (max-width: 767px)
     width: $board_width
     margin: 0 auto
     .board
@@ -143,4 +149,9 @@ section.board_container
       width: $cell_width * 9
       height: $cell_height
       padding: 0 $side_cell_width
-
+      &.upward
+        +border-bottom-right-radius(5px)
+        +border-bottom-left-radius(5px)
+      &.downward
+        +border-top-left-radius(5px)
+        +border-top-right-radius(5px)
