@@ -1,0 +1,125 @@
+@charset "utf-8"
+
+/* Initializers of the Sass */
+@import 'bourbon'
+@import 'shared/helpers'
+
+$cell_width: 50px
+$cell_height: 55px
+$edge_cell_height: 15px
+$side_cell_width: 15px
+$board_width: $cell_width * 9 + $side_cell_width * 2
+$board_height: $cell_height * 9 + $edge_cell_height * 2
+$piece_size: 45px
+$line_color: #b37100
+$highlight_color: #ff7033
+$selected_color: #77c0ff
+$moved_color: #77c0ff
+
+@mixin corner_cell
+  @include user-select(none)
+  font-size: 11px
+  text-align: center
+  font-weight: bold
+  float: left
+
+.board
+  @include user-select(none)
+  width: $board_width
+  height: $board_height
+  background-repeat: no-repeat
+  .board_row
+    @include clearfix
+    .cell
+      @include user-select(none)
+      float: left
+      width: $cell_width
+      height: $cell_height
+      &.moved,
+      &.selected
+        cursor: pointer
+        background: $selected_color
+      &.highlight
+        cursor: pointer
+        background: $highlight_color
+      .piece
+    .corner_cell
+      @include corner_cell
+      width: $side_cell_width
+      height: $edge_cell_height
+    .edge_cell
+      /* top, bottom */
+      @include corner_cell
+      width: $cell_width
+      height: $edge_cell_height
+      line-height: $edge_cell_height
+    .side_cell
+      /* left, right */
+      @include corner_cell
+      width: $side_cell_width
+      height: $cell_height
+      line-height: $cell_height
+
+.in_hand
+  @include user-select(none)
+  background: #fff
+  .pieces
+    .board_row
+      @include clearfix
+      .cell
+        @include user-select(none)
+        float: left
+        width: $cell_width
+        height: $cell_height
+        position: relative
+        &.moved,
+        &.selected
+          cursor: pointer
+          background: $selected_color
+        &.in_turn
+          background: #c00
+        .piece
+        section.face
+          width: $face_size
+          height: $face_size
+          margin: (($cell_height - $face_size) / 2) (($cell_width - $face_size) / 2)
+          a
+            display: block
+        .number
+          position: absolute
+          right: 0px
+          bottom: 0px
+          color: #f00
+          font-weight: bold
+          font-size: 14px
+
+/* Layouts */
+
+section.board_container
+  @include clearfix
+  width: $cell_width * 11 + $side_cell_width * 2
+  margin: 0 auto
+  .board
+    float: left
+    margin: 0
+  .in_hand
+    float: left
+    margin: 0
+    width: $cell_width
+    height: $cell_height * 9
+    padding: $edge_cell_height 0
+
+/* Smart Phone */
+@media only screen and (max-width: 759px)
+  section.board_container
+    width: $board_width
+    margin: 0 auto
+    .board
+      float: none
+    .in_hand
+      float: none
+      margin: 0 auto
+      width: $cell_width * 9
+      height: $cell_height
+      padding: 0 $side_cell_width
+

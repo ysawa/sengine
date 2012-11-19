@@ -2,5 +2,5 @@
   - name = t('actions.see_more')
   - unless defined?(pagination_params)
     - pagination_params = {}
-  = link_to_next_page games, name, remote: true, params: pagination_params, class: 'btn btn-block btn-large btn-primary see_more' do
-    %span.see_more.btn.btn-block.btn-large.btn-primary.disabled= name
+  = link_to_next_page games, name, remote: true, params: pagination_params, class: 'btn btn-block btn-large see_more' do
+    %span.see_more.btn.btn-block.btn-large.disabled= name

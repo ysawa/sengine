@@ -11,23 +11,6 @@ $side_cell_width: 15px
 $board_width: $cell_width * 9 + $side_cell_width * 2
 $board_height: $cell_height * 9 + $edge_cell_height * 2
 $piece_size: 45px
-$line_color: #b37100
-$highlight_color: #77c0ff
-$selected_color: $highlight_color
-$moved_color: $highlight_color
-
-@mixin corner_cell
-  @include user-select(none)
-  font-size: 11px
-  text-align: center
-  font-weight: bold
-  float: left
-
-@mixin selected
-  background-position: (- $cell_width * 4) (- $cell_height)
-
-@mixin highlight
-  background-position: (- $cell_width * 7) (- $cell_height)
 
 #game_page
   #game_information
@@ -57,76 +40,6 @@ article#game
 @media only screen and (max-width: 759px)
   article#game
     margin-top: 0
-
-.board
-  @include user-select(none)
-  width: $board_width
-  height: $board_height
-  background-repeat: no-repeat
-  .board_row
-    @include clearfix
-    .cell
-      @include user-select(none)
-      float: left
-      width: $cell_width
-      height: $cell_height
-      &.moved,
-      &.selected
-        cursor: pointer
-        @include selected
-      &.highlight
-        cursor: pointer
-        @include highlight
-      .piece
-    .corner_cell
-      @include corner_cell
-      width: $side_cell_width
-      height: $edge_cell_height
-    .edge_cell
-      /* top, bottom */
-      @include corner_cell
-      width: $cell_width
-      height: $edge_cell_height
-      line-height: $edge_cell_height
-    .side_cell
-      /* left, right */
-      @include corner_cell
-      width: $side_cell_width
-      height: $cell_height
-      line-height: $cell_height
-
-.in_hand
-  @include user-select(none)
-  @include atmospheric_background
-  .pieces
-    .board_row
-      @include clearfix
-      .cell
-        @include user-select(none)
-        float: left
-        width: $cell_width
-        height: $cell_height
-        position: relative
-        &.moved,
-        &.selected
-          cursor: pointer
-          @include selected
-        &.in_turn
-          @include highlight
-        .piece
-        section.face
-          width: $face_size
-          height: $face_size
-          margin: (($cell_height - $face_size) / 2) (($cell_width - $face_size) / 2)
-          a
-            display: block
-        .number
-          position: absolute
-          right: 0px
-          bottom: 0px
-          color: #f00
-          font-weight: bold
-          font-size: 14px
 
 ul#games
   margin: 0
@@ -217,38 +130,8 @@ form.edit_game
       select#game_handicap
         height: 44px
 
-/* Layouts */
-
-section.board_container
-  @include clearfix
-  width: $cell_width * 11 + $side_cell_width * 2
-  margin: 0 auto
-  .board
-    float: left
-    margin: 0
-  .in_hand
-    float: left
-    margin: 0
-    width: $cell_width
-    height: $cell_height * 9
-    padding: $edge_cell_height 0
-
-/* Smart Phone */
 @media only screen and (max-width: 759px)
   article#game
     aside#game_buttons
       width: $board_width - 20px
       margin: 10px auto
-
-  section.board_container
-    width: $board_width
-    margin: 0 auto
-    .board
-      float: none
-    .in_hand
-      float: none
-      margin: 0 auto
-      width: $cell_width * 9
-      height: $cell_height
-      padding: 0 $side_cell_width
-
