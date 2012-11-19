@@ -17,8 +17,10 @@ form.edit_comment
     width: 10%
     margin-right: 5%
     img.face
-      +square(40px)
+      +square(50px)
       @media (max-width: 767px)
+        +square(40px)
+      @media (max-width: 480px)
         +square(25px)
   section.field
     float: left
@@ -60,8 +62,10 @@ ul#comments
       width: 10%
       margin-right: 5%
       img.face
-        +square(40px)
+        +square(50px)
         @media (max-width: 767px)
+          +square(40px)
+        @media (max-width: 480px)
           +square(25px)
     .comment_content
       float: left

@@ -59,8 +59,10 @@ ul#games
       float: left
       font-size: 14px
       img.face
-        +square(40px)
+        +square(50px)
         @media (max-width: 767px)
+          +square(40px)
+        @media (max-width: 480px)
           +square(25px)
     .game_info
       float: left

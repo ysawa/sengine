@@ -16,8 +16,8 @@
           %td
             = decorator.public_send attr_name
         %td
-          = link_to t('actions.show'), [:sys, user]
+          = link_to t('actions.show'), sys_user_path(user)
         %td
           = link_to t('actions.edit'), edit_sys_user_path(user)
         %td
-          = link_to t('actions.destroy'), [:sys, user], method: :delete
+          = link_to t('actions.destroy'), sys_user_path(user), method: :delete
