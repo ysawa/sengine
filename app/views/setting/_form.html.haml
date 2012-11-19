@@ -1,19 +1,23 @@
-= form_for(current_user, url: setting_path, html: { class: %w(edit_user validated) }) do |f|
-  %section.field
-    = f.label :name
-    = f.text_field :name, class: :required
-  %section.field
-    = f.label :locale
-    - locales = Shogiengine::LOCALES.collect { |locale| [translate_user_locale(locale), locale] }
-    = f.select :locale, locales, {}, class: :required
-  %section.field
-    = f.label :timezone_string
-    = f.time_zone_select :timezone_string, nil, { include_blank: User.human_attribute_name(:timezone) }
-  %section.field
-    = f.label :audio_on
-    - [true, false].each do |value|
-      = label_tag "user_audio_on_#{value}", t("user.audio")[value], class: :inline
-      = f.radio_button :audio_on, value, class: :required
-      &nbsp;&nbsp;
-  %section.actions
-    = f.submit t('helpers.submit.save')
+= form_for(current_user, url: setting_path, html: { class: %w(edit_user validated form-horizontal) }) do |f|
+  %section.control-group
+    = f.label :name, nil, class: 'control-label'
+    %section.controls
+      = f.text_field :name, class: :required
+  %section.control-group
+    = f.label :locale, nil, class: 'control-label'
+    %section.controls
+      - locales = Shogiengine::LOCALES.collect { |locale| [translate_user_locale(locale), locale] }
+      = f.select :locale, locales, {}, class: :required
+  %section.control-group
+    = f.label :timezone_string, nil, class: 'control-label'
+    %section.controls
+      = f.time_zone_select :timezone_string, nil, { include_blank: User.human_attribute_name(:timezone) }
+  %section.control-group
+    = f.label :audio_on, nil, class: 'control-label'
+    %section.controls
+      - [true, false].each do |value|
+        = label_tag "user_audio_on_#{value}", t("user.audio")[value], class: %w(radio inline) do
+          = f.radio_button :audio_on, value, class: :required
+  %section.control-group
+    %section.controls
+      = f.submit t('helpers.submit.save'), class: 'btn btn-primary'

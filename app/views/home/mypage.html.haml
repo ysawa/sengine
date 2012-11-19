@@ -1,28 +1,28 @@
 .common_container#mypage
   %h2= @subtitle
-  %article#mypage_main.row
-    .span7
+  .row
+    .span3
       = render 'profile/profile', user: current_user
-    .span5
+    .span9
       %nav#mypage_navi
         = render 'home/mypage/menu'
-  - comments = []
-  - games = Game.of_user(current_user).playing.desc(:updated_at).limit(3).to_a
-  - not_author_comments = Comment.of_not_author(current_user)
-  - if games.present?
-    - page = 'playing'
-    - name = t("pages.controllers.games.#{page}")
-    %h3
-      = name
-  - else
-    - games = Game.desc(:updated_at).limit(3).to_a
-    %h3
-      = t("game.everyone")
-  = render 'games/games', games: games, with_pagination: false
-  %h3
-    = Comment.model_name.human
-  - if comments.blank? && current_user.friend_ids?
-    - comments = not_author_comments.of_author_friends(current_user).desc(:created_at).limit(3).to_a
-  - if comments.blank?
-    - comments = not_author_comments.desc(:created_at).limit(3).to_a
-  = render 'comments/comments', comments: comments, with_pagination: false, with_game: true
+      - comments = []
+      - games = Game.of_user(current_user).playing.desc(:updated_at).limit(3).to_a
+      - not_author_comments = Comment.of_not_author(current_user)
+      - if games.present?
+        - page = 'playing'
+        - name = t("pages.controllers.games.#{page}")
+        %h3
+          = name
+      - else
+        - games = Game.desc(:updated_at).limit(3).to_a
+        %h3
+          = t("game.everyone")
+      = render 'games/games', games: games, with_pagination: false
+      %h3
+        = Comment.model_name.human
+      - if comments.blank? && current_user.friend_ids?
+        - comments = not_author_comments.of_author_friends(current_user).desc(:created_at).limit(3).to_a
+      - if comments.blank?
+        - comments = not_author_comments.desc(:created_at).limit(3).to_a
+      = render 'comments/comments', comments: comments, with_pagination: false, with_game: true

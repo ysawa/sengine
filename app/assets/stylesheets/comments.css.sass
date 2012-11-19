@@ -42,8 +42,10 @@ form.edit_comment
         width: 440px
 
 ul#comments
+  margin: 0
   li.comment
-    @include clearfix
+    +clearfix
+    list-style: none
     border-bottom: 1px solid $border_color
     padding: 10px
     width: 720px

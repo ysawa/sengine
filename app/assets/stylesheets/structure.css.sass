@@ -12,6 +12,8 @@
     line-height: 20px
     a
       color: #fff
+      &:hover
+        text-decoration: none
   #global_navi
     img.face
       +square(20px)
@@ -22,6 +24,10 @@
     width: 100%
     overflow: hidden
     text-align: center
+  @media (max-width: 767px)
+    #google_adsense
+      margin: 0 -20px
+      width: 320px
   p
     margin-top: 10px
     text-align: center

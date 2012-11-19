@@ -12,38 +12,6 @@
       width: 460px
 
 #user_profile
-  @include clearfix
-  margin-bottom: 30px
-  @include atmospheric_background
-  padding: 10px 10px 0
-  border: 1px solid $border_color
-  border:
-    left: 0
-    right: 0
-  a#user_face
-    float: left
-    display: block
-    width: 100px
-    height: 100px
-    margin-right: 20px
-    margin-bottom: 10px
-  dl
-    float: left
-    width: 380px
-    @include clearfix
-    dt, dd
-      float: left
-      margin-bottom: 12px
-    dt
-      font-weight: bold
-      width: 80px
-    dd
-      width: 300px
-@media only screen and (max-width: 759px)
-  #user_profile
-    dl
-      dt, dd
-        margin-bottom: 8px
 
 section.face
   width: 50px
@@ -71,8 +39,6 @@ img.face
     height: 100px
 
 form.edit_user
-  input#user_name
-    width: 260px
 
 section.theme_collection
   @include clearfix

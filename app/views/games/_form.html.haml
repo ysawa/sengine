@@ -32,7 +32,7 @@
     #game_handicap_select
       = select_tag :game_handicap, options_for_select(game_handicaps_for_select)
   %section.actions
-    = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading')
+    = f.submit t('helpers.submit.play_game'), 'data-disable-with' => t('actions.now_loading'), class: 'btn btn-block btn-large btn-primary'
 :javascript
   $(function () {
     Shogi.edit_game_form($('form.edit_game'));

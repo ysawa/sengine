@@ -33,8 +33,10 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
     value, options = nil, value if value.is_a?(Hash)
     value ||= submit_default_value
     options = options.stringify_keys
-    options['class'] = :send
-    options['data-disable-with'] = I18n.t('actions.saving')
+    options.reverse_merge!(
+      'class' => 'btn send',
+      'data-disable-with' => I18n.t('actions.saving')
+    )
     @template.submit_tag(value, options)
   end
 end

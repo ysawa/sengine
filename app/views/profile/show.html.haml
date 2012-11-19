@@ -1,18 +1,17 @@
 .common_container#user_page
   %h2= @subtitle
-  = render 'profile/profile', user: @user
-  %ul.tabs
-    %li
-      %span.active
+  .row
+    .span3
+      = render 'profile/profile', user: @user
+    .span9
+      %h3
         = t('user.theme_collection')
-  = render 'theme_collection', user: @user
-  %ul.tabs
-    %li
-      %span.active
+      = render 'theme_collection', user: @user
+      %h3
         = Game.model_name.human
-  - games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
-  = render 'games/games', games: games, pagination_params: { controller: :games, action: :index, user_id: @user.id }, with_pagination: true
-  - if params[:from]
-    %section.actions
-      = link_to t('actions.back_to_game'), params[:from], class: :button
+      - games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
+      = render 'games/games', games: games, pagination_params: { controller: :games, action: :index, user_id: @user.id }, with_pagination: true
+      - if params[:from]
+        %section.actions
+          = link_to t('actions.back_to_game'), params[:from], class: :button
 

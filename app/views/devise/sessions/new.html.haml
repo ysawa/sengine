@@ -1,17 +1,23 @@
 .common_container#session_page
-  %h2 Sign in
-  = form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: :user_sign_in }) do |f|
+  %h2= t('helpers.submit.sign_in')
+  - html_options = { id: :user_sign_in, class: %w(validated form-horizontal) }
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: html_options) do |f|
     = devise_error_messages!
-    %section.field
-      = f.label :email
-      = f.email_field :email
-    %section.field
-      = f.label :password
-      = f.password_field :password
+    %section.control-group
+      = f.label :email, nil, class: 'control-label'
+      %section.controls
+        = f.email_field :email
+    %section.control-group
+      = f.label :password, nil, class: 'control-label'
+      %section.controls
+        = f.password_field :password
     - if devise_mapping.rememberable?
-      %section.field
-        = f.check_box :remember_me
-        = f.label :remember_me, nil, class: :inline
-    %section.actions
-      = f.submit 'Sign in', class: :send
+      %section.control-group
+        %section.controls
+          = f.label :remember_me, nil, class: :inline do
+            = f.check_box :remember_me
+            = User.human_attribute_name :remember_me
+    %section.control-group
+      %section.controls
+        = f.submit t('helpers.submit.sign_in'), class: 'btn btn-primary'
   = render 'devise/shared/links'

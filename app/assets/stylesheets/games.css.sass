@@ -124,8 +124,10 @@ article#game
           font-size: 14px
 
 ul#games
+  margin: 0
   li.game
     @include clearfix
+    list-style: none
     border-bottom: 1px solid $border_color
     padding: 10px
     width: 720px
@@ -201,6 +203,7 @@ form.edit_game
         text-decoration: none
   #game_handicap_select
     text-align: center
+    display: none
     select#game_handicap
       margin-top: 15px
       width: 470px
