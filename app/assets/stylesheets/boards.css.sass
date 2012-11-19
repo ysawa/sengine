@@ -28,6 +28,7 @@ $moved_color: #77c0ff
   width: $board_width
   height: $board_height
   background-repeat: no-repeat
+  background-size: contain
   .board_row
     @include clearfix
     .cell
@@ -93,8 +94,26 @@ $moved_color: #77c0ff
           font-weight: bold
           font-size: 14px
 
-/* Layouts */
+.piece
+  +user-select(none)
+  +no_text
+  color: transparent
+  width: $cell_width
+  height: $cell_height
+  font-size: 18px
+  background-repeat: no-repeat
+  background-size: contain
+  &.downward
+    background-position: left top
+  &.upward
+    background-position: right bottom
+  &.moved
+  &.selected
+  &.upward
+    &.playable
+      cursor: pointer
 
+/* Layouts */
 section.board_container
   @include clearfix
   width: $cell_width * 11 + $side_cell_width * 2
@@ -110,7 +129,7 @@ section.board_container
     padding: $edge_cell_height 0
 
 /* Smart Phone */
-@media only screen and (max-width: 759px)
+@media only screen and (max-width: 767px)
   section.board_container
     width: $board_width
     margin: 0 auto

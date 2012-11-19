@@ -5,24 +5,14 @@ body
 <% %w(default test).each do |theme| %>
   &.theme_<%= theme %>
     background-image: url(<%= asset_path "bg/#{theme}.jpg" %>)
-    $piece_image: url(<%= asset_path "pieces/#{theme}.png" %>)
     .piece
-      background-image: $piece_image
+<% %w(fu ky ke gi ki ka hi ou to ny nk ng um ry).each do |role| %>
+<% { dn: 'downward', up: 'upward' }.each do |key, direction| %>
+      &.role_<%= role %>.<%= direction %>
+        $piece_image: url(<%= asset_path "pieces/#{theme}/#{key}_#{role}.png" %>)
+        background-image: $piece_image
+<% end %>
+<% end %>
     .board
       background-image: url(<%= asset_path "boards/#{theme}.jpg" %>)
-      .row
-        .cell
-          &.moved,
-          &.selected
-            background-image: $piece_image
-          &.highlight
-            background-image: $piece_image
-    .in_hand
-      .pieces
-        .row
-          .cell
-            &.moved,
-            &.selected,
-            &.in_turn
-              background-image: $piece_image
 <% end %>
