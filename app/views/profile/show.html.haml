@@ -1,5 +1,7 @@
 .common_container#user_page
-  %h2= @subtitle
+  %h2
+    %i.icon-user
+    = @subtitle
   .row
     .span3
       = render 'profile/profile', user: @user

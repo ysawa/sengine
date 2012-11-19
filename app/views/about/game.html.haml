@@ -1,5 +1,7 @@
 .common_container#about_page
-  %h2= @subtitle
+  %h2
+    %i.icon-info-sign
+    = @subtitle
   = render 'game'
   %section.actions
     = link_to_sign_in nil, 'data-disable-with' => t('actions.now_loading'), class: 'btn btn-large btn-block btn-primary'

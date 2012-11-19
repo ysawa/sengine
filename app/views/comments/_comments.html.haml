@@ -2,16 +2,14 @@
   - comments = game.comments.desc(:created_at).page.per(5)
 - unless defined?(with_game)
   - with_game = nil
+- comment_is_blank = defined?(show_not_found) && show_not_found && comments.blank?
 %ul#comments
   - comments.each do |comment|
     = render 'comments/comment', comment: comment, with_game: with_game
-  - if defined?(show_not_found) && show_not_found && comments.blank?
+  - if comment_is_blank
     %li.no_comment
       = t('notices.model_was_not_found', model: Comment.model_name.human)
-- if defined?(with_pagination) && with_pagination
-  %nav.pagination.next_comment
-    - name = t('actions.see_more')
-    - unless defined?(pagination_params)
-      - pagination_params = {}
-    = link_to_next_page comments, name, remote: true, params: pagination_params, class: :see_more do
-      %span.see_more= name
+- if defined?(with_pagination) && with_pagination && !comment_is_blank
+  - unless defined?(pagination_params)
+    - pagination_params = {}
+  = render 'comments/pagination', comments: comments, pagination_params: pagination_params

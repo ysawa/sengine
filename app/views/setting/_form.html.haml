@@ -16,8 +16,10 @@
     = f.label :audio_on, nil, class: 'control-label'
     %section.controls
       - [true, false].each do |value|
-        = label_tag "user_audio_on_#{value}", t("user.audio")[value], class: %w(radio inline) do
+        - name = t("user.audio")[value]
+        = label_tag "user_audio_on_#{value}", name, class: %w(radio inline) do
           = f.radio_button :audio_on, value, class: :required
+          = name
   %section.control-group
     %section.controls
       = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
