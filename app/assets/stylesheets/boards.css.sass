@@ -96,10 +96,9 @@ section.board_container
 
 /* How large each part is.
 
-=board_format($cell_width, $cell_height, $side_cell_width, $edge_cell_height, $face_size, $horizontal: true)
+=board_format($cell_width, $cell_height, $side_cell_width, $edge_cell_height, $face_size)
   $board_width: $cell_width * 9 + $side_cell_width * 2
   $board_height: $cell_height * 9 + $edge_cell_height * 2
-
   section.board_container
     width: $cell_width * 11 + $side_cell_width * 2
     .board
@@ -132,6 +131,10 @@ section.board_container
       width: $cell_width
       height: $cell_height
 
+=board_direction_format($cell_width, $cell_height, $side_cell_width, $edge_cell_height, $horizontal: true)
+  $board_width: $cell_width * 9 + $side_cell_width * 2
+  $board_height: $cell_height * 9 + $edge_cell_height * 2
+  section.board_container
     @if $horizontal
       .board
         float: left
@@ -161,16 +164,20 @@ section.board_container
           +border-top-right-radius(5px)
 
 @media (min-width: 768px)
-  +board_format(50px, 55px, 15px, 15px, $face_size, true)
+  +board_format(50px, 55px, 15px, 15px, $face_size)
+  +board_direction_format(50px, 55px, 15px, 15px, true)
 
 @media (max-width: 767px)
-  +board_format(40px, 44px, 12px, 12px, 40px, false)
+  +board_format(40px, 44px, 12px, 12px, 40px)
+  +board_direction_format(40px, 44px, 12px, 12px, false)
 
+@media (max-width: 480px)
+  +board_format(33.33px, 36.66px, 9.999px, 9.999px, 33.33px)
 @media (max-width: 480px) and (orientation: landscape)
-  +board_format(33.33px, 36.66px, 9.999px, 9.999px, 33.33px, true)
+  +board_direction_format(33.33px, 36.66px, 9.999px, 9.999px, true)
 
 @media (max-width: 320px)
-  +board_format(33.33px, 36.66px, 9.999px, 9.999px, 33.33px, false)
+  +board_direction_format(33.33px, 36.66px, 9.999px, 9.999px, false)
   section.board_container
     width: 320px
     margin: 0 -15px
