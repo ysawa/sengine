@@ -253,8 +253,6 @@ module SBot
           end
           break
         end
-      end
-      Piece::JUMP_DIRECTIONS.each do |move|
         point = @gote_ou
         1.upto(8).each do
           point += move
