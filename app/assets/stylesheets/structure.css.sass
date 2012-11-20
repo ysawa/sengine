@@ -4,6 +4,19 @@
 @import 'bourbon'
 @import 'shared/helpers'
 
+/* Override Twitter Bootstrap */
+
+@media (max-width: 767px)
+  // Padding to set content in a bit
+  body
+    padding-left: 15px
+    padding-right: 15px
+  // Negative indent the now static "fixed" navbar
+  .navbar-fixed-top,
+  .navbar-fixed-bottom
+    margin-left: -15px
+    margin-right: -15px
+
 #global_head
   h1.brand
     padding: 10px 0
@@ -46,13 +59,8 @@
     text-align: center
   @media (max-width: 767px)
     #google_adsense
-      margin: 0 -20px
+      margin: 0 -15px
       width: 320px
   p
     margin-top: 10px
     text-align: center
-
-@media (max-width: 320px)
-  body
-    width: 320px
-    overflow: hidden
