@@ -8,7 +8,7 @@ $button_color: #f93
 $activated_color: #37f
 $mobile_button_font_size: 24px
 
-@mixin rotate180
+=rotate180
   /* FireFox */
   -moz-transform: rotate(180deg)
   /* Opera */
@@ -24,17 +24,17 @@ $mobile_button_font_size: 24px
 
 $document_tags: body, p, pre, ol, ul, li, table, th, td, div, span, h1, h2, h3, h4, h5, h6, dd, dt, dl, pre, code, form, fieldset, legend, p, blockquote, article, header, footer, section, nav
 
-@mixin atmospheric_background($transparency: 0.8)
+=atmospheric_background($transparency: 0.8)
   background: #fff
   background: rgba(255, 255, 255, $transparency)
 
-@mixin no_text
+=no_text
   text-indent: -9999px
 
-@mixin square($size)
+=square($size)
   width: $size
   height: $size
 
-@mixin pill_button($background_color: $button_color)
+=pill_button($background_color: $button_color)
   @include button(pill, $background_color)
   padding: 10px 15px
