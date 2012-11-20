@@ -126,8 +126,7 @@ section.board_container
       width: $cell_width
       height: $cell_height
       section.face
-        width: $face_size
-        height: $face_size
+        +square($face_size)
         margin: (($cell_height - $face_size) / 2) (($cell_width - $face_size) / 2)
     .piece
       width: $cell_width
@@ -168,7 +167,7 @@ section.board_container
   +board_format(30px, 33px, 9px, 9px, 30px, false)
 
 @media (max-width: 320px)
-  +board_format(27.5px, 30.25px, 8.25px, 8.25px, 27.5px, false)
+  +board_format(33.33px, 36.66px, 9.999px, 9.999px, 33.33px, false)
   section.board_container
     width: 320px
     margin: 0 -15px
