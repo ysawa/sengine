@@ -11,8 +11,8 @@
       margin-top: 15px
       border: 1px solid $border_color
       position: relative
-      @include atmospheric_background
-      @include border-radius(5px)
+      +atmospheric_background
+      +border-radius(5px)
       span.site_message
         color: #999
         position: absolute
@@ -34,7 +34,7 @@
 
 #mypage
   article#mypage_main
-    @include clearfix
+    +clearfix
     #user_profile
       margin: 0
     nav#mypage_navi
