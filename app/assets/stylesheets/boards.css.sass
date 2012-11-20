@@ -75,7 +75,8 @@ section.board_container
           bottom: 0px
           color: #f00
           font-weight: bold
-          font-size: 12px
+          line-height: 1
+          font-size: 11px
 
 .piece
   +user-select(none)
@@ -164,7 +165,7 @@ section.board_container
           +border-top-right-radius(5px)
 
 @media (min-width: 768px)
-  +board_format(50px, 55px, 15px, 15px, $face_size)
+  +board_format(50px, 55px, 15px, 15px, 50px)
   +board_direction_format(50px, 55px, 15px, 15px, true)
 
 @media (max-width: 767px)
@@ -172,10 +173,10 @@ section.board_container
   +board_direction_format(40px, 44px, 12px, 12px, false)
 
 @media (max-width: 480px)
-  +board_format(33.33px, 36.66px, 9.999px, 9.999px, 33.33px)
-  +board_direction_format(33.33px, 36.66px, 9.999px, 9.999px, false)
+  +board_format(33.333px, 36.666px, 9.9999px, 9.9999px, 33.333px)
+  +board_direction_format(33.333px, 36.666px, 9.9999px, 9.9999px, false)
 @media (max-width: 480px) and (orientation: landscape)
-  +board_direction_format(33.33px, 36.66px, 9.999px, 9.999px, true)
+  +board_direction_format(33.333px, 36.666px, 9.9999px, 9.9999px, true)
 
 @media (max-width: 320px)
   section.board_container
