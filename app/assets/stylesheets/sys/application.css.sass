@@ -28,49 +28,6 @@
 @import 'shared/helpers'
 
 /* Common Parts */
-h2
-  margin-bottom: 10px
-  font-weight: bold
-  font-size: 140%
-h3
-  margin: 20px 0 10px
-  font-size: 130%
-  font-weight: bold
-  border-bottom: 1px solid $border_color
-h4
-  margin: 20px 0 0px
-  font-size: 110%
-  font-weight: bold
-p
-  margin: 10px 0
-label
-  display: block
-  &.must:after
-    content: '*'
-    color: #f00
-  &.error
-    color: #f00
-    display: none
-    white-space: none
-    font-weight: normal
-    img
-      vertical-align: middle
-  &.inline
-    display: inline
-    font-weight: normal
-
-a
-  &.button
-    @include button
-    @include inline-block
-    font-size: 100%
-    text-decoration: none
-span
-  &.button
-    @include button(simple, #eee)
-    @include inline-block
-    font-size: 100%
-    text-decoration: none
 
 .common_container
   padding: 10px
