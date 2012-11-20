@@ -22,12 +22,6 @@ section.board_container
   overflow: hidden
   position: relative
   margin: 0 auto
-  .board
-    float: left
-    margin: 0
-  .in_hand
-    float: left
-    margin: 0
 
 .board
   +user-select(none)
@@ -140,7 +134,10 @@ section.board_container
       height: $cell_height
 
     @if $horizontal
+      .board
+        float: left
       .in_hand
+        float: left
         &.upward
           +border-bottom-right-radius(5px)
           +border-top-right-radius(5px)
@@ -154,8 +151,6 @@ section.board_container
         float: none
       .in_hand
         float: none
-        margin: 0 auto
-      .in_hand
         width: $cell_width * 9
         height: $cell_height
         padding: 0 $side_cell_width
