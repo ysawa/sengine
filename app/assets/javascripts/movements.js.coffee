@@ -67,8 +67,10 @@ class Shogi.Movement extends Backbone.Model
     cell = Shogi.Board.cell_on_point(to_point)
     from_position = piece_selected.parents('.cell').position()
     to_position = cell.position()
+    console.log from_position
+    console.log to_position
     piece_selected.css(top: from_position.top, left: from_position.left)
-    $('#game_page').append(piece_selected)
+    $('.board_container').append(piece_selected)
     animation = { top: to_position.top, left: to_position.left }
     @animate(
       piece_selected, animation, ->
