@@ -101,7 +101,6 @@ section.board_container
   $board_width: $cell_width * 9 + $side_cell_width * 2
   $board_height: $cell_height * 9 + $edge_cell_height * 2
   section.board_container
-    width: $cell_width * 11 + $side_cell_width * 2
     .board
       width: $board_width
       height: $board_height
@@ -135,6 +134,7 @@ section.board_container
   $board_height: $cell_height * 9 + $edge_cell_height * 2
   section.board_container
     @if $horizontal
+      width: $board_width + $cell_width * 2
       .board
         float: left
       .in_hand
