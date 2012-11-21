@@ -3,25 +3,26 @@
   - sente_decorator = game.sente_user ? UserDecorator.new(game.sente_user) : nil
   - gote_decorator = game.gote_user ? UserDecorator.new(game.gote_user) : nil
   - won_decorator = game.won_user ? UserDecorator.new(game.won_user) : nil
-  %h3.game_users
-    - if sente_decorator
-      = sente_decorator.image
-    vs
-    - if gote_decorator
-      = gote_decorator.image
   .game_info
-    = decorator.name(true)
-    %br
-    %span.mobile_hide
-      = t('game.time_span')
-    = decorator.time_span
-    \/
-    %span.mobile_hide
-      = Game.human_attribute_name(:number)
-      = decorator.number
+    %h3.game_users
+      - if sente_decorator
+        = sente_decorator.image
+      vs
+      - if gote_decorator
+        = gote_decorator.image
+    .game_content
+      = decorator.name(true)
+      %br
+      %span.mobile_hide
+        = t('game.time_span')
+      = decorator.time_span
       \/
-    = Game.human_attribute_name 'comments'
-    = game.comments.count
+      %span.mobile_hide
+        = Game.human_attribute_name(:number)
+        = decorator.number
+        \/
+      = Game.human_attribute_name 'comments'
+      = game.comments.count
   .game_status
     - if game.playing?
       %span.playing

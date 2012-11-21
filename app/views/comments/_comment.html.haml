@@ -9,16 +9,16 @@
 - unless defined?(insert_time)
   - insert_time = nil
 %li.comment{ 'comment-id' => comment.id, 'data-insert-time' => insert_time }
-  .comment_user
+  .comment_info
     = decorator.author_image true
-  .comment_content
-    = decorator.content
-    %br
-    = decorator.created_at
-    - if game_link
-      %span.comment_game
-        .visible-phone
-          \(#{game_link})
+    .comment_content
+      = decorator.content
+      %br
+      = decorator.created_at
+      - if game_link
+        %span.comment_game
+          .visible-phone
+            \(#{game_link})
   - if game_link
     .comment_game.hidden-phone
       = game_decorator.name(true, false)
