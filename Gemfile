@@ -63,6 +63,9 @@ gem 'unicorn'
 
 gem 'jpmobile'
 
+# Web Socket
+gem 'websocket-rails'
+
 # Resque to process delayed jobs
 gem 'resque'
 gem 'resque-scheduler', require: 'resque_scheduler'
