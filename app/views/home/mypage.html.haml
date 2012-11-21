@@ -15,17 +15,17 @@
         - if games.present?
           - page = 'playing'
           - name = t("pages.controllers.games.#{page}")
-          %h3
+          %h3<
             %i.icon-book
             = name
         - else
           - games = Game.desc(:updated_at).limit(3).to_a
-          %h3
+          %h3<
             %i.icon-book
             = t("game.everyone")
         = render 'games/games', games: games, with_pagination: false
       %section.mypage_content
-        %h3
+        %h3<
           %i.icon-comment
           = Comment.model_name.human
         - if comments.blank? && current_user.friend_ids?
