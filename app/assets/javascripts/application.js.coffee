@@ -19,7 +19,6 @@
 #= require twitter/bootstrap/bootstrap-tab
 #= require twitter/bootstrap/bootstrap-tooltip
 #= require twitter/bootstrap/bootstrap-popover
-#= require web_socket
 #= require jquery.pjax
 #= require jquery.pnotify
 #= require jquery-validation/jquery.validate
