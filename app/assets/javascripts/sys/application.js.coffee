@@ -6,7 +6,8 @@
 #= require jquery-validation/jquery.validate
 #= require_directory ../helpers/
 #= require audio
-#= require shogi
+#= require shogi/shogi
+#= require_directory ../shogi/
 #= require_self
 #= require_directory .
 
