@@ -45,8 +45,13 @@ ul.nav-stacked
       a
         font-weight: bold
 
+.article_content
+  +border-radius(5px)
+  background: #fff
+  padding: 10px
+
 .slider
-  @include user-select
+  +user-select
   width: 520px
   margin: 0 auto
   height: 60px
@@ -56,14 +61,14 @@ ul.nav-stacked
   .slides
     position: absolute
     overflow: hidden
-    @include clearfix
+    +clearfix
     left: 20px
     top: 0px
     height: 60px
     margin: 0
     .slide
       list-style-type: none
-      @include square(50px)
+      +square(50px)
       padding: 5px
       background: #f0f0f0
       float: left
