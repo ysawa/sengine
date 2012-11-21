@@ -1,2 +1,9 @@
-$('nav.next_feedback').before('<%= escape_javascript(render 'feedbacks/feedbacks', feedbacks: @feedbacks, with_pagination: true) %>');
-$('nav.next_feedback:last').remove();
+<%- feedback_contents = '' %>
+<%- @feedbacks.each do |feedback| %>
+  <%- feedback_contents += render 'feedbacks/list', feedback: feedback %>
+<%- end %>
+
+$('#feedbacks').append('<%= escape_javascript(feedback_contents.html_safe) %>');
+
+<%- feedbacks_pagination = render 'feedbacks/pagination', feedbacks: @feedbacks %>
+$('nav.next_feedback').replaceWith('<%= escape_javascript(feedbacks_pagination) %>');

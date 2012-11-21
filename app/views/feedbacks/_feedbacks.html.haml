@@ -1,14 +1,12 @@
 - html_classes = []
+- feedback_is_blank = defined?(show_not_found) && show_not_found && feedbacks.blank?
 %ul#feedbacks
   - feedbacks.each do |feedback|
     = render 'feedbacks/list', feedback: feedback
-  - if defined?(show_not_found) && show_not_found && feedbacks.blank?
+  - if feedback_is_blank
     %li.no_feedback
       = t('notices.model_was_not_found', model: Feedback.model_name.human)
-- if defined?(with_pagination) && with_pagination
-  %nav.pagination.next_feedback
-    - name = t('actions.see_more')
-    - unless defined?(pagination_params)
-      - pagination_params = {}
-    = link_to_next_page feedbacks, name, remote: true, params: pagination_params, class: :see_more do
-      %span.see_more= name
+- if defined?(with_pagination) && with_pagination && !feedback_is_blank
+  - unless defined?(pagination_params)
+    - pagination_params = {}
+  = render 'feedbacks/pagination', feedbacks: feedbacks, pagination_params: pagination_params

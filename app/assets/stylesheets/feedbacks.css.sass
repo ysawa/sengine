@@ -5,7 +5,7 @@
 @import 'shared/helpers'
 
 article.feedback
-  @include clearfix
+  +clearfix
   width: 740px
   aside.face
     float: left
@@ -27,51 +27,54 @@ form.edit_feedback
   margin-bottom: 30px
   section.field
     margin: 10px 0
-    @include clearfix
+    +clearfix
     textarea#feedback_content
       margin: 0
-      width: 514px
+      width: 506px
     input[type="submit"]
       float: right
-      @include border-radius(5px)
-@media only screen and (max-width: 759px)
-  form.edit_feedback
+  @media (max-width: 767px)
+    width: 450px
     section.field
-      input[type="submit"]
-        float: none
-        width: 520px
+      textarea#feedback_content
+        width: 436px
+  @media (max-width: 480px)
+    width: 300px
+    section.field
+      textarea#feedback_content
+        width: 286px
 
 ul#feedbacks
-  &.first
-    border-top: 1px solid $border_color
+  margin: 0
+  padding: 0 10px
+  background: #fff
+  +border-radius(5px)
   li.feedback
-    @include clearfix
+    +clearfix
+    list-style: none
     border-bottom: 1px solid $border_color
-    padding: 10px
-    width: 720px
+    &:last-child
+      border-bottom: 0
+    padding: 10px 0
     .feedback_content
       float: left
-      line-height: 25px
-      width: 460px
       span.success
         color: #00a
     .status_buttons
-      @include clearfix
-      float: left
-      width: 260px
+      +clearfix
+      float: right
       .status_button
-        @include clearfix
+        +clearfix
         margin-left: 20px
         width: 110px
         line-height: 38px
         float: left
         span.like, a.like
-          @include pill_button(#33f)
-          font-size: 14px
+          +pill_button(#33f)
         span.dislike, a.dislike
-          @include pill_button(#f33)
+          +pill_button(#f33)
         .like, .dislike
-          @include inline-block
+          +inline-block
           width: 40px
           font-size: 100%
           text-decoration: none
@@ -84,29 +87,3 @@ ul#feedbacks
     font-weight: bold
     padding: 20px 10px
     border-bottom: 1px solid $border_color
-@media only screen and (max-width: 759px)
-  ul#feedbacks
-    li.feedback
-      width: 500px
-      div, span
-        font-size: 14px
-      .feedback_content
-        float: none
-        width: 500px
-      .status_buttons
-        @include clearfix
-        float: none
-        margin-top: 10px
-        width: 500px
-        .status_button
-          @include clearfix
-          margin: 0 10px
-          width: 230px
-          line-height: 50px
-          float: left
-          a.like, a.dislike, span.like, span.dislike
-            width: 100px
-            font-size: 28px
-          .number
-            font-size: 28px
-            line-height: 50px
