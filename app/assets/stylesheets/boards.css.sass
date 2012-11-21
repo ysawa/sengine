@@ -118,10 +118,6 @@ section.board_container
         width: $side_cell_width
         height: $cell_height
         line-height: $cell_height
-    .in_hand
-      width: $cell_width
-      height: $cell_height * 9
-      padding: $edge_cell_height 0
     .cell
       width: $cell_width
       height: $cell_height
@@ -143,6 +139,9 @@ section.board_container
         float: left
       .in_hand
         float: left
+        width: $cell_width
+        height: $cell_height * 9
+        padding: $edge_cell_height 0
         &.upward
           +border-bottom-right-radius(5px)
           +border-top-right-radius(5px)
