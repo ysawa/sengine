@@ -47,7 +47,7 @@ namespace :deploy do
   namespace :resque do
     task :start, roles: :app, except: { no_release: true } do
       pid_file = "#{shared_path}/pids/resque.pid"
-      run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake environment resque:work &"
+      run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production bundle exec rake environment resque:work &"
     end
 
     task :stop, roles: :app, except: { no_release: true } do
@@ -59,14 +59,14 @@ namespace :deploy do
       pid_file = "#{shared_path}/pids/resque.pid"
       run "kill `cat #{pid_file}`; true"
       sleep(5)
-      run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake environment resque:work &"
+      run "PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production bundle exec rake environment resque:work &"
     end
   end
 
   namespace :resque_scheduler do
     task :start, roles: :app, except: { no_release: true } do
       pid_file = "#{shared_path}/pids/resque_scheduler.pid"
-      run "cd #{current_path} && PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake resque:scheduler &"
+      run "cd #{current_path} && PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production bundle exec rake resque:scheduler &"
     end
 
     task :stop, roles: :app, except: { no_release: true } do
@@ -78,7 +78,7 @@ namespace :deploy do
       pid_file = "#{shared_path}/pids/resque_scheduler.pid"
       run "kill `cat #{pid_file}`; true"
       sleep(5)
-      run "cd #{current_path} && PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production rake resque:scheduler &"
+      run "cd #{current_path} && PIDFILE=#{pid_file} BACKGROUND=yes QUEUE=* RAILS_ENV=production bundle exec rake resque:scheduler &"
     end
   end
 
