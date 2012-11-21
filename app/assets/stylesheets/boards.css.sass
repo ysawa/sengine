@@ -142,11 +142,16 @@ section.board_container
         height: $cell_height * 9
         padding: $edge_cell_height 0
         &.upward
-          +border-bottom-right-radius(5px)
+          +border-top-left-radius(0)
           +border-top-right-radius(5px)
+          +border-bottom-left-radius(0)
+          +border-bottom-right-radius(5px)
         &.downward
           +border-top-left-radius(5px)
+          +border-top-right-radius(0)
           +border-bottom-left-radius(5px)
+          +border-bottom-right-radius(0)
+
     @else
       width: $board_width
       margin: 0 auto
@@ -158,11 +163,15 @@ section.board_container
         height: $cell_height
         padding: 0 $side_cell_width
         &.upward
-          +border-bottom-right-radius(5px)
+          +border-top-left-radius(0)
+          +border-top-right-radius(0)
           +border-bottom-left-radius(5px)
+          +border-bottom-right-radius(5px)
         &.downward
           +border-top-left-radius(5px)
           +border-top-right-radius(5px)
+          +border-bottom-left-radius(0)
+          +border-bottom-right-radius(0)
 
 @media (min-width: 768px)
   +board_format(50px, 55px, 15px, 15px, 50px)
@@ -187,6 +196,3 @@ section.board_container
       .cell
         .number
           font-size: 6px
-
-@media (max-width: 480px) and (orientation: landscape)
-  +board_direction_format(30px, 30px, 9px, 9px, true)
