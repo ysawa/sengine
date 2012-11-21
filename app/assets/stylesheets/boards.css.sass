@@ -178,13 +178,19 @@ section.board_container
   +board_direction_format(40px, 44px, 12px, 12px, true)
 
 @media (max-width: 480px)
-  +board_format(33.333px, 36.666px, 9.9999px, 9.9999px, 33.333px)
-  +board_direction_format(33.333px, 36.666px, 9.9999px, 9.9999px, false)
+  +board_format(30px, 33px, 9px, 9px, 30px)
+  +board_direction_format(30px, 33px, 9px, 9px, false)
   .board .board_row
     .side_cell, .edge_cell
       font-size: 9px
+  .in_hand
+    .board_row
+      .cell
+        .number
+          font-size: 6px
+
 @media (max-width: 480px) and (orientation: landscape)
-  +board_direction_format(33.333px, 36.666px, 9.9999px, 9.9999px, true)
+  +board_direction_format(30px, 33px, 9px, 9px, true)
 
 @media (max-width: 320px)
   section.board_container
@@ -197,3 +203,8 @@ section.board_container
   .board .board_row
     .side_cell, .edge_cell
       font-size: 6px
+  .in_hand
+    .board_row
+      .cell
+        .number
+          font-size: 4px
