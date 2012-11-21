@@ -14,5 +14,9 @@ body
 <% end %>
 <% end %>
     .board
-      background-image: url(<%= asset_path "boards/#{theme}.jpg" %>)
+      background-image: url(<%= asset_path "boards/#{theme}/l.jpg" %>)
+      @media (max-width: 767px)
+        background-image: url(<%= asset_path "boards/#{theme}/s.jpg" %>)
+      @media (max-height: 767px)
+        background-image: url(<%= asset_path "boards/#{theme}/s.jpg" %>)
 <% end %>
