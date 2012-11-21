@@ -52,31 +52,30 @@ section.board_container
 .in_hand
   +user-select(none)
   background: #fff
-  .pieces
-    .board_row
-      +clearfix
-      .cell
-        +user-select(none)
-        float: left
-        position: relative
-        &.moved,
-        &.selected
-          cursor: pointer
-          background: $selected_color
-        &.in_turn
-          background: #c00
-        .piece
-        section.face
-          a
-            display: block
-        .number
-          position: absolute
-          right: 0px
-          bottom: 0px
-          color: #f00
-          font-weight: bold
-          line-height: 1
-          font-size: 11px
+  .board_row
+    +clearfix
+    .cell
+      +user-select(none)
+      float: left
+      position: relative
+      &.moved,
+      &.selected
+        cursor: pointer
+        background: $selected_color
+      &.in_turn
+        background: #c00
+      .piece
+      section.face
+        a
+          display: block
+      .number
+        position: absolute
+        right: 0px
+        bottom: 0px
+        color: #f00
+        font-weight: bold
+        line-height: 1
+        font-size: 11px
 
 .piece
   +user-select(none)
