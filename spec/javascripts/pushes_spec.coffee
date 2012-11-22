@@ -24,3 +24,9 @@ describe 'PushObserver', ->
       observer.observe_process(false)
       expect(observer.interval).toEqual(32000)
       expect(observer.models).toEqual([])
+
+    it 'changes the online false if offline (without recursion)', ->
+      expect(observer.online).toEqual(true)
+      expect(navigator.onLine).toEqual(false)
+      observer.observe_process(false)
+      expect(observer.online).toEqual(false)
