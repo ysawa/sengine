@@ -24,26 +24,33 @@ class PushObserver extends Backbone.Collection
   online: true
   url: '/pushes'
 
+  notice_offline: ->
+    $.notice('offline')
+
   observe: ->
     @observe_process(true)
     null
 
   observe_process: (recursive) ->
     if navigator.onLine
-      @online = true
       result = @fetch()
       switch result.status
         when 0
+          @notice_offline() unless @online
           @online = false
           @interval = PushObserver.MAX_INTERVAL
         when 200
+          @online = true
           @interval = PushObserver.MIN_INTERVAL
         else
+          @online = true
           @interval *= 2
           if @interval > PushObserver.MAX_INTERVAL
             @interval = PushObserver.MAX_INTERVAL
     else
+      @notice_offline() unless @online
       @online = false
+      @notice_offline()
       @interval = PushObserver.MAX_INTERVAL
     if recursive
       setTimeout(
