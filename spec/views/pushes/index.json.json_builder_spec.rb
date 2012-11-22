@@ -7,15 +7,16 @@ describe "pushes/index" do
     user_sign_in
     assign(:pushes, [
       stub_model(Push,
-        :content => "Content"
+        :_id => "1"
       ),
       stub_model(Push,
-        :content => "Content"
+        :_id => "2"
       )
     ])
   end
 
   it "renders a list of pushes" do
     render
+    rendered.should match("\"_id\": \"1\"")
   end
 end

@@ -54,6 +54,7 @@ gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
+gem 'json_builder'
 
 # Use unicorn as the web server
 gem 'unicorn'
