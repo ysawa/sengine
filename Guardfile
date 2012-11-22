@@ -29,9 +29,7 @@ guard 'rspec', cli: "--color" do
   watch(%r{^app/controllers/(.+)_(controller)\.rb})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/requests/#{m[1]}_spec.rb"] }
 end
 
-
 spec_location = "spec/javascripts/%s_spec"
-
 guard 'jasmine-headless-webkit' do
   watch(%r{^app/views/.*\.jst$})
   watch(%r{^public/javascripts/(.*)\.js$}) { |m| newest_js_file(spec_location % m[1]) }
