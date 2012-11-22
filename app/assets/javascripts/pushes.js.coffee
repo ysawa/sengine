@@ -23,12 +23,14 @@ class PushObserver extends Backbone.Collection
   model: Push
   online: true
   url: '/pushes'
+  observing: null
 
   notice_offline: ->
     $.notice('offline')
 
   observe: ->
-    @observe_process(true)
+    @stop()
+    @start()
     null
 
   observe_process: (recursive) ->
@@ -36,7 +38,7 @@ class PushObserver extends Backbone.Collection
       result = @fetch()
       switch result.status
         when 0
-          @notice_offline() unless @online
+          @notice_offline() if @online
           @online = false
           @interval = PushObserver.MAX_INTERVAL
         when 200
@@ -48,17 +50,29 @@ class PushObserver extends Backbone.Collection
           if @interval > PushObserver.MAX_INTERVAL
             @interval = PushObserver.MAX_INTERVAL
     else
-      @notice_offline() unless @online
+      @notice_offline() if @online
       @online = false
       @notice_offline()
       @interval = PushObserver.MAX_INTERVAL
     if recursive
-      setTimeout(
+      @observing = setTimeout(
         =>
           @observe_process(true)
         , @interval # from MIN_INTERVAL to MAX_INTERVAL
       )
     null
+
+  start: ->
+    @observe_process(true)
+    true
+
+  stop: ->
+    if @observing
+      clearTimeout(@observing)
+      @observing = null
+      true
+    else
+      null
 
 this.Push = Push
 this.PushObserver = PushObserver
