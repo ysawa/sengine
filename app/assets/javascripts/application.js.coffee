@@ -87,6 +87,9 @@ $ ->
       if $.check_if_outside_url(href)
         $.google_analytics_track_pageview(href)
 
+  observer = new PushObserver
+  observer.observe
+
 $.extend
   check_if_inside_url: (url) ->
     host = location.host
