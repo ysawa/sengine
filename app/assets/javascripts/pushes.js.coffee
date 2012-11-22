@@ -30,6 +30,7 @@ class PushObserver extends Backbone.Collection
 
   observe: ->
     @stop()
+    @interval = PushObserver.MIN_INTERVAL
     @start()
     null
 
@@ -63,8 +64,11 @@ class PushObserver extends Backbone.Collection
     null
 
   start: ->
-    @observe_process(true)
-    true
+    if @observing
+      false
+    else
+      @observe_process(true)
+      true
 
   stop: ->
     if @observing
@@ -72,7 +76,7 @@ class PushObserver extends Backbone.Collection
       @observing = null
       true
     else
-      null
+      false
 
 this.Push = Push
 this.PushObserver = PushObserver

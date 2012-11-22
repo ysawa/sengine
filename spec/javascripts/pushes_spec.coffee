@@ -30,3 +30,15 @@ describe 'PushObserver', ->
       expect(navigator.onLine).toEqual(false)
       observer.observe_process(false)
       expect(observer.online).toEqual(false)
+
+  describe '.observe', ->
+    it 'start observing', ->
+      expect(observer.observing).toEqual(null)
+      observer.observe()
+      expect(observer.observing).toNotEqual(null)
+    it 'stop the past observing', ->
+      observer.start()
+      past_observing = observer.observing
+      expect(past_observing).toNotEqual(null)
+      observer.observe()
+      expect(observer.observing).toNotEqual(past_observing)
