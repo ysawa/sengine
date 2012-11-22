@@ -1,5 +1,5 @@
 src_files:
-  - "app/assets/javascripts/application.js"
+  - "./application.js.coffee"
 helpers:
   - helpers/**/*
 spec_files:
