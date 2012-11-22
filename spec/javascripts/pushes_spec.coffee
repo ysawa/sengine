@@ -19,6 +19,8 @@ describe 'PushObserver', ->
 
   describe '.observe_process', ->
     it 'changes the interval 32000 if offline (without recursion)', ->
+      expect(observer.models).toEqual([])
       expect(navigator.onLine).toEqual(false)
       observer.observe_process(false)
       expect(observer.interval).toEqual(32000)
+      expect(observer.models).toEqual([])
