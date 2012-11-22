@@ -26,5 +26,6 @@ tmp/
 pkg
 .rvmrc
 /vendor/cache
+/.jhw-cache
 
 /public/assets

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+# gem 'rails', git: 'git://github.com/rails/rails.git'
 
 # Database ORM: Mongoid
 gem 'mongoid'
@@ -59,7 +59,7 @@ gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap
 gem 'unicorn'
 
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+# gem 'ruby-debug19', require: 'ruby-debug'
 
 gem 'jpmobile'
 
@@ -87,6 +87,10 @@ group :development, :test do
   gem 'launchy'
   gem 'guard-spork'
   gem 'guard-rspec'
+  gem 'jasmine-rails'
+  gem 'guard-jasmine-headless-webkit'
+  gem 'jasmine-headless-webkit', git: 'git://github.com/johnbintz/jasmine-headless-webkit.git', branch: 'master'
+  gem 'jasmine-headless-webkit-reporters', git: 'git://github.com/johnbintz/jasmine-headless-webkit-reporters.git'
 
   # Notifiers
   case RUBY_PLATFORM

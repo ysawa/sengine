@@ -72,7 +72,7 @@ Shogiengine::Application.routes.draw do
   get "profile/:id", to: "profile#show", as: :profile
   get "profile/:user_id/games", to: "games#index"
 
-  resources :pushes
+  resources :pushes, only: [:index]
 
   get "setting", to: "setting#show", as: :setting
   get "setting/edit", to: "setting#edit", as: :edit_setting
