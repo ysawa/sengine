@@ -3,8 +3,8 @@
 
 spec_location = "spec/javascripts/%s_spec"
 guard 'jasmine-headless-webkit' do
-  watch(%r{^.*/assets/javascripts/(.*?)\.(js|coffee)}) { |m| newest_js_file(spec_location % m[1]) }
-  watch(%r{^spec/javascripts/(.*)_spec\..*}) { |m| newest_js_file(spec_location % m[1]) }
+  watch(%r{^.*/assets/javascripts/(.*?)\.(js|coffee)}) { |m| "spec/javascripts/#{m[1]}_spec.coffee" }
+  watch(%r{^spec/javascripts/(.*)_spec\..*}) { |m| "spec/javascripts/#{m[1]}_spec.coffee" }
 end
 
 guard 'spork', rspec_env: { 'RAILS_ENV' => 'test' } do
