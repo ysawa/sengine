@@ -31,6 +31,30 @@ describe 'PushObserver', ->
       observer.observe_process(false)
       expect(observer.online).toEqual(false)
 
+  describe '.start', ->
+    it 'start observing', ->
+      expect(observer.observing).toEqual(null)
+      expect(observer.start()).toEqual(true)
+      expect(observer.observing).toNotEqual(null)
+
+    it 'cannot start observing if already observing', ->
+      expect(observer.observing).toEqual(null)
+      observer.start()
+      expect(observer.observing).toNotEqual(null)
+      expect(observer.start()).toEqual(false)
+
+  describe '.stop', ->
+    it 'stop observing', ->
+      expect(observer.observing).toEqual(null)
+      observer.start()
+      expect(observer.observing).toNotEqual(null)
+      expect(observer.stop()).toEqual(true)
+      expect(observer.observing).toEqual(null)
+
+    it 'cannot stop observing if not observing', ->
+      expect(observer.observing).toEqual(null)
+      expect(observer.stop()).toEqual(false)
+
   describe '.observe', ->
     it 'start observing', ->
       expect(observer.observing).toEqual(null)
