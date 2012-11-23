@@ -83,5 +83,15 @@ class PushObserver extends Backbone.Collection
     else
       false
 
+class PushView extends Backbone.View
+  tagName: 'li'
+  className: 'push'
+  el: 'ul#pushes'
+
+  render: ->
+    $(@el).html(@template(this.model.toJSON()))
+    @
+
 this.Push = Push
 this.PushObserver = PushObserver
+this.PushView = PushView
