@@ -89,8 +89,12 @@ class PushView extends Backbone.View
   el: 'ul#pushes'
 
   render: ->
-    $(@el).html(@template(this.model.toJSON()))
+    $(@el).html(@template(this.model.attributes))
     @
+
+  template: (attributes) ->
+    compiled = _.template("<%= content %>")
+    compiled(attributes)
 
 this.Push = Push
 this.PushObserver = PushObserver

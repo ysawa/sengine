@@ -66,3 +66,15 @@ describe 'PushObserver', ->
       expect(past_observing).toNotEqual(null)
       observer.observe()
       expect(observer.observing).toNotEqual(past_observing)
+
+describe 'PushView', ->
+  view = null
+  model = null
+
+  beforeEach ->
+    model = new Push(content: 'Content Text')
+    view = new PushView(model: model)
+
+  describe '.template', ->
+    it 'render content text', ->
+      expect(view.template(model.attributes)).toMatch('Content')
