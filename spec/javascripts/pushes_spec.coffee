@@ -74,7 +74,22 @@ describe 'PushView', ->
   beforeEach ->
     model = new Push(content: 'Content Text')
     view = new PushView(model: model)
+    $('body #pushes').remove()
+    $('body').append($('<div>').attr(id: 'pushes'))
 
   describe '.template', ->
     it 'render content text', ->
       expect(view.template(model.attributes)).toMatch('Content')
+
+  describe '.add', ->
+    it 'render content element into #pushes', ->
+      expect($('#pushes').html()).toEqual('')
+      view.add()
+      expect($('#pushes').html()).toMatch('Content Text')
+
+  describe '.remove', ->
+    it 'render content element into #pushes', ->
+      expect($('#pushes').html()).toEqual('')
+      view.add()
+      view.remove()
+      expect($('#pushes').html()).toEqual('')

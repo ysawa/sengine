@@ -88,7 +88,8 @@ class PushView extends Backbone.View
   className: 'push'
 
   add: ->
-    $('#pushes').append(@render())
+    $('#pushes').append($(@el))
+    @render()
 
   delete: ->
     $(@el).remove()
