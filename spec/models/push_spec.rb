@@ -59,4 +59,16 @@ describe Push do
       Push.hidden(user).count.should == 1
     end
   end
+
+  describe '.push_type' do
+    let :push do
+      Fabricate.build(:push)
+    end
+
+    it 'takes the type of information' do
+      push.pushable = Fabricate(:movement)
+      push.save
+      push.push_type.should == 'movement'
+    end
+  end
 end

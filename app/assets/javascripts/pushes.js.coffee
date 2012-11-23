@@ -2,10 +2,11 @@ class Push extends Backbone.Model
   defaults:
     _id: null
     content: null
+    pushable: null
     push_type: null
 
-  get_value: ->
-    @get('value')
+  get_content: ->
+    @get('content')
 
   idAttribute: "_id"
 
@@ -14,8 +15,10 @@ class Push extends Backbone.Model
     @attributes = attributes
 
   toJSON: ->
+    attributes = _.clone(@attributes)
+    delete attributes['_type']
     {
-      push: _.clone(@attributes)
+      push: attributes
     }
 
   urlRoot: ->
