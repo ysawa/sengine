@@ -2,11 +2,21 @@ describe 'Push', ->
   model = null
 
   beforeEach ->
-    model = new Push()
+    model = new Push({ content: 'Content Text' })
 
   it 'has null values at the first time', ->
     expect(model.get('_id')).toEqual(null)
-    expect(model.get('content')).toEqual(null)
+    expect(model.get('content')).toEqual('Content Text')
+
+  describe '.toJSON', ->
+    it 'generates hash in order to send to the server', ->
+      hash = model.toJSON()
+      expect(hash['push']['content']).toEqual('Content Text')
+
+    it 'hides _type', ->
+      model.set('_type', 'InvalidType')
+      hash = model.toJSON()
+      expect(hash['push']['_type']).toEqual(null)
 
 describe 'PushObserver', ->
   observer = null
