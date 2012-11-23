@@ -23,5 +23,6 @@ describe "pushes/index" do
     rendered.should match("\"persisted\": true")
     rendered.should match("2010")
     rendered.should match("\"pushable\": {")
+    rendered.should match("\"_type\":\"Movement\"")
   end
 end

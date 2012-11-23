@@ -5,7 +5,9 @@ array @pushes do |push|
   push_type push.push_type
   case push.pushable
   when Movement
-    pushable push.pushable.to_json_attributes
+    pushable_attributes = push.pushable.to_json_attributes
+    pushable_attributes['_type'] = 'Movement'
+    pushable pushable_attributes
   end
   timestamp push.created_at || Time.now
 end
