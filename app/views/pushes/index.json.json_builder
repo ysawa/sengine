@@ -2,5 +2,6 @@ array @pushes do |push|
   _id push.id
   content push.content
   persisted push.persisted?
+  push_type push.push_type
   timestamp push.created_at || Time.now
 end

@@ -7,10 +7,11 @@ describe "pushes/index" do
     user_sign_in
     assign(:pushes, [
       stub_model(Push,
-        :_id => "1"
+        _id: "1"
       ),
       stub_model(Push,
-        :_id => "2"
+        _id: "2",
+        created_at: Time.parse('2010/02/20')
       )
     ])
   end
@@ -19,5 +20,6 @@ describe "pushes/index" do
     render
     rendered.should match("\"_id\": \"1\"")
     rendered.should match("\"persisted\": true")
+    rendered.should match("2010")
   end
 end
