@@ -18,5 +18,6 @@ describe "pushes/index" do
   it "renders a list of pushes" do
     render
     rendered.should match("\"_id\": \"1\"")
+    rendered.should match("\"persisted\": \"true\"")
   end
 end
