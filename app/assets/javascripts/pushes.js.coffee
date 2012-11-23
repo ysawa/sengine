@@ -86,7 +86,12 @@ class PushObserver extends Backbone.Collection
 class PushView extends Backbone.View
   tagName: 'li'
   className: 'push'
-  el: 'ul#pushes'
+
+  add: ->
+    $('#pushes').append(@render())
+
+  delete: ->
+    $(@el).remove()
 
   render: ->
     $(@el).html(@template(this.model.attributes))
