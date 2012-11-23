@@ -74,6 +74,7 @@ describe 'PushView', ->
   beforeEach ->
     model = new Push(content: 'Content Text')
     view = new PushView(model: model)
+    # initialize html
     $('body #pushes').remove()
     $('body').append($('<div>').attr(id: 'pushes'))
 
