@@ -9,5 +9,5 @@ array @pushes do |push|
     pushable_attributes['_type'] = 'Movement'
     pushable pushable_attributes
   end
-  timestamp push.created_at || Time.now
+  created_at push.created_at || Time.now
 end
