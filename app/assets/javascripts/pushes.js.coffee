@@ -2,6 +2,7 @@ class Push extends Backbone.Model
   defaults:
     _id: null
     content: null
+    push_type: null
 
   get_value: ->
     @get('value')
