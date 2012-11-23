@@ -3,5 +3,9 @@ array @pushes do |push|
   content push.content
   persisted push.persisted?
   push_type push.push_type
+  case push.pushable
+  when Movement
+    pushable push.pushable.to_json_attributes
+  end
   timestamp push.created_at || Time.now
 end

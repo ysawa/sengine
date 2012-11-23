@@ -11,7 +11,8 @@ describe "pushes/index" do
       ),
       stub_model(Push,
         _id: "2",
-        created_at: Time.parse('2010/02/20')
+        created_at: Time.parse('2010/02/20'),
+        pushable: Fabricate(:movement)
       )
     ])
   end
@@ -21,5 +22,6 @@ describe "pushes/index" do
     rendered.should match("\"_id\": \"1\"")
     rendered.should match("\"persisted\": true")
     rendered.should match("2010")
+    rendered.should match("\"pushable\": {")
   end
 end

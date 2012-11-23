@@ -12,6 +12,7 @@ class Movement
   field :to_point, type: Point
   belongs_to :board # the board applied this movement to
   belongs_to :game
+  has_many :pushes, inverse_of: :pushable
 
   validate :validate_from_point_presence
   validate :validate_to_point_presence
@@ -52,6 +53,11 @@ class Movement
   end
 
   def to_json
+    attrs = to_json_attributes
+    attrs.to_json
+  end
+
+  def to_json_attributes
     attrs = attributes.dup
     point = attrs['from_point']
     if point
@@ -66,7 +72,7 @@ class Movement
       attrs.delete('role_value')
       attrs['role'] = Piece::ROLE_STRINGS[role_value]
     end
-    attrs.to_json
+    attrs
   end
 
   def validate_from_point_presence
