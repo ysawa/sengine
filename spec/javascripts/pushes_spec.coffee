@@ -79,18 +79,51 @@ describe 'PushView', ->
     $('body').append($('<div>').attr(id: 'pushes'))
 
   describe '.template', ->
-    it 'render content text', ->
+    it 'renders content text', ->
       expect(view.template(model.attributes)).toMatch('Content')
 
   describe '.add', ->
-    it 'render content element into #pushes', ->
+    it 'renders content element into #pushes', ->
       expect($('#pushes').html()).toEqual('')
       view.add()
       expect($('#pushes').html()).toMatch('Content Text')
 
+    it 'renders content element with unique id into #pushes', ->
+      expect($('#pushes').html()).toEqual('')
+      view.add()
+      unique_model = new Push(content: 'Content Text')
+      unique_view = new PushView(model: unique_model, id: 'unique-push')
+      unique_view.add()
+      expect($('#pushes li').size()).toEqual(2)
+      expect($('#pushes').html()).toMatch('id="unique-push"')
+
   describe '.remove', ->
-    it 'render content element into #pushes', ->
+    it 'deletes content element into #pushes', ->
       expect($('#pushes').html()).toEqual('')
       view.add()
       view.remove()
       expect($('#pushes').html()).toEqual('')
+
+    it 'deletes content element with unique id into #pushes', ->
+      expect($('#pushes').html()).toEqual('')
+      view.add()
+      unique_view = new PushView(model: model, id: 'unique-push')
+      unique_view.add()
+      expect($('#pushes li').size()).toEqual(2)
+      view.remove()
+      expect($('#pushes li').size()).toEqual(1)
+      expect($('#pushes').html()).toMatch('id="unique-push"')
+      view.add()
+      unique_view.remove()
+      expect($('#pushes li').size()).toEqual(1)
+      expect($('#pushes').html()).toNotMatch('id="unique-push"')
+
+    it 'deletes only the element with the same content into #pushes', ->
+      expect($('#pushes').html()).toEqual('')
+      view.add()
+      same_view = new PushView(model: model)
+      same_view.add()
+      expect($('#pushes li').size()).toEqual(2)
+      same_view.remove()
+      expect($('#pushes li').size()).toEqual(1)
+      expect($('#pushes').html()).toMatch('Content Text')
