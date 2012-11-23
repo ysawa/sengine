@@ -8,6 +8,10 @@ class Push extends Backbone.Model
 
   idAttribute: "_id"
 
+  initialize: (attributes) ->
+    return unless attributes
+    @attributes = attributes
+
   toJSON: ->
     {
       push: _.clone(@attributes)
