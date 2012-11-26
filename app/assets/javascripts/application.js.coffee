@@ -88,7 +88,7 @@ $ ->
         $.google_analytics_track_pageview(href)
 
   observer = new PushObserver
-  observer.observe
+  observer.observe()
 
 $.extend
   check_if_inside_url: (url) ->
