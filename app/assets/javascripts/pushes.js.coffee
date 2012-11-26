@@ -36,7 +36,7 @@ class PushObserver extends Backbone.Collection
   notice_all: ->
     @each (push) ->
       view = new PushView(model: push)
-      view.add()
+      view.add(true)
 
   notice_offline: ->
     $.notice('offline')
@@ -99,8 +99,11 @@ class PushView extends Backbone.View
   tagName: 'li'
   className: 'push'
 
-  add: ->
-    $('#pushes').prepend($(@el))
+  add: (bottom = true) ->
+    if bottom
+      $('#pushes').append($(@el))
+    else
+      $('#pushes').prepend($(@el))
     @render()
 
   delete: ->

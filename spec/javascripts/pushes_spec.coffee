@@ -90,6 +90,8 @@ describe 'PushObserver', ->
       observer.notice_all()
       expect(observer.models.length).toEqual(2)
       expect($('#pushes li').size()).toEqual(2)
+      expect($('#pushes li:first-child').text()).toMatch('Content Text 1')
+      expect($('#pushes li:last-child').text()).toMatch('Content Text 2')
 
 describe 'PushView', ->
   view = null
