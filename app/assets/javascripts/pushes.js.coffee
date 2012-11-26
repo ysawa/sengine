@@ -14,8 +14,6 @@ class Push extends Backbone.Model
     return unless attributes
     @attributes = attributes
 
-  notice: ->
-
   toJSON: ->
     attributes = _.clone(@attributes)
     delete attributes['_type']
@@ -37,7 +35,8 @@ class PushObserver extends Backbone.Collection
 
   notice_all: ->
     @each (push) ->
-      push.notice()
+      view = new PushView(model: push)
+      view.add()
 
   notice_offline: ->
     $.notice('offline')

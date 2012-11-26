@@ -77,6 +77,20 @@ describe 'PushObserver', ->
       observer.observe()
       expect(observer.observing).toNotEqual(past_observing)
 
+  describe '.notice_all', ->
+    beforeEach ->
+      # initialize html
+      $('body #pushes').remove()
+      $('body').append($('<div>').attr(id: 'pushes'))
+
+    it 'notices all pushes', ->
+      expect(observer.models).toEqual([])
+      observer.models.push(new Push(content: 'Content Text 1'))
+      observer.models.push(new Push(content: 'Content Text 2'))
+      observer.notice_all()
+      expect(observer.models.length).toEqual(2)
+      expect($('#pushes li').size()).toEqual(2)
+
 describe 'PushView', ->
   view = null
   model = null
