@@ -14,6 +14,8 @@ class Push extends Backbone.Model
     return unless attributes
     @attributes = attributes
 
+  notice: ->
+
   toJSON: ->
     attributes = _.clone(@attributes)
     delete attributes['_type']
@@ -33,8 +35,15 @@ class PushObserver extends Backbone.Collection
   url: '/pushes'
   observing: null
 
+  notice_all: ->
+    @each (push) ->
+      push.notice()
+
   notice_offline: ->
     $.notice('offline')
+
+  notice_push: (push) ->
+    push.notice()
 
   observe: ->
     @stop()
@@ -53,6 +62,7 @@ class PushObserver extends Backbone.Collection
         when 200
           @online = true
           @interval = PushObserver.MIN_INTERVAL
+          @notice_all_pushes()
         else
           @online = true
           @interval *= 2
