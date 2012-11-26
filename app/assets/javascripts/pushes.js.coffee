@@ -8,6 +8,9 @@ class Push extends Backbone.Model
   get_content: ->
     @get('content')
 
+  get_push_type: ->
+    @get('push_type')
+
   idAttribute: "_id"
 
   initialize: (attributes) ->
@@ -114,7 +117,14 @@ class PushView extends Backbone.View
     @
 
   template: (attributes) ->
-    compiled = _.template("<%= content %>")
+    format = """
+             <% if (typeof href !== 'undefined' && href) { %>
+               <a href=<%= href %>><%= content %></a>
+             <% } else { %>
+               <%= content %>
+             <% } %>
+             """
+    compiled = _.template(format)
     compiled(attributes)
 
 this.Push = Push

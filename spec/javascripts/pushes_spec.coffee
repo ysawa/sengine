@@ -108,6 +108,11 @@ describe 'PushView', ->
     it 'renders content text', ->
       expect(view.template(model.attributes)).toMatch('Content')
 
+    it 'renders content text with a tag', ->
+      expect(view.template(model.attributes)).toNotMatch('<a href')
+      model.set('href', 'http://example.com')
+      expect(view.template(model.attributes)).toMatch('<a href')
+
   describe '.add', ->
     it 'renders content element into #pushes', ->
       expect($('#pushes').html()).toEqual('')
