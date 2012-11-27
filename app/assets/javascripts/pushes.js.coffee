@@ -64,7 +64,7 @@ class PushObserver extends Backbone.Collection
         when 200
           @online = true
           @interval = PushObserver.MIN_INTERVAL
-          @notice_all_pushes()
+          @notice_all()
         else
           @online = true
           @interval *= 2
@@ -73,7 +73,6 @@ class PushObserver extends Backbone.Collection
     else
       @notice_offline() if @online
       @online = false
-      @notice_offline()
       @interval = PushObserver.MAX_INTERVAL
     if recursive
       @observing = setTimeout(
