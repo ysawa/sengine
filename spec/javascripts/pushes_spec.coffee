@@ -107,6 +107,7 @@ describe 'PushView', ->
   describe '.template', ->
     it 'renders content text', ->
       expect(view.template(model.attributes)).toMatch('Content')
+      expect(view.template(model.attributes)).toMatch('<span')
 
     it 'renders content text with a tag', ->
       expect(view.template(model.attributes)).toNotMatch('<a href')

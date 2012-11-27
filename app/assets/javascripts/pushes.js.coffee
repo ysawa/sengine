@@ -121,7 +121,7 @@ class PushView extends Backbone.View
              <% if (typeof href !== 'undefined' && href) { %>
                <a href=<%= href %>><%= content %></a>
              <% } else { %>
-               <%= content %>
+               <span><%= content %></span>
              <% } %>
              """
     compiled = _.template(format)
