@@ -1,7 +1,10 @@
 - decorator = UserDecorator.new(user)
 - image_tag = decorator.image(false, class: 'face large img-polaroid')
 #user_profile
-  = link_to image_tag, decorator.facebook_url, target: "_blank", id: :user_face
+  - if controller_name == 'profile'
+    = link_to image_tag, decorator.facebook_url, target: "_blank", id: :user_face
+  - else
+    = link_to image_tag, profile_path(user), target: "_blank", id: :user_face
   %dl
     %dt
       = User.human_attribute_name('name')
