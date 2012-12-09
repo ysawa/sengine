@@ -38,3 +38,64 @@ $document_tags: body, p, pre, ol, ul, li, table, th, td, div, span, h1, h2, h3, 
 =pill_button($background_color: $button_color)
   @include button(pill, $background_color)
   padding: 10px 15px
+
+
+=border-radius ($radii)
+  -webkit-border-radius: $radii
+  -moz-border-radius: $radii
+  -ms-border-radius: $radii
+  -o-border-radius: $radii
+  border-radius: $radii
+
+
+=border-top-left-radius($radii)
+  -webkit-border-top-left-radius: $radii
+  -moz-border-top-left-radius: $radii
+  -ms-border-top-left-radius: $radii
+  -o-border-top-left-radius: $radii
+  border-top-left-radius: $radii
+
+
+=border-top-right-radius($radii)
+  -webkit-border-top-right-radius: $radii
+  -moz-border-top-right-radius: $radii
+  -ms-border-top-right-radius: $radii
+  -o-border-top-right-radius: $radii
+  border-top-right-radius: $radii
+
+
+=border-bottom-left-radius($radii)
+  -webkit-border-bottom-left-radius: $radii
+  -moz-border-bottom-left-radius: $radii
+  -ms-border-bottom-left-radius: $radii
+  -o-border-bottom-left-radius: $radii
+  border-bottom-left-radius: $radii
+
+
+=border-bottom-right-radius($radii)
+  -webkit-border-bottom-right-radius: $radii
+  -moz-border-bottom-right-radius: $radii
+  -ms-border-bottom-right-radius: $radii
+  -o-border-bottom-right-radius: $radii
+  border-bottom-right-radius: $radii
+
+
+=border-top-radius($radii)
+  +border-top-left-radius($radii)
+  +border-top-right-radius($radii)
+
+
+=border-right-radius($radii)
+  +border-top-right-radius($radii)
+  +border-bottom-right-radius($radii)
+
+
+=border-bottom-radius($radii)
+  +border-bottom-left-radius($radii)
+  +border-bottom-right-radius($radii)
+
+
+=border-left-radius($radii)
+  +border-top-left-radius($radii)
+  +border-bottom-left-radius($radii)
+
