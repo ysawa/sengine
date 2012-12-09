@@ -6,7 +6,7 @@ Fabricator(:movement) do
   to_point [1, 2]
   move true
   number 2
-  role "kyo"
+  role_value 2
   reverse false
   put false
 end
