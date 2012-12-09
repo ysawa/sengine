@@ -1,0 +1,6 @@
+#kifu
+  %ol
+    - game.movements.each do |movement|
+      - decorator = MovementDecorator.new movement
+      %li.movement
+        = decorator.kifu_format

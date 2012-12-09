@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 module GamesHelper
-  KANSUJIS = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+  FULLSUJIS = %w(０ １ ２ ３ ４ ５ ６ ７ ８ ９)
+  KANSUJIS = %w(零 一 二 三 四 五 六 七 八 九)
   HANDICAPS = %w(proponent_hi proponent_ka proponent_two proponent_four
                  proponent_six proponent_eight proponent_ten
                  opponent_hi opponent_ka opponent_two opponent_four
@@ -29,6 +30,10 @@ module GamesHelper
       'title' => human_theme_name(theme)
     )
     image_tag "themes/#{theme}.gif", html_options
+  end
+
+  def convert_number_to_full(number)
+    ::GamesHelper::FULLSUJIS[number]
   end
 
   def convert_number_to_kanji(number)
