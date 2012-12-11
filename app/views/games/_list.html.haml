@@ -5,11 +5,13 @@
   - won_decorator = game.won_user ? UserDecorator.new(game.won_user) : nil
   .game_info
     %h3.game_users<
+      - players = ""
       - if sente_decorator
-        = sente_decorator.image
-      vs
+        - players += sente_decorator.image
+      - players += 'vs'
       - if gote_decorator
-        = gote_decorator.image
+        - players += gote_decorator.image
+      = players.html_safe
     .game_content
       = decorator.name(true)
       %br
