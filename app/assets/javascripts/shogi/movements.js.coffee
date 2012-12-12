@@ -47,9 +47,9 @@ class Shogi.Movement extends Backbone.Model
     $('.cell.moved').removeClass('moved')
     if @get_put()
       if @get_sente()
-        piece_selected = Shogi.Board.piece_in_hand_of_role('sente', @get_role())
+        piece_selected = Shogi.Board.piece_in_hand_of_role('sente', @get_role_string())
       else
-        piece_selected = Shogi.Board.piece_in_hand_of_role('gote', @get_role())
+        piece_selected = Shogi.Board.piece_in_hand_of_role('gote', @get_role_string())
     else
       piece_selected = Shogi.Board.piece_on_point(@get_from_point())
     to_point = @get_to_point()
@@ -94,7 +94,7 @@ class Shogi.Movement extends Backbone.Model
     @get('reverse')
   get_role_string: ->
     @get('role')
-  get_role_value: ->
+  get_role: ->
     role = @get('role_string')
     Shogi.hand_roles.indexOf(role) + 1
   get_sente: ->
@@ -131,6 +131,10 @@ class Shogi.Movement extends Backbone.Model
     integer + diff
 
   set_role: (role) ->
+    role_string = Shogi.hand_roles.indexOf(role) + 1
+    @set('role_string', role_string)
+
+  set_role_string: (role) ->
     @set('role_string', role)
 
   take_piece_on_point: (to_point) ->

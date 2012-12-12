@@ -82,6 +82,17 @@ describe Movement do
         movement.errors.size.should == 1
       end
     end
+    describe '.role should be taken' do
+      it 'valid if role exists' do
+        movement.role = Piece::FU
+        movement.valid?.should be_true
+      end
+
+      it 'invalid if role does not exists' do
+        movement.role = nil
+        movement.valid?.should be_false
+      end
+    end
   end
 
   describe '.to_json' do

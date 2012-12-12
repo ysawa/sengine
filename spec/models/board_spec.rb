@@ -93,7 +93,7 @@ describe Board do
     it 'fail if movement have invalid moving' do
       movement.attributes = {
         from_point: [5, 5],
-        role_value: Piece::FU,
+        role: Piece::FU,
         to_point: [5, 5]
       }
       piece_from_point = board.get_piece(movement.from_point)
@@ -108,7 +108,7 @@ describe Board do
       movement.attributes = {
         from_point: nil,
         put: true,
-        role_value: Piece::FU,
+        role: Piece::FU,
         to_point: [5, 5]
       }
       piece_to_point = board.get_piece(movement.to_point)
@@ -120,7 +120,7 @@ describe Board do
     it 'fail if movement have invalid taking (cannot be taken)' do
       movement.attributes = {
         from_point: [1, 9],
-        role_value: Piece::KY,
+        role: Piece::KY,
         to_point: [1, 7]
       }
       piece_from_point = board.get_piece(movement.from_point)

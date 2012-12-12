@@ -8,8 +8,6 @@ class Movement
   field :put, type: Boolean, default: false
   field :reverse, type: Boolean, default: false
   field :role, type: Integer # positive integer
-  # DEPRECATED
-  field :role_value, type: Integer # positive integer
   field :sente, type: Boolean
   field :to_point, type: Point
   belongs_to :board # the board applied this movement to
@@ -19,6 +17,7 @@ class Movement
   validate :validate_from_point_presence
   validate :validate_to_point_presence
   validate :validate_reverse_can_be_taken
+  validates_presence_of :role
 
   def gote?
     !sente?
@@ -49,14 +48,6 @@ class Movement
   def role_string=(string)
     if string.present?
       write_attribute(:role, Piece::ROLE_STRINGS.index(string))
-    else
-      write_attribute(:role, nil)
-    end
-  end
-
-  def role_value=(integer)
-    if integer.present?
-      write_attribute(:role, integer)
     else
       write_attribute(:role, nil)
     end
