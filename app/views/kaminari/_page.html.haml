@@ -1,3 +1,7 @@
 %li{ class: "page#{' active' if page.current?}" }
-  - opts = { remote: remote, rel: page.next? ? 'next' : page.prev? ? 'prev' : nil }
+  - opts = { remote: remote }
+  - if page.next?
+    - opts[:rel] = 'next'
+  - elsif page.prev?
+    - opts[:rel] = 'prev'
   = link_to page, url, opts
