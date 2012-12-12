@@ -83,17 +83,17 @@ class Board
     end
   end
 
-  def get_piece_in_gote_hand(role_value)
-    if gote_hand[role_value] >= 1
-      Piece.new(- role_value)
+  def get_piece_in_gote_hand(role)
+    if gote_hand[role] >= 1
+      Piece.new(- role)
     else
       nil
     end
   end
 
-  def get_piece_in_sente_hand(role_value)
-    if sente_hand[role_value] >= 1
-      Piece.new(role_value)
+  def get_piece_in_sente_hand(role)
+    if sente_hand[role] >= 1
+      Piece.new(role)
     else
       nil
     end
@@ -111,20 +111,20 @@ class Board
     read_attribute(attr)
   end
 
-  def minus_piece_in_gote_hand(role_value)
+  def minus_piece_in_gote_hand(role)
     hand = self.gote_hand
-    if hand[role_value] >= 1
-      hand[role_value] -= 1
+    if hand[role] >= 1
+      hand[role] -= 1
     else
       raise InvalidMovement.new("invalid put: #{movement.inspect}")
     end
     self.gote_hand = hand
   end
 
-  def minus_piece_in_sente_hand(role_value)
+  def minus_piece_in_sente_hand(role)
     hand = self.sente_hand
-    if hand[role_value] >= 1
-      hand[role_value] -= 1
+    if hand[role] >= 1
+      hand[role] -= 1
     else
       raise InvalidMovement.new("invalid put: #{movement.inspect}")
     end
@@ -139,15 +139,15 @@ class Board
     self.sente_hand[Piece::OU] >= 1
   end
 
-  def plus_piece_in_gote_hand(role_value)
+  def plus_piece_in_gote_hand(role)
     hand = self.gote_hand
-    hand[role_value] += 1
+    hand[role] += 1
     self.gote_hand = hand
   end
 
-  def plus_piece_in_sente_hand(role_value)
+  def plus_piece_in_sente_hand(role)
     hand = self.sente_hand
-    hand[role_value] += 1
+    hand[role] += 1
     self.sente_hand = hand
   end
 
