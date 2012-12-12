@@ -14,6 +14,15 @@ describe MovementDecorator do
       kifu.should be_a String
     end
 
+    it 'shows which the movement is sente or gote' do
+      @movement.sente = true
+      kifu = @decorator.kifu_format
+      kifu.should match '▲'
+      @movement.sente = false
+      kifu = @decorator.kifu_format
+      kifu.should match '△'
+    end
+
     context 'moving to the same point' do
       before :each do
         @past_movement.to_point = @movement.to_point
@@ -21,7 +30,6 @@ describe MovementDecorator do
 
       it 'notices the movement is for the same point' do
         kifu = @decorator.kifu_format(@past_movement)
-        kifu.should be_a String
         kifu.should match '同'
       end
     end
