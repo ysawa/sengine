@@ -93,7 +93,7 @@ class Shogi.Movement extends Backbone.Model
   get_reverse: ->
     @get('reverse')
   get_role_string: ->
-    @get('role')
+    @get('role_string')
   get_role: ->
     role = @get('role_string')
     Shogi.hand_roles.indexOf(role) + 1
