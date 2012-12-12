@@ -68,10 +68,10 @@ class Movement
     if point
       attrs['to_point'] = [point['x'], point['y']]
     end
-    role_value = attrs['role']
-    if role_value
+    attr_role = attrs['role']
+    if attr_role
       attrs.delete('role')
-      attrs['role_string'] = Piece::ROLE_STRINGS[role_value]
+      attrs['role_string'] = role_string
     end
     attrs
   end

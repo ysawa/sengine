@@ -97,7 +97,9 @@ describe Movement do
 
   describe '.to_json' do
     it 'generates JSON successfully' do
-      movement.to_json
+      movement.role = Piece::HI
+      json_string = movement.to_json
+      json_string.should match "\"hi\""
     end
   end
 end
