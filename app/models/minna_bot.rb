@@ -10,7 +10,6 @@ class MinnaBot < Bot
 
   def decode_movement(bot_movement)
     bot_attrs = bot_movement.attributes
-    bot_attrs[:role_value] = bot_attrs.delete('role')
     sente = bot_attrs.delete('sente')
     bot_attrs[:sente] = sente > 0
     movement = Movement.new(bot_attrs)
