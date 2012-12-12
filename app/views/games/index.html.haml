@@ -1,10 +1,11 @@
 .common_container#game_page
+  - if @subtitle.is_a? Array
+    - subtitle = @subtitle[1]
+  - else
+    - subtitle = @subtitle
   %h2<
     %i.icon-book
-    - if @subtitle.is_a? Array
-      = @subtitle[1]
-    - else
-      = @subtitle
+    = subtitle
   .row
     .span3
       %ul.nav.nav-tabs.nav-stacked
