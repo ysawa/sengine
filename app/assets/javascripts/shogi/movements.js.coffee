@@ -5,7 +5,7 @@ class Shogi.Movement extends Backbone.Model
     number: null
     put: false
     reverse: false
-    role: null
+    role_string: null
     sente: null
     to_point: null
 
@@ -92,10 +92,10 @@ class Shogi.Movement extends Backbone.Model
     @get('put')
   get_reverse: ->
     @get('reverse')
-  get_role: ->
+  get_role_string: ->
     @get('role')
   get_role_value: ->
-    role = @get('role')
+    role = @get('role_string')
     Shogi.hand_roles.indexOf(role) + 1
   get_sente: ->
     @get('sente')
@@ -131,7 +131,7 @@ class Shogi.Movement extends Backbone.Model
     integer + diff
 
   set_role: (role) ->
-    @set('role', role)
+    @set('role_string', role)
 
   take_piece_on_point: (to_point) ->
     piece = Shogi.Board.piece_on_point(to_point)

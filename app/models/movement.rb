@@ -44,6 +44,20 @@ class Movement
     end
   end
 
+  def role_string
+    if self.role_value
+      Piece::ROLE_STRINGS[self.role_value]
+    end
+  end
+
+  def role_string=(string)
+    if string.present?
+      write_attribute(:role_value, Piece::ROLE_STRINGS.index(string))
+    else
+      write_attribute(:role_value, nil)
+    end
+  end
+
   def role_value=(integer)
     if integer.present?
       write_attribute(:role_value, integer)
@@ -70,7 +84,7 @@ class Movement
     role_value = attrs['role_value']
     if role_value
       attrs.delete('role_value')
-      attrs['role'] = Piece::ROLE_STRINGS[role_value]
+      attrs['role_string'] = Piece::ROLE_STRINGS[role_value]
     end
     attrs
   end
