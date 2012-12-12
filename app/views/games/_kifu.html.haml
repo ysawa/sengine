@@ -2,5 +2,5 @@
   %ol
     - game.movements.each do |movement|
       - decorator = MovementDecorator.new movement
-      %li.movement
+      %li.movement{ id: movement.id }
         = decorator.kifu_format

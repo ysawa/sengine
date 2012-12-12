@@ -24,6 +24,7 @@
     - if @game.playing?
       - your_turn = false
       - last_movement = @game.movements.last
+      - last_movement_decorator = MovementDecorator.new(last_movement)
       - if last_movement
         - if current_user == @game.sente_user && last_movement.gote?
           - your_turn = true
@@ -33,3 +34,9 @@
       - if your_turn
         :javascript
           #{render partial: 'notices/notice', formats: %w(js), locals: { notice_message: t('notices.its_your_turn') } }
+          $(function () {
+            if ($('#kifu ol li.movement[#{last_movement.id}]').size() <= 0) {
+              var movement = $('<li>').addClass('movement').attr({id: '#{last_movement.id}'}).text('#{last_movement_decorator.kifu_format}');
+              $('#kifu ol').append(movement);
+            }
+          });
