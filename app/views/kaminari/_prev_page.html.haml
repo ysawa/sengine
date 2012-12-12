@@ -1,2 +1,7 @@
 %li.prev
-  = link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, rel: 'prev', remote: remote
+  - name = raw(t 'views.pagination.previous')
+  - opts = { rel: 'prev', remote: remote }
+  - if current_page.first?
+    %span= name
+  - else
+    = link_to name, url, opts

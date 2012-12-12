@@ -1,3 +1,7 @@
 %li.next_page
+  - name = raw(t 'views.pagination.next')
   - opts = { rel: 'next', remote: remote }
-  = link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, opts
+  - if current_page.last?
+    %span= name
+  - else
+    = link_to name, url, opts
