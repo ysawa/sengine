@@ -109,6 +109,12 @@ describe Movement do
       hash = JSON.parse json_string
       hash['role_string'].should == "ry"
       hash['_id'].should == movement.id.to_s
+      attr_names = %w(reverse put)
+      attr_names.each do |attr_name|
+        hash[attr_name].should == movement.read_attribute(attr_name)
+      end
+      hash['from_point'].should == movement.from_point.to_a
+      hash['to_point'].should == movement.to_point.to_a
     end
   end
 end
