@@ -100,7 +100,7 @@ describe Movement do
       movement.role = Piece::HI
       json_string = movement.to_json
       json_string.should match "\"hi\""
-      json_string.should match movement.id.to_s
+      json_string.should match "\"#{movement.id.to_s}\""
     end
   end
 end
