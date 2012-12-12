@@ -102,5 +102,13 @@ describe Movement do
       json_string.should match "\"hi\""
       json_string.should match "\"#{movement.id.to_s}\""
     end
+
+    it 'generated JSON string can be parsed into hash' do
+      movement.role = Piece::RY
+      json_string = movement.to_json
+      hash = JSON.parse json_string
+      hash['role_string'].should == "ry"
+      hash['_id'].should == movement.id.to_s
+    end
   end
 end
