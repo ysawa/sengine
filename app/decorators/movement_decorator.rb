@@ -3,17 +3,21 @@
 class MovementDecorator < Draper::Base
   decorates :movement
 
-  def kifu_format
+  def kifu_format(past = nil)
     result = ''
     if movement.sente?
       result += '▲'
     else
       result += '△'
     end
-    if movement.move?
-      result += point_to_full(movement.from_point)
+    # if movement.move?
+    #   result += point_to_full(movement.from_point)
+    # end
+    if past && past.to_point == model.to_point
+      result += '同'
+    else
+      result += point_to_full(movement.to_point)
     end
-    result += point_to_full(movement.to_point)
     result += piece_to_kanji(movement.role_value)
     if movement.put?
       result += '打'
