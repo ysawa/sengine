@@ -32,10 +32,10 @@ class Board
       raise InvalidMovement.new("invalid movement turn: #{movement.inspect}") unless proponent_piece.sente? == movement.sente?
     else
       if self.sente
-        proponent_piece = get_piece_in_sente_hand(movement.role_value)
+        proponent_piece = get_piece_in_sente_hand(movement.role)
         minus_piece_in_sente_hand(movement.role_value)
       else
-        proponent_piece = get_piece_in_gote_hand(movement.role_value)
+        proponent_piece = get_piece_in_gote_hand(movement.role)
         minus_piece_in_gote_hand(movement.role_value)
       end
     end

@@ -7,6 +7,8 @@ class Movement
   field :number, type: Integer
   field :put, type: Boolean, default: false
   field :reverse, type: Boolean, default: false
+  field :role, type: Integer # positive integer
+  # DEPRECATED
   field :role_value, type: Integer # positive integer
   field :sente, type: Boolean
   field :to_point, type: Point
@@ -30,39 +32,33 @@ class Movement
     !put?
   end
 
-  def role
-    if self.role_value
-      Piece::ROLE_STRINGS[self.role_value]
-    end
-  end
-
-  def role=(string)
-    if string.present?
-      write_attribute(:role_value, Piece::ROLE_STRINGS.index(string))
+  def role=(integer)
+    if integer.present?
+      write_attribute(:role, integer)
     else
-      write_attribute(:role_value, nil)
+      write_attribute(:role, nil)
     end
   end
 
   def role_string
-    if self.role_value
-      Piece::ROLE_STRINGS[self.role_value]
+    if self.role
+      Piece::ROLE_STRINGS[self.role]
     end
   end
 
   def role_string=(string)
     if string.present?
-      write_attribute(:role_value, Piece::ROLE_STRINGS.index(string))
+      write_attribute(:role, Piece::ROLE_STRINGS.index(string))
     else
-      write_attribute(:role_value, nil)
+      write_attribute(:role, nil)
     end
   end
 
   def role_value=(integer)
     if integer.present?
-      write_attribute(:role_value, integer)
+      write_attribute(:role, integer)
     else
-      write_attribute(:role_value, nil)
+      write_attribute(:role, nil)
     end
   end
 
@@ -81,9 +77,9 @@ class Movement
     if point
       attrs['to_point'] = [point['x'], point['y']]
     end
-    role_value = attrs['role_value']
+    role_value = attrs['role']
     if role_value
-      attrs.delete('role_value')
+      attrs.delete('role')
       attrs['role_string'] = Piece::ROLE_STRINGS[role_value]
     end
     attrs

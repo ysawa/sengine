@@ -13,10 +13,10 @@ describe Movement do
     end
   end
 
-  describe '.role' do
+  describe '.role_string' do
     it 'works!' do
-      movement.role_value = Piece::FU
-      movement.role.should == 'fu'
+      movement.role = Piece::FU
+      movement.role_string.should == 'fu'
     end
   end
 

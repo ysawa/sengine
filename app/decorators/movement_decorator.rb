@@ -18,7 +18,7 @@ class MovementDecorator < Draper::Base
     else
       result += point_to_full(movement.to_point)
     end
-    result += piece_to_kanji(movement.role_value)
+    result += piece_to_kanji(movement.role)
     if movement.put?
       result += '打'
     elsif movement.reverse?
