@@ -76,7 +76,7 @@ describe Tag do
 
     it 'tag can be found' do
       Tag.find_by_code('Code').should == @tag
-      lambda { Tag.find_by_code('OtherCode') }.should raise_error
+      lambda { Tag.find_by_code('OtherCode') }.should raise_error(Mongoid::Errors::DocumentNotFound)
     end
   end
 
