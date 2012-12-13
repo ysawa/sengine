@@ -2,6 +2,11 @@
   var movement = new Shogi.Movement(<%= movement.to_json.html_safe %>);
   movement.execute();
   Shogi.Board.flip_turn('<%= movement.sente? ? 'gote' : 'sente' %>');
+  <% decorator = MovementDecorator.new(movement) %>
+  if ($('#kifu ol li.movement[<%= movement.id %>]').size() <= 0) {
+    var movement = $('<li>').addClass('movement').attr({id: '<%= movement.id %>'}).text('<%= decorator.kifu_format %>');
+    $('#kifu ol').append(movement);
+  }
 <%- end %>
 
 <%- last_movement = @game.movements.last %>
