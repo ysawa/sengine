@@ -67,4 +67,15 @@ describe Tag do
       end
     end
   end
+
+  describe 'Tag.find_with_code' do
+    before :each do
+      @tag.code = 'Code'
+      @tag.save
+    end
+
+    it 'tag can be found' do
+      Tag.find_with_code('Code').should == @tag
+    end
+  end
 end

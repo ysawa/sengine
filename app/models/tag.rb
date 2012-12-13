@@ -17,6 +17,7 @@ class Tag
 
   class << self
     def find_with_code(code)
+      criteria.where(code: code).first
     end
   end
 end
