@@ -6,6 +6,8 @@ class Tag
   field :name, type: String, localize: true
   field :code, type: String
   field :content, type: String, localize: true
+  validates_presence_of :code
+  validates_uniqueness_of :code, case_sensitive: false
 
   def to_param
     if self.code?

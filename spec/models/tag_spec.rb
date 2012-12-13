@@ -78,4 +78,25 @@ describe Tag do
       Tag.find_with_code('Code').should == @tag
     end
   end
+
+  describe 'about validations of code' do
+    it 'code should be taken' do
+      @tag.code = ''
+      @tag.valid?.should be_false
+    end
+
+    it 'the same code cannot be taken' do
+      @another = Fabricate(:tag, code: 'same_code')
+      @tag.code = 'same_code'
+      @tag.valid?.should be_false
+      @tag.code = 'other_code'
+      @tag.valid?.should be_true
+    end
+
+    it 'the same code with case_insensitive cannot be taken' do
+      @another = Fabricate(:tag, code: 'Same_Code')
+      @tag.code = 'same_code'
+      @tag.valid?.should be_false
+    end
+  end
 end
