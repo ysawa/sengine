@@ -33,5 +33,28 @@ describe MovementDecorator do
         kifu.should match '同'
       end
     end
+
+    context 'moving to be put' do
+      before :each do
+        @movement.from_point = nil
+        @movement.put = true
+      end
+
+      it 'notices the movement is to be put' do
+        kifu = @decorator.kifu_format
+        kifu.should match '打'
+      end
+    end
+
+    context 'moving to be reversed' do
+      before :each do
+        @movement.reverse = true
+      end
+
+      it 'notices the movement is to be reversed' do
+        kifu = @decorator.kifu_format
+        kifu.should match '成'
+      end
+    end
   end
 end
