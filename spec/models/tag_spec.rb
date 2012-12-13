@@ -68,14 +68,15 @@ describe Tag do
     end
   end
 
-  describe 'Tag.find_with_code' do
+  describe 'Tag.find_by_code' do
     before :each do
       @tag.code = 'Code'
       @tag.save
     end
 
     it 'tag can be found' do
-      Tag.find_with_code('Code').should == @tag
+      Tag.find_by_code('Code').should == @tag
+      lambda { Tag.find_by_code('OtherCode') }.should raise_error
     end
   end
 
