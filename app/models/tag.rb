@@ -11,11 +11,7 @@ class Tag
   validates_uniqueness_of :code, case_sensitive: false
 
   def to_param
-    if self.code?
-      self.code
-    else
-      self.id
-    end
+    self.code
   end
 
   class << self

@@ -4,6 +4,10 @@ require 'resque_scheduler/server'
 
 Shogiengine::Application.routes.draw do
 
+  get "tags/index"
+
+  get "tags/show"
+
   namespace :sys do
     root to: "home#index"
     resources :feedbacks do
@@ -74,6 +78,7 @@ Shogiengine::Application.routes.draw do
 
   resources :pushes, only: [:index]
 
+  resources :tags, only: [:index, :show]
   get "setting", to: "setting#show", as: :setting
   get "setting/edit", to: "setting#edit", as: :edit_setting
   put "setting", to: "setting#update"
