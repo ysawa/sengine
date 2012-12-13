@@ -6,6 +6,7 @@ class Tag
   field :name, type: String, localize: true
   field :code, type: String
   field :content, type: String, localize: true
+  index({ code: 1 }, { unique: true, name: 'code_index' })
   validates_presence_of :code
   validates_uniqueness_of :code, case_sensitive: false
 
