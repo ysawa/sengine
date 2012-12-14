@@ -24,6 +24,11 @@ module Tagging
     self.tag_ids << tag_id
   end
 
+  def tag_delete(tag)
+    tag_id = Tagging.get_tag_id(tag)
+    self.tag_ids.delete tag_id
+  end
+
   def self.included(klass)
     klass.field :tag_ids, type: Array, default: []
     klass.before_save :delete_blank_tag_ids

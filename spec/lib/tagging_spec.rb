@@ -87,6 +87,19 @@ describe Tagging do
     end
   end
 
+  describe 'model.tag_delete' do
+    before :each do
+      @tag = Fabricate(:tag)
+      @another_tag = Fabricate(:tag, code: 'another_tag')
+      @model = TestModel.new(tag_ids: [@tag.id])
+    end
+
+    it 'appends tag_id to tag_ids' do
+      @model.tag_delete @tag
+      @model.tag_ids.should == []
+    end
+  end
+
   describe '.find_by_tag' do
     before :each do
       @tag = Fabricate(:tag)
