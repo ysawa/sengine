@@ -3,14 +3,22 @@
     = f.label :code, nil, class: 'control-label'
     %section.controls
       = f.text_field :code, class: :required
-  %section.control-group
-    = f.label :name, nil, class: 'control-label'
-    %section.controls
-      = f.text_field :name, class: :required
-  %section.control-group
-    = f.label :content, nil, class: 'control-label'
-    %section.controls
-      = f.text_area :content, class: :required
+  - Sengine::LOCALES.each do |locale|
+    - locale_string = locale.to_s
+    %h2
+      = locale
+    %section.control-group
+      - name = "tag[name_translations][#{locale_string}]"
+      - content = tag_element.name_translations[locale_string]
+      = label_tag name, Tag.human_attribute_name(:name), class: 'control-label'
+      %section.controls
+        = text_field_tag name, content, class: :required
+    %section.control-group
+      - name = "tag[content_translations][#{locale_string}]"
+      - content = tag_element.content_translations[locale_string]
+      = label_tag name, Tag.human_attribute_name(:content), class: 'control-label'
+      %section.controls
+        = text_area_tag name, content, class: :required
   %section.control-group
     %section.controls
       = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
