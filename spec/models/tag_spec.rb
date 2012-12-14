@@ -68,6 +68,15 @@ describe Tag do
     end
   end
 
+  describe '.code=' do
+    it 'converts space into underscore' do
+      @tag.code = 'tag code'
+      @tag.code.should == 'tag_code'
+      @tag.code = 'another　code'
+      @tag.code.should == 'another_code'
+    end
+  end
+
   describe 'Tag.find_by_code' do
     before :each do
       @tag.code = 'Code'

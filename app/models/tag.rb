@@ -10,6 +10,11 @@ class Tag
   validates_presence_of :code
   validates_uniqueness_of :code, case_sensitive: false
 
+  def code=(string)
+    result = string.tr(' 　', '_')
+    write_attribute(:code, result)
+  end
+
   def to_param
     self.code
   end
