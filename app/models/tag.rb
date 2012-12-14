@@ -12,6 +12,7 @@ class Tag
 
   def code=(string)
     result = string.tr(' 　', '_')
+    result = result.gsub(/[!-\/:-@\[-`{-~}]/, "_")
     write_attribute(:code, result)
   end
 

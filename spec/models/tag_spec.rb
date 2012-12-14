@@ -75,6 +75,13 @@ describe Tag do
       @tag.code = 'another　code'
       @tag.code.should == 'another_code'
     end
+
+    it 'converts symbol into underscore' do
+      @tag.code = 'tag/code'
+      @tag.code.should == 'tag_code'
+      @tag.code = 'another%code'
+      @tag.code.should == 'another_code'
+    end
   end
 
   describe 'Tag.find_by_code' do
