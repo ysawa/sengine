@@ -7,7 +7,8 @@ describe "setting/edit" do
     user_sign_in
   end
 
-  it "renders setting/edit" do
+  it "renders successfully" do
     render
+    rendered.should match @user.name
   end
 end
