@@ -52,4 +52,18 @@ describe Tagging do
       model.tags.to_a.should == [@tag, @another_tag]
     end
   end
+
+  describe '.find_by_tag' do
+    before :each do
+      @tag = Fabricate(:tag)
+      @another_tag = Fabricate(:tag, code: 'another_tag')
+      @model = TestModel.create(tag_ids: [@tag.id])
+    end
+
+    it 'finds models with corresponed tags' do
+      TestModel.find_by_tag(@tag).should be_a Mongoid::Criteria
+      TestModel.find_by_tag(@tag).to_a.should == [@model]
+      TestModel.find_by_tag(@another_tag).to_a.should == []
+    end
+  end
 end

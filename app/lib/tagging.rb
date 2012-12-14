@@ -16,6 +16,15 @@ module Tagging
 
     klass.class_eval <<-EOS
       class << self
+        def find_by_tag(tag)
+          case tag
+          when Tag
+            tag_id = tag.id
+          else
+            tag_id = tag
+          end
+          criteria.where(:tag_ids.in => [tag_id])
+        end
       end
     EOS
   end
