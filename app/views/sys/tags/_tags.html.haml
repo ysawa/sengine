@@ -1,4 +1,4 @@
-- attr_names = %w(name)
+- attr_names = %w(code name content)
 %table.tags.resources.table.table-striped
   %thead
     %tr
@@ -6,12 +6,16 @@
         %th
           = Tag.human_attribute_name attr_name
       %th
+      %th
   %tbody
     - tags.each do |tag_element|
       - decorator = TagDecorator.new(tag_element)
       %tr
         - attr_names.each do |attr_name|
           %td
-            = decorator.public_send attr_name
+            = truncate tag_element.read_attribute(attr_name).to_s, length: 20
         %td
+          = link_to t('actions.show'), sys_tag_path(tag_element)
+        %td
+          = link_to t('actions.edit'), edit_sys_tag_path(tag_element)
 = paginate tags
