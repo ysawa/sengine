@@ -5,12 +5,12 @@ require 'spec_helper'
 describe Tag do
 
   before :each do
-    @tag = Fabricate(:tag)
+    @tag = Fabricate.build(:tag)
   end
 
   describe '.save' do
     it 'should be success' do
-      # fabricating is successful
+      @tag.save.should be_true
     end
   end
 
