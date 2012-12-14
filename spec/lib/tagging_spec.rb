@@ -28,6 +28,14 @@ describe Tagging do
       model.tag_ids.should == [@tag.id]
     end
 
+    it 'has present ids' do
+      model = TestModel.new
+      model.tag_ids = ['', nil, ' ']
+      model.save
+      model.reload
+      model.tag_ids.should == []
+    end
+
     it 'has ids uniquely' do
       model = TestModel.new
       model.tag_ids = [@tag.id, @tag.id]
@@ -50,6 +58,32 @@ describe Tagging do
       model.tags.to_a.should == [@tag]
       model.tag_ids = [@tag.id, @another_tag.id]
       model.tags.to_a.should == [@tag, @another_tag]
+    end
+  end
+
+  describe 'model.tag_append' do
+    before :each do
+      @tag = Fabricate(:tag)
+      @another_tag = Fabricate(:tag, code: 'another_tag')
+      @model = TestModel.new
+    end
+
+    it 'appends tag_id to tag_ids' do
+      @model.tag_append @tag
+      @model.tag_ids.should == [@tag.id]
+      @model.tag_append @tag
+      @model.tag_ids.should == [@tag.id, @tag.id]
+      @model.tag_append @tag
+      @model.tag_ids.should == [@tag.id, @tag.id, @tag.id]
+    end
+
+    it 'ensures tag_id be Moped::BSON::ObjectId' do
+      @model.tag_append @tag
+      @model.tag_ids.should == [@tag.id]
+      @model.tag_append @tag.id
+      @model.tag_ids.should == [@tag.id, @tag.id]
+      @model.tag_append @tag.id.to_s
+      @model.tag_ids.should == [@tag.id, @tag.id, @tag.id]
     end
   end
 
