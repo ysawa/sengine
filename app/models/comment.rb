@@ -5,7 +5,7 @@ class Comment
   include Mongoid::Timestamps
   field :content, type: String
   belongs_to :author, class_name: 'User'
-  belongs_to :game
+  belongs_to :commentable, polymorphic: true
   before_save :strip_tail_line_feeds
 
   def strip_tail_line_feeds

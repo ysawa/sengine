@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     @comment.author = current_user
-    @comment.game = @game if @game
+    @comment.commentable = @game if @game
     if @comment.save
       respond_with(@comment, location: game_comment_path(@game, @comment))
     else

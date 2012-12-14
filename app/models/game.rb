@@ -18,7 +18,7 @@ class Game
   HANDICAPS = %w(hi ka two four six eight ten)
 
   has_many :boards
-  has_many :comments
+  has_many :comments, as: :commentable
   has_many :movements
   belongs_to :sente_user, class_name: 'User', inverse_of: :sente_games
   belongs_to :gote_user, class_name: 'User', inverse_of: :gote_games

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CommentsController do
 
   def valid_attributes
-    { game_id: @game.id }
+    { commentable_id: @game.id, commentable_type: 'Game' }
   end
 
   def valid_session
@@ -19,7 +19,7 @@ describe CommentsController do
     it "assigns all comments as @comments" do
       comment = Comment.create! valid_attributes
       get :index, { game_id: @game.to_param }
-      assigns(:comments).should eq([comment])
+      assigns(:comments).to_a.should eq([comment])
     end
   end
 
