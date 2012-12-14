@@ -6,7 +6,7 @@
   %section.control-group
     = f.label :locale, nil, class: 'control-label'
     %section.controls
-      - locales = Shogiengine::LOCALES.collect { |locale| [translate_user_locale(locale), locale] }
+      - locales = Sengine::LOCALES.collect { |locale| [translate_user_locale(locale), locale] }
       = f.select :locale, locales, {}, class: :required
   %section.control-group
     = f.label :timezone_string, nil, class: 'control-label'

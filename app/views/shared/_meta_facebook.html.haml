@@ -1,7 +1,7 @@
-- app_id = escape_javascript Shogiengine.system.facebook[:app_id]
+- app_id = escape_javascript Sengine.system.facebook[:app_id]
 - if app_id.present?
   %meta{ property: "fb:app_id", content: app_id }
-- admin_id = escape_javascript Shogiengine.system.facebook[:admin_id]
+- admin_id = escape_javascript Sengine.system.facebook[:admin_id]
 - if admin_id.present?
   %meta{ property: "fb:admins", content: admin_id }
 - if @top_page

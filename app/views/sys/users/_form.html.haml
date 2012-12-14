@@ -7,7 +7,7 @@
     = f.text_field :score, class: :required
   %section.field
     = f.label :locale
-    - locales = Shogiengine::LOCALES.collect { |locale| [t("user.locales.#{locale}"), locale] }
+    - locales = Sengine::LOCALES.collect { |locale| [t("user.locales.#{locale}"), locale] }
     = f.select :locale, locales, {}, class: :required
   %section.field
     = f.label :timezone_string

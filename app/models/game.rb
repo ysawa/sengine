@@ -97,7 +97,7 @@ class Game
   def create_facebook_created_feed(options = {})
     locale = self.author.locale
     options = options.stringify_keys
-    site_root = Shogiengine.system.site[:root_url]
+    site_root = Sengine.system.site[:root_url]
     options['name'] = "#{self.sente_user.name} vs #{self.gote_user.name}"
     game_path = "/games/#{self.id}"
     options['link'] = "#{site_root}#{game_path}"
@@ -115,7 +115,7 @@ class Game
     return false unless notified && notified.facebook_id
     locale = notified.locale
     options = options.stringify_keys
-    site_root = Shogiengine.system.site[:root_url]
+    site_root = Sengine.system.site[:root_url]
     game_path = "?redirect=/games/#{self.id}"
     options['href'] = "#{URI.escape game_path}"
     message = I18n.t('feeds.game_created',
@@ -138,7 +138,7 @@ class Game
     return false unless notified && notified.facebook_id
     locale = notified.locale
     options = options.stringify_keys
-    site_root = Shogiengine.system.site[:root_url]
+    site_root = Sengine.system.site[:root_url]
     game_path = "?redirect=/games/#{self.id}"
     options['href'] = "#{URI.escape game_path}"
     message = I18n.t('feeds.game_moved',
@@ -150,7 +150,7 @@ class Game
   def create_facebook_won_feed(options = {})
     locale = self.won_user.locale
     options = options.stringify_keys
-    site_root = Shogiengine.system.site[:root_url]
+    site_root = Sengine.system.site[:root_url]
     options['name'] = "#{self.sente_user.name} vs #{self.gote_user.name}"
     game_path = "/games/#{self.id}"
     options['link'] = "#{site_root}#{game_path}"

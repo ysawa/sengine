@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def facebook_enabled?
     # Rails.env.production?
-    Shogiengine.system.facebook[:enabled]
+    Sengine.system.facebook[:enabled]
   end
 
   def link_to_sign_in(name = nil, options = {})

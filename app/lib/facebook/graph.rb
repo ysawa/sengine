@@ -48,8 +48,8 @@ module Facebook
       def get_app_access_token
         client = HTTPClient.new
         href = "#{ROOT}/oauth/access_token?"
-        href += "client_id=#{Shogiengine.system.facebook[:app_id]}"
-        href += "&client_secret=#{Shogiengine.system.facebook[:app_secret]}"
+        href += "client_id=#{Sengine.system.facebook[:app_id]}"
+        href += "&client_secret=#{Sengine.system.facebook[:app_secret]}"
         href += "&grant_type=client_credentials"
         @@app_access_token = client.get_content(href).sub(/^.+=/, '')
       rescue => error

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Shogiengine
+module Sengine
   class System
     def site
       @system[:site] || {}

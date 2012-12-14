@@ -117,7 +117,7 @@ class User
 
   def locale=(locale)
     locale = locale.sub(/_\w+$/, '')
-    unless Shogiengine::LOCALES.include? locale.to_sym
+    unless Sengine::LOCALES.include? locale.to_sym
       locale = I18n.default_locale
     end
     write_attribute(:locale, locale)

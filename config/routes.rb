@@ -2,7 +2,7 @@ require 'resque/server'
 require 'resque_scheduler'
 require 'resque_scheduler/server'
 
-Shogiengine::Application.routes.draw do
+Sengine::Application.routes.draw do
 
   namespace :sys do
     root to: "home#index"

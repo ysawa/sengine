@@ -8,7 +8,7 @@
   %br.hidden-desktop
   = link_to page_name('about', 'tos'), about_tos_path
   = link_to page_name('about', 'privacy'), about_privacy_path
-  - about_us_url = Shogiengine.system.site[:about_us_url]
+  - about_us_url = Sengine.system.site[:about_us_url]
   - if about_us_url
     = link_to page_name('about', 'us'), about_us_url, class: :out, target: :_blank
   %span#credit= t('site.copyright')

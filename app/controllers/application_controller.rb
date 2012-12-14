@@ -103,7 +103,7 @@ protected
 
   def select_locale_from_accepted_languages
     locales = accepted_languages
-    selected = locales.find { |locale| Shogiengine::LOCALES.include? locale[0].to_sym }
+    selected = locales.find { |locale| Sengine::LOCALES.include? locale[0].to_sym }
     if selected
       selected[0]
     else

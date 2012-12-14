@@ -11,5 +11,6 @@ describe "sys/tags/show.html.haml" do
 
   it 'renders successfully' do
     render
+    rendered.should match @tag.name
   end
 end

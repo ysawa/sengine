@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 
-module Shogiengine
+module Sengine
   LOCALES = [:ja, :en]
 end
