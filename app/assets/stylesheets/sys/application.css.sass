@@ -38,12 +38,6 @@ table.resources
     width: 19px
     height: 19px
 
-form
-  section.field
-    margin: 15px 0
-  section.actions
-    margin: 30px 0
-
 ul.menu
   li
     margin: 25px 0
@@ -56,18 +50,20 @@ ul.menu
       text-align: center
       text-decoration: none
 
-aside.actions
-  margin: 10px 0
-
 /* pnotify */
 .ui-pnotify-history-container
   display: none
+  @media (max-width: 320px)
+    right: 0px
 .ui-pnotify-history-container .ui-pnotify-history-header
   text-align: center
   font-weight: bold
 .ui-pnotify-container
   padding: 10px
+  @media (max-width: 320px)
+    width: 260px
 .ui-pnotify
+  right: 10px
   h4.ui-pnotify-title
     clear: none
     margin: 0 0 5px
@@ -78,6 +74,7 @@ aside.actions
     display: block
   div.ui-pnotify-text
     font-size: 14px
+    a
+      color: $link_color
   div.ui-pnotify-sticker
     display: none
-
