@@ -18,6 +18,11 @@ describe TagDecorator do
       @decorator.name(true).should match @tag.name
       @decorator.name(true).should match '<a href='
     end
+
+    it 'generates name of selected locale' do
+      @decorator.name(false, 'en').should match @tag.name
+      @decorator.name(false, 'ja').should be_nil
+    end
   end
 
   describe '.content' do
@@ -25,6 +30,11 @@ describe TagDecorator do
       @tag.content.split("\n").each do |line|
         @decorator.content.should match line
       end
+    end
+
+    it 'generates content of selected locale' do
+      @decorator.content('en').should match @tag.content.split("\n").first
+      @decorator.content('ja').should be_nil
     end
   end
 end

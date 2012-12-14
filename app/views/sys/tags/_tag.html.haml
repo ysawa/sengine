@@ -3,7 +3,11 @@
 %article.tag
   %h2.code
     = decorator.code
-  %h3.name
-    = decorator.name
-  %section.content
-    = decorator.content
+  - Sengine::LOCALES.each do |locale|
+    %h3
+      = locale
+    - locale_string = locale.to_s
+    %h4.name
+      = decorator.name(false, locale_string)
+    %section.content
+      = decorator.content(locale_string)

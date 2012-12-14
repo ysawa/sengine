@@ -3,18 +3,36 @@
 class TagDecorator < ApplicationDecorator
   decorates :tag
 
-  def content
-    if model.content
-      prettify model.content
+  def content(locale = nil)
+    target_locale = get_locale(locale)
+    result = model.content_translations[target_locale]
+    if result
+      prettify result
     end
   end
 
-  def name(link = false)
-    result = model.name
-    if link
-      h.link_to result, model
+  def name(link = false, locale = nil)
+    target_locale = get_locale(locale)
+    result = model.name_translations[target_locale]
+    if result
+      if link
+        h.link_to result, model
+      else
+        result
+      end
+    end
+  end
+
+private
+
+  def get_locale(locale)
+    case locale
+    when String
+      locale
+    when Symbol
+      locale.to_s
     else
-      result
+      I18n.locale.to_s
     end
   end
 end
