@@ -6,10 +6,8 @@
     .span3
       = render 'profile/profile', user: @user
     .span9
-      %h3
-        = t('user.theme_collection')
-      = render 'theme_collection', user: @user
-      %h3
+      %h3<
+        %i.icon-book
         = Game.model_name.human
       - games = Game.of_user(@user).desc(:created_at).page(params[:page]).per(5)
       = render 'games/games', games: games, pagination_params: { controller: :games, action: :index, user_id: @user.id }, with_pagination: true
