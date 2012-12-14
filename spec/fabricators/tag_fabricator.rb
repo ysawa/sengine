@@ -3,5 +3,8 @@
 Fabricator(:tag) do
   name    "Tag Name"
   code    "tag_name"
-  content "This Is a Tag Content."
+  content <<-EOS
+This Is a Tag Content.
+Good!
+EOS
 end

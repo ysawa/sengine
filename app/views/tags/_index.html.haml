@@ -1,3 +1,7 @@
 %ul.tags
   - @tags.each do |tag_element|
-    %li.tag= tag_element.name
+    %li.tag
+      %h3.name
+        = tag_element.name
+      %section.content
+        = tag_element.content
