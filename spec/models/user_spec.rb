@@ -61,6 +61,35 @@ describe User do
     end
   end
 
+  describe '.setup_timezone' do
+    before :each do
+      @user = Fabricate(:user,
+         timezone: nil,
+         timezone_string: nil
+      )
+    end
+
+    it 'initialize timezone from timezone string' do
+      @user.timezone_string = 'Tokyo'
+      @user.setup_timezone
+      @user.timezone.should == 9
+    end
+
+    it "initialize timezone string 'Tokyo' from timezone (9)" do
+      @user.timezone = 9
+      @user.setup_timezone
+      @user.timezone_string.should == 'Tokyo'
+    end
+
+    it 'initialize timezone string from timezone' do
+      @user.timezone = 8
+      @user.setup_timezone
+      @user.timezone_string.should be_a String
+      @user.timezone_string.should_not == 'Tokyo'
+    end
+  end
+
+
   describe 'callback of :set_admin_if_first_user' do
     before :each do
       User.delete_all

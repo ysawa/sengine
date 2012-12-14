@@ -143,7 +143,12 @@ class User
       self.timezone = ActiveSupport::TimeZone[self.timezone_string].utc_offset / 3600
     end
     if self.timezone? && self.timezone_string.blank?
-      self.timezone_string = ActiveSupport::TimeZone[9].name
+      case self.timezone
+      when 9
+        self.timezone_string = 'Tokyo'
+      else
+        self.timezone_string = ActiveSupport::TimeZone[self.timezone].name
+      end
     end
     nil
   end
