@@ -29,6 +29,7 @@ class Sys::TagsController < Sys::ApplicationController
 
   # GET /sys/tags/new
   def new
+    @tag = Tag.new
     render action: :edit
   end
 

@@ -55,8 +55,20 @@ describe Sys::TagsController do
       end
 
       it 'finds corresponded tag' do
-        get 'edit', id: @tag.to_param
+        get 'show', id: @tag.to_param
         assigns[:tag].should == @tag
+      end
+    end
+
+    describe "GET 'new'" do
+      it "returns http success" do
+        get 'new'
+        response.should be_success
+      end
+
+      it 'build new tag' do
+        get 'new'
+        assigns[:tag].persisted?.should be_false
       end
     end
   end
