@@ -7,6 +7,7 @@ ja:
       game: '対局'
       movement: '指し手'
       piece: '駒'
+      tag: 'タグ'
       user: 'ユーザー'
     attributes:
       board:
@@ -52,6 +53,10 @@ ja:
         point: '位置'
         role: '駒の種類'
         sente: '先手'
+      tag:
+        code: 'コード'
+        content: 'コンテンツ'
+        name: 'タグ名'
       user:
         admin: '管理者'
         audio_on: '音声(駒の音)'

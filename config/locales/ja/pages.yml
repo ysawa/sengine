@@ -41,5 +41,10 @@ ja:
         games:
           index: '対局一覧'
           show: '対局詳細'
+        tags:
+          edit: 'タグ編集'
+          index: 'タグ一覧'
+          new: 'タグ作成'
+          show: 'タグ詳細'
         users:
           index: 'ユーザー一覧'

@@ -1,3 +1,6 @@
 .common_container#tag_page
+  %h2= @subtitle
   = render 'tags', tags: @tags
   = paginate @tags
+  %section.actions
+    = link_to t('actions.new'), new_sys_tag_path

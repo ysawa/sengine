@@ -7,6 +7,7 @@ en:
       game: 'Game'
       movement: 'Movement'
       piece: 'Piece'
+      tag: 'Tag'
       user: 'Player'
     attributes:
       board:
@@ -51,6 +52,10 @@ en:
         point: 'Point'
         role: 'Role'
         sente: 'Turn'
+      tag:
+        code: 'Code'
+        content: 'Content'
+        name: 'Name'
       user:
         admin: 'Admin'
         audio_on: 'Sound'

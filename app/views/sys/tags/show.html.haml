@@ -1,2 +1,5 @@
 .common_container#tag_page
+  %h2= @subtitle
   = render 'tag', tag_element: @tag
+  %section.actions
+    = link_to t('actions.edit'), edit_sys_tag_path(@tag)
