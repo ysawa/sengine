@@ -76,7 +76,7 @@ module Sengine
       end
     end
 
-    Resque.redis.namespace = "resque:Sengine"
+    Resque.redis.namespace = "resque:sengine"
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
