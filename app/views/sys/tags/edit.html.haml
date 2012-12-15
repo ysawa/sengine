@@ -1,5 +1,6 @@
 .common_container#tag_page
   %h2= @subtitle
   = render 'form', tag_element: @tag
-  %section.actions
-    = link_to t('actions.show'), sys_tag_path(@tag)
+  - if @tag.persisted?
+    %section.actions
+      = link_to t('actions.show'), sys_tag_path(@tag)
