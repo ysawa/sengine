@@ -6,9 +6,9 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 
-set :application, "shogiengine"
+set :application, "sengine"
 set :keep_releases, 5
-set :repository,  "git://github.com/ysawa/shogiengine.git"
+set :repository,  "git://github.com/ysawa/sengine.git"
 set :scm, :git
 set :branch, "master"
 set :deploy_via, :remote_cache
@@ -17,7 +17,7 @@ set :rails_env, "production"
 set :use_sudo, false
 set :ssh_options, port: "22"
 set :bundle_flags, "--quiet"
-set :user, 'shogiengine'
+set :user, 'sengine'
 
 role :web, "enique.jp"                          # Your HTTP server, Apache/etc
 role :app, "enique.jp"                          # This may be the same as your `Web` server
