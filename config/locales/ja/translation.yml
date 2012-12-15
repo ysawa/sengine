@@ -43,8 +43,8 @@ ja:
     pagination:
       first: '<<'
       last: '>>'
-      next: '次へ'
-      previous: '前へ'
+      next: '>'
+      previous: '<'
       truncate: '...'
   feeds:
     game_created: 'みんなの将棋で%{sente}さんと%{gote}さんが対局開始しました。'
