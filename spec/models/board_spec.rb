@@ -60,12 +60,32 @@ describe Board do
         to_point: [7, 6],
         role: Piece::FU,
         number: 1,
-        sente: true
+        sente: true,
+        put: false
       }
       Fabricate(:movement, attributes)
     end
 
-    it 'works!' do
+    let :put_board do
+      b = Board.hirate
+      b.sente_hand = [nil, 1, 0, 0, 0, 0, 0, 0, 0]
+      b.p_75 = nil
+      b
+    end
+
+    let :put_movement do
+      attributes = {
+        from_point: nil,
+        to_point: [5, 5],
+        role: Piece::FU,
+        number: 1,
+        sente: true,
+        put: true
+      }
+      Fabricate(:movement, attributes)
+    end
+
+    it 'works if movement is normal move!' do
       piece_from_point = board.get_piece(movement.from_point)
       piece_to_point = board.get_piece(movement.to_point)
       piece_from_point.sente?.should be_true
@@ -78,6 +98,17 @@ describe Board do
       piece_from_point = board.get_piece(movement.from_point)
       piece_to_point = board.get_piece(movement.to_point)
       piece_from_point.should be_nil
+      piece_to_point.role.should == Piece::FU
+    end
+
+    it 'works if movement is normal put!' do
+      piece_to_point = put_board.get_piece(put_movement.to_point)
+      piece_to_point.should be_blank
+      put_board.number = 1
+      put_board.apply_movement(put_movement)
+
+      put_board.movement.should == put_movement
+      piece_to_point = put_board.get_piece(put_movement.to_point)
       piece_to_point.role.should == Piece::FU
     end
 

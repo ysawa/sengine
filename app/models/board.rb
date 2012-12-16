@@ -26,18 +26,18 @@ class Board
     self.movement = movement
     self.sente = movement.sente
     raise InvalidMovement.new("invalid movement number: #{movement.inspect}") unless movement.number == self.number
-    if movement.from_point?
+    if movement.put?
+      if self.sente
+        proponent_piece = get_piece_in_sente_hand(movement.role)
+        minus_piece_in_sente_hand(movement.role)
+      else
+        proponent_piece = get_piece_in_gote_hand(movement.role)
+        minus_piece_in_gote_hand(movement.role)
+      end
+    else
       proponent_piece = get_piece(movement.from_point)
       set_piece_value(0, movement.from_point)
       raise InvalidMovement.new("invalid movement turn: #{movement.inspect}") unless proponent_piece.sente? == movement.sente?
-    else
-      if self.sente
-        proponent_piece = get_piece_in_sente_hand(movement.role)
-        minus_piece_in_sente_hand(movement.role_value)
-      else
-        proponent_piece = get_piece_in_gote_hand(movement.role)
-        minus_piece_in_gote_hand(movement.role_value)
-      end
     end
     unless proponent_piece
       raise InvalidMovement.new "no proponent piece: #{movement.inspect}"
