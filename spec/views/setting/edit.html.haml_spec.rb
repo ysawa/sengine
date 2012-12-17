@@ -10,5 +10,6 @@ describe "setting/edit" do
   it "renders successfully" do
     render
     rendered.should match @user.name
+    rendered.should have_selector 'form.edit_user'
   end
 end
