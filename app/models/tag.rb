@@ -12,7 +12,7 @@ class Tag
 
   def code=(string)
     result = string.tr(' 　', '_')
-    result = result.gsub(/[!-\/:-@\[-`{-~}]/, "_")
+    result = result.gsub(/[!-\/\\:-@\[-`{-~}]/, "_")
     write_attribute(:code, result)
   end
 
@@ -26,7 +26,12 @@ class Tag
     end
 
     def search(q)
-      criteria.where(name: q)
+      regs = q.split(/[!-\/\\:-@\[-`{-~}]/).collect { |keyword| Regexp.new(keyword, Regexp::IGNORECASE) }
+      queries = []
+      Sengine::LOCALES.each do |locale|
+        queries << { :"name.#{locale}".in => regs }
+      end
+      criteria.any_of(queries)
     end
   end
 end

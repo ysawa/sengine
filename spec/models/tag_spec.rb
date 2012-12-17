@@ -99,19 +99,18 @@ describe Tag do
   describe 'Tag.search' do
     before :each do
       I18n.locale = :en
-      @tag.name = 'Tag'
+      @tag.name = 'Tag Name'
       I18n.locale = :ja
-      @tag.name = 'タグ'
+      @tag.name = 'タグ 名前'
       @tag.save
+      I18n.locale = :en
     end
 
     it 'tag can be searched' do
-      I18n.locale = :en
       searched = Tag.search('Tag')
       searched.count.should == 1
       searched = Tag.search('Tage')
       searched.count.should == 0
-      I18n.locale = :ja
       searched = Tag.search('タグ')
       searched.count.should == 1
     end
