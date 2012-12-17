@@ -102,7 +102,7 @@ describe Tag do
       @tag.generate_code_from_name
       @tag.code.should == 'Another_'
       @tag.save
-      next_tag = Fabricate.build(:tag, name: 'Another')
+      next_tag = Fabricate.build(:tag, name: 'Another', code: nil)
       next_tag.generate_code_from_name
       next_tag.code.should == 'Another__'
     end

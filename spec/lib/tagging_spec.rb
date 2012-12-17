@@ -100,6 +100,31 @@ describe Tagging do
     end
   end
 
+  describe 'model.tag_name_append' do
+    before :each do
+      @tag = Fabricate(:tag, name: 'Tag')
+      @another_tag = Fabricate(:tag, code: 'another_tag')
+      @model = TestModel.new
+    end
+
+    it 'appends tag_id to tag_ids' do
+      @model.tag_name_append('Tag')
+      @model.tag_ids.should == [@tag.id]
+      @model.tag_name_append('Tag')
+      @model.tag_ids.should == [@tag.id, @tag.id]
+      @model.tag_name_append('Tag')
+      @model.tag_ids.should == [@tag.id, @tag.id, @tag.id]
+    end
+
+    it 'ensures newly created tag_id be Moped::BSON::ObjectId' do
+      @model.tag_name_append('Teg')
+      @model.tag_ids.should_not == [@tag.id]
+      @model.save
+      @model.tags.first.name.should == 'Teg'
+    end
+  end
+
+
   describe '.find_by_tag' do
     before :each do
       @tag = Fabricate(:tag)

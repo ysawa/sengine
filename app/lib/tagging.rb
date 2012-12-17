@@ -29,6 +29,15 @@ module Tagging
     self.tag_ids.delete tag_id
   end
 
+  def tag_name_append(tag_name)
+    tag = Tag.find_or_initialize_by(name: tag_name)
+    unless tag.persisted?
+      tag.generate_code_from_name
+      tag.save
+    end
+    self.tag_ids << tag.id
+  end
+
   def self.format_tag_id(tag)
     case tag
     when Tag
