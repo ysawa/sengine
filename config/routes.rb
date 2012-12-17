@@ -76,8 +76,12 @@ Sengine::Application.routes.draw do
 
   resources :pushes, only: [:index]
 
-  match "tags/search/:q", to: 'tags#search', as: :search_tags
-  resources :tags, only: [:index, :show]
+  match "tags/search/:q", to: 'tags#search'
+  resources :tags, only: [:index, :show] do
+    collection do
+      get :search
+    end
+  end
   get "setting", to: "setting#show", as: :setting
   get "setting/edit", to: "setting#edit", as: :edit_setting
   put "setting", to: "setting#update"
