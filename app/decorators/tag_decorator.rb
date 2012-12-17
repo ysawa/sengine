@@ -14,12 +14,21 @@ class TagDecorator < ApplicationDecorator
   def name(link = false, locale = nil)
     target_locale = get_locale(locale)
     result = model.name_translations[target_locale]
-    if result
-      if link
-        h.link_to result, model
-      else
-        result
+    if result.blank?
+      model.name_translations.each do |key, value|
+        if value.present?
+          result = value
+          break
+        end
       end
+      if result.blank?
+        result = 'untitled'
+      end
+    end
+    if link
+      h.link_to result, model
+    else
+      result
     end
   end
 

@@ -20,8 +20,16 @@ describe TagDecorator do
     end
 
     it 'generates name of selected locale' do
-      @decorator.name(false, 'en').should match @tag.name
-      @decorator.name(false, 'ja').should be_nil
+      @decorator.name(false, 'en').should == @tag.name
+    end
+
+    it 'is forced to show some name' do
+      @tag.name_translations = { 'en' => 'tag name' }
+      @decorator.name(false, 'en').should == 'tag name'
+      @decorator.name(false, 'ja').should == 'tag name'
+      @tag.name_translations = {}
+      @decorator.name(false, 'en').should == 'untitled'
+      @decorator.name(false, 'ja').should == 'untitled'
     end
   end
 
