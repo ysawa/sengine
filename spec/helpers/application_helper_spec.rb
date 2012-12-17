@@ -4,6 +4,32 @@ require 'spec_helper'
 
 describe ApplicationHelper do
 
+  describe '.site_title' do
+
+    context 'with blank argument' do
+      it 'generates only the site title' do
+        site_title.should == I18n.t('site.title')
+      end
+    end
+
+    context 'with string argument' do
+      it 'generates string included with the same string' do
+        title = site_title('Subtitle')
+        title.should match 'Subtitle'
+        title.should match I18n.t('site.title')
+      end
+    end
+
+    context 'with array argument' do
+      it 'generates string included with the same array' do
+        title = site_title(['Subtitle1', 'Subtitle2'])
+        title.should match 'Subtitle1'
+        title.should match 'Subtitle2'
+        title.should match I18n.t('site.title')
+      end
+    end
+  end
+
   describe '.site_title_elements' do
 
     context 'with blank argument' do
