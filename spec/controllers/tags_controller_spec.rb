@@ -32,4 +32,17 @@ describe TagsController do
       assigns[:tag].should == @tag
     end
   end
+
+  describe "GET 'search'" do
+    it "returns http success" do
+      get 'search', q: 'tag'
+      response.should be_success
+    end
+
+    it "finds paged tags" do
+      get 'search', q: 'tag'
+      assigns[:tags].should be_a Mongoid::Criteria
+      assigns[:tags].to_a.should == [@tag]
+    end
+  end
 end

@@ -104,6 +104,7 @@ describe Tag do
       @tag.name = 'タグ 名前'
       @tag.save
       I18n.locale = :en
+      @dummy_tag = Fabricate('tag', name: '123', code: 'CodeName')
     end
 
     it 'tag can be searched' do
