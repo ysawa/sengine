@@ -61,6 +61,24 @@ describe User do
     end
   end
 
+  describe '.online? and .offline?' do
+    before :each do
+      @user = Fabricate(:user, email: 'test@example.com')
+    end
+
+    it 'shows which the user online or offline by used_at' do
+      @user.used_at = nil
+      @user.online?.should be_false
+      @user.offline?.should be_true
+      @user.used_at = Time.now
+      @user.online?.should be_true
+      @user.offline?.should be_false
+      @user.used_at = Time.now - 1.minute - 1.second
+      @user.online?.should be_false
+      @user.offline?.should be_true
+    end
+  end
+
   describe '.setup_timezone' do
     before :each do
       @user = Fabricate(:user,
