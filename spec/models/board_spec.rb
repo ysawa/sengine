@@ -14,7 +14,7 @@ describe Board do
   end
 
   describe '.hirate' do
-    it 'works!' do
+    it 'creates hirate boards and initializes the turn and other information.' do
       board.hirate
       board.sente.should be_false
       board.number.should == 0
@@ -112,7 +112,7 @@ describe Board do
       piece_to_point.role.should == Piece::FU
     end
 
-    it 'fail if movement have invalid number (number should be same)' do
+    it 'fails if movement have invalid number (number should be same)' do
       piece_from_point = board.get_piece(movement.from_point)
       piece_to_point = board.get_piece(movement.to_point)
       piece_from_point.role.should == Piece::FU
@@ -121,7 +121,7 @@ describe Board do
       lambda { board.apply_movement(movement) }.should raise_error
     end
 
-    it 'fail if movement have invalid moving' do
+    it 'fails if movement have invalid moving' do
       movement.attributes = {
         from_point: [5, 5],
         role: Piece::FU,
@@ -135,7 +135,7 @@ describe Board do
       lambda { board.apply_movement(movement) }.should raise_error
     end
 
-    it 'fail if movement have invalid putting' do
+    it 'fails if movement have invalid putting' do
       movement.attributes = {
         from_point: nil,
         put: true,
@@ -148,7 +148,7 @@ describe Board do
       lambda { board.apply_movement(movement) }.should raise_error
     end
 
-    it 'fail if movement have invalid taking (cannot be taken)' do
+    it 'fails if movement have invalid taking (cannot be taken)' do
       movement.attributes = {
         from_point: [1, 9],
         role: Piece::KY,

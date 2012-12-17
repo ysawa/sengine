@@ -12,13 +12,13 @@ describe Hand do
   end
 
   describe '.initialize' do
-    it 'work with a blank argument' do
+    it 'works with a blank argument.' do
       hand = Hand.new
       hand.fu.should == 0
       hand.hi.should == 0
     end
 
-    it 'work with arguments' do
+    it 'works with arguments.' do
       hand_one = Hand.new(@example_hash)
       hand_two = Hand.new(@example_array)
       Hand::KEY_NAMES.each do |key|
@@ -30,7 +30,7 @@ describe Hand do
   end
 
   describe '.fu' do
-    it 'is accessible' do
+    it 'is accessible.' do
       hand.fu.should == 4
       hand.fu = 9
       hand.fu.should == 9
@@ -40,7 +40,7 @@ describe Hand do
   end
 
   describe '.hi' do
-    it 'is accessible' do
+    it 'is accessible.' do
       hand.hi.should == 1
       hand.hi = 2
       hand.hi.should == 2
@@ -49,8 +49,8 @@ describe Hand do
     end
   end
 
-  describe 'can be treated like' do
-    it 'Hash' do
+  describe 'can be treated as' do
+    it 'is like Hash.' do
       hand[:fu].should == 4
       hand['fu'].should == 4
       hand[:hi].should == 1
@@ -61,7 +61,7 @@ describe Hand do
       hand[:hi].should == 2
     end
 
-    it 'Array' do
+    it 'is like Array.' do
       hand[0].should == nil
       hand[1].should == 4
       hand[2].should == 0
@@ -73,13 +73,13 @@ describe Hand do
   end
 
   describe '.mongoize' do
-    it 'generate a hash instance for mongodb' do
+    it 'generates a hash instance for mongodb' do
       hand.mongoize.should == @example_hash
     end
   end
 
   describe 'Hand.mongoize' do
-    it 'generate a Hash instance for MongoDB' do
+    it 'generates a Hash instance for MongoDB' do
       Hand.mongoize(@example_hash).should == @example_hash
       Hand.mongoize(@example_array).should == @example_hash
     end

@@ -22,7 +22,7 @@ describe Comment do
   end
 
   describe '.strip_tail_line_feeds' do
-    it 'strip tail line feeds' do
+    it 'strips tail line feeds' do
       comment.content = "aaa\nbbb\nccc\n\n"
       comment.strip_tail_line_feeds
       comment.content.should == "aaa\nbbb\nccc"

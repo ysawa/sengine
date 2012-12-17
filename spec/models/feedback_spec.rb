@@ -22,7 +22,7 @@ describe Feedback do
   end
 
   describe '.strip_tail_line_feeds' do
-    it 'strip tail line feeds' do
+    it 'strips tail line feeds' do
       feedback.content = "aaa\nbbb\nccc\n\n"
       feedback.strip_tail_line_feeds
       feedback.content.should == "aaa\nbbb\nccc"
