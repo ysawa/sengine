@@ -14,5 +14,9 @@ describe "devise/sessions/new.html.haml" do
   it 'renders successfully.' do
     render
     rendered.should have_selector 'form#user_sign_in'
+    assert_select 'form#user_sign_in' do
+      assert_select "input[name='user[email]']"
+      assert_select "input[name='user[password]']"
+    end
   end
 end
