@@ -10,5 +10,6 @@ describe "sys/tags/edit.html.haml" do
 
   it 'renders successfully' do
     render
+    rendered.should have_selector 'form.edit_tag'
   end
 end
