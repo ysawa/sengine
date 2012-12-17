@@ -4,6 +4,14 @@ require 'spec_helper'
 
 describe ApplicationHelper do
 
+  describe '.page_name' do
+
+    it 'generates page name' do
+      page_name('home', 'mypage').should == I18n.t('pages.controllers.home.mypage')
+      page_name('tags', 'index').should == I18n.t('pages.controllers.tags.index')
+    end
+  end
+
   describe '.site_title' do
 
     context 'with blank argument' do
