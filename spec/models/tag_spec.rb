@@ -85,11 +85,26 @@ describe Tag do
   end
 
   describe '.generate_code_from_name' do
+    before :each do
+      @another_tag = Fabricate(:tag, name: 'Another Tag', code: 'Another')
+    end
+
     it 'converts name strings into code' do
       @tag.code = nil
       @tag.name = 'Tag'
       @tag.generate_code_from_name
       @tag.code.should == 'Tag'
+    end
+
+    it 'converts name strings into code which is not duplicated' do
+      @tag.code = nil
+      @tag.name = 'Another'
+      @tag.generate_code_from_name
+      @tag.code.should == 'Another_'
+      @tag.save
+      next_tag = Fabricate.build(:tag, name: 'Another')
+      next_tag.generate_code_from_name
+      next_tag.code.should == 'Another__'
     end
   end
 

@@ -21,12 +21,17 @@ class Tag
 
   def generate_code_from_name
     return if code?
+    write_attribute(:code, nil)
     Sengine::LOCALES.each do |locale|
       name_of_locale = self.name_translations[locale.to_s]
       if name_of_locale.present?
         self.code = name_of_locale
         break
       end
+    end
+    while self.code
+      break if Tag.where(code: self.code).count == 0
+      self.code += '_'
     end
     nil
   end
