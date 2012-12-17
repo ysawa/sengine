@@ -58,6 +58,13 @@ module ApplicationHelper
       else
         elements << User.model_name.human
       end
+    when Tag
+      tag = subtitle
+      if tag.persisted?
+        elements << tag.name
+      else
+        elements << Tag.model_name.human
+      end
     when Array
       elements = subtitle
     else
