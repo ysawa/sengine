@@ -8,6 +8,6 @@
       = locale
     - locale_string = locale.to_s
     %h4.name
-      = decorator.name(false, locale_string)
+      = decorator.name_translations[locale_string]
     %section.content
       = decorator.content(locale_string)

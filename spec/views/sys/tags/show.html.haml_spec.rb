@@ -11,6 +11,10 @@ describe "sys/tags/show.html.haml" do
 
   it 'renders successfully' do
     render
+    rendered.should match @tag.code
     rendered.should match @tag.name
+    @tag.content.split(/\n/).each do |content|
+      rendered.should match content
+    end
   end
 end
