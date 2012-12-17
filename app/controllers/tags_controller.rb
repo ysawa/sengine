@@ -2,6 +2,7 @@
 
 class TagsController < ApplicationController
   respond_to :html
+  before_filter :authenticate_user_but_pass_crawler!
 
   def index
     @tags = Tag.desc(:created_at).page(params[:page])
