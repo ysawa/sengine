@@ -11,6 +11,17 @@ describe "tags/index.html.haml" do
 
   it 'renders successfully' do
     render
-    rendered.match @tag.name
+    rendered.should match @tag.name
+  end
+
+  describe 'form#search_tag' do
+    before :each do
+      view.stub!(:params).and_return({ q: 'Key Word' })
+    end
+
+    it 'renders successfully' do
+      render
+      rendered.should match 'Key Word'
+    end
   end
 end
