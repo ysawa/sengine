@@ -24,5 +24,9 @@ class Tag
     def find_by_code(code)
       criteria.find_by(code: code)
     end
+
+    def search(q)
+      criteria.where(name: q)
+    end
   end
 end

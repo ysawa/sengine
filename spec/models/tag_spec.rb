@@ -96,6 +96,27 @@ describe Tag do
     end
   end
 
+  describe 'Tag.search' do
+    before :each do
+      I18n.locale = :en
+      @tag.name = 'Tag'
+      I18n.locale = :ja
+      @tag.name = 'タグ'
+      @tag.save
+    end
+
+    it 'tag can be searched' do
+      I18n.locale = :en
+      searched = Tag.search('Tag')
+      searched.count.should == 1
+      searched = Tag.search('Tage')
+      searched.count.should == 0
+      I18n.locale = :ja
+      searched = Tag.search('タグ')
+      searched.count.should == 1
+    end
+  end
+
   describe 'about validations of code' do
     it 'code should be taken' do
       @tag.code = ''
