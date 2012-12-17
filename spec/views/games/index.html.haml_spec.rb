@@ -21,5 +21,7 @@ describe "games/index" do
 
   it "renders a list of games" do
     render
+    rendered.should match @game.sente_user.name
+    rendered.should match @game.gote_user.name
   end
 end
