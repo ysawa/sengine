@@ -1,10 +1,13 @@
 .common_container#session_page
   %h2 Forgot your password?
-  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+  - html_options = { id: :user_edit, class: %w(validated form-horizontal), method: :post }
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: html_options) do |f|
     = devise_error_messages!
-    %div
-      = f.label :email
-      %br/
-      = f.email_field :email
-    %div= f.submit "Send me reset password instructions"
-  = render :partial => "devise/shared/links"
+    %section.control-group
+      = f.label :email, nil, class: 'control-label'
+      %section.controls
+        = f.email_field :email
+    %section.control-group
+      %section.controls
+        = f.submit "Send me reset password instructions"
+  = render partial: "devise/shared/links"
