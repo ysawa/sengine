@@ -11,9 +11,24 @@ class Tag
   validates_uniqueness_of :code, case_sensitive: false
 
   def code=(string)
+    if string.nil?
+      return write_attribute(:code, nil)
+    end
     result = string.tr(' 　', '_')
     result = result.gsub(/[!-\/\\:-@\[-`{-~}]/, "_")
     write_attribute(:code, result)
+  end
+
+  def generate_code_from_name
+    return if code?
+    Sengine::LOCALES.each do |locale|
+      name_of_locale = self.name_translations[locale.to_s]
+      if name_of_locale.present?
+        self.code = name_of_locale
+        break
+      end
+    end
+    nil
   end
 
   def to_param

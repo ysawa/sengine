@@ -84,6 +84,15 @@ describe Tag do
     end
   end
 
+  describe '.generate_code_from_name' do
+    it 'converts name strings into code' do
+      @tag.code = nil
+      @tag.name = 'Tag'
+      @tag.generate_code_from_name
+      @tag.code.should == 'Tag'
+    end
+  end
+
   describe 'Tag.find_by_code' do
     before :each do
       @tag.code = 'Code'
