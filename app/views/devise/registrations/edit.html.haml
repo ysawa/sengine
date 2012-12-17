@@ -1,25 +1,31 @@
 .common_container#session_page
   %h2
     Edit #{resource_name.to_s.humanize}
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+  - html_options = { id: :edit_user, class: %w(validated form-horizontal), method: :put }
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: html_options) do |f|
     = devise_error_messages!
-    %section.field
-      = f.label :email
-      = f.email_field :email
-    %section.field
+    %section.control-group
+      = f.label :email, nil, class: 'control-label'
+      %section.controls
+        = f.email_field :email
+    %section.control-group
       = f.label :password
-      = f.password_field :password
-      %i (leave blank if you don't want to change it)
-    %section.field
+      %section.controls
+        = f.password_field :password
+        %i (leave blank if you don't want to change it)
+    %section.control-group
       = f.label :password_confirmation
-      = f.password_field :password_confirmation
-    %section.field
+      %section.controls
+        = f.password_field :password_confirmation
+    %section.control-group
       = f.label :current_password
-      = f.password_field :current_password
-      %i (we need your current password to confirm your changes)
-    %section.actions
-      = f.submit "Update", class: :send
+      %section.controls
+        = f.password_field :current_password
+        %i (we need your current password to confirm your changes)
+    %section.control-group
+      %section.controls
+        = f.submit "Update", class: %w(btn btn-primary)
   %h3 Cancel my account
   %p
-    Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.
+    Unhappy? #{link_to "Cancel my account", registration_path(resource_name), confirm: "Are you sure?", method: :delete}.
   = link_to "Back", :back

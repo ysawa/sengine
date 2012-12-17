@@ -13,8 +13,8 @@ describe "devise/passwords/new.html.haml" do
 
   it 'renders successfully.' do
     render
-    rendered.should have_selector 'form#user_edit'
-    assert_select 'form#user_edit' do
+    rendered.should have_selector 'form#edit_user'
+    assert_select 'form#edit_user' do
       assert_select "input[name='user[email]']"
     end
   end

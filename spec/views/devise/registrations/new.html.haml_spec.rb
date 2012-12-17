@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-describe "devise/passwords/edit.html.haml" do
+describe "devise/registrations/new.html.haml" do
   before :each do
     @user = Fabricate(:user)
-    view.stub!(:resource).and_return(@user)
+    view.stub!(:resource).and_return(User.new)
     view.stub!(:resource_name).and_return('user')
     view.stub!(:resource_class).and_return(User)
     view.stub!(:devise_mapping).and_return(Devise.mappings[:user])
@@ -13,10 +13,10 @@ describe "devise/passwords/edit.html.haml" do
 
   it 'renders successfully.' do
     render
-    rendered.should have_selector 'form#edit_user'
-    assert_select 'form#edit_user' do
+    rendered.should have_selector 'form#new_user'
+    assert_select 'form#new_user' do
+      assert_select "input[name='user[email]']"
       assert_select "input[name='user[password]']"
-      assert_select "input[name='user[password_confirmation]']"
     end
   end
 end

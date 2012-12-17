@@ -1,19 +1,21 @@
 .common_container#session_page
   %h2 Sign up
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  - html_options = { id: :new_user, class: %w(validated form-horizontal), method: :post }
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: html_options) do |f|
     = devise_error_messages!
-    %section.field
-      = f.label :email
-      %br/
-      = f.email_field :email
-    %section.field
+    %section.control-group
+      = f.label :email, nil, class: 'control-label'
+      %section.controls
+        = f.email_field :email
+    %section.control-group
       = f.label :password
-      %br/
-      = f.password_field :password
-    %section.field
+      %section.controls
+        = f.password_field :password
+    %section.control-group
       = f.label :password_confirmation
-      %br/
-      = f.password_field :password_confirmation
-    %section.actions
-      = f.submit "Sign up", class: :send
-  = render :partial => "devise/shared/links"
+      %section.controls
+        = f.password_field :password_confirmation
+    %section.control-group
+      %section.controls
+        = f.submit "Sign up", class: %w(btn btn-primary)
+  = render partial: "devise/shared/links"
