@@ -15,6 +15,20 @@ describe TagsController do
         response.should be_redirect
       end
     end
+
+    describe "GET 'show'" do
+      it "returns http redirect" do
+        get 'show', { id: @tag.to_param }
+        response.should be_redirect
+      end
+    end
+
+    describe "GET 'search'" do
+      it "returns http redirect" do
+        get 'search', q: 'tag'
+        response.should be_redirect
+      end
+    end
   end
 
   context 'with signing in' do
