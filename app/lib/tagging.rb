@@ -20,13 +20,25 @@ module Tagging
   end
 
   def tag_append(tag)
-    tag_id = Tagging.get_tag_id(tag)
+    tag_id = Tagging.format_tag_id(tag)
     self.tag_ids << tag_id
   end
 
   def tag_delete(tag)
-    tag_id = Tagging.get_tag_id(tag)
+    tag_id = Tagging.format_tag_id(tag)
     self.tag_ids.delete tag_id
+  end
+
+  def self.format_tag_id(tag)
+    case tag
+    when Tag
+      tag_id = tag.id
+    when String
+      tag_id = Moped::BSON::ObjectId(tag)
+    else
+      tag_id = tag
+    end
+    tag_id
   end
 
   def self.included(klass)
@@ -37,22 +49,10 @@ module Tagging
     klass.class_eval <<-EOS
       class << self
         def find_by_tag(tag)
-          tag_id = Tagging.get_tag_id(tag)
+          tag_id = Tagging.format_tag_id(tag)
           criteria.where(:tag_ids.in => [tag_id])
         end
       end
     EOS
-  end
-
-  def self.get_tag_id(tag)
-    case tag
-    when Tag
-      tag_id = tag.id
-    when String
-      tag_id = Moped::BSON::ObjectId(tag)
-    else
-      tag_id = tag
-    end
-    tag_id
   end
 end
