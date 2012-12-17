@@ -115,6 +115,13 @@ describe Tag do
       searched = Tag.search('タグ')
       searched.count.should == 1
     end
+
+    it 'find all tags with the blank query' do
+      Tag.search('').count.should == 2
+      Tag.search(' ').count.should == 2
+      Tag.search('　').count.should == 2
+      Tag.search('\\').count.should == 2
+    end
   end
 
   describe 'about validations of code' do

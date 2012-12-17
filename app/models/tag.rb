@@ -26,7 +26,11 @@ class Tag
     end
 
     def search(q)
-      regs = q.split(/[!-\/\\:-@\[-`{-~}]/).collect { |keyword| Regexp.new(keyword, Regexp::IGNORECASE) }
+      keywords = q.split(/[\s!-\/\\:-@\[-`{-~}　]/)
+      if keywords.blank?
+        return criteria
+      end
+      regs = keywords.collect { |keyword| Regexp.new(keyword, Regexp::IGNORECASE) }
       queries = []
       Sengine::LOCALES.each do |locale|
         queries << { :"name.#{locale}".in => regs }
