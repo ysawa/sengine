@@ -144,7 +144,7 @@ describe User do
       @user = Fabricate(:user, admin: true)
     end
 
-    attr_names = [:current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :last_sign_in_ip]
+    attr_names = [:current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :last_sign_in_ip, :reset_password_token]
     attr_names.each do |attr_name|
       it "protects #{attr_name}" do
         @user.update_attributes({ attr_name => 'New Attribute' })
@@ -171,7 +171,7 @@ describe User do
       end
     end
 
-    attr_names = [:current_sign_in_at, :last_sign_in_at, :remember_created_at, :used_at]
+    attr_names = [:current_sign_in_at, :last_sign_in_at, :remember_created_at, :reset_password_sent_at, :used_at]
     attr_names.each do |attr_name|
       it "protects #{attr_name}" do
         time_now = Time.now

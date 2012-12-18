@@ -33,6 +33,7 @@ class User
   field :remember_me, type: Boolean
   field :remember_created_at, type: Time
   field :reset_password_token, type: String
+  field :reset_password_sent_at, type: Time
   field :score, type: Integer, default: 1000
   field :score_differential, type: Integer
   field :sign_in_count, type: Integer
@@ -50,7 +51,7 @@ class User
   belongs_to :authored_tags, inverse_of: 'author', class_name: 'Tag'
   belongs_to :created_pushes, class_name: 'Push', inverse_of: :creator
 
-  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count, :used_at
+  attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_sent_at, :reset_password_token, :score, :sign_in_count, :used_at
 
   after_validation :setup_name
   after_validation :setup_timezone
