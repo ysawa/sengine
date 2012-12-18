@@ -12,7 +12,7 @@ describe Respect do
 
   describe '.follow' do
 
-    it 'append user id into .following_user_ids' do
+    it 'appends user id into .following_user_ids' do
       @user.follow(@teacher)
       @user.following_user_ids.should == [@teacher.id]
     end
@@ -23,12 +23,12 @@ describe Respect do
       @user = Fabricate.build(:user, name: 'User')
     end
 
-    it 'append user id into .following_user_ids' do
+    it 'appends user id into .following_user_ids' do
       @user.follow!(@teacher)
       @user.following_user_ids.should == [@teacher.id]
     end
 
-    it 'save after following' do
+    it 'saves after following' do
       @user.should_not be_persisted
       @user.follow!(@teacher)
       @user.should be_persisted
@@ -103,6 +103,33 @@ describe Respect do
       @user.following_user_ids << @another.id
       @user.save
       @user.following_user_ids.should == [@teacher.id, @another.id]
+    end
+  end
+
+  describe '.unfollow' do
+
+    it 'appends user id into .following_user_ids' do
+      @user.following_user_ids = [@teacher.id]
+      @user.unfollow(@teacher)
+      @user.following_user_ids.should == []
+    end
+  end
+
+  describe '.unfollow!' do
+    before :each do
+      @user = Fabricate.build(:user, name: 'User')
+    end
+
+    it 'drops user id into .following_user_ids' do
+      @user.following_user_ids = [@teacher.id]
+      @user.unfollow!(@teacher)
+      @user.following_user_ids.should == []
+    end
+
+    it 'saves after unfollowing' do
+      @user.should_not be_persisted
+      @user.unfollow!(@teacher)
+      @user.should be_persisted
     end
   end
 end

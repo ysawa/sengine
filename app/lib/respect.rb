@@ -31,6 +31,15 @@ module Respect
     self.following_user_ids = self.following_user_ids.uniq
   end
 
+  def unfollow(user)
+    self.following_user_ids.delete user.id
+  end
+
+  def unfollow!(user)
+    unfollow(user)
+    save
+  end
+
   def self.included(klass)
     klass.field :following_user_ids, type: Array, default: []
     klass.before_save :make_following_user_ids_unique
