@@ -17,7 +17,7 @@ describe Sys::UsersController do
 
   context 'without signing in as an admin'do
     describe "GET 'index'" do
-      it "returns http redirect" do
+      it "returns http redirect to new user session" do
         get 'index'
         response.should redirect_to(new_user_session_path)
       end
