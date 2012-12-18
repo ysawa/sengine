@@ -63,6 +63,9 @@ module Sengine
 
     config.middleware.use Rack::Pjax
 
+    require 'serve_gridfs_data'
+    config.middleware.use "ServeGridfsData"
+
     require 'default_form_builder'
     config.action_view.default_form_builder = DefaultFormBuilder
 
