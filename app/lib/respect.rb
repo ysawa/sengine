@@ -2,6 +2,15 @@
 
 module Respect
 
+  def follow(user)
+    self.following_user_ids << user.id
+  end
+
+  def follow!(user)
+    follow(user)
+    save
+  end
+
   def followed_users
     self.class.where(following_user_ids: self.id)
   end

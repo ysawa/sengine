@@ -10,6 +10,31 @@ describe Respect do
     @another = Fabricate(:user, name: 'Another')
   end
 
+  describe '.follow' do
+
+    it 'append user id into .following_user_ids' do
+      @user.follow(@teacher)
+      @user.following_user_ids.should == [@teacher.id]
+    end
+  end
+
+  describe '.follow!' do
+    before :each do
+      @user = Fabricate.build(:user, name: 'User')
+    end
+
+    it 'append user id into .following_user_ids' do
+      @user.follow!(@teacher)
+      @user.following_user_ids.should == [@teacher.id]
+    end
+
+    it 'save after following' do
+      @user.should_not be_persisted
+      @user.follow!(@teacher)
+      @user.should be_persisted
+    end
+  end
+
   describe '.followed_users' do
 
     it 'finds followed users' do
