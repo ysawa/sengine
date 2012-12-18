@@ -17,6 +17,11 @@ describe ServeGridfsData do
       get @tag.image.url
       response.body.should_not == 'File not found.'
     end
+
+    it 'content_type can be set' do
+      get @tag.image.url
+      response.headers['Content-Type'].should == 'image/png'
+    end
   end
 
   describe 'unknown file' do
