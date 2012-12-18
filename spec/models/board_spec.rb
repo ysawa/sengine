@@ -187,4 +187,46 @@ describe Board do
       board.to_json
     end
   end
+
+  describe 'attr_protected' do
+    before :each do
+      @board = Fabricate(:board, sente: true, number: 0)
+    end
+
+    attr_names = [:number]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @board.update_attributes({ attr_name => 100 })
+        @board.reload
+        @board.read_attribute(attr_name).should_not == 100
+      end
+    end
+
+    attr_names = [:sente]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @board.update_attributes({ attr_name => false })
+        @board.reload
+        @board.read_attribute(attr_name).should_not == false
+      end
+    end
+
+    it "protects on-board" do
+      11.upto(99).each do |i|
+        next if i % 10 == 0
+        attr_name = "p_#{i}"
+        @board.update_attributes({ attr_name => Piece::FU })
+        @board.reload
+        @board.read_attribute(attr_name).should_not == Piece::FU
+      end
+    end
+
+    it "protects in-hand" do
+      hand = [nil, 1, 0, 0, 0, 0, 0, 0, 0]
+      @board.update_attributes({ :gote_hand => hand })
+      @board.gote_hand.should_not == hand
+      @board.update_attributes({ :sente_hand => hand })
+      @board.sente_hand.should_not == hand
+    end
+  end
 end

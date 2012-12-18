@@ -8,17 +8,23 @@ class Board
   field :number, type: Integer
   belongs_to :game
   has_one :movement # movement from the past board to this board
+  attr_protected :sente, :number, :game_id
 
   # Pieces on the board
+  p_attr_names = []
   11.upto(99).each do |number|
     unless (number % 10) == 0
-      field "p_#{number}", type: Integer, default: 0
+      attr_name = "p_#{number}"
+      field attr_name, type: Integer, default: 0
+      p_attr_names << attr_name
     end
   end
+  attr_protected *p_attr_names
 
   # Pieces in hands
   field :gote_hand, type: Hand, default: [nil, 0, 0, 0, 0, 0, 0, 0, 0]
   field :sente_hand, type: Hand, default: [nil, 0, 0, 0, 0, 0, 0, 0, 0]
+  attr_protected :gote_hand, :sente_hand
   before_destroy :destroy_movement
 
   def apply_movement(movement)
@@ -60,7 +66,8 @@ class Board
   end
 
   def hirate
-    write_attributes({ sente: false, number: 0 })
+    self.sente = false
+    self.number = 0
     piece_opposite_mirror(Piece::KY, [1, 9])
     piece_opposite_mirror(Piece::KE, [2, 9])
     piece_opposite_mirror(Piece::GI, [3, 9])
