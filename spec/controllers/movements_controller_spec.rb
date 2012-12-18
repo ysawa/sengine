@@ -3,7 +3,6 @@ require 'spec_helper'
 describe MovementsController do
 
   before :each do
-    user_sign_in
     @sente_user = @user
     @gote_user = Fabricate(:user)
     @game = Game.new(sente_user: @sente_user, gote_user: @gote_user)
@@ -27,10 +26,26 @@ describe MovementsController do
     }
   end
 
-  describe "GET 'create'" do
-    it "returns http success" do
-      post 'create', valid_attributes
-      response.should redirect_to(game_url(@game))
+  context 'if NOT signed in' do
+    describe "POST 'create'" do
+      it "returns http redirect to new user session" do
+        post 'create', valid_attributes
+        response.should redirect_to(new_user_session_path)
+      end
+    end
+  end
+
+  context 'if signed in' do
+
+    before :each do
+      user_sign_in
+    end
+
+    describe "POST 'create'" do
+      it "returns http success" do
+        post 'create', valid_attributes
+        response.should redirect_to(game_url(@game))
+      end
     end
   end
 end
