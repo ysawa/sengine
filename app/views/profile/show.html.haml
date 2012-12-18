@@ -5,6 +5,8 @@
   .row
     .span3
       = render 'profile/profile', user: @user
+      = render 'profile/following_users', user: @user
+      = render 'profile/followed_users', user: @user
     .span9
       %h3<
         %i.icon-book

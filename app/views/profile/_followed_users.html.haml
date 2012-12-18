@@ -1,0 +1,4 @@
+#followed_users
+  - user.followed_users.limit(9).each do |user|
+    - decorator = UserDecorator.new user
+    = decorator.face(true)
