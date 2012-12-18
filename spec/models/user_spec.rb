@@ -120,7 +120,6 @@ describe User do
     end
   end
 
-
   describe 'callback of :set_admin_if_first_user' do
     before :each do
       User.delete_all
@@ -137,6 +136,49 @@ describe User do
       user.admin.should be_false
       user = Fabricate(:user, email: 'test3@example.com')
       user.admin.should be_false
+    end
+  end
+
+  describe 'attr_protected' do
+    before :each do
+      @user = Fabricate(:user, admin: true)
+    end
+
+    attr_names = [:current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :last_sign_in_ip]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @user.update_attributes({ attr_name => 'New Attribute' })
+        @user.reload
+        @user.read_attribute(attr_name).should_not == 'New Attribute'
+      end
+    end
+
+    attr_names = [:grade, :score, :sign_in_count]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @user.update_attributes({ attr_name => 100 })
+        @user.reload
+        @user.read_attribute(attr_name).should_not == 100
+      end
+    end
+
+    attr_names = [:admin]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @user.update_attributes({ attr_name => false })
+        @user.reload
+        @user.read_attribute(attr_name).should_not == false
+      end
+    end
+
+    attr_names = [:current_sign_in_at, :last_sign_in_at, :remember_created_at, :used_at]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        time_now = Time.now
+        @user.update_attributes({ attr_name => time_now })
+        @user.reload
+        @user.read_attribute(attr_name).should_not == time_now
+      end
     end
   end
 end
