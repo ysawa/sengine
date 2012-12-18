@@ -11,6 +11,7 @@ class Feedback
   belongs_to :author, class_name: 'User'
   has_many :children, class_name: 'Feedback', inverse_of: :parent
   belongs_to :parent, class_name: 'Feedback', inverse_of: :children
+  attr_protected :dislike_user_ids, :like_user_ids, :published, :success, :author_id, :parent_id
   before_save :strip_tail_line_feeds
 
   def checked?(user)

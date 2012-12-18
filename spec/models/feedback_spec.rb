@@ -37,4 +37,49 @@ describe Feedback do
       feedback.content.should == "aaa\nbbb\nccc"
     end
   end
+
+  # attr_protected :dislike_user_ids, :like_user_ids, :published, :success, :author_id, :parent_id
+  describe 'attr_protected' do
+    before :each do
+      @feedback = Fabricate(:feedback, published: false, success: false)
+      @parent = Fabricate(:feedback)
+      @user = Fabricate(:user)
+    end
+
+    attr_names = [:dislike_user_ids, :like_user_ids]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @feedback.update_attributes({ attr_name => [@user] })
+        @feedback.reload
+        @feedback.read_attribute(attr_name).should_not == [@user]
+      end
+    end
+
+    attr_names = [:published, :success]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @feedback.update_attributes({ attr_name => true })
+        @feedback.reload
+        @feedback.read_attribute(attr_name).should_not == true
+      end
+    end
+
+    attr_names = [:author_id]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @feedback.update_attributes({ attr_name => @user.id })
+        @feedback.reload
+        @feedback.read_attribute(attr_name).should_not == @user.id
+      end
+    end
+
+    attr_names = [:parent_id]
+    attr_names.each do |attr_name|
+      it "protects #{attr_name}" do
+        @feedback.update_attributes({ attr_name => @parent.id })
+        @feedback.reload
+        @feedback.read_attribute(attr_name).should_not == @parent.id
+      end
+    end
+  end
 end
