@@ -20,10 +20,19 @@ describe Tag do
       @tag.save
       @user = Fabricate(:user)
     end
+
     it 'has authoring user' do
       @tag.author = @user
       @tag.save
       @tag.author.should == @user
+    end
+
+    it 'cannot be taken with form params' do
+      @tag.update_attributes({ name: 'Tag New Name', author_id: @user.id })
+      @tag.save
+      @tag.reload
+      @tag.name.should == 'Tag New Name'
+      @tag.author_id.should be_nil
     end
   end
 
