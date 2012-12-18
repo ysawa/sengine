@@ -22,8 +22,8 @@ class Tag
   def generate_code_from_name
     return if code?
     write_attribute(:code, nil)
-    Sengine::LOCALES.each do |locale|
-      name_of_locale = self.name_translations[locale.to_s]
+    Sengine::LOCALE_STRINGS.each do |locale|
+      name_of_locale = self.name_translations[locale]
       if name_of_locale.present?
         self.code = name_of_locale
         break
@@ -52,7 +52,7 @@ class Tag
       end
       regs = keywords.collect { |keyword| Regexp.new(keyword, Regexp::IGNORECASE) }
       queries = []
-      Sengine::LOCALES.each do |locale|
+      Sengine::LOCALE_STRINGS.each do |locale|
         queries << { :"name.#{locale}".in => regs }
       end
       criteria.any_of(queries)
