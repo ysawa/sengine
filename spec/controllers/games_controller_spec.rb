@@ -16,7 +16,7 @@ describe GamesController do
         it "redirect to sign in" do
           game = Game.create! valid_attributes
           get action_name, {}
-          response.should be_redirect
+          response.should redirect_to(new_user_session_path)
         end
       end
     end

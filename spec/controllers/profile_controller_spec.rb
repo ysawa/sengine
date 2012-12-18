@@ -8,9 +8,9 @@ describe ProfileController do
 
   context 'if NOT signed in' do
     describe "GET 'show'" do
-      it "returns http redirect" do
+      it "returns http redirect to new user session" do
         get 'show', id: @opponent.id.to_s
-        response.should be_redirect
+        response.should redirect_to(new_user_session_path)
       end
     end
   end
