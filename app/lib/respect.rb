@@ -11,8 +11,16 @@ module Respect
     save
   end
 
+  def followed?(user)
+    user.following_user_ids.include? self.id
+  end
+
   def followed_users
     self.class.where(following_user_ids: self.id)
+  end
+
+  def following?(user)
+    self.following_user_ids.include? user.id
   end
 
   def following_users

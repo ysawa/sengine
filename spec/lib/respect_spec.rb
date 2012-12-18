@@ -35,6 +35,18 @@ describe Respect do
     end
   end
 
+  describe '.followed?' do
+
+    it 'checks if it is followed the user' do
+      @user.following_user_ids << @teacher.id
+      @user.save
+      @user.followed?(@teacher).should be_false
+      @user.followed?(@another).should be_false
+      @teacher.followed?(@user).should be_true
+      @another.followed?(@user).should be_false
+    end
+  end
+
   describe '.followed_users' do
 
     it 'finds followed users' do
@@ -46,6 +58,18 @@ describe Respect do
       users = @teacher.followed_users
       users.should be_a Mongoid::Criteria
       users.to_a.should == [@user]
+    end
+  end
+
+  describe '.following?' do
+
+    it 'checks if it is following the user' do
+      @user.following_user_ids << @teacher.id
+      @user.save
+      @user.following?(@teacher).should be_true
+      @user.following?(@another).should be_false
+      @teacher.following?(@user).should be_false
+      @another.following?(@user).should be_false
     end
   end
 
