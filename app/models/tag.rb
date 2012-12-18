@@ -7,6 +7,7 @@ class Tag
   field :content, type: String, localize: true
   field :name, type: String, localize: true
   index({ code: 1 }, { unique: true, name: 'code_index' })
+  belongs_to :author, inverse_of: 'authored_tags', class_name: 'User'
   validates_presence_of :code
   validates_uniqueness_of :code, case_sensitive: false
 

@@ -35,6 +35,19 @@ describe User do
     end
   end
 
+  describe '.authored_tags' do
+    before :each do
+      @user = Fabricate(:user)
+      @tag = Fabricate(:tag)
+    end
+
+    it 'has authored tags' do
+      @tag.author = @user
+      @tag.save
+      @user.authored_tags.to_a.should == [@tag]
+    end
+  end
+
   describe '.sente_games' do
     before :each do
       @user = Fabricate(:user)

@@ -47,6 +47,7 @@ class User
   has_many :lost_games, class_name: 'Game', inverse_of: :lost_user
   has_many :created_games, class_name: 'Game', inverse_of: :author
   has_many :comments, inverse_of: :author
+  belongs_to :authored_tags, inverse_of: 'author', class_name: 'Tag'
   belongs_to :created_pushes, class_name: 'Push', inverse_of: :creator
 
   attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :score, :sign_in_count, :used_at

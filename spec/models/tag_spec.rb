@@ -8,9 +8,22 @@ describe Tag do
     @tag = Fabricate.build(:tag)
   end
 
+
   describe '.save' do
     it 'should be success' do
       @tag.save.should be_true
+    end
+  end
+
+  describe '.author' do
+    before :each do
+      @tag.save
+      @user = Fabricate(:user)
+    end
+    it 'has authoring user' do
+      @tag.author = @user
+      @tag.save
+      @tag.author.should == @user
     end
   end
 
