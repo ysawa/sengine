@@ -1,4 +1,5 @@
-= form_for(current_user, url: setting_path, html: { class: %w(edit_user validated form-horizontal) }) do |f|
+- html_options = { class: %w(edit_user validated form-horizontal) }
+= form_for(current_user, url: setting_path, html: html_options) do |f|
   %section.control-group
     = f.label :name, nil, class: 'control-label'
     %section.controls

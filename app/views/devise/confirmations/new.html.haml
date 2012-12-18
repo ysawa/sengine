@@ -1,6 +1,6 @@
 .common_container#session_page
   %h2 Resend confirmation instructions
-  - html_options = { id: :new_user, class: %w(validated form-horizontal), method: :post }
+  - html_options = { id: :new_user, class: %w(edit_user validated form-horizontal), method: :post }
   = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: html_options) do |f|
     = devise_error_messages!
     %section.control-group
