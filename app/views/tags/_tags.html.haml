@@ -1,7 +1,8 @@
 %ul.tags
   - tags.each do |tag_element|
+    - decorator = TagDecorator.new tag_element
     %li.tag
       %h3.name
-        = tag_element.name
+        = decorator.name(true)
       %section.content
-        = tag_element.content
+        = decorator.content

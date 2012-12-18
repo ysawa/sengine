@@ -48,3 +48,8 @@ ja:
           show: 'タグ詳細'
         users:
           index: 'ユーザー一覧'
+      tags:
+        index: 'タグ一覧'
+        search: 'タグ検索'
+        show: 'タグ詳細'
+

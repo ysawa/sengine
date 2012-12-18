@@ -19,6 +19,7 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_code(params[:id])
+    @subtitle = @tag.name
     respond_with @tag
   end
 end
