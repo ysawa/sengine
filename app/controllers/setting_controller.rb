@@ -9,11 +9,6 @@ class SettingController < ApplicationController
     respond_with(current_user)
   end
 
-  # GET /setting
-  def show
-    respond_with(current_user)
-  end
-
   # PUT /setting
   def update
     if current_user.update_attributes(params[:user])
