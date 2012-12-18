@@ -65,6 +65,12 @@ gem 'unicorn'
 
 gem 'jpmobile'
 
+# GridFS
+gem "carrierwave"
+gem "carrierwave-mongoid", git: "git://github.com/jnicklas/carrierwave-mongoid.git", branch: "mongoid-3.0"
+
+gem "mini_magick"
+
 # Resque to process delayed jobs
 gem 'resque'
 gem 'resque-scheduler', require: 'resque_scheduler'

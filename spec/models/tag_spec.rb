@@ -130,6 +130,24 @@ describe Tag do
     end
   end
 
+  describe '.image' do
+    before :each do
+      @file = File.open(File.join(Rails.root, '/app/assets/images/rails.png'))
+    end
+
+    it 'can take image file' do
+      @tag.image = @file
+      @tag.save
+      @tag.image_url.should match /\w+\.png$/
+    end
+
+    it 'can take image thumb file' do
+      @tag.image = @file
+      @tag.save
+      @tag.image.thumb.url.should match /\w+\.png$/
+    end
+  end
+
   describe 'Tag.find_by_code' do
     before :each do
       @tag.code = 'Code'
