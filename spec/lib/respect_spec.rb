@@ -97,7 +97,6 @@ describe Respect do
       @user.following_user_ids.should == [@teacher.id, @another.id]
     end
 
-
     it 'works before saving' do
       @user.following_user_ids << @teacher.id
       @user.following_user_ids << @teacher.id
