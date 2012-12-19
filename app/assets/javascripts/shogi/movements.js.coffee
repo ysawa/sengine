@@ -72,7 +72,7 @@ class Shogi.Movement extends Backbone.Model
     animation = { top: to_position.top, left: to_position.left }
     @animate(
       piece_selected, animation, ->
-        $.play_audio('put')
+        $.audio.play('put')
         cell.append(piece_selected).addClass('moved')
     )
     if @get_reverse()

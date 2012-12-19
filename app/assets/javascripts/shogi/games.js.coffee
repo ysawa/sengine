@@ -38,7 +38,7 @@ $ ->
       else
         setTimeout(reload_comment_if_enabled, 20000)
     setTimeout(reload_comment_if_enabled, 20000)
-    $.initialize_audio('put')
+    $.audio.initialize('put')
 
     $('#play_buttons a').live 'ajax:beforeSend', ->
       if $(this).hasClass 'processing'
