@@ -11,6 +11,18 @@ describe User do
     end
   end
 
+  describe '.content' do
+
+    it 'has default value' do
+      I18n.locale = :en
+      user = User.new
+      user.content.should == I18n.t('user.content.default', locale: :en)
+      I18n.locale = :ja
+      user = User.new
+      user.content.should == I18n.t('user.content.default', locale: :ja)
+    end
+  end
+
   describe '.save' do
     let(:user) { User.new }
 
