@@ -52,6 +52,26 @@ describe Piece do
     end
   end
 
+  describe '.role' do
+    it 'shows piece role with positive integer' do
+      piece = Piece.new(Piece::KY)
+      piece.role.should == Piece::KY
+      piece = Piece.new(- Piece::KY)
+      piece.role.should == Piece::KY
+    end
+  end
+
+  describe '.value' do
+    it 'shows piece role and sente or gote with positive or negative integer' do
+      piece = Piece.new(Piece::KY)
+      piece.sente = true
+      piece.value.should == Piece::KY
+      piece = Piece.new(Piece::KY)
+      piece.sente = false
+      piece.value.should == - Piece::KY
+    end
+  end
+
   describe '.stringify_role' do
     it 'generates corresponding role string' do
       piece = Piece.new(Piece::FU)
