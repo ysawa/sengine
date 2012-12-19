@@ -51,4 +51,15 @@ describe Piece do
       piece.jumps.should == [-10, -1, 1, 10]
     end
   end
+
+  describe '.stringify_role' do
+    it 'generates corresponding role string' do
+      piece = Piece.new(Piece::FU)
+      piece.stringify_role == '歩'
+      piece = Piece.new(Piece::KY)
+      piece.stringify_role == '香'
+      piece = Piece.new(Piece::RY)
+      piece.stringify_role == '竜'
+    end
+  end
 end
