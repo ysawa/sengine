@@ -12,4 +12,10 @@ describe "sys/users/index" do
   it "renders sys/users/index" do
     render
   end
+
+  it "renders with pagination" do
+    pending "tests doesn't work correctly."
+    render
+    rendered.should have_selector 'nav.pagination'
+  end
 end
