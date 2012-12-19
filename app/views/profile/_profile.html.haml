@@ -11,7 +11,6 @@
     %dd
       = decorator.name
       = decorator.grade
-
     %dt
       = User.human_attribute_name('score')
     %dd
@@ -20,3 +19,8 @@
       = t('user.games.result')
     %dd
       = t('user.games.win_loss', win: decorator.won_games_count, loss: decorator.lost_games_count)
+    %dt
+      = User.human_attribute_name('content')
+    %dd
+      = decorator.content
+
