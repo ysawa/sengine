@@ -10,7 +10,7 @@
         = render 'home/mypage/menu'
       - comments = []
       - games = Game.of_user(current_user).playing.desc(:updated_at).limit(3).to_a
-      - not_author_comments = Comment.of_not_author(current_user)
+      - not_author_comments = Comment.not_author(current_user)
       %section.mypage_content
         - if games.present?
           - page = 'playing'

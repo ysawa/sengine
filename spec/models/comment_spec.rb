@@ -51,7 +51,7 @@ describe Comment do
     end
   end
 
-  describe 'Comment.of_not_author' do
+  describe 'Comment.not_author' do
     before :each do
       @author = Fabricate(:user)
       comment.author = @author
@@ -60,8 +60,8 @@ describe Comment do
     end
 
     it 'finds users who is not the author' do
-      Comment.of_not_author(@author).should be_a Mongoid::Criteria
-      Comment.of_not_author(@author).to_a.should == [@other_comment]
+      Comment.not_author(@author).should be_a Mongoid::Criteria
+      Comment.not_author(@author).to_a.should == [@other_comment]
     end
   end
 end

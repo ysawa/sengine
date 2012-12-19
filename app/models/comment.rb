@@ -15,6 +15,10 @@ class Comment
   end
 
   class << self
+    def not_author(user)
+      criteria.where(:author_id.ne => user.id)
+    end
+
     def of_author_friends(user)
       ids = user.friend_ids
       criteria.where(:author_id.in => ids)
@@ -36,10 +40,6 @@ class Comment
       else
         criteria.where(commentable_id: game.id, commentable_type: 'Game')
       end
-    end
-
-    def of_not_author(user)
-      criteria.where(:author_id.ne => user.id)
     end
   end
 end
