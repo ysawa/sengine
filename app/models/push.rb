@@ -13,6 +13,18 @@ class Push
 
   PUSH_TYPES = %w(movement notice)
 
+  def href
+    case self.pushable
+    when Movement
+      game_id = self.pushable.game && self.pushable.game.id
+      "/games/#{game_id}" if game_id
+    when User
+      user_id = self.pushable.id
+      "/profile/#{user_id}"
+    else
+    end
+  end
+
   def make_push_type
     case self.pushable
     when Movement

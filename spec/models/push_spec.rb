@@ -71,4 +71,27 @@ describe Push do
       push.push_type.should == 'movement'
     end
   end
+
+  describe '.href' do
+
+    let :push do
+      Fabricate.build(:push)
+    end
+
+    it 'generates link to the pushed movement' do
+      @game = Fabricate(:game)
+      @movement = Fabricate(:movement, game: @game)
+      push.pushable = @movement
+      push.save
+      push.href.should match(@game.id.to_s)
+    end
+
+    it 'generates link to the pushed user' do
+      pending
+      @user = Fabricate(:user)
+      push.pushable = @user
+      push.save
+      push.href.should match(@user.id.to_s)
+    end
+  end
 end

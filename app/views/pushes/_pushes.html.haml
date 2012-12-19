@@ -1,0 +1,5 @@
+%ul#pushes
+  - pushes.each do |push|
+    - decorator = PushDecorator.new push
+    %li.push
+      = decorator.content
