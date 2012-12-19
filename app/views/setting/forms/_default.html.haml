@@ -23,4 +23,5 @@
           = name
   %section.control-group
     %section.controls
+      = hidden_field_tag :objective, @objective
       = f.submit t('helpers.submit.save'), class: 'btn btn-primary'

@@ -1,0 +1,6 @@
+%ul.nav.nav-tabs.nav-stacked
+  - %w(default).each do |objective|
+    %li{ class: (@objective == objective ? 'active' : nil) }
+      - name = t("pages.controllers.setting.edit_#{objective}")
+      - href = { controller: 'setting', action: 'edit', objective: objective }
+      = link_to name, href
