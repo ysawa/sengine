@@ -107,6 +107,8 @@ en:
       off: 'OFF'
       on: 'ON'
     comment: 'Comment'
+    content:
+      default: 'Shall we play Shogi?'
     games:
       result: 'Results'
       win_loss: '%{win} wins / %{loss} losses'

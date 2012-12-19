@@ -107,6 +107,8 @@ ja:
       off: 'オフ'
       on: 'オン'
     comment: 'コメント'
+    content:
+      default: 'よろしくおねがいします。'
     games:
       result: '戦績'
       win_loss: '%{win}勝 / %{loss}敗'
