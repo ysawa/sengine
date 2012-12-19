@@ -1,4 +1,6 @@
 #followed_users
+  %h3
+    = t('user.actions.followed')
   - user.followed_users.limit(9).each do |user|
     - decorator = UserDecorator.new user
     = decorator.face(true)

@@ -103,6 +103,10 @@ en:
       playing: 'Playing'
     time_span: 'Time'
   user:
+    actions:
+      follow: 'Follow'
+      followed: 'Followed'
+      following: 'Following'
     audio:
       off: 'OFF'
       on: 'ON'

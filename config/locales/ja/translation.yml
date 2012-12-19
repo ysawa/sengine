@@ -103,6 +103,10 @@ ja:
       playing: '対局中'
     time_span: '時間'
   user:
+    actions:
+      follow: 'Follow'
+      followed: 'Followed'
+      following: 'Following'
     audio:
       off: 'オフ'
       on: 'オン'
