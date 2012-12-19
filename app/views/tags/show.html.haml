@@ -2,4 +2,8 @@
   %h2<
     %i.icon-tag
     = @subtitle
-  = render 'show', tag_element: @tag
+  .row
+    .span3
+      = render 'games/side'
+    .span9
+      = render 'tag', tag_element: @tag

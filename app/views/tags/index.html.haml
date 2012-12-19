@@ -2,5 +2,8 @@
   %h2<
     %i.icon-tags
     = @subtitle
-  = render 'search'
-  = render 'index', tags: @tags
+  .row
+    .span3
+      = render 'games/side'
+    .span9
+      = render 'tags/tags', tags: @tags
