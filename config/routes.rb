@@ -84,6 +84,7 @@ Sengine::Application.routes.draw do
   end
   get "setting", to: "setting#show", as: :setting
   get "setting/edit", to: "setting#edit", as: :edit_setting
+  get "setting/edit/:objective", to: "setting#edit", as: :edit_setting_objective
   put "setting", to: "setting#update"
 
   root to: "home#index"

@@ -24,6 +24,8 @@ describe SettingController do
 
     before :each do
       user_sign_in
+      @user.updated_at = Time.now - 1.month
+      @user.save
     end
 
     describe "GET 'edit'" do
@@ -34,15 +36,22 @@ describe SettingController do
     end
 
     describe "PUT 'update'" do
-      it "returns http redirect" do
+      it "returns http redirect to root path if not having objective" do
         put 'update', { user: { name: 'New Name' } }
         response.should redirect_to(root_path)
       end
 
-      it "returns http redirect" do
+      it "updates current_user" do
         put 'update', { user: { name: 'New Name' } }
         @user.reload
         @user.name.should == 'New Name'
+      end
+
+      it "returns http redirect to the same form if having objective" do
+        objective = 'default'
+        put 'update', { user: { name: 'New Name' }, objective: objective }
+        location = edit_setting_objective_path(objective)
+        response.should redirect_to(location)
       end
     end
   end

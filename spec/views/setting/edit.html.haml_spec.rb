@@ -9,7 +9,18 @@ describe "setting/edit" do
 
   it "renders successfully" do
     render
-    rendered.should match @user.name
-    rendered.should have_selector 'form.edit_user'
+  end
+
+  context 'editing objective default' do
+    before :each do
+      @objective = 'default'
+      assign(:objective, @objective)
+    end
+
+    it 'renders default form' do
+      render
+      rendered.should have_selector 'form.edit_user'
+      rendered.should match @user.name
+    end
   end
 end

@@ -2,4 +2,11 @@
   %h2<
     %i.icon-wrench
     = @subtitle
-  = render 'form'
+  .row
+    .span3
+      = render 'setting/side'
+    .span9
+      - if @objective
+        = render "setting/forms/#{@objective}"
+      - else
+        = render 'setting/forms/default'
