@@ -9,6 +9,14 @@ describe SettingController do
       get("/setting/edit").should route_to("setting#edit")
     end
 
+    it "routes to #edit_default" do
+      get("/setting/edit/default").should route_to("setting#edit", objective: 'default')
+    end
+
+    it "routes to #edit_system" do
+      get("/setting/edit/system").should route_to("setting#edit", objective: 'system')
+    end
+
     it "routes to #show" do
       get("/setting").should route_to("setting#show")
     end

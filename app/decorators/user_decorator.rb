@@ -15,6 +15,18 @@ class UserDecorator < ApplicationDecorator
     I18n.t("user.audio")[model.audio_on?]
   end
 
+  def content(pretty = true, length = nil)
+    text = model.content || ''
+    if length
+      text = h.truncate(text, length: length)
+    end
+    if pretty
+      prettify text
+    else
+      text
+    end
+  end
+
   def face(image_link = false, image_options = {})
     content = image(image_link, image_options)
     if model.online?

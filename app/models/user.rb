@@ -15,6 +15,7 @@ class User
 
   field :admin, type: Boolean, default: false
   field :audio_on, type: Boolean, default: true
+  field :content, type: String
   field :current_sign_in_at, type: Time
   field :current_sign_in_ip, type: String
   field :email, type: String

@@ -1,0 +1,24 @@
+- html_options = { class: %w(edit_user validated form-horizontal) }
+= form_for(current_user, url: setting_path, html: html_options) do |f|
+  %section.control-group
+    = f.label :locale, nil, class: 'control-label'
+    %section.controls
+      - locales = Sengine::LOCALES.collect { |locale| [translate_user_locale(locale), locale] }
+      = f.select :locale, locales, {}, class: :required
+  %section.control-group
+    = f.label :timezone_string, nil, class: 'control-label'
+    %section.controls
+      = f.time_zone_select :timezone_string, nil, { include_blank: User.human_attribute_name(:timezone) }
+  %section.control-group
+    = f.label :audio_on, nil, class: 'control-label'
+    %section.controls
+      - [true, false].each do |value|
+        - name = t("user.audio")[value]
+        = label_tag "user_audio_on_#{value}", name, class: %w(radio inline) do
+          = f.radio_button :audio_on, value, class: :required
+          = name
+  %section.control-group
+    %section.controls
+      - if @objective
+        = hidden_field_tag :objective, @objective
+      = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
