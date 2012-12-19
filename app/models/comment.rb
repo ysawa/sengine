@@ -30,11 +30,11 @@ class Comment
             Moped::BSON::ObjectId(g)
           end
         end
-        criteria.where(:game_id.in => game_ids)
+        criteria.where(:commentable_id.in => game_ids, commentable_type: 'Game')
       when Moped::BSON::ObjectId, String
-        criteria.where(game_id: Moped::BSON::ObjectId(game))
+        criteria.where(commentable_id: Moped::BSON::ObjectId(game), commentable_type: 'Game')
       else
-        criteria.where(game_id: game.id)
+        criteria.where(commentable_id: game.id, commentable_type: 'Game')
       end
     end
 

@@ -21,6 +21,19 @@ describe Comment do
     end
   end
 
+  describe '.commentable' do
+    before :each do
+      @commentable = Fabricate(:game)
+    end
+    it 'takes commentable model' do
+      comment.commentable = @commentable
+      comment.save
+      comment.reload
+      comment.commentable_id.should == @commentable.id
+      comment.commentable_type.should == 'Game'
+    end
+  end
+
   describe '.strip_tail_line_feeds' do
     it 'strips tail line feeds' do
       comment.content = "aaa\nbbb\nccc\n\n"
