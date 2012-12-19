@@ -24,11 +24,19 @@ describe ServeGridfsData do
     end
   end
 
-  describe 'unknown file' do
+  describe 'unknown path' do
+    before :each do
+      @unknown_path = @tag.image.url + '_'
+    end
 
     it 'cannot be downloaded' do
-      get @tag.image.url + '_'
+      get @unknown_path
       response.body.should == 'File not found.'
+    end
+
+    it 'content_type is set to be text/plain' do
+      get @unknown_path
+      response.headers['Content-Type'].should == 'text/plain'
     end
   end
 end
