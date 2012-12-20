@@ -86,8 +86,14 @@ describe Push do
       push.href.should match(@game.id.to_s)
     end
 
+    it 'generates link to the pushed movement' do
+      @game = Fabricate(:game)
+      push.pushable = @game
+      push.save
+      push.href.should match(@game.id.to_s)
+    end
+
     it 'generates link to the pushed user' do
-      pending
       @user = Fabricate(:user)
       push.pushable = @user
       push.save

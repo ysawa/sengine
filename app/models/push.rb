@@ -21,7 +21,11 @@ class Push
     when User
       user_id = self.pushable.id
       "/profile/#{user_id}"
+    when Game
+      game_id = self.pushable.id
+      "/games/#{game_id}" if game_id
     else
+      nil
     end
   end
 
