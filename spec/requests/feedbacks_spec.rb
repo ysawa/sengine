@@ -122,6 +122,17 @@ describe "Feedbacks" do
           page.should_not have_content 'Not Published, Not Success'
         end
       end
+
+      it "form can be submit with content" do
+        visit success_feedbacks_path
+        within('form.edit_feedback') do
+          fill_in 'feedback[content]', with: 'New Content'
+          click_on I18n.t('helpers.submit.submit')
+        end
+        within('#feedbacks') do
+          page.should have_content 'New Content'
+        end
+      end
     end
   end
 end
