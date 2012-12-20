@@ -8,7 +8,7 @@ describe 'Setting' do
     describe "edit" do
       it "returns http redirect" do
         get edit_setting_path
-        response.should be_redirect
+        response.should redirect_to(new_user_session_path)
       end
     end
   end
