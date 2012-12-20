@@ -44,10 +44,12 @@ describe "Feedbacks" do
 
       it "renders feedbacks unsuccess list" do
         visit feedbacks_path
-        page.should_not have_content 'Good Published, Good Success'
-        page.should have_content 'Good Published, Not Success'
-        page.should_not have_content 'Not Published, Good Success'
-        page.should_not have_content 'Not Published, Not Success'
+        within('#feedbacks') do
+          page.should_not have_content 'Good Published, Good Success'
+          page.should have_content 'Good Published, Not Success'
+          page.should_not have_content 'Not Published, Good Success'
+          page.should_not have_content 'Not Published, Not Success'
+        end
       end
     end
   end
@@ -69,10 +71,35 @@ describe "Feedbacks" do
 
       it "renders feedbacks unsuccess list" do
         visit feedbacks_path
-        page.should_not have_content 'Good Published, Good Success'
-        page.should have_content 'Good Published, Not Success'
-        page.should_not have_content 'Not Published, Good Success'
-        page.should_not have_content 'Not Published, Not Success'
+        within('#feedbacks') do
+          page.should_not have_content 'Good Published, Good Success'
+          page.should have_content 'Good Published, Not Success'
+          page.should_not have_content 'Not Published, Good Success'
+          page.should_not have_content 'Not Published, Not Success'
+        end
+      end
+
+      it "form cannot be submit without content" do
+        pending 'TEST NOT IMPLEMENTED'
+        visit feedbacks_path
+        within('form.edit_feedback') do
+          fill_in 'feedback[content]', with: ''
+          click_on I18n.t('helpers.submit.submit')
+        end
+        within('form.edit_feedback') do
+          page.should have_selector('label.error', visible: true)
+        end
+      end
+
+      it "form can be submit with content" do
+        visit feedbacks_path
+        within('form.edit_feedback') do
+          fill_in 'feedback[content]', with: 'New Content'
+          click_on I18n.t('helpers.submit.submit')
+        end
+        within('#feedbacks') do
+          page.should have_content 'New Content'
+        end
       end
     end
 
@@ -88,10 +115,12 @@ describe "Feedbacks" do
 
       it "renders feedbacks success list" do
         visit success_feedbacks_path
-        page.should have_content 'Good Published, Good Success'
-        page.should_not have_content 'Good Published, Not Success'
-        page.should_not have_content 'Not Published, Good Success'
-        page.should_not have_content 'Not Published, Not Success'
+        within('#feedbacks') do
+          page.should have_content 'Good Published, Good Success'
+          page.should_not have_content 'Good Published, Not Success'
+          page.should_not have_content 'Not Published, Good Success'
+          page.should_not have_content 'Not Published, Not Success'
+        end
       end
     end
   end
