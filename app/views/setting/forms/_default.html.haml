@@ -3,11 +3,11 @@
   %section.control-group
     = f.label :name, nil, class: 'control-label'
     %section.controls
-      = f.text_field :name, class: :required
+      = f.text_field :name, class: %w(required span5)
   %section.control-group
     = f.label :content, nil, class: 'control-label'
     %section.controls
-      = f.text_area :content, class: :required, rows: 4
+      = f.text_area :content, rows: 4, class: %w(required span5)
   %section.control-group
     %section.controls
       - if @objective

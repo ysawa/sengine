@@ -17,6 +17,7 @@
         = label_tag "user_audio_on_#{value}", name, class: %w(radio inline) do
           = f.radio_button :audio_on, value, class: :required
           = name
+        &nbsp;&nbsp;
   %section.control-group
     %section.controls
       - if @objective
