@@ -42,7 +42,7 @@ module Visibility::Published
 
         def unpublished
           or_conditions = []
-          or_conditions << { :published.ne => true }
+          or_conditions << { published: false }
           or_conditions << { published: true, :published_at.gt => Time.now }
           criteria.where(:$and => [{ :$or => or_conditions }])
         end

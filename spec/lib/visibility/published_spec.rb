@@ -125,4 +125,40 @@ describe Visibility::Published do
       @model.unpublished?.should be_false
     end
   end
+
+  describe 'Model.published' do
+    before :each do
+      @published = TestModel.new
+      @published.published = true
+      @published.published_at = Time.now
+      @published.save
+      @not_published = TestModel.new
+      @not_published.published = false
+      @not_published.published_at = Time.now
+      @not_published.save
+    end
+
+    it 'finds published models' do
+      TestModel.published.should be_a Mongoid::Criteria
+      TestModel.published.to_a.should == [@published]
+    end
+  end
+
+  describe 'Model.unpublished' do
+    before :each do
+      @published = TestModel.new
+      @published.published = true
+      @published.published_at = Time.now
+      @published.save
+      @not_published = TestModel.new
+      @not_published.published = false
+      @not_published.published_at = Time.now
+      @not_published.save
+    end
+
+    it 'finds unpublished models' do
+      TestModel.unpublished.should be_a Mongoid::Criteria
+      TestModel.unpublished.to_a.should == [@not_published]
+    end
+  end
 end
