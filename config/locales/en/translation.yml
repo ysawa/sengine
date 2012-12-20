@@ -71,6 +71,7 @@ en:
     update: '%{model} was successfully created.'
     your_score_decreased: 'Your score decreased by %{differential}. Your score is %{score} now.'
     your_score_increased: 'Your score increased by %{differential}. Your score is %{score} now.'
+    your_turn: 'Your turn'
     you_lost: 'You lost. Good game.'
     you_won: 'You won! Good game.'
     you_upgrade: 'You are %{grade}. Congratulations!'

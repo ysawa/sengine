@@ -8,7 +8,6 @@
       - players = ""
       - if sente_decorator
         - players += sente_decorator.image
-      - players += 'vs'
       - if gote_decorator
         - players += gote_decorator.image
       = players.html_safe
@@ -48,4 +47,4 @@
       - if your_turn
         %br
         %span.my_turn
-          = t('notices.its_your_turn')
+          = t('notices.your_turn')
