@@ -9,7 +9,7 @@ class FeedbacksController < ApplicationController
   def create
     @feedback = Feedback.new(params[:feedback])
     @feedback.author = current_user
-    if @feedback.save
+    if @feedback.publish!
       flash[:notice] = t('notices.thanks_for_feedbacking')
       respond_with(@feedback, location: feedbacks_path)
     else

@@ -16,7 +16,7 @@ describe FeedbacksController do
 
   describe "GET index" do
     it "assigns all feedbacks as @feedbacks" do
-      feedback = Fabricate(:feedback, valid_attributes(published: true, success: false))
+      feedback = Fabricate(:feedback, valid_attributes(published: true, published_at: Time.now, success: false))
       get :index, {}
       assigns(:feedbacks).to_a.should eq([feedback])
     end
@@ -24,7 +24,7 @@ describe FeedbacksController do
 
   describe "GET success" do
     it "assigns all feedbacks as @feedbacks" do
-      feedback = Fabricate(:feedback, valid_attributes(published: true, success: true))
+      feedback = Fabricate(:feedback, valid_attributes(published: true, published_at: Time.now, success: true))
       get :success, {}
       assigns(:feedbacks).to_a.should eq([feedback])
     end
@@ -50,6 +50,11 @@ describe FeedbacksController do
         post :create, { feedback: valid_attributes }
         assigns(:feedback).should be_a(Feedback)
         assigns(:feedback).should be_persisted
+      end
+
+      it "publishes a newly created feedback" do
+        post :create, { feedback: valid_attributes }
+        assigns(:feedback).should be_published
       end
 
       it "redirects to the created feedback" do

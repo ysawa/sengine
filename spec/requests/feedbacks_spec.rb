@@ -11,11 +11,13 @@ describe "Feedbacks" do
     # @published_success
     [true, false].each do |published|
       [true, false].each do |success|
+        feedback = Fabricate.build(:feedback)
         variable_name = "@"
         content = ""
         if published
           variable_name += "published"
           content += "Good Published"
+          feedback.publish
         else
           variable_name += "not_published"
           content += "Not Published"
@@ -27,8 +29,10 @@ describe "Feedbacks" do
           variable_name += "_not_success"
           content += ", Not Success"
         end
-        feedback = Fabricate(:feedback, content: content, published: published, success: success)
-        instance_variable_set(variable_name , feedback)
+        feedback.content = content
+        feedback.success = success
+        feedback.save
+        instance_variable_set(variable_name, feedback)
       end
     end
   end

@@ -3,13 +3,16 @@
 module Visibility
   autoload :Shown, 'visibility/shown'
   autoload :Visible, 'visibility/visible'
-  autoload :Pubished, 'visibility/pubished'
+  autoload :Published, 'visibility/published'
 
   def get_user_id(user)
-    if user === User
-      user_id = user.id
+    case user
+    when User
+      user.id
+    when String
+      Moped::BSON::ObjectId(user)
     else
-      user_id = user
+      user
     end
   end
   module_function :get_user_id
