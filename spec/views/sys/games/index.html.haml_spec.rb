@@ -12,10 +12,4 @@ describe "sys/games/index" do
   it "renders sys/games/index" do
     render
   end
-
-  it "renders with pagination" do
-    pending "tests doesn't work correctly."
-    render
-    rendered.should have_selector 'nav.pagination'
-  end
 end
