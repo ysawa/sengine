@@ -11,6 +11,6 @@ describe "comments/index" do
 
   it "renders a list of comments" do
     render
-    rendered.should match('Comment Content')
+    rendered.should have_content('Comment Content')
   end
 end

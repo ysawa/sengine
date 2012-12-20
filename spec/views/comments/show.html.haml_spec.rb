@@ -10,6 +10,6 @@ describe "comments/show" do
 
   it "renders attributes in <p>" do
     render
-    rendered.should match('Comment Content')
+    rendered.should have_content('Comment Content')
   end
 end
