@@ -7,6 +7,7 @@ class Comment
   belongs_to :author, class_name: 'User'
   belongs_to :commentable, polymorphic: true
   before_save :strip_tail_line_feeds
+  validates_presence_of :content
 
   def strip_tail_line_feeds
     if self.content?

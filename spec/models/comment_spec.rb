@@ -19,6 +19,11 @@ describe Comment do
     it 'works!' do
       comment.save.should be_true
     end
+
+    it 'fails if has no content' do
+      comment.content = ''
+      comment.save.should be_false
+    end
   end
 
   describe '.commentable' do
