@@ -5,3 +5,7 @@
       - name = t("pages.controllers.games.#{page}")
       - href = { controller: 'games', action: page }
       = link_to name, href
+  %li{ class: (controller_name == 'tags' ? 'active' : nil) }
+    - name = Tag.model_name.human
+    - href = tags_path
+    = link_to name, href
