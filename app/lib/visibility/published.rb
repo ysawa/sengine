@@ -26,12 +26,13 @@ module Visibility::Published
   end
 
   def unpublished?
-    !published
+    !published?
   end
 
   def self.included(klass)
     klass.field :published, type: Boolean, default: false
     klass.field :published_at, type: Time
+    klass.attr_protected :published, :published_at
 
     klass.class_eval <<-EOS
       class << self
