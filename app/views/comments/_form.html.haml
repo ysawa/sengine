@@ -8,19 +8,8 @@
     = current_user_decorator.image
   %section.field
     - html_options = {}
+    - html_options[:class] = %w(required)
     - html_options[:placeholder] = t('please.make_your_comment')
     - html_options[:rows] =  4
     = f.text_area :content, html_options
-    = f.submit t('helpers.submit.send'), disabled: true, 'data-disable-with' => t('actions.submitting'), class: 'btn btn-primary'
-  :javascript
-    $(function () {
-      $('form.edit_comment').on('keyup keypress change', 'textarea', function () {
-        var value = $(this).val();
-        var submit = $(this).siblings('input[type="submit"]');
-        if (value.match(/^\s*$/)) {
-          submit.attr('disabled', true);
-        } else {
-          submit.attr('disabled', false);
-        }
-      });
-    });
+    = f.submit t('helpers.submit.send'), 'data-disable-with' => t('actions.submitting'), class: 'btn btn-primary'
