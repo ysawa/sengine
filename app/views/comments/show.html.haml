@@ -1,5 +1,6 @@
-%p#notice= notice
+.common_container#comment_page
+  %h2<
+    %i.icon-comment
+    = @subtitle
 
-%p
-  %b Content:
-  = @comment.content
+  = render 'comment', comment: @comment

@@ -3,9 +3,9 @@
 - if defined?(with_commentable) && with_commentable && game
   - game_decorator = GameDecorator.new game
   - name = t('actions.watch_model', model: Game.model_name.human)
-  - game_link = link_to name, game
+  - commentable_link = link_to name, game
 - else
-  - game_link = nil
+  - commentable_link = nil
 - unless defined?(insert_time)
   - insert_time = nil
 %li.comment{ 'comment-id' => comment.id, 'data-insert-time' => insert_time }
@@ -15,10 +15,10 @@
       = decorator.content
       %br
       = decorator.created_at
-      - if game_link
+      - if commentable_link
         %span.comment_game
           .visible-phone
-            \(#{game_link})
-  - if game_link
+            \(#{commentable_link})
+  - if commentable_link
     .comment_game.hidden-phone
-      = game_decorator.name(true, false)
+      = commentable_link

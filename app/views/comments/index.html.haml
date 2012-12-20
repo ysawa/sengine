@@ -1,12 +1,6 @@
-%h1 Listing comments
+.common_container#comment_page
+  %h2<
+    %i.icon-comment
+    = @subtitle
 
-%table
-  %tr
-    %th Content
-    %th
-    %th
-    %th
-
-  - @comments.each do |comment|
-    %tr
-      %td= comment.content
+  = render 'comments', comments: @comments, with_pagination: true
