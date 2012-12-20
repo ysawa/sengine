@@ -1,17 +1,5 @@
-- html_options = { class: :edit_feedback }
+- html_options = { class: %w(edit_feedback validated) }
 = form_for @feedback, html: html_options do |f|
   %section.field
     = f.text_area :content, rows: 4, class: :required, placeholder: t('please.feedback')
     = f.submit t('helpers.submit.submit'), 'data-disable-with' => t('actions.submitting'), disabled: true, class: 'btn btn-primary'
-  :javascript
-    $(function () {
-      $('form.edit_feedback').on('keydown keyup keypress change', 'textarea', function () {
-        var value = $(this).val();
-        var submit = $(this).siblings('input[type="submit"]');
-        if (value.match(/^\s*$/)) {
-          submit.attr('disabled', true);
-        } else {
-          submit.attr('disabled', false);
-        }
-      });
-    });

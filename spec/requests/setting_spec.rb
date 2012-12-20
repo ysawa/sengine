@@ -16,7 +16,7 @@ describe 'Setting' do
   context 'if signed in' do
     before :each do
       @user = Fabricate(:user, name: 'User Name')
-      user_sign_in_with_visit(@user, 'testtest')
+      user_sign_in_with_visit(@user, 'PASSWORD')
     end
 
     describe "edit" do

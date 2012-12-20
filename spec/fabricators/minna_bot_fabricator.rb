@@ -2,6 +2,6 @@
 
 Fabricator(:minna_bot) do
   email { "test_minna_bot#{sequence(:minna_bot)}@example.com" }
-  password 'testtest'
-  password_confirmation 'testtest'
+  password 'PASSWORD'
+  password_confirmation 'PASSWORD'
 end

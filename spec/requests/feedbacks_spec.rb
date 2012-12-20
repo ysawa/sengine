@@ -6,8 +6,8 @@ describe "Feedbacks" do
   end
 
   describe "GET /feedbacks" do
-    it "works! (now write some real specs)" do
-      user_sign_in_with_post(@current_user, 'testtest')
+    it "can be accessed" do
+      user_sign_in_with_post(@current_user, 'PASSWORD')
       get feedbacks_path
       response.status.should be(200)
     end

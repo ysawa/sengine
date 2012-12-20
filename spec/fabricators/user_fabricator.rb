@@ -5,6 +5,6 @@ Oh, my goodness.
 EOS
   name 'User Name'
   email { "test#{sequence(:user)}@example.com" }
-  password 'testtest'
-  password_confirmation 'testtest'
+  password 'PASSWORD'
+  password_confirmation 'PASSWORD'
 end

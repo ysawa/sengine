@@ -15,7 +15,7 @@ describe "About", type: :request do
   context 'with signing in' do
     before :each do
       @user = Fabricate(:user)
-      user_sign_in_with_visit(@user, 'testtest')
+      user_sign_in_with_visit(@user, 'PASSWORD')
     end
 
     context 'with locale set into ja' do

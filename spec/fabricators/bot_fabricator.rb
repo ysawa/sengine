@@ -2,6 +2,6 @@
 
 Fabricator(:bot) do
   email { "test_bot#{sequence(:bot)}@example.com" }
-  password 'testtest'
-  password_confirmation 'testtest'
+  password 'PASSWORD'
+  password_confirmation 'PASSWORD'
 end

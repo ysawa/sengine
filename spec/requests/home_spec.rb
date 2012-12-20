@@ -22,7 +22,7 @@ describe "Home", type: :request do
   context 'with signing in' do
     before :each do
       @user = Fabricate(:user)
-      user_sign_in_with_visit(@user, 'testtest')
+      user_sign_in_with_visit(@user, 'PASSWORD')
     end
 
     describe "mypage should be rendered" do

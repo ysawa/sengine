@@ -35,9 +35,9 @@ describe User do
     context 'with invalid attributes' do
       before :each do
         user.attributes = {
-          email: 'test@leaping.jp',
-          password: 'testtest',
-          password_confirmation: 'testtest'
+          email: 'test@example.com',
+          password: 'PASSWORD',
+          password_confirmation: 'PASSWORD'
         }
       end
 

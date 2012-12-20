@@ -20,7 +20,7 @@ describe 'Profile' do
   context 'if signed in' do
     before :each do
       @user = Fabricate(:user)
-      user_sign_in_with_visit(@user, 'testtest')
+      user_sign_in_with_visit(@user, 'PASSWORD')
       @opponent = Fabricate(:user, name: 'Opponent Name')
     end
 

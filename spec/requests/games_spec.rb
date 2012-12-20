@@ -9,13 +9,13 @@ describe "Games" do
       end
 
       it "works!" do
-        user_sign_in_with_post(@current_user, 'testtest')
+        user_sign_in_with_post(@current_user, 'PASSWORD')
         get games_path
         response.status.should be(200)
       end
 
       it 'the page can be accessed from mypage' do
-        user_sign_in_with_visit(@current_user, 'testtest')
+        user_sign_in_with_visit(@current_user, 'PASSWORD')
         visit root_path
         click_link I18n.t('pages.controllers.games.index')
         page.should have_selector 'ul#games'
@@ -46,7 +46,7 @@ describe "Games" do
     context 'if user signed in' do
 
       it "works!" do
-        user_sign_in_with_post(@sente_user, 'testtest')
+        user_sign_in_with_post(@sente_user, 'PASSWORD')
         get game_path(@game)
         response.status.should be(200)
       end
