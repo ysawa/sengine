@@ -42,6 +42,9 @@ $ ->
   $('body').on('click', '.nav-collapse a', ->
     $(this).parents('.nav-collapse').collapse('hide')
   )
+  $.validator.setDefaults
+    errorPlacement: (error, element) ->
+      error.insertBefore(element)
 
   # Triggers of PJAX
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
@@ -49,7 +52,8 @@ $ ->
   # After PJAX requests, we can operate callbacks as we like.
   on_pjax_reload = ->
     # Validations of Forms
-    $('form.validated').validate()
+    $('form.validated').validate(
+    )
     body_class = $('body').attr('class')
     body_class = body_class.replace(/theme_\w+/, '').replace(/\s+/, ' ')
     $('body').attr('class', body_class)

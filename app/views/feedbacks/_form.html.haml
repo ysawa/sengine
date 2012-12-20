@@ -2,4 +2,4 @@
 = form_for @feedback, html: html_options do |f|
   %section.field
     = f.text_area :content, rows: 4, class: :required, placeholder: t('please.feedback')
-    = f.submit t('helpers.submit.submit'), 'data-disable-with' => t('actions.submitting'), disabled: true, class: 'btn btn-primary'
+    = f.submit t('helpers.submit.submit'), 'data-disable-with' => t('actions.submitting'), class: 'btn btn-primary'

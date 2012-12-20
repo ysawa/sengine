@@ -1,4 +1,4 @@
-- html_options = { remote: true, class: :edit_comment }
+- html_options = { remote: true, class: %w(edit_comment validated) }
 - if comment.game
   - resource = [comment.game, comment]
 - else
