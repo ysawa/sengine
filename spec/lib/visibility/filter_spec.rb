@@ -28,6 +28,7 @@ describe Visibility::Filter do
 
     it 'set .using_black_list true' do
       model = TestModel.new
+      model.using_black_list.should == false
       model.use_black_list
       model.using_black_list.should == true
     end
@@ -37,6 +38,7 @@ describe Visibility::Filter do
 
     it 'set .using_white_list true' do
       model = TestModel.new
+      model.using_white_list.should == false
       model.use_white_list
       model.using_white_list.should == true
     end
