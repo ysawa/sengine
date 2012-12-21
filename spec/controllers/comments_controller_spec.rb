@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CommentsController do
 
   def valid_attributes
-    { commentable_id: @game.id, commentable_type: 'Game' }
+    { commentable_id: @game.id, commentable_type: 'Game', content: 'Comment Content' }
   end
 
   def valid_session
@@ -17,7 +17,7 @@ describe CommentsController do
 
   describe "GET index" do
     it "assigns all comments as @comments" do
-      comment = Comment.create! valid_attributes
+      comment = Fabricate(:comment, valid_attributes)
       get :index, { game_id: @game.to_param }
       assigns(:comments).to_a.should eq([comment])
     end
@@ -25,7 +25,7 @@ describe CommentsController do
 
   describe "GET show" do
     it "assigns the requested comment as @comment" do
-      comment = Comment.create! valid_attributes
+      comment = Fabricate(:comment, valid_attributes)
       get :show, { game_id: @game.to_param, id: comment.to_param}
       assigns(:comment).should eq(comment)
     end
@@ -33,7 +33,7 @@ describe CommentsController do
 
   describe "GET new" do
     it "assigns a new comment as @comment" do
-      get :new, { game_id: @game.to_param, game_id: @game.to_param }
+      get :new, { game_id: @game.to_param }
       assigns(:comment).should be_a_new(Comment)
     end
   end
@@ -49,6 +49,7 @@ describe CommentsController do
       it "assigns a newly created comment as @comment" do
         post :create, { game_id: @game.to_param, comment: valid_attributes}
         assigns(:comment).should be_a(Comment)
+        assigns(:comment).should be_valid
         assigns(:comment).should be_persisted
       end
 
@@ -77,14 +78,14 @@ describe CommentsController do
 
   describe "DELETE destroy" do
     it "destroys the requested comment" do
-      comment = Comment.create! valid_attributes
+      comment = Fabricate(:comment, valid_attributes)
       expect {
         delete :destroy, { game_id: @game.to_param, id: comment.to_param}
       }.to change(Comment, :count).by(-1)
     end
 
     it "redirects to the comments list" do
-      comment = Comment.create! valid_attributes
+      comment = Fabricate(:comment, valid_attributes)
       delete :destroy, { game_id: @game.to_param, id: comment.to_param}
       response.should redirect_to(game_comments_path @game)
     end
