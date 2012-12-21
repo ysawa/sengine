@@ -38,8 +38,8 @@ module Visibility::Filter
         def visible(user)
           user_id = Visibility.get_user_id user
           or_conditions = []
-          or_conditions << { :using_black_list.ne => true, :using_white_list.ne => true }
-          or_conditions << { :using_black_list => true, :black_user_ids.ne => user_id }
+          or_conditions << { :using_black_list => false, :using_white_list => false }
+          or_conditions << { :using_black_list => true, :black_user_ids => { :$ne => user_id } }
           or_conditions << { :using_white_list => true, :white_user_ids => user_id }
           criteria.where(:$and => [{ :$or => or_conditions }])
         end
