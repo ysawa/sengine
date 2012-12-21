@@ -89,6 +89,15 @@ describe Sys::TagsController do
           post 'create', { 'tag' => valid_attributes }
           Tag.count.should == 2
         end
+
+        it "is enabled to upload image" do
+          Tag.count.should == 1
+          file = fixture_file_upload(File.join(Rails.root, '/app/assets/images/rails.png'), 'image/png')
+          attributes = valid_attributes(image: file)
+          post 'create', { tag: attributes }
+          Tag.last.image?.should be_true
+          Tag.last.image_url.should match(/rails\.png$/)
+        end
       end
 
       context 'with invalid attributes' do
