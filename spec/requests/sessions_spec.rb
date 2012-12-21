@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 
-describe 'users' do
+describe 'sessions' do
 
   before :each do
     @user = Fabricate(:user)
   end
 
-  describe "accessing /users/sign_in" do
+  describe "signing in" do
 
     it "page can be accessed" do
       visit new_user_session_path
