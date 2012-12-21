@@ -11,8 +11,18 @@ module Visibility::Filter
     self.using_black_list = true
   end
 
+  def use_black_list!
+    use_black_list
+    save
+  end
+
   def use_white_list
     self.using_white_list = true
+  end
+
+  def use_white_list!
+    use_white_list
+    save
   end
 
   def visible?(user)

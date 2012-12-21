@@ -28,7 +28,7 @@ describe Visibility::Filter do
 
   describe '.use_black_list' do
 
-    it 'set .using_black_list true' do
+    it 'sets .using_black_list true' do
       model = TestModel.new
       model.using_black_list.should == false
       model.use_black_list
@@ -36,13 +36,45 @@ describe Visibility::Filter do
     end
   end
 
+  describe '.use_black_list!' do
+
+    it 'sets .using_black_list true' do
+      model = TestModel.new
+      model.using_black_list.should == false
+      model.use_black_list!
+      model.using_black_list.should == true
+    end
+
+    it 'saves the model' do
+      model = TestModel.new
+      model.use_black_list!
+      model.should be_persisted
+    end
+  end
+
   describe '.use_white_list' do
 
-    it 'set .using_white_list true' do
+    it 'sets .using_white_list true' do
       model = TestModel.new
       model.using_white_list.should == false
       model.use_white_list
       model.using_white_list.should == true
+    end
+  end
+
+  describe '.use_white_list' do
+
+    it 'sets .using_white_list true' do
+      model = TestModel.new
+      model.using_white_list.should == false
+      model.use_white_list!
+      model.using_white_list.should == true
+    end
+
+    it 'saves the model' do
+      model = TestModel.new
+      model.use_white_list!
+      model.should be_persisted
     end
   end
 
