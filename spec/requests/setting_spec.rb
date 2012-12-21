@@ -24,5 +24,32 @@ describe 'Setting' do
         visit edit_setting_path
       end
     end
+
+    context 'objective is default' do
+      before :each do
+        @objective = 'default'
+      end
+
+      describe "edit" do
+        it "renders form to edit basic information" do
+          visit edit_setting_path(objective: @objective)
+          page.should have_selector "input[name='user[name]']"
+          page.should have_selector "textarea[name='user[content]']"
+        end
+      end
+    end
+
+    context 'objective is system' do
+      before :each do
+        @objective = 'system'
+      end
+
+      describe "edit" do
+        it "renders form to edit information for system" do
+          visit edit_setting_path(objective: @objective)
+          page.should have_selector "input[name='user[audio_on]']"
+        end
+      end
+    end
   end
 end
