@@ -1,22 +1,23 @@
 - app_id = escape_javascript Sengine.system.facebook[:app_id]
 #fb-root
-:javascript
-  if (!($.browser.msie && parseInt($.browser.version) < 8)) {
-    window.fbAsyncInit = function() {
-      FB.init({
-          appId: '#{app_id}',
-          cookie: true,
-          xfbml: true,
-          oauth: true
-      });
-      FB.Canvas.setAutoGrow(true);
-    };
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=#{app_id}";
-        fjs.parentNode.insertBefore(js, fjs);
-      } (document, 'script', 'facebook-jssdk')
-    );
-  }
+- unless Rails.env.test?
+  :javascript
+    if (!($.browser.msie && parseInt($.browser.version) < 8)) {
+      window.fbAsyncInit = function() {
+        FB.init({
+            appId: '#{app_id}',
+            cookie: true,
+            xfbml: true,
+            oauth: true
+        });
+        FB.Canvas.setAutoGrow(true);
+      };
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id; js.async = true;
+          js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=#{app_id}";
+          fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk')
+      );
+    }

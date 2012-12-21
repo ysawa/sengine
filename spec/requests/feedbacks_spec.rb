@@ -85,8 +85,7 @@ describe "Feedbacks" do
         end
       end
 
-      it "form cannot be submit without content" do
-        pending 'JS TEST NOT IMPLEMENTED'
+      it "form cannot be submit without content", js: true do
         visit feedbacks_path
         within('form.edit_feedback') do
           fill_in 'feedback[content]', with: ''

@@ -42,7 +42,7 @@ module IntegrationTestHelper
           fill_in '#{resource_name}[email]', with: user.email
           fill_in '#{resource_name}[password]', with: password
           check '#{resource_name}[remember_me]' if remember_me
-          click_button I18n.t('helpers.submit.sign_in')
+          find('input.btn.btn-primary').click
         end
       end
     EOS
