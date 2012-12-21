@@ -34,8 +34,12 @@ describe TagDecorator do
   end
 
   describe '.image' do
-    it 'generates image tag' do
+    it 'generates img tag' do
       @decorator.image
+    end
+
+    it 'generates img tag included in a tag' do
+      @decorator.image(true)
     end
   end
 
