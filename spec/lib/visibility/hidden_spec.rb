@@ -50,4 +50,32 @@ describe Visibility::Hidden do
       @model.shown?(@user).should be_false
     end
   end
+
+  describe 'Model.shown' do
+    before :each do
+      @model = TestModel.new
+      @model.hidden_user_ids << @user.id
+      @model.save
+    end
+
+    it 'finds models which meets conditions' do
+      TestModel.shown(@user).should be_a Mongoid::Criteria
+      TestModel.shown(@user).to_a.should == []
+      TestModel.shown(@another).to_a.should == [@model]
+    end
+  end
+
+  describe 'Model.hidden' do
+    before :each do
+      @model = TestModel.new
+      @model.hidden_user_ids << @user.id
+      @model.save
+    end
+
+    it 'finds models which meets conditions' do
+      TestModel.hidden(@user).should be_a Mongoid::Criteria
+      TestModel.hidden(@user).to_a.should == [@model]
+      TestModel.hidden(@another).to_a.should == []
+    end
+  end
 end
