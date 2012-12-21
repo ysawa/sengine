@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user_but_introduce_crawler!
   before_filter :find_comment, only: %w(destroy show)
-  before_filter :find_game
+  before_filter :find_commentable
 
   # GET /games/1/comments/check_update
   def check_update
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     @comment.author = current_user
-    @comment.commentable = @game if @game
+    @comment.commentable = @commentable if @commentable
     if @comment.save
       respond_with(@comment, location: game_comment_path(@game, @comment))
     else
@@ -53,8 +53,8 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    if @game
-      @comments = @game.comments.desc(:created_at).page(params[:page]).per(5)
+    if @commentable
+      @comments = @commentable.comments.desc(:created_at).page(params[:page]).per(5)
     else
       @comments = Comment.all.desc(:created_at).page(params[:page]).per(5)
     end
@@ -63,7 +63,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new(game: @game)
+    @comment = Comment.new(commentable: @commentable)
     respond_with(@comment)
   end
 
@@ -78,9 +78,9 @@ private
     @comment = Comment.find(params[:id])
   end
 
-  def find_game
+  def find_commentable
     if params[:game_id]
-      @game = Game.find(params[:game_id])
+      @commentable = @game = Game.find(params[:game_id])
     end
   end
 end

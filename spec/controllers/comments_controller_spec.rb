@@ -36,6 +36,11 @@ describe CommentsController do
       get :new, { game_id: @game.to_param }
       assigns(:comment).should be_a_new(Comment)
     end
+
+    it "assigns the game as @comment.commentable" do
+      get :new, { game_id: @game.to_param }
+      assigns(:comment).commentable.should == @game
+    end
   end
 
   describe "POST create" do
