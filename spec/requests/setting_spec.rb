@@ -36,6 +36,17 @@ describe 'Setting' do
           page.should have_selector "input[name='user[name]']"
           page.should have_selector "textarea[name='user[content]']"
         end
+
+        it "can send information and returns to the same form" do
+          visit edit_setting_path(objective: @objective)
+          fill_in "user[name]", with: 'ABCDE'
+          fill_in "user[content]", with: 'XYZ'
+          find('input.btn.btn-primary').click
+          page.should have_selector "input[name='user[name]'][value='ABCDE']"
+          @user.reload
+          @user.name.should == 'ABCDE'
+          @user.content.should == 'XYZ'
+        end
       end
     end
 
@@ -48,6 +59,7 @@ describe 'Setting' do
         it "renders form to edit information for system" do
           visit edit_setting_path(objective: @objective)
           page.should have_selector "input[name='user[audio_on]']"
+          page.should have_selector "select[name='user[timezone_string]']"
         end
       end
     end
