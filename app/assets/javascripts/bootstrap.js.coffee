@@ -5,7 +5,4 @@ $ ->
   $('body').on('touchstart.dropdown', '.dropdown-menu', (e) ->
     e.stopPropagation()
   )
-  $('body').on('click', 'a.dropdown-toggle', (e) ->
-    $(this).dropdown()
-    false
-  )
+  $('a.dropdown-toggle').dropdown()
