@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Visibility::Visible
+module Visibility::Filter
 
   def black_user?(user)
     user_id = Visibility.get_user_id user
