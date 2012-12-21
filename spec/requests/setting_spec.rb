@@ -53,6 +53,8 @@ describe 'Setting' do
     context 'objective is system' do
       before :each do
         @objective = 'system'
+        @user.audio_on = true
+        @user.save
       end
 
       describe "edit" do
@@ -60,6 +62,14 @@ describe 'Setting' do
           visit edit_setting_path(objective: @objective)
           page.should have_selector "input[name='user[audio_on]']"
           page.should have_selector "select[name='user[timezone_string]']"
+        end
+
+        it "can send information and returns to the same form" do
+          visit edit_setting_path(objective: @objective)
+          choose 'user_audio_on_false'
+          find('input.btn.btn-primary').click
+          @user.reload
+          @user.audio_on.should be_false
         end
       end
     end
