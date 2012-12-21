@@ -25,7 +25,7 @@ describe 'users' do
       end
 
       it "fails with incorrect password", js: true do
-        user_sign_in_with_visit(@user, 'BAD PASSWORD')
+        user_sign_in_with_visit(@user, 'BADPASSWORD')
         page.should have_selector 'form#user_sign_in'
       end
     end
