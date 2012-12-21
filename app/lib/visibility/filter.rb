@@ -7,6 +7,14 @@ module Visibility::Filter
     using_black_list? && self.black_user_ids.include?(user_id)
   end
 
+  def use_black_list
+    self.using_black_list = true
+  end
+
+  def use_white_list
+    self.using_white_list = true
+  end
+
   def visible?(user)
     result = white_user?(user)
     result &&= !black_user?(user)

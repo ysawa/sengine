@@ -24,6 +24,24 @@ describe Visibility::Filter do
     end
   end
 
+  describe '.use_black_list' do
+
+    it 'set .using_black_list true' do
+      model = TestModel.new
+      model.use_black_list
+      model.using_black_list.should == true
+    end
+  end
+
+  describe '.use_white_list' do
+
+    it 'set .using_white_list true' do
+      model = TestModel.new
+      model.use_white_list
+      model.using_white_list.should == true
+    end
+  end
+
   describe '.white_user?' do
 
     it 'checks if the user is white' do
