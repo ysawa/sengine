@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-module Visibility::Shown
+module Visibility::Hidden
 
   def hidden?(user)
     user_id = Visibility.get_user_id user

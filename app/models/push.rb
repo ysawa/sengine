@@ -3,7 +3,7 @@
 class Push
   include Mongoid::Document
   include Mongoid::Timestamps::Created
-  include Visibility::Shown
+  include Visibility::Hidden
 
   field :content, type: String
   field :push_type, type: String

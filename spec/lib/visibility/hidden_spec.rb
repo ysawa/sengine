@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-describe Visibility::Shown do
+describe Visibility::Hidden do
 
   before :each do
     class TestModel
       include Mongoid::Document
-      include Visibility::Shown
+      include Visibility::Hidden
     end
     @user = Fabricate(:user)
     @another = Fabricate(:user)

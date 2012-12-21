@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 module Visibility
-  autoload :Shown, 'visibility/shown'
+  autoload :Hidden, 'visibility/hidden'
   autoload :Visible, 'visibility/visible'
   autoload :Published, 'visibility/published'
 
