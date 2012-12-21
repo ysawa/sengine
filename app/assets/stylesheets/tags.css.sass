@@ -6,7 +6,23 @@
 
 article.tag
 
-ul.tags
+ul#tags
+  margin: 0
+  padding: 0
+  background: #fff
+  +border-radius(5px)
   li.tag
-    .name
-    .content
+    +clearfix
+    list-style: none
+    border-bottom: 1px solid $border_color
+    padding: 10px
+    &:last-child
+      border-bottom: 0
+    .tag_content
+      line-height: 25px
+    time
+      color: #aaa
+  li.no_tag
+    color: #f33
+    font-weight: bold
+    padding: 20px 10px

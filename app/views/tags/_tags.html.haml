@@ -1,8 +1,11 @@
-%ul.tags
+- tag_is_blank = defined?(show_not_found) && show_not_found && tags.blank?
+%ul#tags
   - tags.each do |tag_element|
-    - decorator = TagDecorator.new tag_element
-    %li.tag
-      %h3.name
-        = decorator.name(true)
-      %section.content
-        = decorator.content
+    = render 'tags/list', tag_element: tag_element
+  - if tag_is_blank
+    %li.no_tag
+      = t('notices.model_was_not_found', model: Tag.model_name.human)
+- if defined?(with_pagination) && with_pagination && !tag_is_blank
+  - unless defined?(pagination_params)
+    - pagination_params = {}
+  = render 'tags/pagination', tags: tags, pagination_params: pagination_params
