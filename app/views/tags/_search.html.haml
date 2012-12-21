@@ -1,5 +1,5 @@
 - href = search_tags_path
 = form_tag href, id: :search_tag, class: %w(validated form-search), method: :get do
   .input-append
-    = search_field_tag :q, params[:q], class: %w(span2 search-query)
+    = search_field_tag :q, params[:q], class: %w(search-query)
     = submit_tag t('helpers.submit.search'), class: %w(btn)
