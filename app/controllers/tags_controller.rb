@@ -12,6 +12,9 @@ class TagsController < ApplicationController
   def search
     @q = params[:q]
     @tags = Tag.search(@q).desc(:created_at).page(params[:page])
+    if @q.present?
+      @subtitle = [@q, @subtitle]
+    end
     respond_with @tags do |format|
       format.html { render action: 'index' }
     end
@@ -19,7 +22,7 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find_by_code(params[:id])
-    @subtitle = @tag.name
+    @subtitle = @tag
     respond_with @tag
   end
 end
