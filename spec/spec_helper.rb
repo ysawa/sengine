@@ -12,7 +12,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'capybara/rspec'
-  # Capybara.javascript_driver = :webkit
+
+  Capybara.javascript_driver = :webkit
 
   require "draper/test/rspec_integration"
 
