@@ -11,5 +11,6 @@ describe "sys/users/show" do
 
   it "renders sys/users/show" do
     render
+    rendered.should have_content @user.name
   end
 end
