@@ -11,6 +11,15 @@ class TagDecorator < ApplicationDecorator
     end
   end
 
+  def image(link = false, image_options = {})
+    result = h.image_tag model.image.url, image_options
+    if link
+      h.link_to result, model
+    else
+      result
+    end
+  end
+
   def name(link = false, locale = nil)
     target_locale = get_locale(locale)
     result = model.name_translations[target_locale]

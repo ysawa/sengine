@@ -33,6 +33,12 @@ describe TagDecorator do
     end
   end
 
+  describe '.image' do
+    it 'generates image tag' do
+      @decorator.image
+    end
+  end
+
   describe '.content' do
     it 'generates content string' do
       @tag.content.split("\n").each do |line|
