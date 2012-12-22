@@ -34,6 +34,7 @@ ja:
       play_game: '対局する'
       save: '保存する'
       search: '検索する'
+      search_short: '検索'
       send: '送信する'
       sign_in: 'ログイン'
       sign_out: 'ログアウト'
