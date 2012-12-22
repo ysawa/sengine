@@ -32,4 +32,4 @@
           - comments = not_author_comments.of_author_friends(current_user).desc(:created_at).limit(3).to_a
         - if comments.blank?
           - comments = not_author_comments.desc(:created_at).limit(3).to_a
-        = render 'comments/comments', comments: comments, with_pagination: false, with_game: true
+        = render 'comments/comments', comments: comments, with_pagination: false, with_commentable: true
