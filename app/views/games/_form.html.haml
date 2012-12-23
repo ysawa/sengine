@@ -25,9 +25,9 @@
       - %w(sente gote random handicap).each do |order|
         - html_options = { 'game-order' => order }
         - if order == 'random'
-          - html_options[:class] = 'game_order btn btn-large btn-primary active'
+          - html_options[:class] = 'game_order btn btn-primary active'
         - else
-          - html_options[:class] = 'game_order btn btn-large'
+          - html_options[:class] = 'game_order btn'
         = link_to t("game.orders.#{order}"), '#', html_options
     #game_handicap_select
       = select_tag :game_handicap, options_for_select(game_handicaps_for_select)
