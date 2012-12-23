@@ -45,8 +45,8 @@ class Shogi
         form.find("#opponents_slider").form_slider()
     form.on "click", "a.game_order", ->
       game_order = $(this).attr("game-order")
-      $("a.game_order").removeClass "active"
-      $(this).addClass "active"
+      $('a.game_order').removeClass('active').removeClass('btn-primary')
+      $(this).addClass('active').addClass('btn-primary')
       $("input#game_order").val game_order
       if game_order == 'handicap'
         form.find("select#game_handicap").attr('disabled', false)

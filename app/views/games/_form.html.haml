@@ -21,13 +21,13 @@
   %section.field
     = label_tag 'game_order', "3. #{t('actions.select_sente_or_gote')}"
     = hidden_field_tag 'game_order', nil
-    #order_field
+    #order_field.btn-group
       - %w(sente gote random handicap).each do |order|
         - html_options = { 'game-order' => order }
         - if order == 'random'
-          - html_options[:class] = 'active game_order'
+          - html_options[:class] = 'game_order btn btn-large btn-primary active'
         - else
-          - html_options[:class] = 'game_order'
+          - html_options[:class] = 'game_order btn btn-large'
         = link_to t("game.orders.#{order}"), '#', html_options
     #game_handicap_select
       = select_tag :game_handicap, options_for_select(game_handicaps_for_select)
