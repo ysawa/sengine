@@ -1,7 +1,11 @@
 .common_container#tag_page
+  - if @subtitle.is_a? Array
+    - name = "#{@subtitle.last}: #{@subtitle.first}"
+  - else
+    - name = @subtitle
   %h2<
     %i.icon-tags
-    = @subtitle
+    = name
   .row
     .span3
       = render 'games/side'

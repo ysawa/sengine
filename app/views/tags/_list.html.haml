@@ -1,6 +1,6 @@
 - decorator = TagDecorator.new tag_element
 %li.tag
   %h3.tag_name
+    %span.icon-tag
     = decorator.name(true)
-  %section.tag_content
-    = decorator.content
+  = truncate tag_element.content, length: 40
