@@ -30,6 +30,8 @@ en:
         show: 'Profile'
       setting:
         edit: 'Setting'
+        edit_default: 'Profile'
+        edit_system: 'System'
         show: 'Setting'
       sys:
         home:

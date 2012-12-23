@@ -31,6 +31,8 @@ ja:
         show: 'プロフィール'
       setting:
         edit: '設定'
+        edit_default: 'プロフィール'
+        edit_system: 'システム'
         show: '設定'
       sys:
         home:
