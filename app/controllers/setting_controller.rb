@@ -7,6 +7,9 @@ class SettingController < ApplicationController
 
   # GET /setting/edit
   def edit
+    if @objective
+      @subtitle = [I18n.t("pages.controllers.setting.edit_#{@objective}"), @subtitle]
+    end
     respond_with(current_user)
   end
 

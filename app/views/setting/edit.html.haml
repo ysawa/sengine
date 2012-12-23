@@ -1,7 +1,11 @@
 .common_container#setting_page
+  - if @subtitle.is_a? Array
+    - name = @subtitle.first
+  - else
+    - name = @subtitle
   %h2<
     %i.icon-wrench
-    = @subtitle
+    = name
   .row
     .span3
       = render 'setting/side'
