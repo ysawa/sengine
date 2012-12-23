@@ -32,7 +32,8 @@
       %span.finished
         = t('game.status.finished')
     - if game.of_user? current_user
-      = link_to '×', game, confirm: t('confirms.are_you_sure_'), method: :delete, 'data-remote' => true, class: :delete
+      = link_to game, confirm: t('confirms.are_you_sure_'), method: :delete, 'data-remote' => true, class: :delete do
+        %span.icon-remove
     - if won_decorator
       %br
       = t('user.games.won', user: won_decorator.name(true)).html_safe
