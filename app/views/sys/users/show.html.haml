@@ -1,7 +1,9 @@
 .common_container#user_page
+  %h2= @subtitle
   = render 'user', user: @user
-  .actions
+  %section.form-actions
+    = link_to t('actions.edit'), edit_sys_user_path(@user), class: %w(btn)
     - if @user.admin?
-      = link_to t('actions.unset_admin'), unset_admin_sys_user_path(@user), method: :put
+      = link_to t('actions.unset_admin'), unset_admin_sys_user_path(@user), method: :put, class: %w(btn btn-warning)
     - else
-      = link_to t('actions.set_admin'), set_admin_sys_user_path(@user), method: :put
+      = link_to t('actions.set_admin'), set_admin_sys_user_path(@user), method: :put, class: %w(btn btn-warning)

@@ -4,6 +4,10 @@
     %section.controls
       = f.text_field :name, class: :required
   %section.control-group
+    = f.label :content, nil, class: 'control-label'
+    %section.controls
+      = f.text_area :content, rows: 4, class: %w(required span5)
+  %section.control-group
     = f.label :score, nil, class: 'control-label'
     %section.controls
       = f.text_field :score, class: :required
@@ -20,9 +24,10 @@
     = f.label :audio_on, nil, class: 'control-label'
     %section.controls
       - [true, false].each do |value|
-        = label_tag "user_audio_on_#{value}", t("user.audio")[value], class: :inline
-        = f.radio_button :audio_on, value, class: :required
+        - name = t("user.audio")[value]
+        = label_tag "user_audio_on_#{value}", name, class: %w(radio inline) do
+          = f.radio_button :audio_on, value, class: :required
+          = name
         &nbsp;&nbsp;
-  %section.control-group
-    %section.controls
-      = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
+  %section.form-actions
+    = f.submit t('helpers.submit.save'), class: 'btn btn-primary'

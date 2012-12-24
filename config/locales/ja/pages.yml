@@ -49,7 +49,9 @@ ja:
           new: 'タグ作成'
           show: 'タグ詳細'
         users:
+          edit: 'ユーザー編集'
           index: 'ユーザー一覧'
+          show: 'ユーザー詳細'
       tags:
         index: 'タグ一覧'
         search: 'タグ検索'
