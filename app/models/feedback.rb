@@ -3,6 +3,7 @@
 class Feedback
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include Visibility::Published
   field :content, type: String
   field :dislike_user_ids, type: Array, default: []

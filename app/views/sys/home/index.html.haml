@@ -1,18 +1,40 @@
-.common_container#home_page
+.common_container#home_page.systematic
   %h2= @subtitle
-  %h3
-    = User.model_name.human
-  %p
-    = User.count
-  %h3
-    = Game.model_name.human
-  %p
-    = Game.count
-  %h3
-    = Movement.model_name.human
-  %p
-    = Movement.count
-  %h3
-    = Feedback.model_name.human
-  %p
-    = Feedback.parents.count
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+          Object
+        %th
+          Count
+        %th
+          Deleted
+    %tbody
+      %tr
+        %th
+          = User.model_name.human
+        %td
+          = User.count
+        %td
+          = User.deleted.count
+      %tr
+        %th
+          = Game.model_name.human
+        %td
+          = Game.count
+        %td
+          = Game.deleted.count
+      %tr
+        %th
+          = Movement.model_name.human
+        %td
+          = Movement.count
+        %td
+          = Movement.deleted.count
+      %tr
+        %th
+          = Feedback.model_name.human
+        %td
+          = Feedback.parents.count
+        %td
+          = Feedback.parents.deleted.count

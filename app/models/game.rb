@@ -6,6 +6,7 @@ class Game
   class CannotTakeMovement < StandardError; end
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   field :handicap, type: String
   field :finished_at, type: Time
   field :given_up, type: Boolean

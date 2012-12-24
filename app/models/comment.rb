@@ -3,6 +3,7 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   field :content, type: String
   belongs_to :author, class_name: 'User'
   belongs_to :commentable, polymorphic: true

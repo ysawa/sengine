@@ -3,6 +3,7 @@
 class Movement
   include Mongoid::Document
   include Mongoid::Timestamps::Created
+  include Mongoid::Paranoia
   field :from_point, type: Point
   field :number, type: Integer
   field :put, type: Boolean, default: false

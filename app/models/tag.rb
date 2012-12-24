@@ -3,6 +3,7 @@
 class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   field :code, type: String
   field :content, type: String, localize: true
   field :name, type: String, localize: true
