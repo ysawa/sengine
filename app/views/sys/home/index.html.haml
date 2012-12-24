@@ -33,8 +33,22 @@
           = Movement.deleted.count
       %tr
         %th
+          = Comment.model_name.human
+        %td
+          = Comment.count
+        %td
+          = Comment.deleted.count
+      %tr
+        %th
           = Feedback.model_name.human
         %td
           = Feedback.parents.count
         %td
           = Feedback.parents.deleted.count
+      %tr
+        %th
+          = Tag.model_name.human
+        %td
+          = Tag.count
+        %td
+          = Tag.deleted.count

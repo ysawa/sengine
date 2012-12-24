@@ -11,9 +11,9 @@
     %li
       = link_to Game.model_name.human, sys_games_path
     %li
-      = link_to Tag.model_name.human, sys_tags_path
-    %li
       = link_to Feedback.model_name.human, sys_feedbacks_path
+    %li
+      = link_to Tag.model_name.human, sys_tags_path
     %li
       = link_to 'Resque', '/sys/resque', target: :_blank
     - if user_signed_in?
