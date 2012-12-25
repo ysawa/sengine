@@ -19,7 +19,7 @@ private
       grid_fs = CarrierWave::Storage::GridFS::File.new(nil, path)
       data = grid_fs.read
       raise if data.blank?
-      content_type = MIME::Types.type_for(path)[0].to_s
+      content_type = (MIME::Types.type_for(path)[0] || 'text/plain').to_s
       [200, { 'Content-Type' => content_type }, [data]]
     rescue
       [404, { 'Content-Type' => 'text/plain' }, ['File not found.']]
