@@ -1,17 +1,20 @@
 - unless defined?(decorator)
   - decorator = TagDecorator.new tag_element
-- attr_names = %w(id code)
+- attr_names = %w(id code image)
 %table.table.table-striped
   %thead
     %tr
-      - attr_names.each do |attr_name|
-        %th
-          = attr_name
+      %th
+        Attribute
+      %th
+        Content
   %tbody
-    %tr
-      - attr_names.each do |attr_name|
+    - attr_names.each do |attr_name|
+      %tr
+        %th
+          = Tag.human_attribute_name(attr_name)
         %td
-          = tag_element.public_method(attr_name)
+          = decorator.public_send(attr_name)
 
 - Sengine::LOCALE_STRINGS.each do |locale|
   %table.table.table-striped

@@ -38,11 +38,12 @@ describe TagDecorator do
 
   describe '.image' do
     it 'generates img tag' do
-      @decorator.image
+      @decorator.image.should match "<img"
     end
 
     it 'generates img tag included in a tag' do
-      @decorator.image(true)
+      @decorator.image(true).should match "<a href"
+      @decorator.image(true).should match "<img"
     end
   end
 

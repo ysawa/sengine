@@ -3,12 +3,20 @@
 class TagDecorator < ApplicationDecorator
   decorates :tag
 
+  def code
+    model.code
+  end
+
   def content(locale = nil)
     target_locale = get_locale(locale)
     result = model.content_translations[target_locale]
     if result
       prettify result
     end
+  end
+
+  def id
+    model.id
   end
 
   def image(link = false, image_options = {})
