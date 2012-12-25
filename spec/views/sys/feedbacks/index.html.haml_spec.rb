@@ -11,5 +11,6 @@ describe "sys/feedbacks/index" do
 
   it "renders sys/feedbacks/index" do
     render
+    rendered.should have_selector 'table.table'
   end
 end

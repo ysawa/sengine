@@ -13,5 +13,6 @@ describe "sys/tags/index.html.haml" do
     render
     rendered.should match @tag.code
     rendered.should match @tag.name
+    rendered.should have_selector 'table.table'
   end
 end
