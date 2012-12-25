@@ -34,6 +34,10 @@ module Tagging
     self.tag_ids << tag.id
   end
 
+  def tag_related_objects
+    self.class.where(:tag_ids.in => self.tag_ids, :_id.ne => self.id)
+  end
+
   def self.format_tag_id(tag)
     case tag
     when Tag

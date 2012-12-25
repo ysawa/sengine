@@ -125,7 +125,26 @@ describe Tagging do
     end
   end
 
-  describe '.find_by_tag' do
+  describe 'model.tag_related_objects' do
+    before :each do
+      @tag = Fabricate(:tag)
+      @another_tag = Fabricate(:tag, code: 'another_tag')
+      @model = TestModel.new
+      @model.tag_ids = [@tag.id]
+      @model.save
+      @another = TestModel.new
+      @another.tag_ids = [@tag.id, @another_tag.id]
+      @another.save
+    end
+
+    it 'finds models which have the same tags' do
+      @model.tag_related_objects.should be_a Mongoid::Criteria
+      @model.tag_related_objects.to_a.should == [@another]
+      @another.tag_related_objects.to_a.should == [@model]
+    end
+  end
+
+  describe 'Model.find_by_tag' do
     before :each do
       @tag = Fabricate(:tag)
       @another_tag = Fabricate(:tag, code: 'another_tag')
@@ -141,7 +160,7 @@ describe Tagging do
     end
   end
 
-  describe '.search' do
+  describe 'Model.search' do
     before :each do
       @tag = Fabricate(:tag, name: 'Goal')
       @another_tag = Fabricate(:tag, code: 'another_tag', name: 'Another')
