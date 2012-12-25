@@ -18,4 +18,9 @@ describe "sys/home/index" do
     rendered.should have_selector 'a[href="/sys/tags"]'
     rendered.should have_selector 'a[href="/sys/users"]'
   end
+
+  it "renders table" do
+    render template: 'sys/home/index', layout: 'layouts/sys/application'
+    rendered.should have_selector 'table.table'
+  end
 end
