@@ -156,4 +156,16 @@ describe Tagging do
       TestModel.search('Another').to_a.should == []
     end
   end
+
+  describe 'protected attributes' do
+    before :each do
+      @tag = Fabricate(:tag)
+      @another_tag = Fabricate(:tag, code: 'another_tag')
+    end
+
+    it 'should be protected from the malicious form' do
+      model = TestModel.new(tag_ids: [@tag.id, 'invalid string'])
+      model.tag_ids.should be_blank
+    end
+  end
 end
