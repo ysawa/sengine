@@ -29,12 +29,11 @@ describe TagDecorator do
       @decorator.name(false, 'ja').should == 'tag name'
     end
 
-    it 'is forced to be shown as untitled if name is completely blank'
+    it 'is forced to be shown as untitled if name is completely blank' do
       @tag.name_translations = {}
       @decorator.name(false, 'en').should == 'untitled'
       @decorator.name(false, 'ja').should == 'untitled'
     end
-
   end
 
   describe '.image' do
