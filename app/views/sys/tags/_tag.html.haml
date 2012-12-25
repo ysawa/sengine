@@ -1,12 +1,34 @@
 - unless defined?(decorator)
   - decorator = TagDecorator.new tag_element
-%article.tag
-  %h2.code
-    = decorator.code
-  - Sengine::LOCALE_STRINGS.each do |locale|
-    %h3
-      = locale
-    %h4.name
-      = decorator.name_translations[locale]
-    %section.content
-      = decorator.content(locale)
+- attr_names = %w(id code)
+%table.table.table-striped
+  %thead
+    %tr
+      - attr_names.each do |attr_name|
+        %th
+          = attr_name
+  %tbody
+    %tr
+      - attr_names.each do |attr_name|
+        %td
+          = tag_element.public_method(attr_name)
+
+- Sengine::LOCALE_STRINGS.each do |locale|
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+          = Tag.human_attribute_name('locale')
+        %th
+          = locale
+    %tbody
+      %tr
+        %th
+          = Tag.human_attribute_name('name')
+        %td
+          = decorator.name_translations[locale]
+      %tr
+        %th
+          = Tag.human_attribute_name('content')
+        %td
+          = decorator.content(locale)
