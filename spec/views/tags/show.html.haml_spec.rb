@@ -23,8 +23,7 @@ describe "tags/show.html.haml" do
 
     it 'should be shown' do
       render
-      p rendered
-      # .should have_selector('img')
+      rendered.should have_selector 'img'
     end
   end
 end
