@@ -153,6 +153,7 @@ describe Tagging do
     it 'finds models with corresponed tags' do
       TestModel.search('Goal').should be_a Mongoid::Criteria
       TestModel.search('Goal').to_a.should == [@model]
+      TestModel.search('Another').to_a.should == []
     end
   end
 end
