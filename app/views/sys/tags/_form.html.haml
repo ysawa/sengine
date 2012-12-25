@@ -3,6 +3,10 @@
     = f.label :code, nil, class: 'control-label'
     %section.controls
       = f.text_field :code, class: :required
+  %section.control-group
+    = f.label :image, nil, class: 'control-label'
+    %section.controls
+      = f.file_field :image, class: :required
   - Sengine::LOCALES.each do |locale|
     - locale_string = locale.to_s
     %h2

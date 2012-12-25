@@ -1,5 +1,9 @@
+- unless defined?(decorator)
+  - decorator = TagDecorator.new tag_element
+
 %article#tag
   %h3
-    = tag_element.name
+    = decorator.name
   %section.content
-    = tag_element.content
+    = decorator.image
+    = decorator.content
