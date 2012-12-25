@@ -91,7 +91,8 @@ describe Tagging do
     before :each do
       @tag = Fabricate(:tag)
       @another_tag = Fabricate(:tag, code: 'another_tag')
-      @model = TestModel.new(tag_ids: [@tag.id])
+      @model = TestModel.new
+      @model.tag_ids = [@tag.id]
     end
 
     it 'appends tag_id to tag_ids' do
@@ -124,18 +125,34 @@ describe Tagging do
     end
   end
 
-
   describe '.find_by_tag' do
     before :each do
       @tag = Fabricate(:tag)
       @another_tag = Fabricate(:tag, code: 'another_tag')
-      @model = TestModel.create(tag_ids: [@tag.id])
+      @model = TestModel.new
+      @model.tag_ids = [@tag.id]
+      @model.save
     end
 
     it 'finds models with corresponed tags' do
       TestModel.find_by_tag(@tag).should be_a Mongoid::Criteria
       TestModel.find_by_tag(@tag).to_a.should == [@model]
       TestModel.find_by_tag(@another_tag).to_a.should == []
+    end
+  end
+
+  describe '.search' do
+    before :each do
+      @tag = Fabricate(:tag, name: 'Goal')
+      @another_tag = Fabricate(:tag, code: 'another_tag', name: 'Another')
+      @model = TestModel.new
+      @model.tag_ids = [@tag.id]
+      @model.save
+    end
+
+    it 'finds models with corresponed tags' do
+      TestModel.search('Goal').should be_a Mongoid::Criteria
+      TestModel.search('Goal').to_a.should == [@model]
     end
   end
 end

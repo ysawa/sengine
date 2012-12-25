@@ -48,6 +48,7 @@ module Tagging
 
   def self.included(klass)
     klass.field :tag_ids, type: Array, default: []
+    klass.attr_protected :tag_ids
     klass.before_save :make_tag_ids_legal
     klass.before_save :make_tag_ids_unique
 
@@ -56,6 +57,11 @@ module Tagging
         def find_by_tag(tag)
           tag_id = Tagging.format_tag_id(tag)
           criteria.where(:tag_ids.in => [tag_id])
+        end
+
+        def search(q)
+          tag_ids = Tag.search(q).collect { |tag| tag.id }
+          criteria.where(:tag_ids.all => tag_ids)
         end
       end
     EOS
