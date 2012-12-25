@@ -108,8 +108,14 @@ class PushView extends Backbone.View
       $('#pushes').prepend($(@el))
     @render()
 
+  append: ->
+    @add(true)
+
   delete: ->
     $(@el).remove()
+
+  prepend: ->
+    @add(false)
 
   render: ->
     $(@el).html(@template(this.model.attributes))
