@@ -27,6 +27,10 @@ module Respect
     self.class.where(:_id.in => self.following_user_ids)
   end
 
+  def make_following_user_ids_legal
+    self.following_user_ids = self.following_user_ids.select { |id| Moped::BSON::ObjectId.legal?(id) }
+  end
+
   def make_following_user_ids_unique
     self.following_user_ids = self.following_user_ids.uniq
   end
@@ -43,5 +47,6 @@ module Respect
   def self.included(klass)
     klass.field :following_user_ids, type: Array, default: []
     klass.before_save :make_following_user_ids_unique
+    klass.before_save :make_following_user_ids_legal
   end
 end
