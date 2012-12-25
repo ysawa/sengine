@@ -28,7 +28,8 @@ module Respect
   end
 
   def make_following_user_ids_legal
-    self.following_user_ids = self.following_user_ids.select { |id| Moped::BSON::ObjectId.legal?(id) }
+    ids = self.following_user_ids.select { |id| Moped::BSON::ObjectId.legal?(id) }
+    self.following_user_ids = ids.collect { |id| Moped::BSON::ObjectId(id) }
   end
 
   def make_following_user_ids_unique

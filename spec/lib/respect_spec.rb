@@ -92,6 +92,7 @@ describe Respect do
     it 'chooses only following_user_ids' do
       @user.following_user_ids << @teacher.id
       @user.following_user_ids << nil
+      @user.following_user_ids << 'nil'
       @user.following_user_ids << @another.id
       @user.make_following_user_ids_legal
       @user.following_user_ids.should == [@teacher.id, @another.id]
@@ -100,6 +101,7 @@ describe Respect do
     it 'works before saving' do
       @user.following_user_ids << @teacher.id
       @user.following_user_ids << nil
+      @user.following_user_ids << 'nil'
       @user.following_user_ids << @another.id
       @user.save
       @user.following_user_ids.should == [@teacher.id, @another.id]

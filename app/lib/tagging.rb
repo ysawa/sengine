@@ -2,16 +2,12 @@
 
 module Tagging
 
-  def delete_blank_tag_ids
-    result = []
-    self.tag_ids.each do |tag_id|
-      next if tag_id.blank?
-      result << tag_id
-    end
-    self.tag_ids = result
+  def make_tag_ids_legal
+    ids = self.tag_ids.select { |id| Moped::BSON::ObjectId.legal?(id) }
+    self.tag_ids = ids.collect { |id| Moped::BSON::ObjectId(id) }
   end
 
-  def make_sure_unique_tag_ids
+  def make_tag_ids_unique
     self.tag_ids = self.tag_ids.uniq
   end
 
@@ -52,8 +48,8 @@ module Tagging
 
   def self.included(klass)
     klass.field :tag_ids, type: Array, default: []
-    klass.before_save :delete_blank_tag_ids
-    klass.before_save :make_sure_unique_tag_ids
+    klass.before_save :make_tag_ids_legal
+    klass.before_save :make_tag_ids_unique
 
     klass.class_eval <<-EOS
       class << self

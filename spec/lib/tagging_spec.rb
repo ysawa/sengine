@@ -28,9 +28,9 @@ describe Tagging do
       model.tag_ids.should == [@tag.id]
     end
 
-    it 'has present ids' do
+    it 'has legal ids' do
       model = TestModel.new
-      model.tag_ids = ['', nil, ' ']
+      model.tag_ids = ['', nil, ' ', 'nil']
       model.save
       model.reload
       model.tag_ids.should == []
