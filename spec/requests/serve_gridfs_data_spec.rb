@@ -19,10 +19,14 @@ describe ServeGridfsData do
       include Mongoid::Document
       mount_uploader :data, TestDataUploader
     end
-    @test_model = TestModel.new
+    @text_model = TestModel.new
     @text_file = File.open(File.join(Rails.root, '/Rakefile'))
-    @test_model.data = @text_file
-    @test_model.save
+    @text_model.data = @text_file
+    @text_model.save
+    @html_model = TestModel.new
+    @html_file = File.open(File.join(Rails.root, '/public/500.html'))
+    @html_model.data = @html_file
+    @html_model.save
   end
 
   describe 'uploaded image' do
@@ -41,13 +45,26 @@ describe ServeGridfsData do
   describe 'uploaded text' do
 
     it 'can be downloaded' do
-      get @test_model.data.url
+      get @text_model.data.url
       response.body.should_not == 'File not found.'
     end
 
     it 'content_type can be set' do
-      get @test_model.data.url
+      get @text_model.data.url
       response.headers['Content-Type'].should == 'text/plain'
+    end
+  end
+
+  describe 'uploaded html' do
+
+    it 'can be downloaded' do
+      get @html_model.data.url
+      response.body.should_not == 'File not found.'
+    end
+
+    it 'content_type can be set' do
+      get @html_model.data.url
+      response.headers['Content-Type'].should == 'text/html'
     end
   end
 
