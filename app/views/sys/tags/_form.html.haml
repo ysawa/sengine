@@ -24,9 +24,5 @@
       %section.controls
         = text_area_tag name, content, class: :required
   %section.control-group
-    = f.label :image, nil, class: 'control-label'
-    %section.controls
-      = f.file_field :image
-  %section.control-group
     %section.controls
       = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
