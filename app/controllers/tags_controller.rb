@@ -11,7 +11,7 @@ class TagsController < ApplicationController
     if @tag.save
       respond_with(@tag, location: tags_path)
     else
-      render action: :index
+      render text: 'NG', status: 422
     end
   end
 

@@ -80,25 +80,35 @@ describe TagsController do
     end
 
     describe "POST 'create'" do
-      it "returns http redirect" do
-        post 'create', { tag: valid_attributes }
-        response.should be_redirect
-      end
-
-      it 'creates a tag' do
-        expect {
+      context "with valid params" do
+        it "returns http redirect" do
           post 'create', { tag: valid_attributes }
-        }.to change(Tag, :count).by(1)
+          response.should be_redirect
+        end
+
+        it 'creates a tag' do
+          expect {
+            post 'create', { tag: valid_attributes }
+          }.to change(Tag, :count).by(1)
+        end
+
+        it 'creates a tag have author who is current user' do
+          post 'create', { tag: valid_attributes }
+          assigns[:tag].author.should == @user
+        end
       end
 
-      it 'creates a tag have author who is current user' do
-        post 'create', { tag: valid_attributes }
-        assigns[:tag].author.should == @user
-      end
+      context "with invalid params" do
+        it "render error message" do
+          post 'create', { tag: {} }
+          response.should_not be_success
+        end
 
-      it "render index" do
-        post 'create', { tag: {} }
-        response.should render_template('index')
+        it 'does not create a tag' do
+          expect {
+            post 'create', { tag: {} }
+          }.to change(Tag, :count).by(0)
+        end
       end
     end
   end
