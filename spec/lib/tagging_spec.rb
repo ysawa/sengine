@@ -30,10 +30,10 @@ describe Tagging do
 
     it 'has legal ids' do
       model = TestModel.new
-      model.tag_ids = ['', nil, ' ', 'nil']
+      model.tag_ids = ['', nil, ' ', 'nil', @tag.id.to_s]
       model.save
       model.reload
-      model.tag_ids.should == []
+      model.tag_ids.should == [@tag.id]
     end
 
     it 'has ids uniquely' do
