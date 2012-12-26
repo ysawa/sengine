@@ -9,6 +9,10 @@ describe TagsController do
       post("/tags").should route_to("tags#create")
     end
 
+    it "routes to #destroy" do
+      delete("/tags/1").should route_to("tags#destroy", id: '1')
+    end
+
     it "routes to #index" do
       get("/tags").should route_to("tags#index")
     end

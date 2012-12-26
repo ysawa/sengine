@@ -6,6 +6,10 @@ describe Tag do
 
   before :each do
     @tag = Fabricate.build(:tag)
+    class TestModel
+      include Mongoid::Document
+      include Tagging
+    end
   end
 
 
@@ -145,6 +149,21 @@ describe Tag do
       @tag.image = @file
       @tag.save
       @tag.image.thumb.url.should match /\w+\.png$/
+    end
+  end
+
+  describe '.taggables' do
+    before :each do
+      @model = TestModel.new
+      @model.tag_ids << @tag.id
+      @model.save
+      @another_model = TestModel.new
+      @another_model.save
+    end
+
+    it 'finds objects which have the tag' do
+      @tag.taggable(TestModel).should be_a Mongoid::Criteria
+      @tag.taggable(TestModel).to_a.should == [@model]
     end
   end
 

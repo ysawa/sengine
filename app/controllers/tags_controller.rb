@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 class TagsController < ApplicationController
-  respond_to :html
+  respond_to :html, :js
   before_filter :authenticate_user_but_pass_crawler!
+  before_filter :find_taggable
+  before_filter :find_tag, only: [:destroy, :show]
 
   # POST /tags
   def create
@@ -13,6 +15,12 @@ class TagsController < ApplicationController
     else
       render text: 'NG', status: 422
     end
+  end
+
+  # DELETE /tags/1
+  def destroy
+    @tag.destroy
+    respond_with @tag
   end
 
   # GET /tags
@@ -35,8 +43,17 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find_by_code(params[:id])
     @subtitle = @tag
     respond_with @tag
+  end
+
+private
+
+  def find_tag
+    @tag = Tag.find_by_code(params[:id])
+  end
+
+  def find_taggable
+    @taggable = nil
   end
 end

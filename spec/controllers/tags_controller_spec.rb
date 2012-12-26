@@ -111,5 +111,18 @@ describe TagsController do
         end
       end
     end
+
+    describe "DELETE 'destroy'" do
+      it "returns http success" do
+        delete 'destroy', { id: @tag.to_param }
+        response.should be_redirect
+      end
+
+      it "deletes the tag" do
+        expect {
+          delete 'destroy', { id: @tag.to_param }
+        }.to change(Tag, :count).by(-1)
+      end
+    end
   end
 end

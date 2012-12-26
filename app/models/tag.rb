@@ -40,6 +40,10 @@ class Tag
     nil
   end
 
+  def taggable(klass)
+    klass.where(:tag_ids => self.id)
+  end
+
   def to_param
     self.code
   end
