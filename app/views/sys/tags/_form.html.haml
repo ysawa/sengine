@@ -9,7 +9,7 @@
       = f.file_field :image, class: :required
   - Sengine::LOCALES.each do |locale|
     - locale_string = locale.to_s
-    %h2
+    %h3
       = locale
     %section.control-group
       - name = "tag[name_translations][#{locale_string}]"
