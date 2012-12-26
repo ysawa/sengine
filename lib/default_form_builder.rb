@@ -34,7 +34,7 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
     value ||= submit_default_value
     options = options.stringify_keys
     options.reverse_merge!(
-      'class' => 'btn send',
+      'class' => 'btn btn-primary send',
       'data-disable-with' => I18n.t('actions.saving')
     )
     @template.submit_tag(value, options)

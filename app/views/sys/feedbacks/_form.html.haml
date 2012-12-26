@@ -1,7 +1,8 @@
-= form_for [:sys, @new_feedback] do |f|
-  %section.field
-    = f.label :content
-    = f.text_area :content, rows: 4, class: :required
-  %aside.actions
+= form_for [:sys, @new_feedback], html: { class: %w(validated form-horizontal) }) do |f|
+  %section.control-group
+    = f.label :content, nil, class: :must
+    %section.controls
+      = f.text_area :content, rows: 4, class: :required
+  %section.form-actions
     = f.hidden_field :parent_id
     = f.submit t('helpers.submit.save')
