@@ -107,30 +107,37 @@ describe Tag do
       @tag.code.should == 'tag_code'
       @tag.code = 'another%code'
       @tag.code.should == 'another_code'
+      @tag.code = '"code"'
+      @tag.code.should == '_code_'
+    end
+
+    it 'converts symbol downcased' do
+      @tag.code = 'Tag Code'
+      @tag.code.should == 'tag_code'
     end
   end
 
   describe '.generate_code_from_name' do
     before :each do
-      @another_tag = Fabricate(:tag, name: 'Another Tag', code: 'Another')
+      @another_tag = Fabricate(:tag, name: 'Another Tag', code: 'another')
     end
 
     it 'converts name strings into code' do
       @tag.code = nil
       @tag.name = 'Tag'
       @tag.generate_code_from_name
-      @tag.code.should == 'Tag'
+      @tag.code.should == 'tag'
     end
 
     it 'converts name strings into code which is not duplicated' do
       @tag.code = nil
       @tag.name = 'Another'
       @tag.generate_code_from_name
-      @tag.code.should == 'Another_'
+      @tag.code.should == 'another_'
       @tag.save
       next_tag = Fabricate.build(:tag, name: 'Another', code: nil)
       next_tag.generate_code_from_name
-      next_tag.code.should == 'Another__'
+      next_tag.code.should == 'another__'
     end
   end
 
@@ -169,13 +176,13 @@ describe Tag do
 
   describe 'Tag.find_by_code' do
     before :each do
-      @tag.code = 'Code'
+      @tag.code = 'code'
       @tag.save
     end
 
     it 'tag can be found' do
-      Tag.find_by_code('Code').should == @tag
-      lambda { Tag.find_by_code('OtherCode') }.should raise_error(Mongoid::Errors::DocumentNotFound)
+      Tag.find_by_code('code').should == @tag
+      lambda { Tag.find_by_code('other_code') }.should raise_error(Mongoid::Errors::DocumentNotFound)
     end
   end
 
@@ -187,7 +194,7 @@ describe Tag do
       @tag.name = 'タグ 名前'
       @tag.save
       I18n.locale = :en
-      @dummy_tag = Fabricate('tag', name: '123', code: 'CodeName')
+      @dummy_tag = Fabricate('tag', name: '123', code: 'code_name')
     end
 
     it 'tag can be searched' do
@@ -222,7 +229,7 @@ describe Tag do
     end
 
     it 'the same code with case_insensitive cannot be taken' do
-      @another = Fabricate(:tag, code: 'Same_Code')
+      @another = Fabricate(:tag, code: 'same_code')
       @tag.code = 'same_code'
       @tag.valid?.should be_false
     end

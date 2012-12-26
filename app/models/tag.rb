@@ -19,7 +19,8 @@ class Tag
       return write_attribute(:code, nil)
     end
     result = string.tr(' 　', '_')
-    result = result.gsub(/[!-\/\\:-@\[-`{-~}]/, "_")
+    result = result.gsub(/[\s!-\/\\:-@\[-`{-~}"'　]/, "_")
+    result = result.downcase
     write_attribute(:code, result)
   end
 
@@ -54,7 +55,7 @@ class Tag
     end
 
     def search(q)
-      keywords = q.split(/[\s!-\/\\:-@\[-`{-~}　]/)
+      keywords = q.split(/[\s!-\/\\:-@\[-`{-~}"'　]/)
       if keywords.blank?
         return criteria
       end
