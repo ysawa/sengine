@@ -1,4 +1,4 @@
-= form_for [:sys, tag_element], html: { class: %w(edit_tag validated form-horizontal), multipart: true } do |f|
+= form_for([:sys, tag_element], html: { class: %w(edit_tag validated form-horizontal), multipart: true }) do |f|
   %section.control-group
     = f.label :code, nil, class: 'control-label'
     %section.controls
