@@ -4,6 +4,11 @@ require 'spec_helper'
 
 describe TagsController do
 
+  def valid_attributes(attributes = {})
+    attrs = { code: 'TestTag' }
+    attrs.merge(attributes)
+  end
+
   before :each do
     @tag = Fabricate(:tag)
   end
@@ -71,6 +76,24 @@ describe TagsController do
         get 'search', q: 'tag'
         assigns[:tags].should be_a Mongoid::Criteria
         assigns[:tags].to_a.should == [@tag]
+      end
+    end
+
+    describe "POST 'create'" do
+      it "returns http redirect" do
+        post 'create', { tag: valid_attributes }
+        response.should be_redirect
+      end
+
+      it 'creates a tag' do
+        expect {
+          post 'create', { tag: valid_attributes }
+        }.to change(Tag, :count).by(1)
+      end
+
+      it "render index" do
+        post 'create', { tag: {} }
+        response.should render_template('index')
       end
     end
   end

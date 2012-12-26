@@ -77,7 +77,7 @@ Sengine::Application.routes.draw do
   resources :pushes, only: [:index]
 
   match "tags/search/:q", to: 'tags#search'
-  resources :tags, only: [:index, :show] do
+  resources :tags, only: [:create, :index, :show] do
     collection do
       get :search
     end
