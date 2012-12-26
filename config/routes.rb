@@ -6,6 +6,9 @@ Sengine::Application.routes.draw do
 
   namespace :sys do
     root to: "home#index"
+
+    resources :comments, only: [:index, :show]
+
     resources :feedbacks do
       member do
         put :publish
