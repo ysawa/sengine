@@ -162,8 +162,8 @@ describe Tag do
     end
 
     it 'finds objects which have the tag' do
-      @tag.taggable(TestModel).should be_a Mongoid::Criteria
-      @tag.taggable(TestModel).to_a.should == [@model]
+      @tag.taggables(TestModel).should be_a Mongoid::Criteria
+      @tag.taggables(TestModel).to_a.should == [@model]
     end
   end
 

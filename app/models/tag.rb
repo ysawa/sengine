@@ -40,7 +40,7 @@ class Tag
     nil
   end
 
-  def taggable(klass)
+  def taggables(klass)
     klass.where(:tag_ids => self.id)
   end
 
