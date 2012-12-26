@@ -7,6 +7,7 @@ class TagsController < ApplicationController
   # POST /tags
   def create
     @tag = Tag.new(params[:tag])
+    @tag.author = current_user
     if @tag.save
       respond_with(@tag, location: tags_path)
     else

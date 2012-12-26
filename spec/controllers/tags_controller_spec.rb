@@ -91,6 +91,11 @@ describe TagsController do
         }.to change(Tag, :count).by(1)
       end
 
+      it 'creates a tag have author who is current user' do
+        post 'create', { tag: valid_attributes }
+        assigns[:tag].author.should == @user
+      end
+
       it "render index" do
         post 'create', { tag: {} }
         response.should render_template('index')
