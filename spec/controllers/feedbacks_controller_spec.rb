@@ -39,7 +39,7 @@ describe FeedbacksController do
   end
 
   describe "POST create" do
-    describe "with valid params" do
+    context "with valid params" do
       it "creates a new Feedback" do
         expect {
           post :create, { feedback: valid_attributes }
@@ -63,7 +63,7 @@ describe FeedbacksController do
       end
     end
 
-    describe "with invalid params" do
+    context "with invalid params" do
       it "assigns a newly created but unsaved feedback as @feedback" do
         # Trigger the behavior that occurs when invalid params are submitted
         Feedback.any_instance.stub(:save).and_return(false)
