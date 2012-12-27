@@ -1,3 +1,5 @@
+- html_classes = []
+- push_is_blank = defined?(show_not_found) && show_not_found && pushes.blank?
 %ul#pushes
   - pushes.each do |push|
     - decorator = PushDecorator.new push
@@ -6,3 +8,7 @@
   - if pushes.blank?
     %li.no_push
       = t('notices.model_was_not_found', model: Push.model_name.human)
+- if defined?(with_pagination) && with_pagination && !push_is_blank
+  - unless defined?(pagination_params)
+    - pagination_params = {}
+  = render 'pushes/pagination', pushes: pushes, pagination_params: pagination_params

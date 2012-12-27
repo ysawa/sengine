@@ -1,3 +1,3 @@
 .common_container#push_page
   %h2= @subtitle
-  = render 'pushes', pushes: @pushes
+  = render 'pushes', pushes: @pushes, with_pagination: true
