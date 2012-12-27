@@ -3,4 +3,4 @@
   = render 'tags', tags: @tags
   = paginate @tags
   %section.actions.form-actions
-    = link_to t('actions.new'), new_sys_tag_path
+    = link_to t('actions.new'), new_sys_tag_path, class: 'btn'
