@@ -109,6 +109,14 @@ describe Tag do
       @tag.code.should == 'another_code'
       @tag.code = '"code"'
       @tag.code.should == '_code_'
+      @tag.code = 'code-code'
+      @tag.code.should == 'code_code'
+      @tag.code = "'code'"
+      @tag.code.should == '_code_'
+      @tag.code = 'code$code'
+      @tag.code.should == 'code_code'
+      @tag.code = "`code`"
+      @tag.code.should == '_code_'
     end
 
     it 'converts symbol downcased' do
