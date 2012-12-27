@@ -54,6 +54,9 @@ ja:
         point: '位置'
         role: '駒の種類'
         sente: '先手'
+      push:
+        content: '内容'
+        hidden_users: 'Hidden Users'
       tag:
         code: 'コード'
         content: 'コンテンツ'

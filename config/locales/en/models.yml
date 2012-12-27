@@ -53,6 +53,9 @@ en:
         point: 'Point'
         role: 'Role'
         sente: 'Turn'
+      push:
+        content: 'Content'
+        hidden_users: 'Hidden Users'
       tag:
         code: 'Code'
         content: 'Content'

@@ -7,6 +7,10 @@ module Visibility::Hidden
     self.hidden_user_ids.include? user_id
   end
 
+  def hidden_users
+    User.where(:_id.in => self.hidden_user_ids)
+  end
+
   def hide_user(user)
     user_id = Visibility.get_user_id user
     self.hidden_user_ids << user_id

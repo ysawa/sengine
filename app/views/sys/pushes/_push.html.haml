@@ -12,3 +12,11 @@
         = Push.human_attribute_name('content')
       %td
         = decorator.content(true)
+    %tr
+      %th
+        = Push.human_attribute_name('hidden_users')
+      %td
+        - push.hidden_users.limit(10).each do |user|
+          - user_decorator = UserDecorator.new user
+          - name = user_decorator.name
+          = link_to name, [:sys, user]
