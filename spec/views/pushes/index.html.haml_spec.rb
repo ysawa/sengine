@@ -11,5 +11,6 @@ describe "pushes/index.html.haml" do
 
   it "renders a list of pushes" do
     render
+    rendered.should have_content @push.content
   end
 end
