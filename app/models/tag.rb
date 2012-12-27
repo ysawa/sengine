@@ -4,6 +4,7 @@ class Tag
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
+  SYMBOL_REGEXP = /[\s!-\/\\:-@\[-`{-~}"'　]/
   field :code, type: String
   field :content, type: String, localize: true
   field :name, type: String, localize: true
@@ -19,7 +20,7 @@ class Tag
       return write_attribute(:code, nil)
     end
     result = string.tr(' 　', '_')
-    result = result.gsub(/[\s!-\/\\:-@\[-`{-~}"'　]/, "_")
+    result = result.gsub(SYMBOL_REGEXP, "_")
     result = result.downcase
     write_attribute(:code, result)
   end
@@ -55,7 +56,7 @@ class Tag
     end
 
     def search(q)
-      keywords = q.split(/[\s!-\/\\:-@\[-`{-~}"'　]/)
+      keywords = q.split(SYMBOL_REGEXP)
       if keywords.blank?
         return criteria
       end
