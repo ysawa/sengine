@@ -3,3 +3,6 @@
     - decorator = PushDecorator.new push
     %li.push
       = decorator.content
+  - if pushes.blank?
+    %li.no_push
+      = t('notices.model_was_not_found', model: Push.model_name.human)

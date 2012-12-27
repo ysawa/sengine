@@ -1,0 +1,23 @@
+@charset "utf-8"
+
+/* Initializers of the Sass */
+@import 'bourbon'
+@import 'shared/helpers'
+
+ul#pushes
+  margin: 0
+  padding: 0
+  background: #fff
+  +border-radius(5px)
+  li.push
+    +clearfix
+    list-style: none
+    border-bottom: 1px solid $border_color
+    padding: 10px
+    &:last-child
+      border-bottom: 0
+  li.no_push
+    color: #f33
+    font-weight: bold
+    padding: 20px 10px
+    border-bottom: 1px solid $border_color
