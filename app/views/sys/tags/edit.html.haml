@@ -2,5 +2,5 @@
   %h2= @subtitle
   = render 'form', tag_element: @tag
   - if @tag.persisted?
-    %section.actions
-      = link_to t('actions.show'), sys_tag_path(@tag)
+    %section.actions.form-actions
+      = link_to t('actions.show'), sys_tag_path(@tag), class: 'btn'

@@ -2,4 +2,4 @@
   %h2= @subtitle
   = render 'tag', tag_element: @tag
   %section.actions.form-actions
-    = link_to t('actions.edit'), edit_sys_tag_path(@tag)
+    = link_to t('actions.edit'), edit_sys_tag_path(@tag), class: 'btn'
