@@ -1,3 +1,3 @@
 Fabricator(:push) do
-  content "MyString"
+  content "Push Content"
 end
