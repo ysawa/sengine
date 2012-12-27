@@ -51,6 +51,7 @@ class User
   has_many :comments, inverse_of: :author
   belongs_to :authored_tags, inverse_of: 'author', class_name: 'Tag'
   has_many :created_pushes, class_name: 'Push', inverse_of: :creator
+  has_many :pushes, class_name: 'Push', inverse_of: :user
 
   attr_protected :admin, :current_sign_in_at, :current_sign_in_ip, :encrypted_password, :facebook_access_token, :facebook_id, :facebook_username, :grade, :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_sent_at, :reset_password_token, :score, :sign_in_count, :used_at
 

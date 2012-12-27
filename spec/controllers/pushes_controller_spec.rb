@@ -4,8 +4,9 @@ require 'spec_helper'
 
 describe PushesController do
 
-  def valid_attributes
-    {}
+  def valid_attributes(attributes)
+    attrs = { 'content' => 'Push Content' }
+    attrs.merge attributes.stringify_keys
   end
 
   def valid_session
@@ -41,6 +42,11 @@ describe PushesController do
       it "returns http success" do
         get 'index', { format: 'html' }
         response.should be_success
+      end
+
+      it 'generates pushes' do
+        assigns(:pushes).should be_a Mongoid::Criteria
+        assigns(:pushes).to_a.should == [push]
       end
     end
 
