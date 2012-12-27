@@ -5,7 +5,7 @@ class PushDecorator < ApplicationDecorator
 
   def content(link = false)
     result = model.content
-    if link
+    if link && model.href.present?
       h.link_to result, model.href
     else
       result

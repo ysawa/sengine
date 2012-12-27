@@ -1,2 +1,5 @@
 .common_container#push_page
   %h2= @subtitle
+  = render 'push', push: @push
+  %section.actions.form-actions
+    = link_to t('actions.edit'), edit_sys_push_path(@push)

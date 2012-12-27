@@ -1,0 +1,21 @@
+- attr_names = %w(content)
+%table.pushes.resources.table.table-striped
+  %thead
+    %tr
+      - attr_names.each do |attr_name|
+        %th
+          = Push.human_attribute_name attr_name
+      %th
+      %th
+  %tbody
+    - pushes.each do |push|
+      - decorator = PushDecorator.new(push)
+      %tr
+        - attr_names.each do |attr_name|
+          %td
+            = truncate push.read_attribute(attr_name).to_s, length: 20
+        %td
+          = link_to t('actions.show'), sys_push_path(push)
+        %td
+          = link_to t('actions.edit'), edit_sys_push_path(push)
+= paginate pushes

@@ -1,2 +1,6 @@
 .common_container#push_page
   %h2= @subtitle
+  = render 'form', push: @push
+  - if @push.persisted?
+    %section.actions
+      = link_to t('actions.show'), sys_push_path(@push)

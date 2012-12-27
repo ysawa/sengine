@@ -1,0 +1,8 @@
+- html_options = { class: %w(edit_push validated form-horizontal), multipart: true }
+= form_for([:sys, push], html: html_options) do |f|
+  %section.control-group
+    = f.label :content, nil, class: 'control-label'
+    %section.controls
+      = f.text_field :content, class: :required
+  %section.form-actions
+    = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
