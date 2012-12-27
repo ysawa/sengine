@@ -24,6 +24,5 @@
       = label_tag name, Tag.human_attribute_name(:content), class: 'control-label'
       %section.controls
         = text_area_tag name, content, class: :required
-  %section.control-group
-    %section.controls
-      = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
+  %section.form-actions
+    = f.submit t('helpers.submit.save'), class: 'btn btn-primary'
