@@ -1,3 +1,14 @@
-%section.push
-  - decorator = PushDecorator.new(push)
-  = decorator.content(true)
+- decorator = PushDecorator.new(push)
+%table.table.table-striped.push
+  %thead
+    %tr
+      %th.span2
+        Attribute
+      %th
+        Content
+  %tbody
+    %tr
+      %th
+        = Push.human_attribute_name('content')
+      %td
+        = decorator.content(true)
