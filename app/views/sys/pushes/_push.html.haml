@@ -20,3 +20,7 @@
           - user_decorator = UserDecorator.new user
           - name = user_decorator.name
           = link_to name, [:sys, user]
+        - count = push.hidden_users.count
+        - if count > 10
+          - name = '...'
+          = name
