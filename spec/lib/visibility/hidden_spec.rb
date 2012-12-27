@@ -21,6 +21,20 @@ describe Visibility::Hidden do
     end
   end
 
+  describe '.hide_user!' do
+    it 'hides the model for the argument user' do
+      model = TestModel.new
+      model.hide_user!(@user)
+      model.hidden_user_ids.should include @user.id
+    end
+
+    it 'saves the model' do
+      model = TestModel.new
+      model.hide_user!(@user)
+      model.should be_persisted
+    end
+  end
+
   describe '.hidden?' do
     before :each do
       @model = TestModel.new

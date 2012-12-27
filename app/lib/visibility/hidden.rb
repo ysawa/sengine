@@ -13,6 +13,11 @@ module Visibility::Hidden
     self.hidden_user_ids.uniq!
   end
 
+  def hide_user!(user)
+    hide_user(user)
+    save
+  end
+
   def shown?(user)
     !hidden?(user)
   end

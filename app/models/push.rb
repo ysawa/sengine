@@ -7,7 +7,6 @@ class Push
 
   field :content, type: String
   field :push_type, type: String
-  belongs_to :user, class_name: 'User', inverse_of: :pushes
   belongs_to :creator, class_name: 'User', inverse_of: :created_pushes
   belongs_to :pushable, polymorphic: true
   before_save :make_push_type
