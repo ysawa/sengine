@@ -17,7 +17,14 @@ describe PushesController do
   end
 
   context 'when NOT signed in' do
-    describe "GET 'index'" do
+    describe "GET 'index.html'" do
+      it "redirect to page for user to sign in" do
+        get 'index', { format: 'html' }
+        response.should_not be_success
+      end
+    end
+
+    describe "GET 'index.json'" do
       it "redirect to page for user to sign in" do
         get 'index', { format: 'json' }
         response.should_not be_success
@@ -30,13 +37,15 @@ describe PushesController do
       user_sign_in
     end
 
-    describe "GET 'index'" do
-      it "returns http success if NOT requested JSON format" do
+    describe "GET 'index.html'" do
+      it "returns http success" do
         get 'index', { format: 'html' }
-        response.should_not be_success
+        response.should be_success
       end
+    end
 
-      it "returns http success if requested JSON format" do
+    describe "GET 'index.json'" do
+      it "returns http success" do
         get 'index', { format: 'json' }
         response.should be_success
       end

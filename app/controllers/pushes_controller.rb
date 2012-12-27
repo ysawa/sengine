@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class PushesController < ApplicationController
-  respond_to :json
+  respond_to :html, :json
 
   before_filter :authenticate_user!
 
