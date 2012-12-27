@@ -6,7 +6,7 @@ class PushesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @pushes = current_user.created_pushes.to_a
+    @pushes = current_user.created_pushes.page(params[:page])
     respond_with(@pushes)
   end
 end

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe "pushes/index.json.builder" do
+describe "pushes/index.json.json_builder" do
   before(:each) do
     user_sign_in
     assign(:pushes, [
