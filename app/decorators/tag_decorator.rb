@@ -20,6 +20,7 @@ class TagDecorator < ApplicationDecorator
   end
 
   def image(link = false, image_options = {})
+    return unless model.image?
     result = h.image_tag model.image.url, image_options
     if link
       h.link_to result, model
