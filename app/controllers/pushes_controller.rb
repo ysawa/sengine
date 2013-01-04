@@ -9,6 +9,10 @@ class PushesController < ApplicationController
   # PUT /pushes/1/hide
   def hide
     @push.hide_user!(current_user)
+    respond_with(@push) do |format|
+      format.json { render nothing: true }
+      format.any { redirect_to pushes_path }
+    end
   end
 
   # GET /pushes

@@ -26,6 +26,13 @@ describe PushesController do
           response.should_not be_success
         end
       end
+
+      describe "PUT 'hide.#{format}'" do
+        it "redirect to page for user to sign in" do
+          put 'hide', { format: format, id: @push.to_param }
+          response.should_not be_success
+        end
+      end
     end
   end
 
@@ -54,6 +61,38 @@ describe PushesController do
           assigns(:pushes).should be_a Mongoid::Criteria
           assigns(:pushes).to_a.should == [@push]
         end
+      end
+
+      describe "PUT 'hide.#{format}'" do
+
+        it 'hides the push' do
+          @push.hidden?(@user).should be_false
+          put 'hide', { format: format, id: @push.to_param }
+          @push.reload
+          @push.hidden?(@user).should be_true
+        end
+      end
+    end
+
+    describe "PUT 'hide.html'" do
+      let :format do
+        'html'
+      end
+
+      it 'redirects to pushes path' do
+        put 'hide', { format: format, id: @push.to_param }
+        response.should redirect_to pushes_path
+      end
+    end
+
+    describe "PUT 'hide.json'" do
+      let :format do
+        'json'
+      end
+
+      it 'renders nothing' do
+        put 'hide', { format: format, id: @push.to_param }
+        response.body.should be_blank
       end
     end
   end
