@@ -10,8 +10,8 @@ class PushesController < ApplicationController
   def hide
     @push.hide_user!(current_user)
     respond_with(@push) do |format|
+      format.html { redirect_to pushes_path }
       format.json { render nothing: true }
-      format.any { redirect_to pushes_path }
     end
   end
 
