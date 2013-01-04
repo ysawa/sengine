@@ -36,6 +36,7 @@ ja:
       search: '検索する'
       search_short: '検索'
       send: '送信する'
+      send_me_reset_password_instructions: 'Send me reset password instructions'
       sign_in: 'ログイン'
       sign_out: 'ログアウト'
       submit: '投稿する'
