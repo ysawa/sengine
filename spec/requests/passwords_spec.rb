@@ -56,12 +56,24 @@ describe 'passwords' do
 
     before :each do
       @user.send_reset_password_instructions
+      @password = 'NEWPASSWORD'
     end
 
     it "page can be accessed" do
       visit edit_user_password_path(reset_password_token: @user.reset_password_token)
       page.should have_selector 'form#edit_user'
       page_should_have_subtitle I18n.t('helpers.submit.change_my_password')
+    end
+
+    it "password can be changed" do
+      visit edit_user_password_path(reset_password_token: @user.reset_password_token)
+      within 'form#edit_user' do
+        fill_in 'user_password', with: @password
+        fill_in 'user_password_confirmation', with: @password
+        submit_button
+      end
+      @user.reload
+      @user.valid_password?(@password).should be_true
     end
   end
 end
