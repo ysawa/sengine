@@ -10,9 +10,27 @@ module IntegrationTestHelper
     end
   end
 
+  def page_should_have_title(title)
+    within('title') do
+      page.should have_content(title)
+    end
+  end
+
+  def page_should_not_have_title(title)
+    within('title') do
+      page.should_not have_content(title)
+    end
+  end
+
   def page_should_have_subtitle(subtitle)
     within('.common_container h2') do
       page.should have_content(subtitle)
+    end
+  end
+
+  def page_should_not_have_subtitle(subtitle)
+    within('.common_container h2') do
+      page.should_not have_content(subtitle)
     end
   end
 
