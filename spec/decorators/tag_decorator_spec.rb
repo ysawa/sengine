@@ -41,16 +41,16 @@ describe TagDecorator do
       @file = File.open(File.join(Rails.root, '/app/assets/images/rails.png'))
     end
 
-    it 'generates no img tag' do
+    it 'generates no img tag if tag does not have any image' do
       @decorator.image.should be_blank
     end
 
-    it 'generates img tag' do
+    it 'generates img tag if tag has an image' do
       @tag.image = @file
       @decorator.image.should match "<img"
     end
 
-    it 'generates img tag included in a tag' do
+    it 'generates img tag included in a tag if tag has an image' do
       @tag.image = @file
       @decorator.image(true).should match "<a href"
       @decorator.image(true).should match "<img"
