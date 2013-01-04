@@ -4,6 +4,8 @@ class Push
   include Mongoid::Document
   include Mongoid::Timestamps::Created
   include Visibility::Hidden
+  include Visibility::Filter
+  include Visibility::Checked
 
   field :content, type: String
   field :push_type, type: String

@@ -17,7 +17,7 @@ class PushesController < ApplicationController
 
   # GET /pushes
   def index
-    @pushes = Push.shown(current_user).page(params[:page])
+    @pushes = Push.visible(current_user).shown(current_user).page(params[:page])
     respond_with(@pushes)
   end
 
