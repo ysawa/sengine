@@ -4,12 +4,6 @@ require 'resque_scheduler/server'
 
 Sengine::Application.routes.draw do
 
-  get "pushes/edit"
-
-  get "pushes/index"
-
-  get "pushes/show"
-
   namespace :sys do
     root to: "home#index"
 
@@ -85,7 +79,11 @@ Sengine::Application.routes.draw do
   get "profile/:id", to: "profile#show", as: :profile
   get "profile/:user_id/games", to: "games#index"
 
-  resources :pushes, only: [:index]
+  resources :pushes, only: [:index] do
+    member do
+      put :hide
+    end
+  end
 
   match "tags/search/:q", to: 'tags#search'
   resources :tags, only: [:create, :destroy, :index, :show] do
