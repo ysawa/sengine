@@ -30,6 +30,7 @@ en:
     watch_model: 'Watch %{model}'
   helpers:
     submit:
+      change_my_password: 'Change my password'
       next: 'Next'
       play_game: 'Play Game'
       save: 'Save'

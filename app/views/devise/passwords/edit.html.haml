@@ -1,5 +1,5 @@
 .common_container#session_page
-  %h2 Change your password
+  %h2= t('helpers.submit.change_my_password')
   - html_options = { id: :edit_user, class: %w(edit_user validated form-horizontal), method: :put }
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: html_options) do |f|
     = f.hidden_field :reset_password_token
@@ -14,5 +14,5 @@
         = f.password_field :password_confirmation
     %section.control-group
       %section.controls
-        = f.submit "Change my password"
+        = f.submit t('helpers.submit.change_my_password')
   = render partial: "devise/shared/links"

@@ -4,16 +4,16 @@ require 'spec_helper'
 
 describe 'passwords' do
 
-  def submit_button
-    click_button I18n.t('helpers.submit.send_me_reset_password_instructions')
-  end
-
   before :each do
     @user = Fabricate(:user)
     @another = Fabricate(:user)
   end
 
-  describe "signing in" do
+  describe "sending password reset instruction" do
+
+    def submit_button
+      click_button I18n.t('helpers.submit.send_me_reset_password_instructions')
+    end
 
     it "page can be accessed" do
       visit new_user_password_path
@@ -45,6 +45,23 @@ describe 'passwords' do
         submit_button
       end
       mail_should_be_sent 2
+    end
+  end
+
+  describe "reseting password" do
+
+    def submit_button
+      click_button I18n.t('helpers.submit.change_my_password')
+    end
+
+    before :each do
+      @user.send_reset_password_instructions
+    end
+
+    it "page can be accessed" do
+      visit edit_user_password_path(reset_password_token: @user.reset_password_token)
+      page.should have_selector 'form#edit_user'
+      page_should_have_subtitle I18n.t('helpers.submit.change_my_password')
     end
   end
 end
