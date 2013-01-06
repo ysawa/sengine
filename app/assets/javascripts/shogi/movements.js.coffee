@@ -12,7 +12,7 @@ class Shogi.Movement extends Backbone.Model
   animate: (piece, animation, callback = null) ->
     piece.css(position: 'absolute')
     $(piece).animate(
-      animation, 700, 'easeInCirc', ->
+      animation, 700, 'easeOutCirc', ->
         $(this).css(position: 'static')
         callback() if callback
     )
