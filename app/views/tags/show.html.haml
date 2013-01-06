@@ -1,6 +1,7 @@
+- decorator = TagDecorator.new @tag
 .common_container#tag_page
   - if @subtitle.is_a? Tag
-    - name = @subtitle.name
+    - name = decorator.name
   - else
     - name = @subtitle
   %h2<
@@ -10,4 +11,4 @@
     .span3
       = render 'games/side'
     .span9
-      = render 'tag', tag_element: @tag
+      = render 'tag', tag_element: @tag, decorator: decorator

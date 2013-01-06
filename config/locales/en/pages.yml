@@ -41,3 +41,6 @@ en:
           show: 'Game Detail'
         users:
           index: 'Users'
+      tags:
+        index: 'Tags'
+        show: 'Tag'
