@@ -9,38 +9,38 @@ $.extend
       @enabled = true
     find_enabled_format: ->
       if @tag_support
-        audio = new Audio("")
+        audio_tag = new Audio("")
         # select the supported and shortest audio format
-        if ("" != audio.canPlayType("audio/ogg"))
+        if ("" != audio_tag.canPlayType("audio/ogg"))
           '.ogg'
-        else if ("" != audio.canPlayType("audio/mpeg"))
+        else if ("" != audio_tag.canPlayType("audio/mpeg"))
           '.mp3'
         else
           '.wav'
       else
         null
-    initialize: (audio) ->
+    initialize: (scheme) ->
       if @enabled
         if @tag_support
           format = @find_enabled_format()
-          @schemes[audio] = null
+          @schemes[scheme] = null
           if format
             $.get(
-              "/audio/encode/#{audio}#{format}",
+              "/audio/encode/#{scheme}#{format}",
               (data) ->
-                $.audio.schemes[audio] = data
+                $.audio.schemes[scheme] = data
             )
-    play: (audio) ->
+    play: (scheme) ->
       if @enabled
         if @tag_support
-          if @schemes[audio]
-            audio = new Audio(@schemes[audio])
-            audio.volume = 1.0
-            audio.play()
+          if @schemes[scheme]
+            audio_tag = new Audio(@schemes[scheme])
+            audio_tag.volume = 1.0
+            audio_tag.play()
           else
-            @initialize(audio)
+            @initialize(scheme)
         else if $.browser.msie
           $("bgsound").remove()
           bgsound = $("<bgsound>")
-          bgsound.attr(src: "/assets/audio/#{audio}.wav")
+          bgsound.attr(src: "/assets/audio/#{scheme}.wav")
           $('body').append(bgsound)
