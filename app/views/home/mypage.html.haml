@@ -4,14 +4,14 @@
     = @subtitle
   .row
     .span3
+      = render 'home/mypage/menu'
       = render 'profile/profile', user: current_user
     .span9
       %nav#mypage_navi
-        = render 'home/mypage/menu'
       - comments = []
       - games = Game.of_user(current_user).playing.desc(:updated_at).limit(3).to_a
       - not_author_comments = Comment.not_author(current_user)
-      %section.mypage_content
+      %section.mypage_content.first
         - if games.present?
           - page = 'playing'
           - name = t("pages.controllers.games.#{page}")
