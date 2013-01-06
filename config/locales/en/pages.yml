@@ -43,4 +43,5 @@ en:
           index: 'Users'
       tags:
         index: 'Tags'
+        search: 'Tags Search'
         show: 'Tag'
