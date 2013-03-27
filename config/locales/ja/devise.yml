@@ -39,8 +39,8 @@ ja:
       failure: '%{kind}にログインできませんでした。 (%{reason})'
     mailer:
       confirmation_instructions:
-        subject: '【Leaping】Leapingへようこそ。認証してください'
+        subject: '認証してください'
       reset_password_instructions:
-        subject: '【Leaping】パスワード再発行'
+        subject: 'パスワード再発行'
       unlock_instructions:
-        subject: '【Leaping】ロックを解除します'
+        subject: 'ロックを解除します'
