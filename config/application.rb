@@ -94,5 +94,4 @@ module Sengine
   end
 end
 
-YAML::ENGINE.yamler = 'syck'
 Haml::Template.options[:ugly] = true
