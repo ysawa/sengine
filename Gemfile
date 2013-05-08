@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', git: 'git://github.com/rails/rails.git'
@@ -29,25 +29,25 @@ gem 'rack-pjax'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'haml-rails'
   gem 'uglifier', '>= 1.0.3'
+
+  # Borbon Sass Plugin
+  gem 'bourbon'
 end
+
+# Haml
+gem 'haml'
+gem 'sass'
+
+# And Use Twitter Bootstrap
+gem "therubyracer"
+gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 # Use JQuery to improve JavaScript development
 gem 'jquery-rails'
 
-# Haml
-gem 'haml'
-gem 'haml-rails'
-gem 'sass'
-
-# Borbon Sass Plugin
-gem 'bourbon'
-
-# And Use Twitter Bootstrap
-gem 'libv8'
-gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -73,10 +73,6 @@ gem "mini_magick"
 # Resque to process delayed jobs
 gem 'resque'
 gem 'resque-scheduler', require: 'resque_scheduler'
-
-group :development do
-  gem 'thin'
-end
 
 group :test do
   # Pretty printed test output

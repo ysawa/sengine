@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class ApplicationDecorator < Draper::Base
+class ApplicationDecorator < Draper::Decorator
 
   %w(created_at updated_at).each do |attr_name|
     class_eval <<-EOS

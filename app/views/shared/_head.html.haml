@@ -7,13 +7,12 @@
     = site_title @user
   - else
     = site_title @subtitle
+%meta{ charset: "UTF-8" }
 = stylesheet_link_tag    'application', media: 'all'
-= javascript_include_tag 'application'
 = csrf_meta_tags
 <!--[if lt IE 9]>
 <script src="/javascripts/html5shiv.js"></script>
 <![endif]-->
-%meta{ charset: "UTF-8" }
 %meta{ name: "viewport", content: "width=device-width, user-scalable=no" }
 %meta{ name: "format-detection", content: "telephone=no" }
 %link{ rel: "apple-touch-icon", href: "/assets/touch.png" }
@@ -27,3 +26,4 @@
 - robots = escape_javascript Sengine.system.site[:robots]
 - if robots.present?
   %meta{ name: "robots", content: robots }
+= javascript_include_tag 'application'
