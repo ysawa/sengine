@@ -39,7 +39,7 @@ $ ->
 
   $('.whole_container').css('min-height', $(window).height())
 
-  $('body').on('click', '.nav-collapse a', ->
+  $(document).on('click', '.nav-collapse a', ->
     $(this).parents('.nav-collapse').collapse('hide')
   )
   $.validator.setDefaults
@@ -66,7 +66,7 @@ $ ->
   $(document).on('pjax:end', on_pjax_reload)
   on_pjax_reload()
 
-  $('a.see_more').live 'click', ->
+  $(document).on 'click', 'a.see_more', ->
     $(this).hide()
   if ($.check_if_smart_device())
     # smart phone
@@ -80,12 +80,12 @@ $ ->
   # Redirect to apps.facebook.com as a native facebook app.
   if self != top
     top.location.href = self.location.href.replace(/\?.+$/, '')
-  $('a.invite_facebook').live 'click', ->
+  $(document).on 'click', 'a.invite_facebook',  ->
     if $.check_if_facebook_enabled()
       $.invite_facebook()
     false
 
-  $('a[target="_blank"]').live 'click', ->
+  $(document).on 'click', 'a[target="_blank"]', ->
     if $.check_if_facebook_enabled()
       href = $(this).attr('href')
       if $.check_if_outside_url(href)

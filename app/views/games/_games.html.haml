@@ -11,7 +11,7 @@
   = render 'games/pagination', pagination_params: pagination_params, games: games
 :javascript
   $(function () {
-    $('li.game a.delete').live('ajax:success', function () {
+    $(document).on('ajax:success', 'li.game a.delete', function () {
       var link = $(this);
       var game = link.parents('li.game');
       game.hide();

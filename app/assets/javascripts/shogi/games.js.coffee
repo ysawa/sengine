@@ -40,14 +40,14 @@ $ ->
     setTimeout(reload_comment_if_enabled, 20000)
     $.audio.initialize('put')
 
-    $('#play_buttons a').live 'ajax:beforeSend', ->
+    $(document).on 'ajax:beforeSend', '#play_buttons a', ->
       if $(this).hasClass 'processing'
         false
       else
         $(this).addClass 'processing'
         null
 
-    $('.board .cell').live 'click', (event) ->
+    $(document).on 'click', '.board .cell', (event) ->
       if !$.check_if_smart_device() && Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
@@ -57,7 +57,7 @@ $ ->
     $('.board, .in_hand').disableSelection()
 
     # user's selection of piece on the board
-    $('.board .piece.upward.playable').live 'click', ->
+    $(document).on 'click', '.board .piece.upward.playable', ->
       if !$.check_if_smart_device() && Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
@@ -75,7 +75,7 @@ $ ->
         $(this).parents('.cell').addClass('selected')
 
     # user's selection of piece in his or her hand
-    $('.in_hand .piece.upward.playable').live 'click', ->
+    $(document).on 'click', '.in_hand .piece.upward.playable', ->
       unless $(this).attr('player') == Shogi.Board.board_turn()
         return
       $('.cell').removeClass('highlight')
@@ -92,7 +92,7 @@ $ ->
         Shogi.Board.highlight_available_cells(role, player)
 
     # move selected piece
-    $('.cell.highlight').live 'click', ->
+    $(document).on 'click', '.cell.highlight', ->
       if !$.check_if_smart_device() and Shogi.insert_place_into_editor($(this))
         event.preventDefault()
         return false
