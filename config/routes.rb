@@ -34,7 +34,7 @@ Sengine::Application.routes.draw do
 
   mount Resque::Server.new, at: "/sys/resque"
 
-  %w(game privacy tos).each do |page|
+  %w(privacy tos).each do |page|
     match "about/#{page}", as: "about_#{page}"
   end
 

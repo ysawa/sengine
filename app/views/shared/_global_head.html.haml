@@ -13,7 +13,7 @@
         = link_to page_name('games', 'index'), playing_games_path
       %li.hidden-desktop
         = link_to page_name('profile', 'show'), profile_path(current_user.id)
-    - if facebook_enabled?
+    - elsif facebook_enabled?
       %li
         = link_to t('actions.invite_friends'), '#', class: :invite_facebook
     - else
