@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-class MovementDecorator < Draper::Base
+class MovementDecorator < ApplicationDecorator
   decorates :movement
 
   def kifu_format(past = nil)
