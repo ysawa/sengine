@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 module IntegrationTestHelper
+  include Capybara::DSL
+
   def mail_should_be_sent(count = nil)
     size = ActionMailer::Base.deliveries.size
     if count

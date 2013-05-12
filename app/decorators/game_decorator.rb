@@ -14,8 +14,8 @@ class GameDecorator < ApplicationDecorator
   end
 
   def name(link = false, user_link = false)
-    sente_decorator = UserDecorator.new(game.sente_user)
-    gote_decorator = UserDecorator.new(game.gote_user)
+    sente_decorator = UserDecorator.new(model.sente_user)
+    gote_decorator = UserDecorator.new(model.gote_user)
     sente = sente_decorator.name(user_link)
     gote = gote_decorator.name(user_link)
     game_name = I18n.t('game.battle_vs', sente: sente, gote: gote)
