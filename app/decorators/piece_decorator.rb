@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class PieceDecorator < ApplicationDecorator
-  decorates :piece
+  delegate_all
 
   attr_accessor :reverse
 

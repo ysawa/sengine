@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class CommentDecorator < ApplicationDecorator
-  decorates :comment
+  delegate_all
 
   def author_image(link = false)
     if model.author

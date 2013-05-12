@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class TagDecorator < ApplicationDecorator
-  decorates :tag
+  delegate_all
 
   def code
     model.code

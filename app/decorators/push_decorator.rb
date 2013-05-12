@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class PushDecorator < ApplicationDecorator
-  decorates :push
+  delegate_all
 
   def content(link = false)
     result = model.content

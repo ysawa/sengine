@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class GameDecorator < ApplicationDecorator
-  decorates :game
+  delegate_all
 
   def facebook_comments_count
     url = h.game_url(model, protocol: 'http')

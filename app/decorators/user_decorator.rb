@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 class UserDecorator < ApplicationDecorator
-  decorates :user
+  delegate_all
 
   def admin
-    if user.admin
+    if model.admin
       '○'
     else
       '×'
@@ -36,8 +36,8 @@ class UserDecorator < ApplicationDecorator
   end
 
   def facebook_url
-    if user.facebook_username
-      "https://www.facebook.com/#{user.facebook_username}"
+    if model.facebook_username
+      "https://www.facebook.com/#{model.facebook_username}"
     else
       '#'
     end
@@ -91,7 +91,7 @@ class UserDecorator < ApplicationDecorator
   def locale
     if model.locale
       result = model.locale.sub(/_.*$/, '')
-      I18n.t('user.locales')[result.to_sym]
+      I18n.t('model.locales')[result.to_sym]
     end
   end
 
@@ -118,7 +118,7 @@ class UserDecorator < ApplicationDecorator
   end
 
   def online
-    I18n.t("user.online")[model.online?]
+    I18n.t("model.online")[model.online?]
   end
 
   def score

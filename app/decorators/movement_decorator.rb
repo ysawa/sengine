@@ -1,27 +1,27 @@
 # -*- coding: utf-8 -*-
 
 class MovementDecorator < ApplicationDecorator
-  decorates :movement
+  delegate_all
 
   def kifu_format(past = nil)
     result = ''
-    if movement.sente?
+    if model.sente?
       result += '▲'
     else
       result += '△'
     end
-    # if movement.move?
-    #   result += point_to_full(movement.from_point)
+    # if model.move?
+    #   result += point_to_full(model.from_point)
     # end
     if past && past.to_point == model.to_point
       result += '同'
     else
-      result += point_to_full(movement.to_point)
+      result += point_to_full(model.to_point)
     end
-    result += piece_to_kanji(movement.role)
-    if movement.put?
+    result += piece_to_kanji(model.role)
+    if model.put?
       result += '打'
-    elsif movement.reverse?
+    elsif model.reverse?
       result += '成'
     end
     result

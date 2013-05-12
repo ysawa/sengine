@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class FeedbackDecorator < ApplicationDecorator
-  decorates :feedback
+  delegate_all
 
   def author_image
     if user_admin? && model.author
