@@ -1,12 +1,6 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-spec_location = "spec/javascripts/%s_spec"
-guard 'jasmine-headless-webkit' do
-  watch(%r{^.*/assets/javascripts/(.+?)\.(js|coffee)}) { |m| "spec/javascripts/#{m[1]}_spec.coffee" }
-  watch(%r{^spec/javascripts/(.+)_spec\..*}) { |m| "spec/javascripts/#{m[1]}_spec.coffee" }
-end
-
 guard 'spork', rspec_env: { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
   watch('config/environment.rb')

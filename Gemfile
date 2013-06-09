@@ -90,10 +90,6 @@ group :development, :test do
   gem 'launchy'
   gem 'guard-spork'
   gem 'guard-rspec'
-  gem 'jasmine-rails'
-  gem 'guard-jasmine-headless-webkit', git: 'git://github.com/johnbintz/guard-jasmine-headless-webkit.git'
-  gem 'jasmine-headless-webkit', git: 'git://github.com/johnbintz/jasmine-headless-webkit.git'
-  gem 'jasmine-headless-webkit-reporters', git: 'git://github.com/johnbintz/jasmine-headless-webkit-reporters.git'
 
   # Notifiers
   case RUBY_PLATFORM
