@@ -118,7 +118,7 @@ class UserDecorator < ApplicationDecorator
   end
 
   def online
-    I18n.t("model.online")[model.online?]
+    I18n.t("user.online")[model.online?]
   end
 
   def score
