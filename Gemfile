@@ -42,7 +42,7 @@ gem 'sass'
 
 # And Use Twitter Bootstrap
 gem "therubyracer"
-gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'twitter-bootstrap-rails', '2.2.6' #, git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 # Use JQuery to improve JavaScript development
 gem 'jquery-rails'
