@@ -39,7 +39,7 @@ $.extend
             audio_tag.play()
           else
             @initialize(scheme)
-        else if $.browser.msie
+        else if navigator.userAgent.match(/msie (8|9)/i)
           $("bgsound").remove()
           bgsound = $("<bgsound>")
           bgsound.attr(src: "/assets/audio/#{scheme}.wav")
