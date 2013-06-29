@@ -2,7 +2,7 @@
 #fb-root
 - unless Rails.env.test?
   :javascript
-    if (!($.browser.msie && parseInt($.browser.version) < 8)) {
+    if (!(navigator.userAgent.match(/msie (8)/i))) {
       window.fbAsyncInit = function() {
         FB.init({
             appId: '#{app_id}',

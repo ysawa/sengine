@@ -1,6 +1,6 @@
 $.extend
   check_if_facebook_enabled: ->
-    return false if ($.browser.msie && parseInt($.browser.version) < 8)
+    return false if navigator.userAgent.match(/msie (8)/i)
     typeof FB != "undefined"
   invite_facebook: ->
     FB.ui
